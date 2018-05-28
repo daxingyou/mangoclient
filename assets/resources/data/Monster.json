@@ -1,0 +1,32 @@
+[
+  {
+    "ID": 1001,
+    "Name": "鲛精",
+    "Type": "Boss",
+    "Level": 10,
+    "MaxHP": 200,
+    "MaxMP": 100,
+    "BaseAttack": 10,
+    "BaseDefense": 2
+  },
+  {
+    "ID": 2001,
+    "Name": "幼鹿",
+    "Type": "Normal",
+    "Level": 1,
+    "MaxHP": 80,
+    "MaxMP": 40,
+    "BaseAttack": 5,
+    "BaseDefense": 0
+  },
+  {
+    "ID": 2002,
+    "Name": "青疟鬼",
+    "Type": "Normal",
+    "Level": 1,
+    "MaxHP": 60,
+    "MaxMP": 40,
+    "BaseAttack": 8,
+    "BaseDefense": 1
+  }
+]
