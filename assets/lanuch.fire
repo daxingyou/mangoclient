@@ -17,7 +17,7 @@
         "__id__": 2
       },
       {
-        "__id__": 4
+        "__id__": 5
       }
     ],
     "_tag": -1,
@@ -63,6 +63,9 @@
     "_components": [
       {
         "__id__": 3
+      },
+      {
+        "__id__": 4
       }
     ],
     "_prefab": null,
@@ -119,6 +122,15 @@
     "_fitHeight": true
   },
   {
+    "__type__": "a47d5O9HlJLWayzfJ25UQAT",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 2
+    },
+    "_enabled": true
+  },
+  {
     "__type__": "cc.Node",
     "_name": "change",
     "_objFlags": 0,
@@ -130,14 +142,14 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 5
+        "__id__": 6
       },
       {
-        "__id__": 6
+        "__id__": 7
       }
     ],
     "_prefab": {
-      "__id__": 7
+      "__id__": 8
     },
     "_id": "a7qciYXehFma9C7dOck/Ee",
     "_opacity": 255,
@@ -180,7 +192,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 4
+      "__id__": 5
     },
     "_enabled": true,
     "_paused": false,
@@ -200,16 +212,16 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 4
+      "__id__": 5
     },
     "_enabled": true,
-    "standS": "stand",
-    "attackS": "attack"
+    "_standS": "stand",
+    "_attackS": "attack"
   },
   {
     "__type__": "cc.PrefabInfo",
     "root": {
-      "__id__": 4
+      "__id__": 5
     },
     "asset": {
       "__uuid__": "2efe0a6a-b48e-4b7e-9e5f-e8eedca86b11"

@@ -48,7 +48,7 @@ cc.Class({
         spine.setCompleteListener((trackEntry, loopCount) => {
             var animationName = trackEntry.animation ? trackEntry.animation.name : "";
             
-            cc.log("[track %s][animation %s] complete: %s", trackEntry.trackIndex, animationName, loopCount);
+            //cc.log("[track %s][animation %s] complete: %s", trackEntry.trackIndex, animationName, loopCount);
         });
         spine.setEventListener((trackEntry, event) => {
             var animationName = trackEntry.animation ? trackEntry.animation.name : "";
