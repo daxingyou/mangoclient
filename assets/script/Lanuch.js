@@ -9,6 +9,7 @@
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 
 var dataMgr = require("DataMgr")
+var dict = require("dict")
 
 cc.Class({
     extends: cc.Component,
@@ -34,9 +35,11 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        cc.log("onLoad ~~~~~~~~~~");
-        var test = dataMgr.load('data/Monster.json',(data)=>{
-            cc.log("test = %i",data[0].ID);
+        var test = dataMgr.load('data/Group.json',(data)=>{
+            cc.log("test = %s",data[0].MonsterGroup);
+
+            cc.log("keys = %s",dict.GetKeys(data[0].MonsterGroup)[0].key);
+            ;
         });
     },
 

@@ -17,9 +17,8 @@ var dataMgr = {
             //cc.log( 'load['+ path +'], err['+err+'] result: ' + JSON.stringify(res));
             var text = JSON.stringify(res);
             var mon = JSON.parse(text);
-            console.log("mon = %i",mon[0].ID);
+            //console.log("mon = %i",mon[0].ID);
             callback(mon);
-            return mon[0].ID;
             //JSON.stringify(res)是使用json库中的方法将json文件转换为字符串。
         });
     },

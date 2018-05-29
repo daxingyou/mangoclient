@@ -8,7 +8,7 @@ var Group =
 {
 	 ID : Int16Array, // 编号
 	 Name : String, // 名称
-	 MonsterGroup : dict, // 怪物组
+	 MonsterGroup : String, // 怪物组
 }
 
  module.exports = Group; 
