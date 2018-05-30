@@ -10,7 +10,7 @@
 
 var dict = {
     items : [],
-    GetKeys : function (str)
+    init : function (str)
     {
         this.items = new Array();
 
@@ -22,12 +22,20 @@ var dict = {
             var it = {};
             it.key = datass[0];
             it.value = datass[1];
-            //it.ctor(,);
+            
             this.items[i] = it;
         }
 
         return this.items;
     },
+    GetValue : function(key)
+    {
+        for(var i =0;i<this.items.length;i++)
+        {
+            if(this.items[i].key == key)
+                return this.items[i].value;
+        }
+    }
 }
 
 module.exports = dict;
