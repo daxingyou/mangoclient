@@ -36,11 +36,52 @@ cc.Class({
 
     onLoad () {
         var test = dataMgr.load('data/Group.json',(data)=>{
-            cc.log("test = %s",data[0].MonsterGroup);
+            //var items = dict;
+            //data[0].MonsterGroup.init(data[0].MonsterGroup);
+            //items.init(data[0].MonsterGroup);
 
-            cc.log("keys = %s",dict.GetKeys(data[0].MonsterGroup)[0].key);
+            cc.log("keys = %s",data[0].MonsterGroup.items);
+            //cc.log("keys = %i",items.GetValue(items.items[0].key));
             ;
         });
+
+        var uuid = cc.sys.localStorage.getItem("uuid");
+        var host = "192.168.0.168";
+        //host = "39.108.12.90";
+        var port = 3010;
+
+        cc.log("uuid = %s",uuid);
+
+        pomelo.init({
+            host: host,
+            //host: "39.108.12.90",
+            port: port,
+            log: true
+          }, function() {
+              /// 注册获取 uuid 获取逻辑服 地址
+          pomelo.request("gate.gateHandler.queryEntry", {uid: uuid}, function(data) {
+
+            uuid = data.uuid;
+            if(data.host != '127.0.0.1'){
+                host = data.host;
+            }
+            port = data.port;
+            cc.log("请求登陆地址 = %s 端口： = %i,uuid = %s",host,port,uuid);
+            cc.sys.localStorage.setItem("uuid",data.uuid);
+            ///连接逻辑服
+            pomelo.init({host:host,port:port,log:true},function(data){
+                
+                pomelo.request("connector.entryHandler.enter",{uid:uuid},function(data){
+                    cc.log("连接逻辑服 成功");
+                    pomelo.request("fight.fightHandler.beginFight",{},function(data)
+                    {
+                        cc.log("连接战斗服 成功");
+                    });
+                });
+                });
+            })
+            
+          });
     },
 
     start () {
