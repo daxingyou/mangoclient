@@ -11,6 +11,8 @@
 var dataMgr = require("DataMgr")
 var dict = require("dict")
 
+var fightMessage = require("fightMessage")
+
 cc.Class({
     extends: cc.Component,
 
@@ -70,12 +72,14 @@ cc.Class({
             cc.sys.localStorage.setItem("uuid",data.uuid);
             ///连接逻辑服
             pomelo.init({host:host,port:port,log:true},function(data){
-                
                 pomelo.request("connector.entryHandler.enter",{uid:uuid},function(data){
                     cc.log("连接逻辑服 成功");
-                    pomelo.request("fight.fightHandler.beginFight",{},function(data)
+                    pomelo.request("fight.fightHandler.beginFight",{uid:uuid},function(data)
                     {
-                        cc.log("连接战斗服 成功");
+                        cc.log("请求开始战斗");
+                        /// 注册消息 分发
+                        pomelo.on('OnFreshPile',fightMessage.OnFreshPile);
+                        cc.log("注册消息 分发");
                     });
                 });
                 });
