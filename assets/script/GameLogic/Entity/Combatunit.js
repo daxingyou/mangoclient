@@ -12,6 +12,8 @@ var CombatUnit = function(){
 CombatUnit.prototype.uid = 0;
 ///当前英雄 id
 CombatUnit.prototype.sid = 0;
+///队伍id 区分敌我
+CombatUnit.prototype.teamid = 0;
 
 //////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////// 
 
