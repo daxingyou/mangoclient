@@ -1,5 +1,7 @@
 var ct = {
-    mixTime : 0.1
+    
 }
     
-module.exports = ct;
+module.exports = {
+    mixTime : 0.1,
+};

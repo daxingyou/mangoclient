@@ -10,7 +10,7 @@
 
 var dataMgr = require("DataMgr")
 var dict = require("dict")
-
+var gameLogic = require("GameLogic")
 var fightMessage = require("fightMessage")
 
 cc.Class({
@@ -37,6 +37,7 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
+
         var test = dataMgr.load('data/Group.json',(data)=>{
             //var items = dict;
             //data[0].MonsterGroup.init(data[0].MonsterGroup);
@@ -51,9 +52,9 @@ cc.Class({
         var host = "192.168.0.168";
         //host = "39.108.12.90";
         var port = 3010;
-
+        fightMessage.init();
+        
         cc.log("uuid = %s",uuid);
-
         pomelo.init({
             host: host,
             //host: "39.108.12.90",
@@ -77,6 +78,7 @@ cc.Class({
                     pomelo.request("fight.fightHandler.beginFight",{uid:uuid},function(data)
                     {
                         cc.log("请求开始战斗");
+                        //fightMessage.init();
                         /// 注册消息 分发
                         pomelo.on('OnFreshPile',fightMessage.OnFreshPile);
                         cc.log("注册消息 分发");
@@ -84,7 +86,6 @@ cc.Class({
                 });
                 });
             })
-            
           });
     },
 
@@ -92,5 +93,7 @@ cc.Class({
 
     },
 
-    // update (dt) {},
+    update (dt) {
+        gameLogic.Tick();
+    },
 });
