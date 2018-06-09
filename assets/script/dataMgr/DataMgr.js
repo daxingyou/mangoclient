@@ -1,14 +1,13 @@
-// Learn cc.Class:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
+var constant = require('constant')
+var Dungeon = require('Dungeon')
+var Scene = require('Scene')
 
 var dataMgr = {
+    ////关卡
+    dungeon : [],
+    ////场景
+    scene : [],
+
     load : function (path,callback){
         //var url = cc.url.raw(path);
         cc.loader.loadRes(path,function(err,res)
@@ -22,6 +21,22 @@ var dataMgr = {
             //JSON.stringify(res)是使用json库中的方法将json文件转换为字符串。
         });
     },
+    init : function(){
+        this.load(constant.DataResPath.dungeon,(data)=>{
+            for(var i =0;i<data.length;i++)
+            {
+                var item = new Dungeon(data[i]);
+                this.dungeon[item.ID] = item;
+            }
+        });
+        this.load(constant.DataResPath.scene,(data)=>{
+            for(var i =0;i<data.length;i++)
+            {
+                var item = new Scene(data[i]);
+                this.scene[item.ID] = item;
+            }
+        });
+    }
 };
 
 module.exports = dataMgr;

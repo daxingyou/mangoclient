@@ -1,14 +1,14 @@
 //
 // Auto Generated Code By pwh
 //
-var dict = require("dict")
 
 // Generate From Monster.xlsx
-var Group = 
+function Group(data)
 {
-	 ID : Int16Array, // 编号
-	 Name : String, // 名称
-	 MonsterGroup : dict, // 怪物组
+	 this.ID = data.ID;// Int16Array  编号
+	 this.Name = data.Name;// String  名称
+	 this.Matrix = data.Matrix;// Int16Array  阵形编号
+	 this.MonsterGroup = data.MonsterGroup;// dict  怪物组
 }
 
  module.exports = Group; 

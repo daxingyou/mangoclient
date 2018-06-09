@@ -5,9 +5,9 @@
  */
 
 function Ability(){
-    
 }
 
-//GameLogic.prototype.combatMgr = combatMgr;
+///当前目标
+Ability.prototype.curTarget = Int16Array;
 
 module.exports = Ability;

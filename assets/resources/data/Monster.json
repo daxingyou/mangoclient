@@ -6,8 +6,12 @@
     "Level": 10,
     "MaxHP": 200,
     "MaxMP": 100,
-    "BaseAttack": 10,
-    "BaseDefense": 2
+    "MaxThew": 10,
+    "BaseArmor": "",
+    "BaseStrength": "",
+    "BaseStamina": "",
+    "BaseIntellect": "",
+    "BaseAgile": ""
   },
   {
     "ID": 2001,
@@ -16,8 +20,12 @@
     "Level": 1,
     "MaxHP": 80,
     "MaxMP": 40,
-    "BaseAttack": 5,
-    "BaseDefense": 0
+    "MaxThew": 10,
+    "BaseArmor": "",
+    "BaseStrength": "",
+    "BaseStamina": "",
+    "BaseIntellect": "",
+    "BaseAgile": ""
   },
   {
     "ID": 2002,
@@ -26,7 +34,11 @@
     "Level": 1,
     "MaxHP": 60,
     "MaxMP": 40,
-    "BaseAttack": 8,
-    "BaseDefense": 1
+    "MaxThew": 10,
+    "BaseArmor": "",
+    "BaseStrength": "",
+    "BaseStamina": "",
+    "BaseIntellect": "",
+    "BaseAgile": ""
   }
 ]

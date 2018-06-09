@@ -38,7 +38,7 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-
+        /*
         var test = dataMgr.load('data/Group.json',(data)=>{
             //var items = dict;
             //data[0].MonsterGroup.init(data[0].MonsterGroup);
@@ -47,7 +47,10 @@ cc.Class({
             cc.log("keys = %s",data[0].MonsterGroup.items);
             //cc.log("keys = %i",items.GetValue(items.items[0].key));
             ;
-        });
+        });*/
+
+        ////数据加载
+        dataMgr.init();
 
         var uuid = cc.sys.localStorage.getItem("uuid");
         var host = "192.168.0.168";
@@ -84,7 +87,7 @@ cc.Class({
                         cc.log("注册消息 分发");
 
                         ///测试用PVE 战斗
-                        gameLogic.startFight(constant.CombatType.PVECombat);
+                        gameLogic.startFight(constant.CombatType.PVECombat,1);
                     });
                 });
                 });

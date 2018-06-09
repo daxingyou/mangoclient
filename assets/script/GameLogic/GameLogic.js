@@ -6,6 +6,10 @@ var GameLogic = {
     },
     Tick : function(){
         combatMgr.Tick();
+    },
+
+    getCombatUnitForUid : function(){
+        
     }
 }
 
