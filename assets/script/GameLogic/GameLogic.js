@@ -1,13 +1,9 @@
 var combatMgr = require('CombatMgr')
-/*
-function GameLogic(){
-
-}
-
-GameLogic.prototype.combatMgr = combatMgr;
-*/
 
 var GameLogic = {
+    startFight : function(type){
+        combatMgr.initCombat(type);
+    },
     Tick : function(){
         combatMgr.Tick();
     }

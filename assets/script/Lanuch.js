@@ -12,6 +12,7 @@ var dataMgr = require("DataMgr")
 var dict = require("dict")
 var gameLogic = require("GameLogic")
 var fightMessage = require("fightMessage")
+var constant = require('constant')
 
 cc.Class({
     extends: cc.Component,
@@ -78,10 +79,12 @@ cc.Class({
                     pomelo.request("fight.fightHandler.beginFight",{uid:uuid},function(data)
                     {
                         cc.log("请求开始战斗");
-                        //fightMessage.init();
                         /// 注册消息 分发
                         pomelo.on('OnFreshPile',fightMessage.OnFreshPile);
                         cc.log("注册消息 分发");
+
+                        ///测试用PVE 战斗
+                        gameLogic.startFight(constant.CombatType.PVECombat);
                     });
                 });
                 });
