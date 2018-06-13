@@ -1,9 +1,9 @@
-var combatUnit = require('Combatunit');
+var Combatunit = require('Combatunit');
 
 var Hero = function(){
 
 }
 
-Hero.prototype = new combatUnit();
+//Hero.prototype = new Combatunit();
 
 module.exprots = Hero;

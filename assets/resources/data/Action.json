@@ -1,0 +1,9 @@
+[
+  {
+    "ActionName": "UniversalAttackTarget",
+    "ActionType": "AttackTarget",
+    "Value": "SingleEnemy",
+    "Animation": "",
+    "Effect": ""
+  }
+]

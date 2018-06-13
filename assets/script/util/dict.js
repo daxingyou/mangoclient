@@ -8,34 +8,22 @@
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 
-var dict = {
-    items : [],
-    init : function (str)
+var dict = function(str){
+    var items = new Array();
+
+    var datas = str.split(',');
+
+    for(var i =0;i<datas.length;i++)
     {
-        this.items = new Array();
-
-        var datas = str.split(',');
-
-        for(var i =0;i<datas.length;i++)
-        {
-            var datass = datas[i].split(':');
-            var it = {};
-            it.key = datass[0];
-            it.value = datass[1];
-            
-            this.items[i] = it;
-        }
-
-        return this.items;
-    },
-    GetValue : function(key)
-    {
-        for(var i =0;i<this.items.length;i++)
-        {
-            if(this.items[i].key == key)
-                return this.items[i].value;
-        }
+        var datass = datas[i].split(':');
+        var it = {};
+        it.key = datass[0];
+        it.value = datass[1];
+        
+        items[i] = it;
     }
+
+    return items;
 }
 
 module.exports = dict;
