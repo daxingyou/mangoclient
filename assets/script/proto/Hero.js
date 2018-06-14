@@ -17,6 +17,7 @@ function Hero(data)
 	 this.HeroBaseIntellect = data.HeroBaseIntellect;// Int16Array  智慧
 	 this.HeroBaseAgile = data.HeroBaseAgile;// Int16Array  敏捷
 	 this.HeroModel = data.HeroModel;// String  英雄模型
+	 this.InitialCard = data.InitialCard;// String  初始卡牌
 }
 
  module.exports = Hero; 

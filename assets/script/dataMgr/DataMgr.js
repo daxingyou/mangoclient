@@ -4,7 +4,6 @@ var Scene = require('Scene')
 var Monster = require('Monster')
 var Group = require('Group')
 var Matrix = require('Matrix')
-var Action = require('Action')
 var Skill = require('Skill')
 var Card = require('Card')
 var Hero = require('Hero')
@@ -20,8 +19,6 @@ var dataMgr = {
     monster :[],
     ///阵型表
     matrix : [],
-    ///行为表
-    action : [],
     ///技能表
     skill : [],
     ///卡牌
@@ -71,18 +68,11 @@ var dataMgr = {
                 this.group[item.ID] = item;
             }
         });
-        this.load(constant.DataResPath.action,(data)=>{
-            for(var i =0;i<data.length;i++)
-            {
-                var item = new Action(data[i]);
-                this.action[item.ID] = item;
-            }
-        });
         this.load(constant.DataResPath.skill,(data)=>{
             for(var i =0;i<data.length;i++)
             {
                 var item = new Skill(data[i]);
-                this.skill[item.ID] = item;
+                this.skill[item.ID][item.Index] = item;
             }
         });
         this.load(constant.DataResPath.matrix,(data)=>{

@@ -32,7 +32,7 @@ var GameLogic = {
         
     },
     UsePile(CombatUnit,Card,target){
-        
+        CombatUnit.onUsePile(Card,target);
     }
 }
 

@@ -9,6 +9,7 @@
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 
 var constant = require('constant');
+var ShaderUtils = require("ShaderUtils");
 
 cc.Class({
     extends: cc.Component,
@@ -55,7 +56,7 @@ cc.Class({
             cc.log("[track %s][animation %s] event: %s, %s, %s, %s", trackEntry.trackIndex, animationName, event.data.name, event.intValue, event.floatValue, event.stringValue);
         });
 
-        
+        ShaderUtils.setShader(spine, "gray");
     },
 
     start () {

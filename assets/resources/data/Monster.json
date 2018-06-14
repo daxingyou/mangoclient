@@ -5,14 +5,15 @@
     "Type": "Boss",
     "Model": 1001,
     "Level": 10,
-    "MaxHP": 200,
-    "MaxMP": 100,
+    "MaxHP": 3000,
+    "MaxMP": 10,
     "MaxThew": 10,
-    "BaseArmor": "",
+    "BaseArmor": 1200,
     "BaseStrength": "",
     "BaseStamina": "",
     "BaseIntellect": "",
-    "BaseAgile": ""
+    "BaseAgile": "",
+    "InitialCard": ""
   },
   {
     "ID": 2001,
@@ -21,13 +22,14 @@
     "Model": 1001,
     "Level": 1,
     "MaxHP": 80,
-    "MaxMP": 40,
+    "MaxMP": 10,
     "MaxThew": 10,
-    "BaseArmor": "",
+    "BaseArmor": 0.0,
     "BaseStrength": "",
     "BaseStamina": "",
     "BaseIntellect": "",
-    "BaseAgile": ""
+    "BaseAgile": "",
+    "InitialCard": ""
   },
   {
     "ID": 2002,
@@ -36,12 +38,13 @@
     "Model": 1001,
     "Level": 1,
     "MaxHP": 60,
-    "MaxMP": 40,
+    "MaxMP": 10,
     "MaxThew": 10,
-    "BaseArmor": "",
+    "BaseArmor": 0.0,
     "BaseStrength": "",
     "BaseStamina": "",
     "BaseIntellect": "",
-    "BaseAgile": ""
+    "BaseAgile": "",
+    "InitialCard": ""
   }
 ]

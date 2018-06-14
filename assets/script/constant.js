@@ -10,7 +10,6 @@ module.exports = {
         monster:'data/Monster',
         group:'data/Group',
         matrix:'data/Matrix',
-        action:'data/Action',
         skill:'data/Skill',
         hero:'data/Hero',
         card:'data/Card',
@@ -28,6 +27,17 @@ module.exports = {
         SINGEL: "singel",
         CONDITION:"condition",
         SELF:"self",
+    },
+    ///技能触发条件
+    SkillActiveType :{
+        ////被击监控
+        OnDamage : "onDamage",
+        ///死亡监控
+        OnDie:"onDie",
+        ///抽牌监控
+        OnDrawPile:"onDrawPile",
+        ///用牌监控
+        OnUsePile:"onUsePile"
     },
     Team : {
         own : 0,
