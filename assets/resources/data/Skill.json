@@ -1,1 +1,66 @@
-[]
+[
+  {
+    "ID": 1,
+    "Index": 1,
+    "SkillName": "攻击",
+    "Objective": "single",
+    "Conditions": "",
+    "Actions": "atttack;dmg:60"
+  },
+  {
+    "ID": 2,
+    "Index": 1,
+    "SkillName": "防御",
+    "Objective": "self",
+    "Conditions": "",
+    "Actions": "defence;physical_arm:60;time:5"
+  },
+  {
+    "ID": 3,
+    "Index": 1,
+    "SkillName": "桃木刃",
+    "Objective": "single",
+    "Conditions": "",
+    "Actions": "atttack;dmg:45"
+  },
+  {
+    "ID": 3,
+    "Index": 2,
+    "SkillName": "桃木刃",
+    "Objective": "self",
+    "Conditions": "",
+    "Actions": "wsword;num:1;area:random;pos:random"
+  },
+  {
+    "ID": 4,
+    "Index": 1,
+    "SkillName": "木藤刺",
+    "Objective": "single",
+    "Conditions": "",
+    "Actions": "atttack;dmg:25"
+  },
+  {
+    "ID": 4,
+    "Index": 2,
+    "SkillName": "木藤刺",
+    "Objective": "self",
+    "Conditions": "",
+    "Actions": "defence;physical_arm:15;time:5"
+  },
+  {
+    "ID": 4,
+    "Index": 3,
+    "SkillName": "木藤刺",
+    "Objective": "self",
+    "Conditions": "",
+    "Actions": "wsword;num:1;area:random;pos:random"
+  },
+  {
+    "ID": 5,
+    "Index": 1,
+    "SkillName": "木剑雨",
+    "Objective": "all",
+    "Conditions": "",
+    "Actions": "atttack;dmg:45"
+  }
+]

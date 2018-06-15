@@ -1,8 +1,9 @@
 
-var ActionBase = function(attrs,ability,owner){
+var ActionBase = function(attrs,ability,owner,action){
     this.ability = ability;
     this.owner = owner;
-    
+    this.action = action;
+
     var str = attrs.split(';');
     for(var i = 1;i<str.length;i++)
     {
@@ -15,12 +16,12 @@ ActionBase.prototype.enter = function(){
 
 };
 
-ActionBase.prototype.tick = function(){
+ActionBase.prototype.tick = function(dt){
 
 };
 
 ActionBase.prototype.exit = function(){
-    this.ability
+    this.ability.ActionExit(this.action.Index);
 };
 
 

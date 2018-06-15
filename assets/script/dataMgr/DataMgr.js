@@ -9,6 +9,7 @@ var Card = require('Card')
 var Hero = require('Hero')
 
 var dataMgr = {
+    index : 0,
     ////关卡
     dungeon : [],
     ////场景
@@ -39,13 +40,16 @@ var dataMgr = {
             //JSON.stringify(res)是使用json库中的方法将json文件转换为字符串。
         });
     },
-    init : function(){
+    init : function(callback){
+        this.index = 0;
         this.load(constant.DataResPath.dungeon,(data)=>{
             for(var i =0;i<data.length;i++)
             {
                 var item = new Dungeon(data[i]);
                 this.dungeon[item.ID] = item;
             }
+            this.index ++;
+            this.check(callback);
         });
         this.load(constant.DataResPath.scene,(data)=>{
             for(var i =0;i<data.length;i++)
@@ -53,6 +57,8 @@ var dataMgr = {
                 var item = new Scene(data[i]);
                 this.scene[item.ID] = item;
             }
+            this.index ++;
+            this.check(callback);
         });
         this.load(constant.DataResPath.monster,(data)=>{
             for(var i =0;i<data.length;i++)
@@ -60,6 +66,8 @@ var dataMgr = {
                 var item = new Monster(data[i]);
                 this.monster[item.ID] = item;
             }
+            this.index ++;
+            this.check(callback);
         });
         this.load(constant.DataResPath.group,(data)=>{
             for(var i =0;i<data.length;i++)
@@ -67,13 +75,18 @@ var dataMgr = {
                 var item = new Group(data[i]);
                 this.group[item.ID] = item;
             }
+            this.index ++;
+            this.check(callback);
         });
         this.load(constant.DataResPath.skill,(data)=>{
             for(var i =0;i<data.length;i++)
             {
                 var item = new Skill(data[i]);
-                this.skill[item.ID][item.Index] = item;
+                //var items[item.Index] = item;
+                this.skill[item.ID,item.Index] = item;
             }
+            this.index ++;
+            this.check(callback);
         });
         this.load(constant.DataResPath.matrix,(data)=>{
             for(var i =0;i<data.length;i++)
@@ -81,6 +94,8 @@ var dataMgr = {
                 var item = new Matrix(data[i]);
                 this.matrix[item.ID] = item;
             }
+            this.index ++;
+            this.check(callback);
         });
         this.load(constant.DataResPath.hero,(data)=>{
             for(var i =0;i<data.length;i++)
@@ -88,6 +103,8 @@ var dataMgr = {
                 var item = new Hero(data[i]);
                 this.hero[item.ID] = item;
             }
+            this.index ++;
+            this.check(callback);
         });
         this.load(constant.DataResPath.card,(data)=>{
             for(var i =0;i<data.length;i++)
@@ -95,7 +112,15 @@ var dataMgr = {
                 var item = new Card(data[i]);
                 this.card[item.ID] = item;
             }
+            this.index ++;
+            this.check(callback);
         });
+    },
+    check : function(callback){
+        if(this.index == 8)
+        {
+            callback();
+        }
     }
 };
 

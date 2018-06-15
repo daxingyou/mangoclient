@@ -4,7 +4,6 @@
  *    by pwh  
  */
 
-var combat = require('Combat')
 var constant = require('constant')
 var PVECombat = require('PVECombat')
 
@@ -15,11 +14,11 @@ var CombatMgr = {
     initCombat : function(combatType){
         if(combatType == constant.CombatType.PVECombat)
         {
-            curCombat = new PVECombat();
+            this.curCombat = new PVECombat();
         }
     },
     setMatrix : function (group){
-        curCombat.init(group);
+        this.curCombat.init(group);
     },
     getEnemys : function(){
         return this.curCombat.enemy;
@@ -30,9 +29,21 @@ var CombatMgr = {
     getSelf : function(){
         return this.curCombat,own[0];
     },
-    Tick : function(){
+    Tick : function(dt){
         if(this.curCombat != null)
-            curCombat.Tick();
+        {
+            this.curCombat.Tick();
+
+            for(var i = 0;i<this.curCombat.enemy.length;i++)
+            {
+                this.curCombat.enemy[i].tick(dt);
+            }
+
+            for(var i = 0;i<this.curCombat.own.length;i++)
+            {
+                this.curCombat.own[i].tick(dt);
+            }
+        }
     }
 }
 

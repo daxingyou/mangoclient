@@ -83,4 +83,10 @@ Ability.prototype.onDamage = function(){
 		}
 	}
 }
+Ability.prototype.tick = function(dt){
+	for(var i=0;i<actions.length;i++)
+	{
+		this.actions[i].tick(dt);
+	}
+}
 module.exports = Ability;

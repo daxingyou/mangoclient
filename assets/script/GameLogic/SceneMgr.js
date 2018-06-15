@@ -4,6 +4,8 @@
  *    by pwh  
  */
 
+var dataMgr = require('DataMgr');
+
 var sceneMgr = {
     curid : Int16Array,
 

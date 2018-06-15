@@ -24,10 +24,13 @@ Action.prototype.Active = function(ability,owner){
 
     this.active = true;
     
-    this.action = new actionFactory.actions[this.actionName](this.attrs,ability,owner);
+    this.action = new actionFactory.actions[this.actionName](this.attrs,ability,owner,this);
     this.action.enter();
 }
 
+Action.prototype.tick = function(dt){
+    this.action.tick(dt);
+}
 
 
 module.exprots = Action;

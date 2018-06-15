@@ -50,7 +50,10 @@ cc.Class({
         });*/
 
         ////数据加载
-        dataMgr.init();
+        dataMgr.init(()=>{
+            ///测试用PVE 战斗
+            gameLogic.startFight(constant.CombatType.PVECombat,1);
+        });
 
         var uuid = cc.sys.localStorage.getItem("uuid");
         var host = "192.168.0.168";
@@ -59,6 +62,7 @@ cc.Class({
         fightMessage.init();
         
         cc.log("uuid = %s",uuid);
+
         pomelo.init({
             host: host,
             //host: "39.108.12.90",
@@ -86,8 +90,7 @@ cc.Class({
                         pomelo.on('OnFreshPile',fightMessage.OnFreshPile);
                         cc.log("注册消息 分发");
 
-                        ///测试用PVE 战斗
-                        gameLogic.startFight(constant.CombatType.PVECombat,1);
+                        
                     });
                 });
                 });
@@ -100,6 +103,7 @@ cc.Class({
     },
 
     update (dt) {
-        gameLogic.Tick();
+        ///console.log(dt);
+        gameLogic.Tick(dt);
     },
 });

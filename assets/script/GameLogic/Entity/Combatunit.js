@@ -4,13 +4,11 @@
  */
  var Agent = require('Agent');
 
-var CombatUnit = function(data){
-    this.agent = new Agent('/Hero/change');
+var CombatUnit = function(data,pos,teamid){
+    this.agent = new Agent('/Hero/change',pos,teamid);
 
-    this.Hp = data.MaxHp;
-    this.MaxHp = data.MaxHp;
-    this.Mp = data.Mp;
-    this.MaxMp = data.MaxMp;
+    this.Pos = pos.index;
+    this.teamid = teamid;
 };
 
 //////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////// 
@@ -34,12 +32,23 @@ CombatUnit.prototype.Mp = 0;
 ///最大灵力
 CombatUnit.prototype.MaxMp = 0;
 
+///基础物理防御,该数据不能修改
+CombatUnit.prototype.basePhysical_arm = 0;
+///附加防御供计算
+CombatUnit.prototype.addtional_Physical_arm = 0;
+
 //////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////// 
 
 ///手牌
 CombatUnit.prototype.handsPile = [];
 ///技能
 CombatUnit.prototype.abilitys = [];
+
+//////~~~~~~~~~~~~~~~~~~~~~~~~~~~Get function ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~///////
+
+CombatUnit.prototype.GetPhysical = function(){
+    return this.basePhysical_arm + this.addtional_Physical_arm;
+}
 
 //////~~~~~~~~~~~~~~~~~~On function~~~~~~~~~~~~~~~~~~~~~~~~~~~////// 
 CombatUnit.prototype.onDie = function(){
@@ -52,11 +61,16 @@ CombatUnit.prototype.onDot = function(){
 
 };
 ////伤害监听
-CombatUnit.prototype.onDamage = function(){
+CombatUnit.prototype.onDamage = function(dmg){
     for(var i =0;i<this.abilitys.length;i++)
     {
         abilitys[i].onDamage();
     }
+
+    this.Hp -= dmg;
+
+    if(this.Hp <= 0)
+        this.onDie();
 };
 ////抽牌
 CombatUnit.prototype.onDrawPile = function(id){
@@ -86,4 +100,11 @@ CombatUnit.prototype.onUsePile = function(Card,Target){
         abilitys[i].onUsePile();
     }
 };
+CombatUnit.prototype.tick = function(dt){
+    for(var i =0;i<this.abilitys.length;i++)
+    {
+        abilitys[i].tick(dt);
+    }
+};
+
 module.exports = CombatUnit;

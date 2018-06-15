@@ -25,14 +25,27 @@ var GameLogic = {
             combatMgr.setMatrix(group);
         });
     },
-    Tick : function(){
-        combatMgr.Tick();
+    Tick : function(dt){
+        combatMgr.Tick(dt);
     },
     getCombatUnitForUid : function(uid){
         
     },
-    UsePile(CombatUnit,Card,target){
+    UsePile : function(CombatUnit,Card,target){
         CombatUnit.onUsePile(Card,target);
+    },
+    getEnemys : function(CombatUnit){
+        if(CombatUnit.teamid == Player.teamid)
+        {
+            return combatMgr.getEnemys();
+        }
+        else
+        {
+            return combatMgr.getOwn();
+        }
+    },
+    ShowDmg : function(dmg,from){
+        
     }
 }
 

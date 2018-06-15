@@ -17,7 +17,7 @@ var dict = function(str){
     {
         var datass = datas[i].split(':');
         var it = {};
-        it.key = datass[0];
+        it.key = parseInt(datass[0][1]);
         it.value = datass[1];
         
         items[i] = it;

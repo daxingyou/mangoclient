@@ -49,7 +49,7 @@
     },
     "_rotationX": 0,
     "_rotationY": 0,
-    "_scaleX": 1,
+    "_scaleX": 0.9,
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
@@ -91,8 +91,8 @@
       "__id__": 1
     },
     "_enabled": true,
-    "standS": "stand",
-    "attackS": "attack"
+    "_standS": "stand",
+    "_attackS": "attack"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -100,7 +100,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "2efe0a6a-b48e-4b7e-9e5f-e8eedca86b11"
     },
     "fileId": "15cJDLLdZJwoOF+RWNzEtJ",
     "sync": false
