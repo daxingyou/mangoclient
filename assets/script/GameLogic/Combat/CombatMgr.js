@@ -24,10 +24,10 @@ var CombatMgr = {
         return this.curCombat.enemy;
     },
     getOwn : function(){
-        return this.curCombat,own;
+        return this.curCombat.own;
     },
     getSelf : function(){
-        return this.curCombat,own[0];
+        return this.curCombat.own[0];
     },
     Tick : function(dt){
         if(this.curCombat != null)

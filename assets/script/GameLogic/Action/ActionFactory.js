@@ -5,7 +5,7 @@ var factory ={
 
     init : function()
     {
-        actions['attack'] = Attack;
+        this.actions['attack'] = Attack;
     }
 }
 

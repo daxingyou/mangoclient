@@ -4,12 +4,8 @@ var ActionBase = function(attrs,ability,owner,action){
     this.owner = owner;
     this.action = action;
 
-    var str = attrs.split(';');
-    for(var i = 1;i<str.length;i++)
-    {
-        var item = str[i].split(':');
-        this.attrs[item[0]] = item[1];
-    }
+    this.attrs = attrs;
+    
 }
 
 ActionBase.prototype.enter = function(){

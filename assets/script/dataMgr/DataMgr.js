@@ -7,7 +7,9 @@ var Matrix = require('Matrix')
 var Skill = require('Skill')
 var Card = require('Card')
 var Hero = require('Hero')
+var HeroAttributes = require('HeroAttributes')
 
+//heroAttributes
 var dataMgr = {
     index : 0,
     ////关卡
@@ -26,6 +28,8 @@ var dataMgr = {
     card : [],
     ///英雄
     hero : [],
+    ///英雄属性
+    heroAttributes : [],
     load : function (path,callback){
         //var url = cc.url.raw(path);
         cc.loader.loadRes(path,function(err,res)
@@ -79,11 +83,16 @@ var dataMgr = {
             this.check(callback);
         });
         this.load(constant.DataResPath.skill,(data)=>{
+            var temp = 0;
             for(var i =0;i<data.length;i++)
             {
                 var item = new Skill(data[i]);
-                //var items[item.Index] = item;
-                this.skill[item.ID,item.Index] = item;
+                if(item.ID > temp)
+                {
+                    temp = item.ID;
+                    this.skill[temp] = new Array();
+                }
+                this.skill[temp].push(item);
             }
             this.index ++;
             this.check(callback);
@@ -115,9 +124,19 @@ var dataMgr = {
             this.index ++;
             this.check(callback);
         });
+        this.load(constant.DataResPath.heroAttributes,(data)=>{
+            for(var i =0;i<data.length;i++)
+            {
+                var item = new HeroAttributes(data[i]);
+                this.heroAttributes[item.ID] = item;
+            }
+            this.index ++;
+            this.check(callback);
+        });
+        
     },
     check : function(callback){
-        if(this.index == 8)
+        if(this.index == 9)
         {
             callback();
         }

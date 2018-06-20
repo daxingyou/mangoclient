@@ -3,7 +3,7 @@ var dataMgr = require('DataMgr')
 var sceneMgr = require('SceneMgr')
 
 var GameLogic = {
-    get Player(){
+    get player(){
         return combatMgr.getSelf();
     },
     startFight : function(type,dungeonid){
@@ -31,11 +31,14 @@ var GameLogic = {
     getCombatUnitForUid : function(uid){
         
     },
+    DrawPile : function(CombatUnit,Card){
+        CombatUnit.onDrawPile(Card);
+    },
     UsePile : function(CombatUnit,Card,target){
         CombatUnit.onUsePile(Card,target);
     },
     getEnemys : function(CombatUnit){
-        if(CombatUnit.teamid == Player.teamid)
+        if(CombatUnit.teamid == this.player.teamid)
         {
             return combatMgr.getEnemys();
         }

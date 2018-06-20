@@ -8,7 +8,7 @@ var constant = require('constant')
 
 
  var Agent = function(path,pos,teamid){
-    go : null;
+    this.go = null;
 
     loadRes.load(path,(data)=>{
         this.go = cc.instantiate(data);

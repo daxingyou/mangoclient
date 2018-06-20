@@ -34,7 +34,7 @@ PVECombat.prototype.init = function(data){
     ///test Hero  1001 , 1
     matrix = dataMgr.matrix[3];
     matrix_pos = new MatrixPos(matrix.MatrixPos);
-    this.own[0] = new Hero_(dataMgr.hero[1001],matrix_pos.Matrixs[1],constant.Team.own);
+    this.own[0] = new Hero_(dataMgr.hero[1000],dataMgr.heroAttributes[1001],matrix_pos.Matrixs[1],constant.Team.own);
 }
 
 module.exports = PVECombat;

@@ -13,6 +13,7 @@ module.exports = {
         skill:'data/Skill',
         hero:'data/Hero',
         card:'data/Card',
+        heroAttributes:'data/HeroAttributes',
     },
     ///技能类型
     AbilityType :{
@@ -42,6 +43,9 @@ module.exports = {
     Team : {
         own : 0,
         enemy : 1,
+    },
+    UI : {
+        DMG : "UI/dmg/dmg",
     },
     mixTime : 0.1,
 };

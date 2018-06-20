@@ -8,6 +8,8 @@
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 
+var GameLogic = require('GameLogic')
+
 cc.Class({
     extends: cc.Component,
 
@@ -34,6 +36,7 @@ cc.Class({
     onLoad () {
         this.node.on('touchstart', function ( event ) {
             console.log('Hello! card listen');
+            GameLogic.UsePile(GameLogic.player,0,GameLogic.getEnemys(GameLogic.player)[0]);
         });
         this.node.on('touchmove', function ( event ) {
             console.log('Hello! card listen');

@@ -17,10 +17,7 @@
         "__id__": 2
       },
       {
-        "__id__": 32
-      },
-      {
-        "__id__": 40
+        "__id__": 41
       }
     ],
     "_tag": -1,
@@ -66,16 +63,22 @@
       },
       {
         "__id__": 6
+      },
+      {
+        "__id__": 30
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 30
+        "__id__": 38
       },
       {
-        "__id__": 31
+        "__id__": 39
+      },
+      {
+        "__id__": 40
       }
     ],
     "_prefab": null,
@@ -935,54 +938,29 @@
     "sync": false
   },
   {
-    "__type__": "cc.Canvas",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 2
-    },
-    "_enabled": true,
-    "_designResolution": {
-      "__type__": "cc.Size",
-      "width": 1334,
-      "height": 750
-    },
-    "_fitWidth": false,
-    "_fitHeight": true
-  },
-  {
-    "__type__": "a47d5O9HlJLWayzfJ25UQAT",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 2
-    },
-    "_enabled": true
-  },
-  {
     "__type__": "cc.Node",
     "_name": "Card",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 1
+      "__id__": 2
     },
     "_children": [
       {
-        "__id__": 33
+        "__id__": 31
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 37
+        "__id__": 35
       },
       {
-        "__id__": 38
+        "__id__": 36
       }
     ],
     "_prefab": {
-      "__id__": 39
+      "__id__": 37
     },
     "_id": "a1cZq5mfFPaYP+geLQsBs1",
     "_opacity": 255,
@@ -1010,8 +988,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 140,
-      "y": 26
+      "x": -527,
+      "y": -349
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -1025,21 +1003,21 @@
     "_name": "New Sprite",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 32
+      "__id__": 30
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 34
+        "__id__": 32
       },
       {
-        "__id__": 35
+        "__id__": 33
       }
     ],
     "_prefab": {
-      "__id__": 36
+      "__id__": 34
     },
     "_id": "5cM9DEL/1Japap5FIKaQ9k",
     "_opacity": 255,
@@ -1082,7 +1060,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 33
+      "__id__": 31
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -1108,14 +1086,14 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 33
+      "__id__": 31
     },
     "_enabled": true
   },
   {
     "__type__": "cc.PrefabInfo",
     "root": {
-      "__id__": 32
+      "__id__": 30
     },
     "asset": {
       "__uuid__": "214401b5-9f9e-4e80-8d4d-aa8c3324f0b3"
@@ -1128,7 +1106,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 32
+      "__id__": 30
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -1150,23 +1128,63 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 32
+      "__id__": 30
     },
     "_enabled": true,
     "Name": {
-      "__id__": 37
+      "__id__": 35
     }
   },
   {
     "__type__": "cc.PrefabInfo",
     "root": {
-      "__id__": 32
+      "__id__": 30
     },
     "asset": {
       "__uuid__": "214401b5-9f9e-4e80-8d4d-aa8c3324f0b3"
     },
     "fileId": "90kgjGGzRPH5+fVjIS0olr",
     "sync": false
+  },
+  {
+    "__type__": "cc.Canvas",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 2
+    },
+    "_enabled": true,
+    "_designResolution": {
+      "__type__": "cc.Size",
+      "width": 1334,
+      "height": 750
+    },
+    "_fitWidth": false,
+    "_fitHeight": true
+  },
+  {
+    "__type__": "a47d5O9HlJLWayzfJ25UQAT",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 2
+    },
+    "_enabled": true
+  },
+  {
+    "__type__": "9f8a5VWPERJv5V2/aGMgzhE",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 2
+    },
+    "_enabled": true,
+    "uiRoot": {
+      "__id__": 2
+    },
+    "dmg": {
+      "__uuid__": "c4cbe7fb-0459-4e22-8c1c-03f7fa30601f"
+    }
   },
   {
     "__type__": "cc.Node",

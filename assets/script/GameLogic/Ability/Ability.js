@@ -4,20 +4,19 @@
  *    by pwh  
  */
 
-var constant = require('constant');
-var Action = require('Action');
+var Action = require('TAtest')
+var constant = require('constant')
 
-
-function Ability(data){
-	this.ID = data[0].ID;// Int16Array  编号
+var Ability = function(data,owner){
 
 	for(var i =0;i<data.length;i++)
 	{
-		var item = new Action(data[i]);
+		this.ID = data[i].ID;// Int16Array  编号
+		var item = new Action(data[i],this,owner);
 		this.actions[i] = item;
 	}
-
 }
+
 Ability.prototype.owner = null;
 ///当前目标
 Ability.prototype.curTarget = null;
@@ -26,10 +25,14 @@ Ability.prototype.active = false;
 ///行为列表
 Ability.prototype.actions = [];
 ///技能生效
-Ability.prototype.Active = function(Target,owner){
+Ability.prototype.Active = function(Target){
 	this.active = true;
 	this.curTarget = Target;
-	this.owner = owner;
+
+	for(var i=0;i<this.actions.length;i++)
+	{
+		this.actions[i].Active();
+	}
 }
 ///技能失效
 Ability.prototype.Exit = function(){
@@ -56,7 +59,7 @@ Ability.prototype.onDie = function(){
 
 ///使用卡牌监听
 Ability.prototype.onUsePile = function(){
-	for(var i=0;i<actions.length;i++)
+	for(var i=0;i<this.actions.length;i++)
 	{
 		if(this.actions[i].Conditions == constant.SkillActiveType.OnUsePile){
 			this.actions[i].Active();
@@ -66,7 +69,7 @@ Ability.prototype.onUsePile = function(){
 }
 ////抽牌
 Ability.prototype.onDrawPile = function(){
-	for(var i=0;i<actions.length;i++)
+	for(var i=0;i<this.actions.length;i++)
 	{
 		if(this.actions[i].Conditions == constant.SkillActiveType.onDrawPile){
 			this.actions[i].Active();
@@ -75,7 +78,7 @@ Ability.prototype.onDrawPile = function(){
 	}
 }
 Ability.prototype.onDamage = function(){
-	for(var i=0;i<actions.length;i++)
+	for(var i=0;i<this.actions.length;i++)
 	{
 		if(this.actions[i].Conditions == constant.SkillActiveType.onDamage){
 			this.actions[i].Active();
@@ -84,9 +87,11 @@ Ability.prototype.onDamage = function(){
 	}
 }
 Ability.prototype.tick = function(dt){
-	for(var i=0;i<actions.length;i++)
+	for(var i=0;i<this.actions.length;i++)
 	{
 		this.actions[i].tick(dt);
 	}
 }
+
+
 module.exports = Ability;

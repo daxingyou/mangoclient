@@ -8,11 +8,11 @@
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 
-var dataMgr = require("DataMgr")
-var dict = require("dict")
+const dataMgr = require("DataMgr")
+var actionFactory = require('ActionFactory')
 var gameLogic = require("GameLogic")
 var fightMessage = require("fightMessage")
-var constant = require('constant')
+const constant = require('constant')
 
 cc.Class({
     extends: cc.Component,
@@ -49,6 +49,7 @@ cc.Class({
             ;
         });*/
 
+        actionFactory.init();
         ////数据加载
         dataMgr.init(()=>{
             ///测试用PVE 战斗
