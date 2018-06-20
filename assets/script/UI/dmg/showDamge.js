@@ -40,7 +40,6 @@ cc.Class({
     init(combatUnit,dmg,uimgr){
         this.dmg.string = dmg.toString();
         this._uimgr = uimgr;
-        this.node.position = cc.v2(combatUnit.agent.go.position.x + 10,combatUnit.agent.go.position.y + 200);
-
+        this.node.position = cc.v2(combatUnit.agent.go.position.x+100,combatUnit.agent.go.position.y + 220);
     }
 });

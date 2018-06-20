@@ -46,9 +46,6 @@ var GameLogic = {
         {
             return combatMgr.getOwn();
         }
-    },
-    ShowDmg : function(dmg,from){
-        
     }
 }
 

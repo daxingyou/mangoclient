@@ -15,6 +15,7 @@ cc.Class({
     
     properties: {
         uiRoot : cc.Node,
+        tips : cc.Node,
         dmg : cc.Prefab
     },
 
@@ -43,7 +44,7 @@ cc.Class({
         } else { // 如果没有空闲对象，也就是对象池中备用对象不够时，我们就用 cc.instantiate 重新创建
             enemy = cc.instantiate(this.dmg);
         }
-        enemy.parent = this.node; // 将生成的敌人加入节点树
+        enemy.parent = this.tips; // 将生成的敌人加入节点树
         enemy.getComponent('showDamge').init(combatunit,dmg,this); //接下来就可以调用 enemy 身上的脚本进行初始化
     },
     collectDmg(dmg){

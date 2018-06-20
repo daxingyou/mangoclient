@@ -12,14 +12,14 @@ var constant = require('constant')
 
     loadRes.load(path,(data)=>{
         this.go = cc.instantiate(data);
-        this.go.parent = cc.find('pool'); 
+        this.go.parent = cc.find('Canvas/pool'); 
         this.go.position = cc.v2(pos.pos.x,pos.pos.y);
         this.go.scaleX = teamid == constant.Team.own ? constant.Team.enemy : -1;
     })
 
     loadRes.load('UI/hero/hpBar',(data)=>{
         this.hpbar = cc.instantiate(data).getComponent('hpBar');
-        this.hpbar.node.parent = cc.find('pool'); 
+        this.hpbar.node.parent = cc.find('Canvas/pool'); 
         this.hpbar.node.position = cc.v2(pos.pos.x,pos.pos.y+270);
         this.hpbar.freshen(hp,hp);
     })
