@@ -8,11 +8,11 @@
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 
-const dataMgr = require("DataMgr")
-var actionFactory = require('ActionFactory')
+var dataMgr = require("DataMgr")
 var gameLogic = require("GameLogic")
 var fightMessage = require("fightMessage")
-const constant = require('constant')
+var constant = require('constant')
+var actionfactory = require('ActionFactory')
 
 cc.Class({
     extends: cc.Component,
@@ -38,32 +38,20 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        /*
-        var test = dataMgr.load('data/Group.json',(data)=>{
-            //var items = dict;
-            //data[0].MonsterGroup.init(data[0].MonsterGroup);
-            //items.init(data[0].MonsterGroup);
-
-            cc.log("keys = %s",data[0].MonsterGroup.items);
-            //cc.log("keys = %i",items.GetValue(items.items[0].key));
-            ;
-        });*/
-
-        actionFactory.init();
+        
+        actionfactory.init();
         ////数据加载
         dataMgr.init(()=>{
-            ///测试用PVE 战斗
             gameLogic.startFight(constant.CombatType.PVECombat,1);
         });
 
         var uuid = cc.sys.localStorage.getItem("uuid");
-        var host = "192.168.0.168";
+        var host = "127.0.0.1";
         //host = "39.108.12.90";
         var port = 3010;
         fightMessage.init();
         
         cc.log("uuid = %s",uuid);
-
         pomelo.init({
             host: host,
             //host: "39.108.12.90",
@@ -71,7 +59,7 @@ cc.Class({
             log: true
           }, function() {
               /// 注册获取 uuid 获取逻辑服 地址
-          pomelo.request("gate.gateHandler.queryEntry", {uid: uuid}, function(data) {
+          pomelo.request("gate.gateHandler.queryEntry", {code: uuid}, function(data) {
 
             uuid = data.uuid;
             if(data.host != '127.0.0.1'){
@@ -82,17 +70,26 @@ cc.Class({
             cc.sys.localStorage.setItem("uuid",data.uuid);
             ///连接逻辑服
             pomelo.init({host:host,port:port,log:true},function(data){
-                pomelo.request("connector.entryHandler.enter",{uid:uuid},function(data){
-                    cc.log("连接逻辑服 成功");
-                    pomelo.request("fight.fightHandler.beginFight",{uid:uuid},function(data)
-                    {
-                        cc.log("请求开始战斗");
-                        /// 注册消息 分发
-                        pomelo.on('OnFreshPile',fightMessage.OnFreshPile);
-                        cc.log("注册消息 分发");
+                pomelo.request("connector.entryHandler.enter",{code:uuid},function(data){
+                    cc.log("连接逻辑服 成功" + data.code + Object.keys(data.info));
+                    // pomelo.request("fight.fightHandler.beginFight",{uid:uuid},function(data)
+                    // {
+                    //     cc.log("请求开始战斗");
+                    //     /// 注册消息 分发
+                    //     pomelo.on('OnFreshPile',fightMessage.OnFreshPile);
+                    //     cc.log("注册消息 分发");
 
-                        
-                    });
+                    //     ///测试用PVE 战斗
+                    //     gameLogic.startFight(constant.CombatType.PVECombat,1);
+                    // });
+                    var cnt = 1;
+                    setInterval(function(){
+                        pomelo.request("connector.entryHandler.connectTest", {}, function(data){
+                            cc.log("tick: " + cnt);
+                            cnt += 1;
+                        });
+                    }, 1000 * 10)
+                    
                 });
                 });
             })
@@ -104,7 +101,6 @@ cc.Class({
     },
 
     update (dt) {
-        ///console.log(dt);
         gameLogic.Tick(dt);
     },
 });

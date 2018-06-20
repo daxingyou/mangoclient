@@ -19,11 +19,11 @@ cc.Class({
     },
 
     onLoad () {
-        this.enemyPool = new cc.NodePool();
+        this.dmgPool = new cc.NodePool();
         let initCount = 5;
         for(let i=0;i<initCount;i++){
             var enemy = cc.instantiate(this.dmg);
-            this.enemyPool.put(enemy);
+            this.dmgPool.put(enemy);
         }
     },
 
@@ -38,13 +38,16 @@ cc.Class({
     },
     loadDmg(combatunit,dmg){
         let enemy = null;
-        if (this.enemyPool.size() > 0) { // 通过 size 接口判断对象池中是否有空闲的对象
-            enemy = this.enemyPool.get();
+        if (this.dmgPool.size() > 0) { // 通过 size 接口判断对象池中是否有空闲的对象
+            enemy = this.dmgPool.get();
         } else { // 如果没有空闲对象，也就是对象池中备用对象不够时，我们就用 cc.instantiate 重新创建
             enemy = cc.instantiate(this.dmg);
         }
         enemy.parent = this.node; // 将生成的敌人加入节点树
-        enemy.getComponent('showDamge').init(combatunit,dmg); //接下来就可以调用 enemy 身上的脚本进行初始化
+        enemy.getComponent('showDamge').init(combatunit,dmg,this); //接下来就可以调用 enemy 身上的脚本进行初始化
+    },
+    collectDmg(dmg){
+        this.dmgPool.put(dmg);
     }
 
 });

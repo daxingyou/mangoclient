@@ -3,13 +3,14 @@ var Card = require('HandCard')
 
 
 function Hero_(data,attributes,pos,teamid){
-    CombatUnit.call(this,data,pos,teamid);
 
     this.Hp = attributes.HeroMaxHP;
     this.MaxHp = attributes.HeroMaxHP;
     this.Mp = attributes.HeroMaxMP;
     this.MaxMp = attributes.HeroMaxMP;
 
+    CombatUnit.call(this,data,pos,teamid);
+    
     ////测试用
     var card = new Card(1);
     this.handsPile.push(card);

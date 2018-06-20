@@ -12,35 +12,21 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        dmg : cc.Label,
-        speed : 1000,
-        _alpha : 255,
-        _uimgr : null
+       text : cc.Label
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
+    onLoad () {
+    },
 
     start () {
 
     },
 
-    update (dt) {
-        this._alpha -= dt*this.speed;
-        this.node.opacity  = this._alpha;
+    // update (dt) {},
 
-        if(this._alpha <= 0)
-        {
-            this._uimgr.collectDmg(this.node);
-            this.node.active = false;
-        }
-    },
-
-    init(combatUnit,dmg,uimgr){
-        this.dmg.string = dmg.toString();
-        this._uimgr = uimgr;
-        this.node.position = cc.v2(combatUnit.agent.go.position.x + 10,combatUnit.agent.go.position.y + 200);
-
+    freshen(cur,max){
+        this.text.string = cur.toString() + '/'+ max.toString();
     }
 });

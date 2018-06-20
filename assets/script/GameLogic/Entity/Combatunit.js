@@ -7,8 +7,7 @@
  var HandCard = require('HandCard')
 
 var CombatUnit = function(data,pos,teamid){
-    this.agent = new Agent('/Hero/change',pos,teamid);
-
+    this.agent = new Agent('/Hero/change',pos,teamid,this.Hp);
     this.Pos = pos.index;
     this.teamid = teamid;
 };
@@ -69,6 +68,8 @@ CombatUnit.prototype.onDamage = function(dmg,from){
     }
 
     this.Hp -= dmg;
+
+    this.agent.hpbar.freshen(this.Hp,this.MaxHp);
 
     if(this.Hp <= 0)
         this.onDie();

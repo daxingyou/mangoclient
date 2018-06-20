@@ -9,6 +9,14 @@ var Attack = function(attrs,ability,owner,action)
 
 Attack.prototype.constructor = Attack; // 需要修复下构造函数
 
+(function(){
+    // 创建一个没有实例方法的类
+    var Super = function(){};
+    Super.prototype = ActionBase.prototype;
+    //将实例作为子类的原型
+    Attack.prototype = new Super();
+  })();
+
 Attack.prototype.enter = function(){
     if(this.action.Objective == constant.SkillTargetType.ALL)
     {
@@ -39,7 +47,7 @@ Attack.prototype.enter = function(){
     }
     //util.computeDamage(owner,ability.target,this.attrs['dmg']);
     
-    exit();
+    this.exit();
 }
 
 module.exports = Attack;

@@ -31,9 +31,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 211,
-      "g": 13,
-      "b": 13,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -86,18 +86,16 @@
     "_N$overflow": 0
   },
   {
-    "__type__": "c01c5jnZ7xHFKnX7hfRdR8N",
+    "__type__": "c5e54PKrFdBp4saf1eL8gzZ",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 1
     },
     "_enabled": true,
-    "dmg": {
+    "text": {
       "__id__": 2
-    },
-    "speed": 100,
-    "_alpha": 255
+    }
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -105,7 +103,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "ccdd29b8-5eaa-427c-817b-687a579a7834"
     },
     "fileId": "82L/WVpKZClIW0WrWEdb94",
     "sync": false

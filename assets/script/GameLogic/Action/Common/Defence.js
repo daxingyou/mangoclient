@@ -1,9 +1,20 @@
+var ActionBase = require('ActionBase')
+
 var Defence = function(attrs,ability,owner)
 {
-    ActionBase.call(this);
+    ActionBase.call(this,attrs,ability,owner);
 }
 
 Defence.prototype.constructor = Defence; // 需要修复下构造函数
+
+(function(){
+    // 创建一个没有实例方法的类
+    var Super = function(){};
+    Super.prototype = ActionBase.prototype;
+    //将实例作为子类的原型
+    Defence.prototype = new Super();
+  })();
+
 Defence.prototype.time = 0;
 
 Defence.prototype.enter = function(){

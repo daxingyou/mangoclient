@@ -1,12 +1,12 @@
 var CombatUnit = require('Combatunit')
 
 function Monster_(data,pos,teamid){
-    CombatUnit.call(this,data,pos,teamid);
-
     this.Hp = data.MaxHP;
     this.MaxHp = data.MaxHP;
     this.Mp = data.MaxMP;
     this.MaxMp = data.MaxMP;
+    
+    CombatUnit.call(this,data,pos,teamid);
 }
 
 (function(){
