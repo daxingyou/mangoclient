@@ -9,9 +9,10 @@
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 
 var loadRes = require('LoadRes');
+var UIBase = require('UIBase')
 
 cc.Class({
-    extends: cc.Component,
+    extends : UIBase,
 
     properties: {
         cards : cc.Label,

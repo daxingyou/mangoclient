@@ -13,6 +13,7 @@ var gameLogic = require("GameLogic")
 var fightMessage = require("fightMessage")
 var constant = require('constant')
 var actionfactory = require('ActionFactory')
+var uimgr = require('UIMgr')
 
 cc.Class({
     extends: cc.Component,
@@ -38,18 +39,21 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        
+
         actionfactory.init();
         ////数据加载
         dataMgr.init(()=>{
-            gameLogic.startFight(constant.CombatType.PVECombat,1);
+            //gameLogic.startFight(constant.CombatType.PVECombat,1);
         });
+        uimgr = cc.find('Canvas').getComponent('UIMgr');
+        uimgr.loadUI(constant.UI.Login);
 
-        var uuid = cc.sys.localStorage.getItem("uuid");
+        //fightMessage.init();
+
+        /*
         var host = "127.0.0.1";
         //host = "39.108.12.90";
         var port = 3010;
-        fightMessage.init();
         
         cc.log("uuid = %s",uuid);
         pomelo.init({
@@ -94,6 +98,7 @@ cc.Class({
                 });
             })
           });
+          */
     },
 
     start () {

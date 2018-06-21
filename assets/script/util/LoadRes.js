@@ -5,10 +5,13 @@
  */
 
 var load = {
-    load : function (path,callback){
+    load : function (path,callback,release){
         cc.loader.loadRes(path,function(err,res)
         {
             callback(res);
+            
+            if(release)
+                cc.loader.release(path);
         });
     },
 };

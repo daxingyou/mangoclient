@@ -12,5 +12,8 @@ cc.Class({
     },
     hide : function(){
         this.active = false;
+    },
+    Release : function(){
+        
     }
 });

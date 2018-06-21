@@ -45,7 +45,9 @@ module.exports = {
         enemy : 1,
     },
     UI : {
-        DMG : "UI/dmg/dmg",
+        DMG : {"id":3,"path":"UI/dmg/dmg","type":4,"script":"showDamge"},
+        Login : {"id":1,"path":'UI/login/login',"type":1,"script":"loginUI"},
+        Match : {"id":2,"path":'UI/match/match',"type":1,"script":"match"}
     },
     mixTime : 0.1,
 };

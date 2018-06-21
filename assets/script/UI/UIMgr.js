@@ -9,6 +9,7 @@
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 
 var constant = require('constant')
+var loadRes = require('LoadRes')
 
 cc.Class({
     extends: cc.Component,
@@ -16,7 +17,17 @@ cc.Class({
     properties: {
         uiRoot : cc.Node,
         tips : cc.Node,
-        dmg : cc.Prefab
+        dmg : cc.Prefab,
+
+        _curMainUI : null,
+        _curSecondUI : null,
+        _curThirdUI : null,
+        ///当前主 UI
+        _FirstMainUI : [],
+        ///二级 UI 
+        _SecondUI :  [],
+        /// tips 
+        _ThirdUI : []
     },
 
     onLoad () {
@@ -33,10 +44,63 @@ cc.Class({
     },
 
     // update (dt) {},
+    ///UI 加载接口
+    loadUI(ui,script){
 
-    loadUI(path){
+        if(ui.type == 1)
+        {
+            if(this._FirstMainUI[ui.id] != null)
+            {
+                this._curMainUI.hide();
+                this._curMainUI = this._FirstMainUI[ui.id];
+                this._curMainUI.show();
 
+                return this._curMainUI;
+            }
+        }
+        else if(ui.type == 2)
+        {
+            if(this._SecondUI[ui.id] != null)
+            {
+                this._curSecondUI.hide();
+                this._curSecondUI = this._SecondUI[ui.id];
+                this._curSecondUI.show();
+
+                return this._curSecondUI;
+            }
+        }
+        else if(ui.type == 3)
+        {
+            if(this._ThirdUI[ui.id] != null)
+            {
+                this._curThirdUI.hide();
+                this._curThirdUI = this._ThirdUI[ui.id];
+                this._curThirdUI.show();
+
+                return this._curThirdUI;
+            }
+        }
+
+        loadRes.load(ui.path,(data)=>{
+            var go = cc.instantiate(data);
+            go.parent = this.uiRoot;
+            var scr = go.getComponent(ui.script);
+
+            if(ui.type == 1)
+            {
+                this._FirstMainUI[ui.id] = scr;
+            }
+            else if(ui.type == 2)
+            {
+                this._SecondUI[ui.id] = scr;
+            }
+            else if(ui.type == 3)
+            {
+                this._ThirdUI[ui.id] = scr;
+            }
+        },true)
     },
+    ///伤害跳转接口
     loadDmg(combatunit,dmg){
         let enemy = null;
         if (this.dmgPool.size() > 0) { // 通过 size 接口判断对象池中是否有空闲的对象
@@ -47,8 +111,15 @@ cc.Class({
         enemy.parent = this.tips; // 将生成的敌人加入节点树
         enemy.getComponent('showDamge').init(combatunit,dmg,this); //接下来就可以调用 enemy 身上的脚本进行初始化
     },
+    ///伤害对象池收回
     collectDmg(dmg){
         this.dmgPool.put(dmg);
+    },
+    ///UI 资源释放
+    release(){
+        for(var i=0;i<_curMainUI.length;i++)
+        {
+            _curMainUI[i].Release();
+        }
     }
-
 });
