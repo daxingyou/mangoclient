@@ -85,6 +85,7 @@ cc.Class({
             var go = cc.instantiate(data);
             go.parent = this.uiRoot;
             var scr = go.getComponent(ui.script);
+            scr.init(this);
 
             if(ui.type == 1)
             {
@@ -117,9 +118,32 @@ cc.Class({
     },
     ///UI 资源释放
     release(){
-        for(var i=0;i<_curMainUI.length;i++)
+        for(var i=0;i<this._FirstMainUI.length;i++)
         {
-            _curMainUI[i].Release();
+            if(this._FirstMainUI[i] != null)
+            {
+                this._FirstMainUI[i].node.destroy();
+                //this._FirstMainUI[i].Release();
+            } 
         }
+
+        this._FirstMainUI.splice(0,this._FirstMainUI.length); 
+        this._curMainUI = null;
+
+        for(var i=0;i<this._SecondUI.length;i++)
+        {
+            this._SecondUI[i].node.destroy();
+        }
+
+        this._SecondUI.splice(0,this._SecondUI.length); 
+        this._curSecondUI = null;
+
+        for(var i=0;i<this._ThirdUI.length;i++)
+        {
+            this._ThirdUI[i].node.destroy();
+        }
+
+        this._ThirdUI.splice(0,this._ThirdUI.length); 
+        this._curThirdUI = null;
     }
 });

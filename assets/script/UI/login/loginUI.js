@@ -9,11 +9,11 @@
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 
 var dataCenter = require('DataCenter')
-var uiMgr = require('UIMgr')
+var uibase = require('UIBase')
 var constant = require('constant')
 
 cc.Class({
-    extends: cc.Component,
+    extends: uibase,
 
     properties: {
         userName : cc.EditBox,
@@ -42,7 +42,8 @@ cc.Class({
         var uid = this._userName;
         var host = "192.168.0.139";
         var port = 3010;
-        
+        var that = this;
+
         pomelo.init({
             host: host,
             port: port,
@@ -64,7 +65,8 @@ cc.Class({
                     cc.log("连接逻辑服 成功" + data.code + Object.keys(data.info));
 
                     dataCenter.uid =  data.info;
-                    uiMgr.loadUI(constant.UI.Login);
+                    that._mgr.release();
+                    that._mgr.loadUI(constant.UI.Match);
                 });
                 });
             })

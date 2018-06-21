@@ -2,10 +2,11 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
+        _mgr : null,
     },
 
-    init : function(){
-
+    init : function(mgr){
+        this._mgr = mgr;
     },
     show : function(){
         this.active = true;
@@ -14,6 +15,6 @@ cc.Class({
         this.active = false;
     },
     Release : function(){
-        
+        this.node.destory();
     }
 });

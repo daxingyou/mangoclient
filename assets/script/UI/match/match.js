@@ -9,6 +9,9 @@
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 
 var UIBase = require('UIBase')
+var net = require('NetPomelo')
+var matchProto = require('matchProto')
+var consts = require('consts')
 
 cc.Class({
     extends: UIBase,
@@ -42,6 +45,8 @@ cc.Class({
     // update (dt) {},
 
     match(){
-        
+        net.Request(new matchProto(consts.MatchType.PVE_1,1),(data)=>{
+            
+        });
     }
 });

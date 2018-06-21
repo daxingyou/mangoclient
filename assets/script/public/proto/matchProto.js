@@ -6,14 +6,14 @@
  */
 
 
-function matchProto(data) {
+function matchProto(matchType,dgId) {
     this.head = "connector.matchHandler.match";
-    this.data = new matchData(data);
+    this.data = new matchData(matchType,dgId);
 }
 
-function matchData(data){
-    this.matchType = data.matchType;
-    this.dgId = data.dgId;
+function matchData(matchType,dgId){
+    this.matchType = matchType;
+    this.dgId = dgId;
 }
 
 module.exports = matchProto;
