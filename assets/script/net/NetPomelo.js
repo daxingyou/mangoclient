@@ -3,12 +3,14 @@
  *      by pwh
  */
 
+//var consts = require('consts')
+
 var netPomelo = {
     Request : function(proto,callback){
         cc.log("pomelo.request head = " + proto.head + " data = " + proto.data);
         pomelo.request(proto.head,proto.data,function(data){
 
-            cc.log("pomelo.respone " + data);
+            cc.log("pomelo.respone " + data.code);
             callback(data);
         });
     }

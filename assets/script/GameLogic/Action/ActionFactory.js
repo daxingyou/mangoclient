@@ -1,4 +1,5 @@
-var Attack = require('Attack');
+var Attack = require('Attack')
+var Defence = require('Defence')
 
 var factory ={
     actions : [],
@@ -6,6 +7,7 @@ var factory ={
     init : function()
     {
         this.actions['attack'] = Attack;
+        this.actions['defence'] = Defence;
     }
 }
 

@@ -19,6 +19,9 @@ cc.Class({
         tips : cc.Node,
         dmg : cc.Prefab,
 
+        ///上级
+        _beforeUI : null,
+
         _curMainUI : null,
         _curSecondUI : null,
         _curThirdUI : null,
@@ -45,8 +48,7 @@ cc.Class({
 
     // update (dt) {},
     ///UI 加载接口
-    loadUI(ui,script){
-
+    loadUI(ui,callback){
         if(ui.type == 1)
         {
             if(this._FirstMainUI[ui.id] != null)
@@ -55,6 +57,8 @@ cc.Class({
                 this._curMainUI = this._FirstMainUI[ui.id];
                 this._curMainUI.show();
 
+                if(callback != undefined)
+                    callback(this._curSecondUI);
                 return this._curMainUI;
             }
         }
@@ -66,6 +70,8 @@ cc.Class({
                 this._curSecondUI = this._SecondUI[ui.id];
                 this._curSecondUI.show();
 
+                if(callback != undefined)
+                    callback(this._curSecondUI);
                 return this._curSecondUI;
             }
         }
@@ -77,6 +83,8 @@ cc.Class({
                 this._curThirdUI = this._ThirdUI[ui.id];
                 this._curThirdUI.show();
 
+                if(callback != undefined)
+                    callback(this._curThirdUI);
                 return this._curThirdUI;
             }
         }
@@ -99,6 +107,9 @@ cc.Class({
             {
                 this._ThirdUI[ui.id] = scr;
             }
+
+            if(callback != undefined)
+                callback(scr);
         },true)
     },
     ///伤害跳转接口
@@ -145,5 +156,10 @@ cc.Class({
 
         this._ThirdUI.splice(0,this._ThirdUI.length); 
         this._curThirdUI = null;
+    },
+    showTips :function(str){
+        this.loadUI(constant.UI.Tips,(data)=>{
+            data.showText(str);
+        });
     }
 });

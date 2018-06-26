@@ -1,6 +1,7 @@
 var ActionBase = require('ActionBase')
 var constant = require('constant')
 var utility = require('utility')
+var gameLogic = require('GameLogic')
 
 var Attack = function(attrs,ability,owner,action)
 {
@@ -20,12 +21,12 @@ Attack.prototype.constructor = Attack; // 需要修复下构造函数
 Attack.prototype.enter = function(){
     if(this.action.Objective == constant.SkillTargetType.ALL)
     {
-        //var enemys = gameLogic.getEnemys(owner);
+        var enemys = gameLogic.getEnemys(owner);
 
-        //for(var i =0 ;i<enemys.length;i++)
-        //{
-        //    util.computeDamage(owner,enemys[i],this.attrs['dmg']);
-        //}
+        for(var i =0 ;i<enemys.length;i++)
+        {
+            utility.computeDamage(this.owner,enemys[i],this.attrs['dmg']);
+        }
     }
     else if(this.action.Objective == constant.SkillTargetType.SINGEL)
     {

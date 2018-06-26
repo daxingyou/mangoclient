@@ -16,5 +16,8 @@ cc.Class({
     },
     Release : function(){
         this.node.destory();
+    },
+    bacKButton : function(){
+        
     }
 });

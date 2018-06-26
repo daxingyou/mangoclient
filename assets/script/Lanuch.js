@@ -10,7 +10,7 @@
 
 var dataMgr = require("DataMgr")
 var gameLogic = require("GameLogic")
-var fightMessage = require("fightMessage")
+var matchMessage = require("matchMessage")
 var constant = require('constant')
 var actionfactory = require('ActionFactory')
 var uimgr = require('UIMgr')
@@ -48,7 +48,9 @@ cc.Class({
         uimgr = cc.find('Canvas').getComponent('UIMgr');
         uimgr.loadUI(constant.UI.Login);
 
-        //fightMessage.init();
+        ///网络消息注册
+
+        matchMessage.init();
 
         /*
         var host = "127.0.0.1";

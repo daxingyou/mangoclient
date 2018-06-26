@@ -17,36 +17,50 @@ cc.Class({
     extends: UIBase,
 
     properties: {
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
+        match : cc.Node,
+        select : cc.Node,
+        _type : 0,
+        //begin : 0,
+        //matching : 1,
+        //select : 2,
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
+    onLoad () {
+        //this.match.active = true;
+        //this.select.active = true;
+        //this._type = 0;
+    },
 
     start () {
+        this.match.active = true;
+        this.select.active = true;
+        this._type = 0;
+    },
+
+    update (dt) {
 
     },
 
-    // update (dt) {},
+    matchTeam(){
+        this._type = 1;
+        this._mgr.showTips('正在匹配');
+        net.Request(new matchProto(consts.MatchType.PVE_2,1),(data)=>{
+            console.log("match "+data);
 
-    match(){
-        net.Request(new matchProto(consts.MatchType.PVE_1,1),(data)=>{
-            
+            ///匹配成功
+            if(data.code == 1)
+            {
+                this._type = 2;
+
+                this.match.active = false;
+                this.select.active = true;
+            }  ///队列中
+            else if(data.code == 2)
+            {
+
+            }
         });
     }
 });

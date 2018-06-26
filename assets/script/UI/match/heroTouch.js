@@ -8,42 +8,32 @@
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 
-/**
- *      操作管理类
- *      先设定当前使用的卡组再设定目标
- *      by pwh
- */
-
-var constant = require('constant')
-
 cc.Class({
     extends: cc.Component,
 
     properties: {
-        _curCard : null,
-        _target : null,
+        param : '',
+        parentUI : cc.Node
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {
-        //this.node.on('touchmove', function ( event ) {console.log('Hello! input listen');});
-    },
+    // onLoad () {},
 
     start () {
-
+        this.node.on('touchstart',this.listen,this);
     },
-    selelctCard(card){
-        /// 显示角色勾边
-        
-    },
-    selelctTarget(target){
-        if(_curCard == null)
-            return;
+    listen(event){
+        var that = this;
+        var ui = that.parentUI.getComponent('selectHero');
 
-        if(_curCard.ability.Objective = "")
+        if(that.param == 'man')
         {
-            //target.teamid
+            ui.manSelect(event);
+        }
+        else if(that.param == 'woman')
+        {
+            ui.womanSelect(event);
         }
     }
 

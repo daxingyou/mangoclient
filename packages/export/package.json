@@ -1,0 +1,26 @@
+{
+  "name": "export",
+  "version": "0.0.1",
+  "description": "The package template for getting started.",
+  "author": "Cocos Creator",
+  "main": "main.js",
+  "main-menu": {
+    "i18n:MAIN_MENU.package.title/export/open": {
+      "message": "export:open"
+    },
+    "i18n:MAIN_MENU.package.title/export/hello": {
+      "message": "export:say-hello"
+    },
+    "i18n:MAIN_MENU.package.title/export/export": {
+      "message": "export:say-hello"
+    }
+  },
+  "panel": {
+    "main": "panel/index.js",
+    "type": "dockable",
+    "title": "export",
+    "width": 400,
+    "height": 300
+  },
+  "scene-script": "scene-walker.js"
+}
