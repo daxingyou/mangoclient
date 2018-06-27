@@ -1,12 +1,16 @@
+var uiMgr = require('UIMgr')
+
 var fight = {
+    _uimgr : null,
+
     init : function(){
+        this._uimgr = cc.find('Canvas').getComponent('UIMgr');
+        var that = this;
         pomelo.on('onBeginSelect', function (data){
             cc.log('匹配成功, 开始选英雄', data.teamInfo);
-            //setTimeout(function(){
-                //pomelo.request("fight.fightHandler.selectHero", {heroid: [1000, 2000][Math.floor(Math.random() * 2)]}, function(data){
-                //    cc.log("选择英雄结果：" + data.code);
-                //})
-            //}, 5000)
+            
+            var ui = that._uimgr.getCurMainUI();
+            ui.showSelect();
         });
     
         pomelo.on('onSelectHeroNotify', function (data){
@@ -18,20 +22,16 @@ var fight = {
         });
     
         pomelo.on('onEnterLoadCD', function (data){
-            cc.log('加载前倒计时:');
+            cc.log('加载前倒计时:'+data);
         });
     
         pomelo.on('onStartLoad', function(data){
             cc.log('开始加载战斗：', data.teamInfo, data.myInfo);
-            setTimeout(function(){
-                pomelo.request("fight.fightHandler.loadFinished", {}, function(data){
-                    cc.log("xxxxxxx");
-                })
-            })
+            
         });
     
         pomelo.on('onFightBegin', function(data){
-            cc.log('战斗开始');
+            cc.log('战斗开始'+data);
         });
     
         pomelo.on('onUseCard', function(data){

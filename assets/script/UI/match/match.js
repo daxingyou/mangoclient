@@ -20,7 +20,7 @@ cc.Class({
         match : cc.Node,
         select : cc.Node,
         _type : 0,
-        //begin : 0,
+        selectScr : UIBase,
         //matching : 1,
         //select : 2,
     },
@@ -35,7 +35,7 @@ cc.Class({
 
     start () {
         this.match.active = true;
-        this.select.active = true;
+        this.select.active = false;
         this._type = 0;
     },
 
@@ -53,14 +53,15 @@ cc.Class({
             if(data.code == 1)
             {
                 this._type = 2;
-
-                this.match.active = false;
-                this.select.active = true;
             }  ///队列中
             else if(data.code == 2)
             {
-
+                this._mgr.showTips('队列中');
             }
         });
+    }, ///显示选择英雄
+    showSelect(){
+        this.match.active = false;
+        this.select.active = true;
     }
 });

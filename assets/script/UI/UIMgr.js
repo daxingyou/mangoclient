@@ -98,14 +98,17 @@ cc.Class({
             if(ui.type == 1)
             {
                 this._FirstMainUI[ui.id] = scr;
+                this._curMainUI = scr;
             }
             else if(ui.type == 2)
             {
                 this._SecondUI[ui.id] = scr;
+                this._curSecondUI = scr;
             }
             else if(ui.type == 3)
             {
                 this._ThirdUI[ui.id] = scr;
+                this._curThirdUI = scr;
             }
 
             if(callback != undefined)
@@ -156,10 +159,13 @@ cc.Class({
 
         this._ThirdUI.splice(0,this._ThirdUI.length); 
         this._curThirdUI = null;
-    },
+    },  ///显示tips 
     showTips :function(str){
         this.loadUI(constant.UI.Tips,(data)=>{
             data.showText(str);
         });
+    },  ///获取当前主UI
+    getCurMainUI (){
+        return this._curMainUI;
     }
 });

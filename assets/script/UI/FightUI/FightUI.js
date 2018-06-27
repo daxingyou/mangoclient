@@ -10,6 +10,7 @@
 
 var loadRes = require('LoadRes');
 var UIBase = require('UIBase')
+var constant = require('constant')
 
 cc.Class({
     extends : UIBase,
@@ -25,8 +26,8 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        ///
-        loadRes.load('UI/fightUI/Card',(prefab)=>{
+
+        loadRes.load(constant.UI.FightCard,(prefab)=>{
             for(var i =0;i<10;i++)
             {
                 var node = cc.instantiate(prefab);
@@ -45,8 +46,12 @@ cc.Class({
         
     },
 
-    // update (dt) {},
+    update (dt) {
 
+    },
+    init(){
+
+    },
     OnFresh : function(data){
         this.ShowHandCards(data.playerCards);
         this.cards.string = data.cards.toString();
