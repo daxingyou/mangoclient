@@ -7,9 +7,14 @@
 var dataMgr = require('DataMgr');
 
 var sceneMgr = {
-    curid : Int16Array,
+    curid : 0,
+    sceneRoot : null,
 
     loadScene : function(id,callback){
+        if(this.sceneRoot == null)
+            this.sceneRoot = cc.find('background');
+            
+
         this.curid = id;
         var sceneData = dataMgr.scene[id];
 

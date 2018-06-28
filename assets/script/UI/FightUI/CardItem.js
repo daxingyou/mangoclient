@@ -24,7 +24,7 @@ cc.Class({
     start () {
 
     },
-    init (data){
+    initData(data){
         //console.log(this.super);
         this.Name.string = data.toString();
     }

@@ -1,3 +1,3 @@
 module.exports = {
-    uid : 0
+    uuid : 0
 }

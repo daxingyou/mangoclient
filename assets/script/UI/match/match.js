@@ -37,6 +37,7 @@ cc.Class({
         this.match.active = true;
         this.select.active = false;
         this._type = 0;
+        this.selectScr.init(this._mgr);
     },
 
     update (dt) {

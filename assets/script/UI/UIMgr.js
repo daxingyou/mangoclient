@@ -132,30 +132,35 @@ cc.Class({
     },
     ///UI 资源释放
     release(){
-        for(var i=0;i<this._FirstMainUI.length;i++)
+        
+        for(var x in this._FirstMainUI)
         {
-            if(this._FirstMainUI[i] != null)
-            {
-                this._FirstMainUI[i].node.destroy();
-                //this._FirstMainUI[i].Release();
-            } 
+            this._FirstMainUI[x].node.destroy();
         }
 
         this._FirstMainUI.splice(0,this._FirstMainUI.length); 
         this._curMainUI = null;
 
+        this._SecondUI.forEach(function(x, index, a){
+            x.node.destroy();
+        });
+        /*
         for(var i=0;i<this._SecondUI.length;i++)
         {
             this._SecondUI[i].node.destroy();
-        }
+        }*/
 
         this._SecondUI.splice(0,this._SecondUI.length); 
         this._curSecondUI = null;
 
+        this._ThirdUI.forEach(function(x, index, a){
+            x.node.destroy();
+        });
+        /*
         for(var i=0;i<this._ThirdUI.length;i++)
         {
             this._ThirdUI[i].node.destroy();
-        }
+        }*/
 
         this._ThirdUI.splice(0,this._ThirdUI.length); 
         this._curThirdUI = null;

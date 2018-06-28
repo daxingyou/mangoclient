@@ -22,22 +22,22 @@ cc.Class({
         matchUI : cc.Node,
         man : cc.Node,
         woman : cc.Node,
-        cdTimeLable : cc.Node,
+        cdTimeLable : cc.Label,
         cdTime : 10,
-        _CDState : true,
+        _CDState : false,
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        
     },
 
     onEnable(){
+        this._CDState = false;
         if(this.woman != null)
             ShaderUtils.setShader(this.woman, "gray");
-        //if(this.man != null)
-        //    ShaderUtils.setShader(this.man, "normal");
+        if(this.man != null)
+            ShaderUtils.setShader(this.man, "normal");
     },
 
     onDisable(){
@@ -49,15 +49,18 @@ cc.Class({
     },
 
     update (dt) {
-        if(_CDState)
+        if(this._CDState)
         {
-            cdTime -= dt;
-            if(cdTime <= 0){
-                _CDState = false;
+            this.cdTime -= dt;
+            var temp = Math.floor(this.cdTime);
+            this.cdTimeLable.string = temp.toString();
+            if(this.cdTime <= 0){
+                this.cdTimeLable.string = '0';
+                this._CDState = false;
                 this._mgr.loadUI(constant.UI.Fight,function(data){
                     
                 })
-                _uiMgr.release();
+                this._mgr.release();
             }
         }
     },
@@ -119,8 +122,12 @@ cc.Class({
         console.log('womanSelect');
     },
     beginFight(){
+        var that = this;
         net.Request(new confirmHeroProto(),function(data){
-            _CDState = true;
+            
         });
+    },
+    beginLoadCD(){
+        this._CDState = true;
     }
 });

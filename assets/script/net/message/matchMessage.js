@@ -1,4 +1,4 @@
-var uiMgr = require('UIMgr')
+var combatMgr = require('CombatMgr')
 
 var fight = {
     _uimgr : null,
@@ -23,11 +23,16 @@ var fight = {
     
         pomelo.on('onEnterLoadCD', function (data){
             cc.log('加载前倒计时:'+data);
+            var ui = that._uimgr.getCurMainUI();
+            ui.selectScr.beginLoadCD();
         });
     
         pomelo.on('onStartLoad', function(data){
             cc.log('开始加载战斗：', data.teamInfo, data.myInfo);
             
+            combatMgr.initCombat(data);
+            //var ui = that._uimgr.getCurMainUI();
+            //ui.showSelect();
         });
     
         pomelo.on('onFightBegin', function(data){

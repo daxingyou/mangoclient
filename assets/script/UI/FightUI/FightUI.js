@@ -8,7 +8,6 @@
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 
-var loadRes = require('LoadRes');
 var UIBase = require('UIBase')
 var constant = require('constant')
 
@@ -26,8 +25,11 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
+        
+    },
 
-        loadRes.load(constant.UI.FightCard,(prefab)=>{
+    start () {
+        this._mgr.loadUI(constant.UI.FightCard,(prefab)=>{
             for(var i =0;i<10;i++)
             {
                 var node = cc.instantiate(prefab);
@@ -35,21 +37,13 @@ cc.Class({
                 node.active = false;
                 node.parent = this.HandsCardRoot;
                 node.position = new cc.Vec2(50 * i,0);
-                //console.log(node.position);
-                var carditem = node.getComponent('CardItem');
-                this._HandsCards.push(carditem);
+            
+                this._HandsCards.push(node);
             }
         });
     },
 
-    start () {
-        
-    },
-
     update (dt) {
-
-    },
-    init(){
 
     },
     OnFresh : function(data){

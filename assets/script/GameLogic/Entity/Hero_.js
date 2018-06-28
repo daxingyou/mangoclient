@@ -12,8 +12,8 @@ function Hero_(data,attributes,pos,teamid){
     CombatUnit.call(this,data,pos,teamid);
     
     ////测试用
-    var card = new Card(1);
-    this.handsPile.push(card);
+    //var card = new Card(1);
+    //this.handsPile.push(card);
 }
 
 (function(){

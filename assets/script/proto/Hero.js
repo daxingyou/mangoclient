@@ -11,6 +11,7 @@ function Hero(data)
 	 this.InitialCard = data.InitialCard;// Int16Array  初始手牌
 	 this.InitialMP = data.InitialMP;// Int16Array  初始灵力
 	 this.InitialDrawPile = data.InitialDrawPile;// list  牌库初始卡牌
+	 this.PosPriority = data.PosPriority;// Int16Array  位置优先级
 }
 
  module.exports = Hero; 

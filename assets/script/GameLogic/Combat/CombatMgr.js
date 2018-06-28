@@ -4,6 +4,7 @@
  *    by pwh  
  */
 
+var consts = require('consts') 
 var constant = require('constant')
 var PVECombat = require('PVECombat')
 
@@ -11,11 +12,26 @@ var CombatMgr = {
     curCombat : null,
     curIndex : 0,
 
-    initCombat : function(combatType){
-        if(combatType == constant.CombatType.PVECombat)
+    initCombat : function(data){
+        
+        if(data.matchType == consts.MatchType.PVE_1)
+        {
+            //this.curCombat = new PVECombat();
+        }
+        else if(data.matchType == consts.MatchType.PVE_2)
         {
             this.curCombat = new PVECombat();
         }
+        else if(data.matchType == consts.MatchType.PVE_3)
+        {
+            //this.curCombat = new PVECombat();
+        }
+        else if(data.matchType == consts.MatchType.PVP)
+        {
+            //this.curCombat = new PVECombat();
+        }
+
+        this.curCombat.init(data);
     },
     setMatrix : function (group){
         this.curCombat.init(group);
