@@ -10,7 +10,7 @@
 
 var dataCenter = require('DataCenter')
 var uibase = require('UIBase')
-var constant = require('constant')
+var constant = require('constants')
 
 cc.Class({
     extends: uibase,
@@ -64,7 +64,7 @@ cc.Class({
                 pomelo.request("connector.entryHandler.enter",{code:uuid},function(data){
                     cc.log("连接逻辑服 成功" + data.code + Object.keys(data.info));
 
-                    dataCenter.uid =  data.info;
+                    dataCenter.uuid =  data.info.id;
                     that._mgr.release();
                     that._mgr.loadUI(constant.UI.Match);
                 });

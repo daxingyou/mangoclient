@@ -11,7 +11,7 @@
 var dataMgr = require("DataMgr")
 var gameLogic = require("GameLogic")
 var matchMessage = require("matchMessage")
-var constant = require('constant')
+var constant = require('constants')
 var actionfactory = require('ActionFactory')
 var uimgr = require('UIMgr')
 

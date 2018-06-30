@@ -14,7 +14,7 @@
  *      by pwh
  */
 
-var constant = require('constant')
+var constant = require('constants')
 
 cc.Class({
     extends: cc.Component,
@@ -28,6 +28,9 @@ cc.Class({
 
     onLoad () {
         //this.node.on('touchmove', function ( event ) {console.log('Hello! input listen');});
+        //this.node.on('touchmove', function ( event ) {
+        //    console.log('Hello! card listen touchmove');
+        //});
     },
 
     start () {

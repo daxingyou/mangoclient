@@ -1,7 +1,6 @@
 var CombatUnit = require('Combatunit')
 var Card = require('HandCard')
 
-
 function Hero_(data,attributes,pos,teamid){
 
     this.Hp = attributes.HeroMaxHP;
@@ -10,10 +9,6 @@ function Hero_(data,attributes,pos,teamid){
     this.MaxMp = attributes.HeroMaxMP;
 
     CombatUnit.call(this,data,pos,teamid);
-    
-    ////测试用
-    //var card = new Card(1);
-    //this.handsPile.push(card);
 }
 
 (function(){
@@ -25,5 +20,17 @@ function Hero_(data,attributes,pos,teamid){
   })();
 
   Hero_.prototype.constructor = Hero_;
+
+  Hero_.prototype.handsPile = [];
+
+  ///初始化当前玩家初始手牌
+  Hero_.prototype.InitHands = function(hands){
+    for(var i = 0; i<hands.length;i++)
+    {
+        let test = 'asd';
+        this.handsPile.push(new Card(hands[i],this));
+        test = 'aaa';
+    }
+  }
 
 module.exports = Hero_;

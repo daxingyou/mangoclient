@@ -5,7 +5,7 @@
  */
 
 var consts = require('consts') 
-var constant = require('constant')
+var constant = require('constants')
 var PVECombat = require('PVECombat')
 
 var CombatMgr = {
@@ -43,19 +43,19 @@ var CombatMgr = {
         return this.curCombat.own;
     },
     getSelf : function(){
-        return this.curCombat.own[0];
+        return this.curCombat.own[this.curCombat.curPlayerIndex];
     },
     Tick : function(dt){
         if(this.curCombat != null)
         {
             this.curCombat.Tick();
 
-            for(var i = 0;i<this.curCombat.enemy.length;i++)
+            for(var i in this.curCombat.enemy)
             {
                 this.curCombat.enemy[i].tick(dt);
             }
 
-            for(var i = 0;i<this.curCombat.own.length;i++)
+            for(var i in this.curCombat.own)
             {
                 this.curCombat.own[i].tick(dt);
             }

@@ -11,6 +11,8 @@ function Skill(data)
 	 this.Objective = data.Objective;// String  目标
 	 this.Conditions = data.Conditions;// String  条件
 	 this.Actions = data.Actions;// String  行为
+	 this.Animation = data.Animation;// String  动画
+	 this.Effect = data.Effect;// String  特效
 }
 
  module.exports = Skill; 

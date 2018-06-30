@@ -4,9 +4,9 @@
  */
 
 var loadRes = require('LoadRes')
-var constant = require('constant')
+var constant = require('constants')
 
- var Agent = function(path,pos,teamid,hp){
+ var Agent = function(path,pos,teamid,hp,loadok){
     this.go = null;
     this.hpbar = null;
 
@@ -15,6 +15,7 @@ var constant = require('constant')
         this.go.parent = cc.find('Canvas/pool'); 
         this.go.position = cc.v2(pos.pos.x,pos.pos.y);
         this.go.scaleX = teamid == constant.Team.own ? constant.Team.enemy : -1;
+        loadok();
     })
 
     loadRes.load('UI/hero/hpBar',(data)=>{

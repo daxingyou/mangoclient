@@ -4,7 +4,7 @@ var Monster_ = require('Monster_')
 var dataMgr = require('DataMgr')
 var dict = require('dict')
 var MatrixPos = require('MatrixPos') 
-var constant = require('constant') 
+var constant = require('constants') 
 
 var PVECombat = function(){
     Combat.call(this);

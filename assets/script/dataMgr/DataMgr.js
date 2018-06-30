@@ -1,4 +1,4 @@
-var constant = require('constant')
+var constant = require('constants')
 var Dungeon = require('Dungeon')
 var Scene = require('Scene')
 var Monster = require('Monster')

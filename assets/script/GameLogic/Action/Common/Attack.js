@@ -1,5 +1,5 @@
 var ActionBase = require('ActionBase')
-var constant = require('constant')
+var constant = require('constants')
 var utility = require('utility')
 var gameLogic = require('GameLogic')
 

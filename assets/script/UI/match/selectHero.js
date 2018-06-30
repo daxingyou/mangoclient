@@ -13,7 +13,7 @@ var ShaderUtils = require("ShaderUtils")
 var net = require("NetPomelo")
 var selectHeroProto = require("selectHeroProto")
 var confirmHeroProto = require("confirmHeroProto")
-var constant = require("constant")
+var constant = require('constants')
 
 cc.Class({
     extends: UIBase,

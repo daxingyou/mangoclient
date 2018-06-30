@@ -1,31 +1,30 @@
 /**
- *    行为基类
+ *    技能基类
  *    返回构造函数 
  *    by pwh  
  */
 
 var Action = require('TAtest')
-var constant = require('constant')
+var constant = require('constants')
 
-var Ability = function(data,owner){
-
-	for(var i =0;i<data.length;i++)
+var ability = function(data,owner){
+	this.actions = new Array(data.length);
+	for(var i in data)
 	{
 		this.ID = data[i].ID;// Int16Array  编号
-		var item = new Action(data[i],this,owner);
-		this.actions[i] = item;
+		//this.actions = new Action(data[i],this,owner);
 	}
 }
 
-Ability.prototype.owner = null;
+ability.prototype.owner = null;
 ///当前目标
-Ability.prototype.curTarget = null;
+ability.prototype.curTarget = null;
 ///技能是否生效
-Ability.prototype.active = false;
+ability.prototype.active = false;
 ///行为列表
-Ability.prototype.actions = [];
+ability.prototype.actions = null;
 ///技能生效
-Ability.prototype.Active = function(Target){
+ability.prototype.Active = function(Target){
 	this.active = true;
 	this.curTarget = Target;
 
@@ -33,13 +32,14 @@ Ability.prototype.Active = function(Target){
 	{
 		this.actions[i].Active();
 	}
+	this.actions.Active();
 }
 ///技能失效
-Ability.prototype.Exit = function(){
+ability.prototype.Exit = function(){
 
 }
 
-Ability.prototype.ActionExit = function(index){
+ability.prototype.ActionExit = function(index){
 	this.actions.slice(index,1);
 
 	if(this.actions.length == 0)
@@ -47,7 +47,7 @@ Ability.prototype.ActionExit = function(index){
 }
 
 //////////////////////// event ////////////////////////
-Ability.prototype.onDie = function(){
+ability.prototype.onDie = function(){
 	for(var i=0;i<actions.length;i++)
 	{
 		if(this.actions[i].Conditions == constant.SkillActiveType.OnDie){
@@ -58,7 +58,7 @@ Ability.prototype.onDie = function(){
 }
 
 ///使用卡牌监听
-Ability.prototype.onUsePile = function(){
+ability.prototype.onUsePile = function(){
 	for(var i=0;i<this.actions.length;i++)
 	{
 		if(this.actions[i].Conditions == constant.SkillActiveType.OnUsePile){
@@ -68,7 +68,7 @@ Ability.prototype.onUsePile = function(){
 	}
 }
 ////抽牌
-Ability.prototype.onDrawPile = function(){
+ability.prototype.onDrawPile = function(){
 	for(var i=0;i<this.actions.length;i++)
 	{
 		if(this.actions[i].Conditions == constant.SkillActiveType.onDrawPile){
@@ -77,7 +77,7 @@ Ability.prototype.onDrawPile = function(){
 		}
 	}
 }
-Ability.prototype.onDamage = function(){
+ability.prototype.onDamage = function(){
 	for(var i=0;i<this.actions.length;i++)
 	{
 		if(this.actions[i].Conditions == constant.SkillActiveType.onDamage){
@@ -86,12 +86,11 @@ Ability.prototype.onDamage = function(){
 		}
 	}
 }
-Ability.prototype.tick = function(dt){
+ability.prototype.tick = function(dt){
 	for(var i=0;i<this.actions.length;i++)
 	{
 		this.actions[i].tick(dt);
 	}
 }
 
-
-module.exports = Ability;
+module.exports = ability;

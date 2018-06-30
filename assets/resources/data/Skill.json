@@ -5,7 +5,9 @@
     "SkillName": "攻击",
     "Objective": "{\"type\":\"singel\",\"team\":1}",
     "Conditions": "",
-    "Actions": "damage:{\"dmg\":60}"
+    "Actions": "damage:{\"dmg\":60}",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 2,
@@ -13,7 +15,9 @@
     "SkillName": "防御",
     "Objective": "{\"type\":\"singel\",\"team\":0}",
     "Conditions": "",
-    "Actions": "physicalArm:{\"value\":60,\"time\":5}"
+    "Actions": "physicalArm:{\"arm\":60,\"time\":5}",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 1001,
@@ -21,7 +25,9 @@
     "SkillName": "桃木刃",
     "Objective": "{\"type\":\"singel\",\"team\":1}",
     "Conditions": "",
-    "Actions": "damage:{\"dmg\":45}"
+    "Actions": "damage:{\"dmg\":45}",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 1001,
@@ -29,7 +35,9 @@
     "SkillName": "桃木刃",
     "Objective": "",
     "Conditions": "",
-    "Actions": ""
+    "Actions": "spawnSummoned:{\"type\":\"wSword\",\"num\":1,\"area\":\"random\"}",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 1002,
@@ -37,7 +45,9 @@
     "SkillName": "木藤刺",
     "Objective": "{\"type\":\"singel\",\"team\":1}",
     "Conditions": "",
-    "Actions": "damage:{\"dmg\":25}"
+    "Actions": "damage:{\"dmg\":25}",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 1002,
@@ -45,7 +55,9 @@
     "SkillName": "木藤刺",
     "Objective": "{\"type\":\"self\",\"team\":0}",
     "Conditions": "",
-    "Actions": "physicalArm:{\"value\":15,\"time\":5}"
+    "Actions": "physicalArm:{\"arm\":15,\"time\":5}",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 1002,
@@ -53,7 +65,9 @@
     "SkillName": "木藤刺",
     "Objective": "",
     "Conditions": "",
-    "Actions": ""
+    "Actions": "spawnSummoned:{\"type\":\"wSword\",\"num\":1,\"area\":\"random\"}",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 1003,
@@ -61,7 +75,9 @@
     "SkillName": "木剑雨",
     "Objective": "{\"type\":\"all\",\"team\":1}",
     "Conditions": "",
-    "Actions": "damage:{\"dmg\":45}"
+    "Actions": "damage:{\"dmg\":45}",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 1003,
@@ -69,7 +85,9 @@
     "SkillName": "木剑雨",
     "Objective": "",
     "Conditions": "",
-    "Actions": ""
+    "Actions": "spawnSummoned:{\"type\":\"wSword\",\"numType\":\"hit\",\"area\":\"random\"}",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 1004,
@@ -77,7 +95,9 @@
     "SkillName": "剑灵乱舞",
     "Objective": "{\"type\":\"self\",\"team\":0}",
     "Conditions": "onUseCard:{\"num\":1,\"cardType\":1,\"cardQuality\":1,\"cardAttributes\":1}",
-    "Actions": ""
+    "Actions": "",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 1004,
@@ -85,7 +105,9 @@
     "SkillName": "剑灵乱舞",
     "Objective": "{\"type\":\"random\",\"team\":1}",
     "Conditions": "",
-    "Actions": "damage:{\"dmg\":5}"
+    "Actions": "damage:{\"dmg\":5}",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 1005,
@@ -93,7 +115,9 @@
     "SkillName": "横剑摆渡",
     "Objective": "{\"type\":\"self\",\"team\":0}",
     "Conditions": "onUseCard:{\"num\":5,\"cardType\":2,\"cardQuality\":1,\"cardAttributes\":1}",
-    "Actions": ""
+    "Actions": "",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 1005,
@@ -101,7 +125,9 @@
     "SkillName": "横剑摆渡",
     "Objective": "{\"type\":\"self\",\"team\":0}",
     "Conditions": "",
-    "Actions": "drawCard:{\"num\":1,\"cardType\":1,\"cardQuality\":1,\"cardAttributes\":1,\"piletype\":2}"
+    "Actions": "drawCard:{\"num\":1,\"cardType\":1,\"cardQuality\":1,\"cardAttributes\":1,\"piletype\":2}",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 1006,
@@ -109,7 +135,9 @@
     "SkillName": "桃木刃匣",
     "Objective": "{\"type\":\"self\",\"team\":0}",
     "Conditions": "",
-    "Actions": "create:{\"cardid\":1008,\"num\":3}"
+    "Actions": "create:{\"cardID\":1001,\"num\":3}",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 1007,
@@ -117,7 +145,9 @@
     "SkillName": "枯木逢春",
     "Objective": "{\"type\":\"self\",\"team\":0}",
     "Conditions": "",
-    "Actions": "drawCard:{\"num\":2,\"cardType\":1,\"cardQuality\":1,\"cardAttributes\":1,\"piletype\":2}"
+    "Actions": "drawCard:{\"num\":2,\"cardType\":1,\"cardQuality\":1,\"cardAttributes\":1,\"piletype\":2}",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 1007,
@@ -125,7 +155,9 @@
     "SkillName": "枯木逢春",
     "Objective": "",
     "Conditions": "",
-    "Actions": ""
+    "Actions": "spawnSummoned:{\"type\":\"wSword\",\"num\":1,\"area\":\"random\"}",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 1008,
@@ -133,7 +165,9 @@
     "SkillName": "取竹成剑",
     "Objective": "{\"type\":\"self\",\"team\":0}",
     "Conditions": "",
-    "Actions": "drawCard:{\"num\":1,\"cardType\":1,\"cardQuality\":1,\"cardAttributes\":1,\"piletype\":2}"
+    "Actions": "drawCard:{\"num\":1,\"cardType\":1,\"cardQuality\":1,\"cardAttributes\":1,\"piletype\":2}",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 1008,
@@ -141,23 +175,29 @@
     "SkillName": "取竹成剑",
     "Objective": "",
     "Conditions": "",
-    "Actions": ""
+    "Actions": "spawnSummoned:{\"type\":\"wSword\",\"num\":3,\"area\":\"random\"}",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 1009,
     "Index": 1,
     "SkillName": "秋镰游刃",
-    "Objective": "",
+    "Objective": "{\"type\":\"all\",\"team\":1}",
     "Conditions": "",
-    "Actions": ""
+    "Actions": "reverse:{\"dmg\":35,\"consume\":1}",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 1010,
     "Index": 1,
     "SkillName": "映日剑轮",
-    "Objective": "",
+    "Objective": "{\"type\":\"singel\",\"team\":1}",
     "Conditions": "",
-    "Actions": ""
+    "Actions": "swordWheel:{\"dmg\":15,\"consume\":0}",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 2001,
@@ -165,7 +205,9 @@
     "SkillName": "气疗术",
     "Objective": "{\"type\":\"singel\",\"team\":0}",
     "Conditions": "",
-    "Actions": "heal:{\"heal\":40}"
+    "Actions": "heal:{\"heal\":40}",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 2002,
@@ -173,7 +215,9 @@
     "SkillName": "风沙甘霖术",
     "Objective": "{\"type\":\"self\",\"team\":0}",
     "Conditions": "",
-    "Actions": "heal:{\"heal\":60}"
+    "Actions": "heal:{\"heal\":60}",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 2002,
@@ -181,7 +225,9 @@
     "SkillName": "风沙甘霖术",
     "Objective": "{\"type\":\"singel\",\"team\":0}",
     "Conditions": "",
-    "Actions": "heal:{\"heal\":60}"
+    "Actions": "heal:{\"heal\":60}",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 2003,
@@ -189,23 +235,29 @@
     "SkillName": "唤魂咒",
     "Objective": "{\"type\":\"singel\",\"team\":0}",
     "Conditions": "",
-    "Actions": "reliveTarget:{\"value\":180}"
+    "Actions": "reliveTarget:{\"heal\":180}",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 2004,
     "Index": 1,
     "SkillName": "万物复苏",
-    "Objective": "",
+    "Objective": "{\"type\":\"all\",\"team\":0}",
     "Conditions": "",
-    "Actions": ""
+    "Actions": "heal:{\"heal\":40,\"count\":4,\"time\":1}",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 2004,
     "Index": 2,
     "SkillName": "万物复苏",
-    "Objective": "",
+    "Objective": "{\"type\":\"lowHP\",\"team\":0}",
     "Conditions": "",
-    "Actions": ""
+    "Actions": "heal:{\"heal\":40,\"count\":4,\"time\":1}",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 2005,
@@ -213,7 +265,9 @@
     "SkillName": "女娲体质",
     "Objective": "{\"type\":\"self\",\"team\":0}",
     "Conditions": "onDamage:{\"dmg\":150}",
-    "Actions": ""
+    "Actions": "",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 2005,
@@ -221,7 +275,9 @@
     "SkillName": "女娲体质",
     "Objective": "{\"type\":\"self\",\"team\":0}",
     "Conditions": "",
-    "Actions": "drawCard:{\"num\":1,\"cardType\":1,\"cardQuality\":1,\"cardAttributes\":1,\"piletype\":2}"
+    "Actions": "drawCard:{\"num\":1,\"cardType\":1,\"cardQuality\":1,\"cardAttributes\":1,\"piletype\":2}",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 2006,
@@ -229,7 +285,9 @@
     "SkillName": "释放灵力",
     "Objective": "{\"type\":\"self\",\"team\":0}",
     "Conditions": "",
-    "Actions": "drawCard:{\"num\":3,\"cardType\":1,\"cardQuality\":1,\"cardAttributes\":1,\"piletype\":2}"
+    "Actions": "drawCard:{\"num\":3,\"cardType\":1,\"cardQuality\":1,\"cardAttributes\":1,\"piletype\":2}",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 2006,
@@ -237,7 +295,9 @@
     "SkillName": "释放灵力",
     "Objective": "{\"type\":\"self\",\"team\":0}",
     "Conditions": "",
-    "Actions": "damage:{\"dmg\":120}"
+    "Actions": "damage:{\"dmg\":120}",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 2007,
@@ -245,7 +305,9 @@
     "SkillName": "地灵庇护",
     "Objective": "{\"type\":\"self\",\"team\":0}",
     "Conditions": "onDie:{\"target\":\"friend\",\"time\":10}",
-    "Actions": ""
+    "Actions": "",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 2007,
@@ -253,7 +315,9 @@
     "SkillName": "地灵庇护",
     "Objective": "",
     "Conditions": "",
-    "Actions": "reliveTarget:{\"ownPercent\":0.5}"
+    "Actions": "reliveTarget:{\"ownPercent\":0.5}",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 2008,
@@ -261,7 +325,9 @@
     "SkillName": "女娲转世",
     "Objective": "{\"type\":\"self\",\"team\":0}",
     "Conditions": "onDrawCard:{\"num\":1,\"cardType\":1,\"cardQuality\":1,\"cardAttributes\":1,\"piletype\":1}",
-    "Actions": ""
+    "Actions": "",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 2008,
@@ -269,7 +335,9 @@
     "SkillName": "女娲转世",
     "Objective": "{\"type\":\"self\",\"team\":0}",
     "Conditions": "",
-    "Actions": "heal:{\"heal\":20}"
+    "Actions": "heal:{\"heal\":20}",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 2009,
@@ -277,7 +345,9 @@
     "SkillName": "涛澜动地",
     "Objective": "{\"type\":\"singel\",\"team\":1}",
     "Conditions": "",
-    "Actions": "damage:{\"dmg\":150}"
+    "Actions": "damage:{\"dmg\":150}",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 2009,
@@ -285,7 +355,9 @@
     "SkillName": "涛澜动地",
     "Objective": "{\"type\":\"self\",\"team\":0}",
     "Conditions": "",
-    "Actions": "damage:{\"dmg\":30}"
+    "Actions": "damage:{\"dmg\":30}",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 2010,
@@ -293,7 +365,9 @@
     "SkillName": "石破惊天",
     "Objective": "{\"type\":\"singel\",\"team\":1}",
     "Conditions": "",
-    "Actions": "damage:{\"dmg\":100}"
+    "Actions": "damage:{\"dmg\":100}",
+    "Animation": "",
+    "Effect": ""
   },
   {
     "ID": 2010,
@@ -301,6 +375,8 @@
     "SkillName": "石破惊天",
     "Objective": "{\"type\":\"singel\",\"team\":1}",
     "Conditions": "",
-    "Actions": "damage:{\"dmg\":100}"
+    "Actions": "damage:{\"dmg\":100}",
+    "Animation": "",
+    "Effect": ""
   }
 ]

@@ -31,12 +31,13 @@ var fight = {
             cc.log('开始加载战斗：', data.teamInfo, data.myInfo);
             
             combatMgr.initCombat(data);
-            //var ui = that._uimgr.getCurMainUI();
-            //ui.showSelect();
         });
     
         pomelo.on('onFightBegin', function(data){
             cc.log('战斗开始'+data);
+
+            var ui = that._uimgr.getCurMainUI();
+            ui.ShowHandCards();
         });
     
         pomelo.on('onUseCard', function(data){

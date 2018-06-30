@@ -26,7 +26,7 @@ cc.Class({
     },
     initData(data){
         //console.log(this.super);
-        this.Name.string = data.toString();
+        this.Name.string = data;
     }
     // update (dt) {},
 });

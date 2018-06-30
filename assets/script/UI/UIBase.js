@@ -9,10 +9,10 @@ cc.Class({
         this._mgr = mgr;
     },
     show : function(){
-        this.active = true;
+        this.node.active = true;
     },
     hide : function(){
-        this.active = false;
+        this.node.active = false;
     },
     Release : function(){
         this.node.destory();

@@ -7,13 +7,18 @@
  var HandCard = require('HandCard')
 
 var CombatUnit = function(data,pos,teamid){
-    this.agent = new Agent('/Hero/change',pos,teamid,this.Hp);
+    var that = this;
+    this.agent = new Agent('/Hero/change',pos,teamid,this.Hp,function(){
+        that.loadok = true;
+    });
     this.Pos = pos.index;
     this.teamid = teamid;
 };
 
 //////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////// 
 
+///资源加载完成
+CombatUnit.prototype.loadok = false;
 ///角色唯一id
 CombatUnit.prototype.uid = 0;
 ///当前英雄 id
