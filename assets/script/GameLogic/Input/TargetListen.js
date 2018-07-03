@@ -8,33 +8,27 @@
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 
+var ShaderUtils = require("ShaderUtils");
+
 cc.Class({
     extends: cc.Component,
 
     properties: {
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
+        _index : 0,
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        this.node.on('touchend', function ( event ) {
-            console.log('Hello! input listen');
-          });
+        var mgr = cc.find('Canvas/ui/FightUI/targetTips').getComponent('InputMgr');
+        var that = this;
+        this.node.on('mouseup', function ( event ) {
+            mgr.selelctTarget(that._index);
+            cc.log('click ~~~~~~~~~~~~~~');
+        });
+
+        this.spine = this.getComponent(cc.Sprite);
+        //ShaderUtils.setShader(this.spine, "stroke");
     },
 
     start () {
@@ -42,4 +36,7 @@ cc.Class({
     },
 
     // update (dt) {},
+    init(index){
+        this._index = index;
+    }
 });

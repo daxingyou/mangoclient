@@ -15,6 +15,7 @@
  */
 
 var constant = require('constants')
+var GameLogic = require('GameLogic')
 
 cc.Class({
     extends: cc.Component,
@@ -22,6 +23,7 @@ cc.Class({
     properties: {
         _curCard : null,
         _target : null,
+        frame : []
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -31,6 +33,9 @@ cc.Class({
         //this.node.on('touchmove', function ( event ) {
         //    console.log('Hello! card listen touchmove');
         //});
+        for(var i in this.node.children){
+            this.frame[i] = this.node.children[i];
+        }
     },
 
     start () {
@@ -41,14 +46,30 @@ cc.Class({
         
     },
     selelctTarget(target){
-        if(_curCard == null)
+        if(this._curCard == null)
             return;
 
-        if(_curCard.ability.Objective = "")
+        GameLogic.UsePile(GameLogic.player,this._curCard,GameLogic.getEnemys(GameLogic.player)[target]);
+    },
+    curSelectCard(index){
+        this._curCard = index;
+
+        var targets =  GameLogic.player.handsPile[this._curCard].ability.getTarget();
+    },
+    CancleSelectCard(index){
+        if(this._curCard == index)
         {
-            //target.teamid
+            this._curCard = 0;
+        }
+        else{
+            console.error("wtf?!~~");
+        }
+        CancleShowTargets();
+    },
+    CancleShowTargets(){
+        for(var i in this.node.children){
+            this.frame[i].active = false;
         }
     }
-
     // update (dt) {},
 });

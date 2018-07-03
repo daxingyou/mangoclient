@@ -17,7 +17,7 @@ var net = require('NetPomelo')
 var loadFinishedProto = require('loadFinishedProto')
 
 var Combat = function(){
-
+    
 }
 
 Combat.prototype.curPlayerIndex = 0;

@@ -6,13 +6,14 @@
 
 var Action = require('TAtest')
 var constant = require('constants')
+var combatMgr = require('CombatMgr')
 
 var ability = function(data,owner){
 	this.actions = new Array(data.length);
 	for(var i in data)
 	{
 		this.ID = data[i].ID;// Int16Array  编号
-		//this.actions = new Action(data[i],this,owner);
+		this.actions[i] = new Action(data[i],this,owner);
 	}
 }
 
@@ -32,7 +33,7 @@ ability.prototype.Active = function(Target){
 	{
 		this.actions[i].Active();
 	}
-	this.actions.Active();
+	//this.actions.Active();
 }
 ///技能失效
 ability.prototype.Exit = function(){
@@ -91,6 +92,10 @@ ability.prototype.tick = function(dt){
 	{
 		this.actions[i].tick(dt);
 	}
+}
+
+ability.prototype.getTarget = function(){
+	combatMgr.getAbilityTarget(this.actions[0].Objective,this.owner);
 }
 
 module.exports = ability;

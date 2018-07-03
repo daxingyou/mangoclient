@@ -5,7 +5,6 @@
  */
 
 var consts = require('consts') 
-var constant = require('constants')
 var PVECombat = require('PVECombat')
 
 var CombatMgr = {
@@ -44,6 +43,9 @@ var CombatMgr = {
     },
     getSelf : function(){
         return this.curCombat.own[this.curCombat.curPlayerIndex];
+    },
+    getAbilityTarget : function(Objective){
+
     },
     Tick : function(dt){
         if(this.curCombat != null)

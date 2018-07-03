@@ -9,8 +9,13 @@ var TATest = function(data,ability,owner){
 
     this.actionName = data.Actions.split(':')[0];// String  行为
     var sub = data.Actions.substring(this.actionName.length+1);
-    this.attrs = JSON.parse(sub);  ///参数
-    
+
+    if(sub != '')
+        this.attrs = JSON.parse(sub);  ///参数
+    else{
+        this.attrs = '';
+    }
+
     this.ability = ability;
     this.owner = owner;
     this.active = false;

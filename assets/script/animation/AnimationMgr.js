@@ -19,6 +19,7 @@ cc.Class({
     },
 
     properties: {
+        _index : 1,
         _standS : 'stand',
         _attackS : 'attack'
     },
@@ -56,22 +57,23 @@ cc.Class({
             cc.log("[track %s][animation %s] event: %s, %s, %s, %s", trackEntry.trackIndex, animationName, event.data.name, event.intValue, event.floatValue, event.stringValue);
         });
 
-        ShaderUtils.setShader(spine, "gray");
+        //ShaderUtils.setShader(spine, "stroke");
     },
 
     start () {
-
     },
 
     // update (dt) {},
-
+    initIndex(index){
+        this._index = index;
+    },
     ///动画过渡
     _setMix(anim1,anim2){
         this.spine.setMix(anim1,anim2,constant.mixTime)
-
-        //constant.test
     },
-
+    setShader(name){
+        ShaderUtils.setShader(spine, name);
+    },
     //动画融合
     stand(){
         this.spine.setAnimation(0,this.standS, true);

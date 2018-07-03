@@ -9,7 +9,6 @@
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 
 var UIBase = require('UIBase')
-var constant = require('constants')
 var combatmgr = require('CombatMgr')
 
 cc.Class({
