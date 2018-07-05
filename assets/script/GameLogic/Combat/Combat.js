@@ -32,6 +32,8 @@ Combat.prototype.own = [];
 Combat.prototype.checkLoadRes = false;
 ////场景是否加载完毕
 Combat.prototype.sceneLoadOk = false;
+///战斗UI 是否加载完成
+Combat.prototype.UILoadOk = false;
 
 Combat.prototype.Tick = function(){
     if(this.checkLoadRes)
@@ -39,6 +41,8 @@ Combat.prototype.Tick = function(){
         var result = true;
 
         result = this.sceneLoadOk;
+
+        result = this.UILoadOk;
 
         for(var i in this.own)
         {
@@ -53,6 +57,7 @@ Combat.prototype.Tick = function(){
         if(result)
         {
             this.checkLoadRes = false;
+            cc.log('加载完成！');
             net.Request(new loadFinishedProto(),function(){
                 
             });
@@ -79,7 +84,7 @@ Combat.prototype.init = function(data){
     var index = 1;
     for(var uid in data.teamInfo.teamA)
     {
-        this.own[index] = new Hero_(dataMgr.hero[data.teamInfo.teamA[uid].heroid],dataMgr.heroAttributes[1001],matrix_pos.Matrixs[index],constant.Team.own);
+        this.own[index] = new Hero_(dataMgr.hero[data.teamInfo.teamA[uid].heroid],dataMgr.heroAttributes[1001],matrix_pos.Matrixs[index],constant.Team.own,this);
 
         if(uid == gameCenter.uuid)
         {
@@ -111,27 +116,16 @@ Combat.prototype.init = function(data){
         ////怪物数据 暂是本地数据
         for(var i =0;i < monsters.length; i++){
             var pos =  matrix_pos.Matrixs[parseInt(monsters[i].key)];
-            var enem = new Monster_(dataMgr.monster[monsters[i].value],pos,constant.Team.enemy);
+            var enem = new Monster_(dataMgr.monster[monsters[i].value],pos,constant.Team.enemy,this);
             this.enemy[i] = enem;
         }
 
         this.checkLoadRes = true;
     }
+}
 
-    /*
-    .dgId
-    .myInfo
-        mp
-        .myInfo.cardsNum
-        .myInfo.discardsNum
-        .myInfo.exhaustsNum
-        .myInfo.inHands
-    .teamInfo
-        teamA
-        teamB
-    */
-
-    
+Combat.prototype.getSelf = function(){
+    return this.own[this.curPlayerIndex];
 }
 
 module.exports = Combat;

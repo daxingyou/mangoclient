@@ -26,8 +26,9 @@ module.exports = {
         ALL : "all",
         RANDOM : "random",
         SINGEL: "singel",
-        CONDITION:"condition",
+        LowHP:"lowHP",
         SELF:"self",
+        None:"",
     },
     ///技能触发条件
     SkillActiveType :{

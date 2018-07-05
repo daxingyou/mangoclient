@@ -16,9 +16,16 @@ var HandCard = function(id,owner){
 
 HandCard.prototype.ability = null;
 
-HandCard.prototype.Active = function(Target){
+///检测是否能够释放技能
+HandCard.prototype.Enable = function(Target){
 
-    this.ability.Active(Target);
+
+    return false;
+}
+
+HandCard.prototype.Active = function(Target,targets){
+
+    this.ability.Active(Target,targets);
     return this.ability;
 }
 

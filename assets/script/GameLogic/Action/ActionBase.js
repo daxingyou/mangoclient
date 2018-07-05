@@ -12,13 +12,13 @@ ActionBase.prototype.enter = function(){
     this.time = util.GetValue('time');
 
     if(this.time > 0)
-        exit();
+        this.exit();
 };
 
 ActionBase.prototype.tick = function(dt){
     this.time -= dt;
     if(this.time <= 0)
-        exit();
+        this.exit();
 };
 
 ActionBase.prototype.time = 0;

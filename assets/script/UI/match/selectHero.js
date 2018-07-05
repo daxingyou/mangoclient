@@ -14,14 +14,15 @@ var net = require("NetPomelo")
 var selectHeroProto = require("selectHeroProto")
 var confirmHeroProto = require("confirmHeroProto")
 var constant = require('constants')
+var combatMgr = require('CombatMgr')
 
 cc.Class({
     extends: UIBase,
 
     properties: {
         matchUI : cc.Node,
-        man : cc.Node,
-        woman : cc.Node,
+        man : sp.Skeleton,
+        woman : sp.Skeleton,
         cdTimeLable : cc.Label,
         cdTime : 10,
         _CDState : false,
@@ -58,7 +59,7 @@ cc.Class({
                 this.cdTimeLable.string = '0';
                 this._CDState = false;
                 this._mgr.loadUI(constant.UI.Fight,function(data){
-                    
+                    combatMgr.curCombat.UILoadOk = true;
                 })
                 this._mgr.release();
             }
@@ -93,7 +94,7 @@ cc.Class({
             }
         });
 
-        console.log('manSelect');
+        cc.log('manSelect');
     },
     womanSelect(event){
         var that = this;
@@ -119,7 +120,7 @@ cc.Class({
             }
         });
 
-        console.log('womanSelect');
+        cc.log('womanSelect');
     },
     beginFight(){
         var that = this;

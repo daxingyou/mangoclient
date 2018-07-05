@@ -5,14 +5,13 @@
  */
 
 var consts = require('consts') 
+var constant = require('constants')
 var PVECombat = require('PVECombat')
 
 var CombatMgr = {
     curCombat : null,
     curIndex : 0,
-
     initCombat : function(data){
-        
         if(data.matchType == consts.MatchType.PVE_1)
         {
             //this.curCombat = new PVECombat();
@@ -45,7 +44,51 @@ var CombatMgr = {
         return this.curCombat.own[this.curCombat.curPlayerIndex];
     },
     getAbilityTarget : function(Objective){
+        if(Objective.type == constant.SkillTargetType.SELF)
+            return this.getSelf();
+        else if(Objective.type == constant.SkillTargetType.ALL)
+        {
+            var result = Objective.team == constant.own ? this.curCombat.own : this.curCombat.enemy;
+            return result;
+        }
+        else if(Objective.type == constant.SkillTargetType.LowHP)
+        {
+            var temp = 99999999;
+            var result = null;
+            if(Objective.team == constant.own)
+            {
+                for (const key in this.curCombat.own) {
+                    if (this.curCombat.own.hasOwnProperty(key)) {
+                        const element = this.curCombat.own[key];
+                        if(element.Hp < temp)
+                        {
+                            temp = element.Hp;
+                            result = element;
+                        }
+                    }
+                }
+            }
+            else if(Objective.team == constant.enemy)
+            {
+                for (const key in this.curCombat.enemy) {
+                    if (this.curCombat.enemy.hasOwnProperty(key)) {
+                        const element = this.curCombat.enemy[key];
+                        if(element.Hp < temp)
+                        {
+                            temp = element.Hp;
+                            result = element;
+                        }
+                    }
+                }
+            }
 
+            return result;
+        }
+        else if(Objective.type == constant.SkillTargetType.SINGEL)
+        {
+            var result = Objective.team == constant.own ? this.curCombat.own : this.curCombat.enemy;
+            return result;
+        }
     },
     Tick : function(dt){
         if(this.curCombat != null)

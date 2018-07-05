@@ -8,35 +8,50 @@
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 
-var ShaderUtils = require("ShaderUtils");
-
 cc.Class({
     extends: cc.Component,
 
     properties: {
         _index : 0,
+        _initdata : false,
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        var mgr = cc.find('Canvas/ui/FightUI/targetTips').getComponent('InputMgr');
-        var that = this;
-        this.node.on('mouseup', function ( event ) {
-            mgr.selelctTarget(that._index);
-            cc.log('click ~~~~~~~~~~~~~~');
-        });
+        if(cc.find('Canvas/ui/FightUI/targetTips') != null)
+        {
+            this.initUI();
+            this._initdata = true;
+        }
 
         this.spine = this.getComponent(cc.Sprite);
-        //ShaderUtils.setShader(this.spine, "stroke");
     },
 
     start () {
 
     },
 
-    // update (dt) {},
+    update (dt) {
+        if(!this._initdata)
+        {
+            if(cc.find('Canvas/ui/FightUI/targetTips') != null)
+            {
+                this.initUI();
+                this._initdata = true;
+            }
+        }
+    },
     init(index){
         this._index = index;
+    },
+    initUI(){
+        var mgr = cc.find('Canvas/ui/FightUI/targetTips').getComponent('InputMgr');
+        var that = this;
+        this.node.on('mouseup', function ( event ) {
+            mgr.selelctTarget(that._index);
+            cc.log('click ~~~~~~~~~~~~~~');
+        });
     }
+
 });

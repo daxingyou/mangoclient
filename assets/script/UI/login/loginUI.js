@@ -40,7 +40,8 @@ cc.Class({
             return;
 
         var uid = this._userName;
-        var host = "192.168.0.139";
+        //var host = "192.168.0.139";
+        var host = "127.0.0.1";
         var port = 3010;
         var that = this;
 

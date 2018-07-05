@@ -1,5 +1,3 @@
-var combatmgr = require('../Combat/CombatMgr')
-
 var utility ={
     uiMgr : null,
 
@@ -9,9 +7,6 @@ var utility ={
 
         target.onDamage(dmg,owner);
         this.uiMgr.loadDmg(target,dmg);
-    },
-    getAbilityTarget : function(object,owner){
-        combatmgr.getAbilityTarget(object,owner);
     }
 }
 

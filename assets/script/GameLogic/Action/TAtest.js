@@ -1,20 +1,19 @@
-var actionFactory = require('ActionFactory')
+var actionFactory = require('./ActionFactory')
+//import {actions} from "./ActionFactory"
+
 
 var TATest = function(data,ability,owner){
     this.ID = data.ID;// Int16Array  编号
 	this.Index = data.Index;//// 子编号
-	this.SkillName = data.SkillName;// String  技能名
-	this.Objective = data.Objective;// String  目标
+    this.SkillName = data.SkillName;// String  技能名 
+    
+	this.Objective = data.Objective== '' ? null : JSON.parse(data.Objective);// String  目标
     this.Conditions = data.Conditions;// String  条件
 
     this.actionName = data.Actions.split(':')[0];// String  行为
     var sub = data.Actions.substring(this.actionName.length+1);
 
-    if(sub != '')
-        this.attrs = JSON.parse(sub);  ///参数
-    else{
-        this.attrs = '';
-    }
+    this.attrs = sub == '' ? null :JSON.parse(sub);  ///参数
 
     this.ability = ability;
     this.owner = owner;
@@ -25,6 +24,7 @@ var TATest = function(data,ability,owner){
 TATest.prototype.Active = function(){
     this.active = true;
     var func = actionFactory.actions[this.actionName];
+    //var func = actions[this.actionName];
     if(func == null)
         console.error('this action name is not found !'+this.actionName);
     this.action = new func(this.attrs,this.ability,this.owner,this);

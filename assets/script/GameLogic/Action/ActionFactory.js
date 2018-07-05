@@ -1,10 +1,10 @@
-var Damage = require('Damage')
-var Defence = require('Defence')
-var PhysicalArm = require('PhysicalArm')
-var SpawnSummoned = require('SpawnSummoned')
-var heal = require('heal')
+var Damage = require('./Common/Damage')
+var Defence = require('./Common/Defence')
+var PhysicalArm = require('./Common/PhysicalArm')
+var SpawnSummoned = require('./Common/SpawnSummoned')
+var heal = require('./Common/heal')
 
-var factory ={
+var actionFactory = {
     actions : [],
 
     init : function()
@@ -14,8 +14,7 @@ var factory ={
         this.actions['physicalArm'] = PhysicalArm;
         this.actions['spawnSummoned'] = SpawnSummoned;
         this.actions['heal'] = heal;
-        
     }
-}
+};
 
-module.exports = factory;
+module.exports = actionFactory;

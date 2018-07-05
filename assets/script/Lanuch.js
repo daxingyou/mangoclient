@@ -12,9 +12,33 @@ var dataMgr = require("DataMgr")
 var gameLogic = require("GameLogic")
 var matchMessage = require("matchMessage")
 var constant = require('constants')
-var actionfactory = require('ActionFactory')
-var uimgr = require('UIMgr')
+var actionfactory = require('./GameLogic/Action/ActionFactory')
 
+var uimgr = require('UIMgr')
+/*
+// utils.js
+export function myFunctionA(value) {
+    console.log('Inside myFunctionA');
+    return(value + 1);
+}
+export function myFunctionB() {
+    console.log('Inside myFunctionB');
+}
+And when I need to call those functions, even from inside a component, I don’t have to type the module name, i.e. utils.myfunctionA(), I just call myFunctionA():
+
+// mycomponent.js
+
+cc.Class({
+    extends: cc.Component,
+    properties: {
+    },
+    onLoad: function () {
+        var variable = 3;
+        var result = myFunctionA(variable);
+        console.log('result=' + result);
+    }
+});
+*/
 cc.Class({
     extends: cc.Component,
 

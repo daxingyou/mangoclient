@@ -7,7 +7,7 @@ var ShaderUtils = {
     shaderPrograms: {},
 
     setShader: function(sprite, shaderName) {
-        return;
+        
         var glProgram = this.shaderPrograms[shaderName];
 
         if (!glProgram) {
@@ -16,7 +16,7 @@ var ShaderUtils = {
             var vert = require(cc.js.formatStr("%s.vert", shaderName));
             var frag = require(cc.js.formatStr("%s.frag", shaderName));
             glProgram.initWithString(vert, frag);
-
+/*
             if(cc.sys.isNative)
             {
                 this._program.addAttribute(cc.macro.ATTRIBUTE_NAME_POSITION, cc.macro.VERTEX_ATTRIB_POSITION);
@@ -26,9 +26,9 @@ var ShaderUtils = {
                 this._program.link();
                 this._program.updateUniforms();
             }
-            else
+            else*/
             {
-                glProgram.initWithVertexShaderByteArray(vert, frag);
+                //glProgram.initWithVertexShaderByteArray(vert, frag);
                 glProgram.addAttribute(cc.macro.ATTRIBUTE_NAME_POSITION, cc.macro.VERTEX_ATTRIB_POSITION);  
                 glProgram.addAttribute(cc.macro.ATTRIBUTE_NAME_COLOR, cc.macro.VERTEX_ATTRIB_COLOR);  
                 glProgram.addAttribute(cc.macro.ATTRIBUTE_NAME_TEX_COORD, cc.macro.VERTEX_ATTRIB_TEX_COORDS);  
@@ -44,11 +44,12 @@ var ShaderUtils = {
         this.setProgram( sprite._sgNode,glProgram);
     },
     setProgram:function(node,program){
-        if(cc.sys.isNative){
+        /*if(cc.sys.isNative){
             var glProgram_state = cc.GLProgramState.getOrCreateWithGLProgram(program);
             node.setGLProgramState(glProgram_state);
         }
-        else{
+        else*/
+        {
             node.setShaderProgram(program);
         }
     }

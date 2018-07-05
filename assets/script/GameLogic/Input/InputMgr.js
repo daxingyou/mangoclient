@@ -1,13 +1,3 @@
-// Learn cc.Class:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
-
 /**
  *      操作管理类
  *      先设定当前使用的卡组再设定目标
@@ -21,18 +11,11 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        _curCard : null,
+        frame : [],
         _target : null,
-        frame : []
     },
 
-    // LIFE-CYCLE CALLBACKS:
-
     onLoad () {
-        //this.node.on('touchmove', function ( event ) {console.log('Hello! input listen');});
-        //this.node.on('touchmove', function ( event ) {
-        //    console.log('Hello! card listen touchmove');
-        //});
         for(var i in this.node.children){
             this.frame[i] = this.node.children[i];
         }
@@ -41,20 +24,59 @@ cc.Class({
     start () {
 
     },
-    selelctCard(card){
-        /// 显示角色勾边
-        
-    },
-    selelctTarget(target){
-        if(this._curCard == null)
-            return;
+    selelctTarget(index){
+        var curTarget = GameLogic.getEnemys(GameLogic.player,index)[0];
 
-        GameLogic.UsePile(GameLogic.player,this._curCard,GameLogic.getEnemys(GameLogic.player)[target]);
+        if(this._target instanceof Array)
+        {
+            for(var key in this._target)
+            {
+                if(this._target[key] == curTarget)
+                {
+                    GameLogic.UsePile(GameLogic.player,this._curCard,curTarget,this._target);
+                }
+            }
+        }
+        else
+        {
+            if(this._target == curTarget);
+            {
+                GameLogic.UsePile(GameLogic.player,this._curCard,curTarget,this._target);
+            }
+        }
     },
     curSelectCard(index){
         this._curCard = index;
 
         var targets =  GameLogic.player.handsPile[this._curCard].ability.getTarget();
+
+        if(GameLogic.player.handsPile[this._curCard].ability.actions[0].Objective == constant.SkillTargetType.ALL)
+        {
+            if(targets instanceof Array)
+            {
+                this.ShowALl();
+            }
+            else{
+                this.ShowTips(targets,0);
+            }
+        }
+        else
+        {
+            if(targets instanceof Array)
+            {
+                for (const key in targets) {
+                    if (targets.hasOwnProperty(key)) {
+                        const element = targets[key];
+                        this.ShowTips(element,key);
+                    }
+                }
+            }
+            else
+            {
+                this.ShowTips(targets,0);
+            }
+        }
+        this._target = targets;
     },
     CancleSelectCard(index){
         if(this._curCard == index)
@@ -64,12 +86,22 @@ cc.Class({
         else{
             console.error("wtf?!~~");
         }
-        CancleShowTargets();
+        this.CancleShowTargets();
     },
     CancleShowTargets(){
         for(var i in this.node.children){
             this.frame[i].active = false;
         }
+    },
+    ShowTips(target,index){
+        this.frame[index].active = true;
+        this.frame[index].position = cc.v2(target.agent.go.position.x,target.agent.go.position.y + 110.0);
+        this.frame[index].setContentSize(200,220); 
+    },
+    ShowALl(){
+        this.frame[0].active = true;
+        this.frame[0].position = cc.v2(1000,407);
+        this.frame[0].setContentSize(550,320);
     }
     // update (dt) {},
 });

@@ -1,14 +1,14 @@
 var CombatUnit = require('Combatunit')
 var Card = require('HandCard')
 
-function Hero_(data,attributes,pos,teamid){
+function Hero_(data,attributes,pos,teamid,combat){
 
     this.Hp = attributes.HeroMaxHP;
     this.MaxHp = attributes.HeroMaxHP;
     this.Mp = attributes.HeroMaxMP;
     this.MaxMp = attributes.HeroMaxMP;
 
-    CombatUnit.call(this,data,pos,teamid);
+    CombatUnit.call(this,data,pos,teamid,combat);
 }
 
 (function(){
@@ -27,9 +27,7 @@ function Hero_(data,attributes,pos,teamid){
   Hero_.prototype.InitHands = function(hands){
     for(var i = 0; i<hands.length;i++)
     {
-        let test = 'asd';
         this.handsPile.push(new Card(hands[i],this));
-        test = 'aaa';
     }
   }
 

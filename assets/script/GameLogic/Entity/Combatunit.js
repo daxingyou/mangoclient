@@ -6,13 +6,14 @@
  var DataMgr = require('DataMgr')
  var HandCard = require('HandCard')
 
-var CombatUnit = function(data,pos,teamid){
+var CombatUnit = function(data,pos,teamid,combat){
     var that = this;
     this.agent = new Agent('/Hero/change',pos,teamid,this.Hp,function(){
         that.loadok = true;
     });
     this.Pos = pos.index;
     this.teamid = teamid;
+    this.curCombat = combat;
 };
 
 //////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////// 
@@ -90,20 +91,25 @@ CombatUnit.prototype.onDrawPile = function(id){
     this.handsPile.push(card);
 };
 ///使用卡牌监听
-CombatUnit.prototype.onUsePile = function(index,Target){
+CombatUnit.prototype.onUsePile = function(index,Target,targets){
     var card = this.handsPile[index];
 
     if(card != null){
-        var ability = card.Active(Target);
+        var ability = card.Active(Target,targets);
         this.abilitys.push(ability);
         this.handsPile.splice(index,1);
     }
-    
+   
     for(var i =0;i<this.abilitys.length;i++)
     {
         this.abilitys[i].onUsePile();
     }
 };
+
+CombatUnit.prototype.OnAbilityExit = function(ability){
+    this.abilitys.splice(this.abilitys.indexof(ability),1);
+}
+
 CombatUnit.prototype.tick = function(dt){
     for(var i =0;i<this.abilitys.length;i++)
     {
