@@ -49,7 +49,7 @@ cc.Class({
     // update (dt) {},
     ///UI 加载接口
     loadUI(ui,callback){
-        if(ui.type == 1)
+        if(ui.type == 1)        ///主界面
         {
             if(this._FirstMainUI[ui.id] != null)
             {
@@ -62,7 +62,7 @@ cc.Class({
                 return this._curMainUI;
             }
         }
-        else if(ui.type == 2)
+        else if(ui.type == 2)       ///二级UI
         {
             if(this._SecondUI[ui.id] != null)
             {
@@ -75,7 +75,7 @@ cc.Class({
                 return this._curSecondUI;
             }
         }
-        else if(ui.type == 3)
+        else if(ui.type == 3)       ///tips 
         {
             if(this._ThirdUI[ui.id] != null)
             {
@@ -91,7 +91,16 @@ cc.Class({
 
         loadRes.load(ui.path,(data)=>{
             var go = cc.instantiate(data);
-            go.parent = this.uiRoot;
+
+            if(ui.type == 3)
+            {
+                go.parent = this.tips;
+            }
+            else
+            {
+                go.parent = this.uiRoot;
+            }
+
             var scr = go.getComponent(ui.script);
             scr.init(this);
 

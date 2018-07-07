@@ -50,7 +50,9 @@ cc.Class({
         var that = this;
         this.node.on('mouseup', function ( event ) {
             mgr.selelctTarget(that._index);
-            cc.log('click ~~~~~~~~~~~~~~');
+        });
+        this.node.on('touchstart',function(event){
+            cc.log('touchstart');
         });
     }
 

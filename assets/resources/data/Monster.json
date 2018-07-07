@@ -1,9 +1,9 @@
 [
   {
-    "ID": 1001,
+    "ID": 10001,
     "Name": "鲛精",
     "Type": "Boss",
-    "Model": 1001,
+    "Model": "Hero/change",
     "Level": 10,
     "MaxHP": 3000,
     "MaxMP": 10,
@@ -13,38 +13,21 @@
     "BaseStamina": "",
     "BaseIntellect": "",
     "BaseAgile": "",
-    "InitialCard": ""
-  },
-  {
-    "ID": 2001,
-    "Name": "幼鹿",
-    "Type": "Normal",
-    "Model": 1001,
-    "Level": 1,
-    "MaxHP": 80,
-    "MaxMP": 10,
-    "MaxThew": 10,
-    "BaseArmor": 0.0,
-    "BaseStrength": "",
-    "BaseStamina": "",
-    "BaseIntellect": "",
-    "BaseAgile": "",
-    "InitialCard": ""
-  },
-  {
-    "ID": 2002,
-    "Name": "青疟鬼",
-    "Type": "Normal",
-    "Model": 1001,
-    "Level": 1,
-    "MaxHP": 60,
-    "MaxMP": 10,
-    "MaxThew": 10,
-    "BaseArmor": 0.0,
-    "BaseStrength": "",
-    "BaseStamina": "",
-    "BaseIntellect": "",
-    "BaseAgile": "",
-    "InitialCard": ""
+    "InitialCard": 5,
+    "InitialMP": 6,
+    "InitialDrawPile": [
+      10001,
+      10001,
+      10001,
+      10001,
+      10001,
+      10001,
+      10002,
+      10002,
+      10003,
+      10003,
+      10004,
+      10004
+    ]
   }
 ]

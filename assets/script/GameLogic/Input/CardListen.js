@@ -8,7 +8,7 @@
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 
-var GameLogic = require('GameLogic')
+//var GameLogic = require('GameLogic')
 
 cc.Class({
     extends: cc.Component,
@@ -41,7 +41,7 @@ cc.Class({
         this.node.on('touchstart', function ( event ) {
             console.log('Hello! card listen');
 
-            mgr.curSelectCard(parseInt(that.node.parent.name));
+            mgr.curSelectCard(parseInt(that.node.parent.name),event.curTarget);
             //GameLogic.UsePile(GameLogic.player,0,GameLogic.getEnemys(GameLogic.player)[0]);
         });
         this.node.on('touchmove', function ( event ) {
@@ -70,10 +70,10 @@ cc.Class({
             mgr.CancleSelectCard(parseInt(that.node.parent.name));
         });
         
-        //this.node.on('mouseup', function ( event ) {
-        //    console.log('Hello! card listen mouseup ' + that.node.name);
-        //    ctx.clear();
-        //});
+        this.node.on('mouseup', function ( event ) {
+            console.log('Hello! card listen mouseup ' + that.node.name);
+            ctx.clear();
+        });
     },
 
     start () {

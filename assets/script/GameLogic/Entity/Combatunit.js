@@ -2,18 +2,16 @@
  *     角色对象父类
  *      by pwh
  */
- var Agent = require('Agent');
+
  var DataMgr = require('DataMgr')
  var HandCard = require('HandCard')
 
-var CombatUnit = function(data,pos,teamid,combat){
-    var that = this;
-    this.agent = new Agent('/Hero/change',pos,teamid,this.Hp,function(){
-        that.loadok = true;
-    });
+var CombatUnit = function(data,attrs,pos,teamid,combat,uid){
+   
     this.Pos = pos.index;
     this.teamid = teamid;
     this.curCombat = combat;
+    this.uid = uid;
 };
 
 //////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////// 

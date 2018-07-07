@@ -1,14 +1,23 @@
 var CombatUnit = require('Combatunit')
 var Card = require('HandCard')
+var Agent = require('Agent')
+var DataMgr = require('DataMgr')
 
-function Hero_(data,attributes,pos,teamid,combat){
+function Hero_(data,attributes,pos,teamid,combat,uid){
 
-    this.Hp = attributes.HeroMaxHP;
-    this.MaxHp = attributes.HeroMaxHP;
-    this.Mp = attributes.HeroMaxMP;
-    this.MaxMp = attributes.HeroMaxMP;
+    this.Hp = data.hp;
+    this.MaxHp = data.maxHp;
+    this.Mp = data.mp;
+    this.MaxMp = data.maxMp;
+    this.basePhysical_arm = data.armor;
 
-    CombatUnit.call(this,data,pos,teamid,combat);
+    var that = this;
+    var hero = DataMgr.hero[data.heroid];
+    this.agent = new Agent(hero.HeroModel,pos,teamid,this.Hp,this.MaxHp,uid,function(){
+        that.loadok = true;
+    });
+
+    CombatUnit.call(this,data,attributes,pos,teamid,combat,uid);
 }
 
 (function(){

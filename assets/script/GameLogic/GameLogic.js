@@ -29,7 +29,19 @@ var GameLogic = {
         combatMgr.Tick(dt);
     },
     getCombatUnitForUid : function(uid){
-        
+        for(var i in combatMgr.getEnemys())
+        {
+            if(combatMgr.getEnemys()[i].uid = uid)
+                return combatMgr.getEnemys()[i];
+        }
+
+        for(var i in combatMgr.getOwn())
+        {
+            if(combatMgr.getOwn()[i].uid = uid)
+                return combatMgr.getOwn()[i];
+        }
+
+        return null;
     },
     DrawPile : function(CombatUnit,Card){
         CombatUnit.onDrawPile(Card);

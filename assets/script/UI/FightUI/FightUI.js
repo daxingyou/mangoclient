@@ -21,12 +21,21 @@ cc.Class({
         HandsCardRoot : cc.Node,
         CardsLayout : cc.Layout,
         _HandsCards : [],
+        _clickListen : null,
+        input : cc.Component        
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        
+        _clickListen = cc.find('Canvas').getComponent('ClickListen');
+        _clickListen.init(input);
+    },
+    onEnable(){
+        _clickListen.enabled = true;
+    },
+    onDisable(){
+        _clickListen.enabled = false;
     },
 
     start () {
@@ -80,5 +89,8 @@ cc.Class({
             this._HandsCards[i].show();
             this._HandsCards[i].initData(player.handsPile[i].skillName);
         }
+    },
+    UseCard : function(index){
+        this._HandsCards[index].hide();
     }
 });

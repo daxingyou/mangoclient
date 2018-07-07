@@ -2,7 +2,7 @@
   {
     "ID": 1000,
     "HeroName": "陈靖仇",
-    "HeroModel": "",
+    "HeroModel": "Hero/change",
     "InitialCard": 5,
     "InitialMP": 6,
     "InitialDrawPile": [
@@ -32,7 +32,7 @@
   {
     "ID": 2000,
     "HeroName": "于小雪",
-    "HeroModel": "",
+    "HeroModel": "Hero/snow",
     "InitialCard": 5,
     "InitialMP": 6,
     "InitialDrawPile": [

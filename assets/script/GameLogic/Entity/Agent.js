@@ -6,7 +6,7 @@
 var loadRes = require('LoadRes')
 var constant = require('constants')
 
- var Agent = function(path,pos,teamid,hp,loadok){
+ var Agent = function(path,pos,teamid,hp,maxHp,uid,loadok){
     this.go = null;
     this.hpbar = null;
 
@@ -14,7 +14,7 @@ var constant = require('constants')
     loadRes.load(path,(data)=>{
         that.go = cc.instantiate(data);
         that.go.parent = cc.find('Canvas/pool');
-        that.go.getChildByName('Collider').getComponent('TargetListen').init(pos.index);
+        that.go.getChildByName('Collider').getComponent('TargetListen').init(uid);
         that.go.position = cc.v2(pos.pos.x,pos.pos.y);
         that.go.scaleX = teamid == constant.Team.own ? constant.Team.enemy : -1;
         loadok();
@@ -24,7 +24,7 @@ var constant = require('constants')
         that.hpbar = cc.instantiate(data).getComponent('hpBar');
         that.hpbar.node.parent = cc.find('Canvas/pool'); 
         that.hpbar.node.position = cc.v2(pos.pos.x,pos.pos.y+270);
-        that.hpbar.freshen(hp,hp);
+        that.hpbar.freshen(hp,maxHp);
     })
  }
 

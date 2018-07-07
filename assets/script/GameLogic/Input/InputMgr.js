@@ -6,13 +6,17 @@
 
 var constant = require('constants')
 var GameLogic = require('GameLogic')
+var UIBase = require('UIBase')
 
 cc.Class({
-    extends: cc.Component,
+    extends: UIBase,
 
     properties: {
         frame : [],
         _target : null,
+        _clickNode : null,
+        fightUI : cc.Component,
+        _IsSelectCard : false,           //第一次点击是否已经选择了卡牌
     },
 
     onLoad () {
@@ -25,7 +29,9 @@ cc.Class({
 
     },
     selelctTarget(index){
-        var curTarget = GameLogic.getEnemys(GameLogic.player,index)[0];
+        if(!this._IsSelectCard)
+            return;
+        var curTarget = GameLogic.getCombatUnitForUid(GameLogic.player,index);
 
         if(this._target instanceof Array)
         {
@@ -45,8 +51,12 @@ cc.Class({
             }
         }
     },
-    curSelectCard(index){
+    CheckClickNode(clickNode){
+        this._IsSelectCard = this._clickNode == clickNode;
+    },
+    curSelectCard(index,clickNode){
         this._curCard = index;
+        this._clickNode = clickNode;
 
         var targets =  GameLogic.player.handsPile[this._curCard].ability.getTarget();
 
@@ -79,6 +89,7 @@ cc.Class({
         this._target = targets;
     },
     CancleSelectCard(index){
+        this._clickNode = null;
         if(this._curCard == index)
         {
             this._curCard = 0;
@@ -89,6 +100,7 @@ cc.Class({
         this.CancleShowTargets();
     },
     CancleShowTargets(){
+        this._clickNode = null;
         for(var i in this.node.children){
             this.frame[i].active = false;
         }

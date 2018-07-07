@@ -84,7 +84,7 @@ Combat.prototype.init = function(data){
     var index = 1;
     for(var uid in data.teamInfo.teamA)
     {
-        this.own[index] = new Hero_(dataMgr.hero[data.teamInfo.teamA[uid].heroid],dataMgr.heroAttributes[1001],matrix_pos.Matrixs[index],constant.Team.own,this);
+        this.own[index] = new Hero_(data.teamInfo.teamA[uid],dataMgr.heroAttributes[1001],matrix_pos.Matrixs[index],constant.Team.own,this,uid);
 
         if(uid == gameCenter.uuid)
         {
@@ -102,10 +102,10 @@ Combat.prototype.init = function(data){
     }
     else    ///初始化怪物
     {
-        var data = dataMgr.group[dungeon.MonsterGroupID];
-        var matrix = dataMgr.matrix[data.Matrix];
+        var group_Data = dataMgr.group[dungeon.MonsterGroupID];
+        var matrix = dataMgr.matrix[group_Data.Matrix];
     
-        var monsters = new dict(data.MonsterGroup);
+        var monsters = new dict(group_Data.MonsterGroup);
         var matrix_pos = new MatrixPos(matrix.MatrixPos);
 
         if(monsters.length > matrix_pos.length){
@@ -114,10 +114,12 @@ Combat.prototype.init = function(data){
         }
 
         ////怪物数据 暂是本地数据
-        for(var i =0;i < monsters.length; i++){
+        for(var uid in data.teamInfo.teamB){
+            var i = 0;
             var pos =  matrix_pos.Matrixs[parseInt(monsters[i].key)];
-            var enem = new Monster_(dataMgr.monster[monsters[i].value],pos,constant.Team.enemy,this);
-            this.enemy[i] = enem;
+            //this.own[index] = new Hero_(data.teamInfo.teamB[uid],dataMgr.heroAttributes[1001],matrix_pos.Matrixs[index],constant.Team.own,this,uid);
+            this.enemy[i] = new Monster_(data.teamInfo.teamB[uid],dataMgr.monster[monsters[i].value],pos,constant.Team.enemy,this,uid);
+            i++;
         }
 
         this.checkLoadRes = true;

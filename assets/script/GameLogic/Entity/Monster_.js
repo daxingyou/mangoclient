@@ -1,12 +1,21 @@
 var CombatUnit = require('Combatunit')
+var Agent = require('Agent')
+var DataMgr = require('DataMgr')
 
-function Monster_(data,pos,teamid,combat){
-    this.Hp = data.MaxHP;
-    this.MaxHp = data.MaxHP;
-    this.Mp = data.MaxMP;
-    this.MaxMp = data.MaxMP;
+function Monster_(data,attributes,pos,teamid,combat,uid){
+    this.Hp = data.hp;
+    this.MaxHp = data.maxHp;
+    this.Mp = data.mp;
+    this.MaxMp = data.maxMp;
+    this.basePhysical_arm = data.armor;
     
-    CombatUnit.call(this,data,pos,teamid,combat);
+    var that = this;
+    var monster = DataMgr.monster[data.monsterid];
+    this.agent = new Agent(monster.Model,pos,teamid,this.Hp,this.MaxHp,uid,function(){
+        that.loadok = true;
+    });
+
+    CombatUnit.call(this,attributes,pos,teamid,combat,uid);
 }
 
 (function(){

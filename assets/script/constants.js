@@ -25,7 +25,7 @@ module.exports = {
     SkillTargetType : {
         ALL : "all",
         RANDOM : "random",
-        SINGEL: "singel",
+        SINGEL: "single",
         LowHP:"lowHP",
         SELF:"self",
         None:"",

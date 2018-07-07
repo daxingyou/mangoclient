@@ -43,7 +43,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 135
+        "__id__": 134
       }
     ],
     "_prefab": {
@@ -3510,7 +3510,7 @@
       }
     ],
     "_prefab": {
-      "__id__": 134
+      "__id__": 135
     },
     "_id": "",
     "_opacity": 255,
@@ -3829,20 +3829,11 @@
       "__id__": 123
     },
     "_enabled": true,
-    "_curCard": null,
+    "frame": [],
     "_target": null,
-    "frame": []
-  },
-  {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 1
-    },
-    "asset": {
-      "__uuid__": "f3adafd4-d44e-4c71-ac59-a04f6fb48a6e"
-    },
-    "fileId": "8fj9uVLF5DpKyv+0lZqHJV",
-    "sync": false
+    "fightUI": {
+      "__id__": 134
+    }
   },
   {
     "__type__": "00cd2VtHXNLfrEPgNHKqYAD",
@@ -3868,7 +3859,22 @@
     "CardsLayout": {
       "__id__": 106
     },
-    "_HandsCards": []
+    "_HandsCards": [],
+    "_clickListen": null,
+    "input": {
+      "__id__": 133
+    }
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 1
+    },
+    "asset": {
+      "__uuid__": "f3adafd4-d44e-4c71-ac59-a04f6fb48a6e"
+    },
+    "fileId": "8fj9uVLF5DpKyv+0lZqHJV",
+    "sync": false
   },
   {
     "__type__": "cc.PrefabInfo",

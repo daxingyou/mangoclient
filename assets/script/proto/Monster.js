@@ -18,7 +18,9 @@ function Monster(data)
 	 this.BaseStamina = data.BaseStamina;// Int16Array  耐力
 	 this.BaseIntellect = data.BaseIntellect;// Int16Array  智慧
 	 this.BaseAgile = data.BaseAgile;// Int16Array  敏捷
-	 this.InitialCard = data.InitialCard;// String  初始卡牌
+	 this.InitialCard = data.InitialCard;// Int16Array  初始手牌
+	 this.InitialMP = data.InitialMP;// Int16Array  初始灵力
+	 this.InitialDrawPile = data.InitialDrawPile;// list  牌库初始卡牌
 }
 
  module.exports = Monster; 
