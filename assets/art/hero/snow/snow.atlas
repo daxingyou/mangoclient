@@ -1,201 +1,201 @@
 
 snow.png
-size: 1008,774
+size: 978,774
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 arms
   rotate: false
-  xy: 662, 551
+  xy: 656, 553
   size: 231, 219
   orig: 231, 219
   offset: 0, 0
   index: -1
 body
   rotate: true
-  xy: 523, 298
+  xy: 517, 302
   size: 196, 181
   orig: 196, 181
   offset: 0, 0
   index: -1
 bow_1
-  rotate: true
-  xy: 805, 18
+  rotate: false
+  xy: 834, 406
   size: 142, 145
   orig: 142, 145
   offset: 0, 0
   index: -1
 bow_2
   rotate: true
-  xy: 226, 10
+  xy: 834, 337
   size: 67, 132
   orig: 67, 132
   offset: 0, 0
   index: -1
 calf_1
   rotate: false
-  xy: 897, 547
+  xy: 396, 32
   size: 101, 223
   orig: 101, 223
   offset: 0, 0
   index: -1
 calf_2
   rotate: true
-  xy: 4, 4
+  xy: 176, 12
   size: 73, 218
   orig: 73, 218
   offset: 0, 0
   index: -1
 clothes_1
   rotate: false
-  xy: 4, 513
+  xy: 2, 515
   size: 346, 257
   orig: 346, 257
   offset: 0, 0
   index: -1
 clothes_2
   rotate: false
-  xy: 4, 81
+  xy: 2, 87
   size: 392, 157
   orig: 392, 157
   offset: 0, 0
   index: -1
 eyebrow
-  rotate: false
-  xy: 362, 33
+  rotate: true
+  xy: 942, 191
   size: 144, 24
   orig: 144, 24
   offset: 0, 0
   index: -1
 eyes_1a
   rotate: false
-  xy: 536, 46
+  xy: 517, 207
   size: 186, 93
   orig: 186, 93
   offset: 0, 0
   index: -1
 eyes_1b
-  rotate: true
-  xy: 805, 165
+  rotate: false
+  xy: 2, 2
   size: 172, 83
   orig: 172, 83
   offset: 0, 0
   index: -1
 eyes_2
   rotate: false
-  xy: 510, 14
+  xy: 396, 2
   size: 177, 28
   orig: 177, 28
   offset: 0, 0
   index: -1
 eyes_l
   rotate: true
-  xy: 726, 25
+  xy: 806, 86
   size: 37, 58
   orig: 37, 58
   offset: 0, 0
   index: -1
 eyes_r
-  rotate: true
-  xy: 892, 164
+  rotate: false
+  xy: 885, 126
   size: 51, 60
   orig: 51, 60
   offset: 0, 0
   index: -1
 hair_01
   rotate: false
-  xy: 4, 242
+  xy: 2, 246
   size: 327, 267
   orig: 327, 267
   offset: 0, 0
   index: -1
 hair_02
-  rotate: false
-  xy: 798, 341
+  rotate: true
+  xy: 652, 2
   size: 76, 206
   orig: 76, 206
   offset: 0, 0
   index: -1
 hair_03
   rotate: false
-  xy: 335, 253
+  xy: 331, 257
   size: 184, 241
   orig: 184, 241
   offset: 0, 0
   index: -1
 hair_04
   rotate: false
-  xy: 708, 337
+  xy: 889, 562
   size: 86, 210
   orig: 86, 210
   offset: 0, 0
   index: -1
 hair_05
   rotate: false
-  xy: 400, 61
+  xy: 700, 363
   size: 132, 188
   orig: 132, 188
   offset: 0, 0
   index: -1
 hand_1
-  rotate: false
-  xy: 956, 159
+  rotate: true
+  xy: 575, 4
   size: 48, 56
   orig: 48, 56
   offset: 0, 0
   index: -1
 hand_2
-  rotate: true
-  xy: 726, 66
+  rotate: false
+  xy: 806, 125
   size: 77, 61
   orig: 77, 61
   offset: 0, 0
   index: -1
 head
   rotate: true
-  xy: 354, 498
+  xy: 350, 500
   size: 272, 304
   orig: 272, 304
   offset: 0, 0
   index: -1
 lower_arm_1
   rotate: false
-  xy: 536, 143
+  xy: 499, 54
   size: 151, 151
   orig: 151, 151
   offset: 0, 0
   index: -1
 lower_arm_2
   rotate: true
-  xy: 691, 147
+  xy: 830, 188
   size: 147, 110
   orig: 147, 110
   offset: 0, 0
   index: -1
 mouth_1
-  rotate: false
-  xy: 362, 6
+  rotate: true
+  xy: 938, 130
   size: 56, 23
   orig: 56, 23
   offset: 0, 0
   index: -1
 mouth_2
-  rotate: false
-  xy: 708, 304
+  rotate: true
+  xy: 866, 69
   size: 54, 29
   orig: 54, 29
   offset: 0, 0
   index: -1
 upper_arm_1
   rotate: false
-  xy: 878, 375
+  xy: 705, 193
   size: 123, 168
   orig: 123, 168
   offset: 0, 0
   index: -1
 upper_arm_2
-  rotate: false
-  xy: 892, 219
+  rotate: true
+  xy: 652, 80
   size: 111, 152
   orig: 111, 152
   offset: 0, 0

@@ -22,7 +22,7 @@ var fight = {
         });
     
         pomelo.on('onEnterLoadCD', function (data){
-            cc.log('加载前倒计时:'+data);
+            cc.log('加载前倒计时:',data);
             var ui = that._uimgr.getCurMainUI();
             ui.selectScr.beginLoadCD();
         });
@@ -34,7 +34,7 @@ var fight = {
         });
     
         pomelo.on('onFightBegin', function(data){
-            cc.log('战斗开始'+data);
+            cc.log('战斗开始 ',data);
 
             var ui = that._uimgr.getCurMainUI();
             ui.ShowHandCards();
@@ -45,7 +45,7 @@ var fight = {
         });
     
         pomelo.on('onFightAttriUpdate', function(data){
-            cc.log('属性更新：' + Object.getOwnPropertyNames(data));
+            cc.log('属性更新：',data );
         });
     },
     OnFreshPile : function(data)
