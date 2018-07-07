@@ -18,7 +18,7 @@ PhysicalArm.prototype.constructor = PhysicalArm; // 需要修复下构造函数
   PhysicalArm.prototype.time = 0;
 
   PhysicalArm.prototype.enter = function(){
-    this.owner.addtional_Physical_arm += util.GetValue('physical_arm');
+    //this.owner.addtional_Physical_arm += util.GetValue('physical_arm');
 }
 
 PhysicalArm.prototype.tick = function(dt){

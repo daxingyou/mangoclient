@@ -38,15 +38,38 @@ var fight = {
 
             var ui = that._uimgr.getCurMainUI();
             ui.ShowHandCards();
+            
         });
     
         pomelo.on('onUseCard', function(data){
-            cc.log('%s 使用卡牌：%i, tid: %s', data.uid, data.cid, data.tid);
+            cc.log('使用卡牌：', data);
+
+            //data.mp
+            //data.inHands
+            //data.discardsNum
+            var ui = that._uimgr.getCurMainUI();
+            ui.ShowHandCards();
         });
     
         pomelo.on('onFightAttriUpdate', function(data){
             cc.log('属性更新：',data );
+
+            //combatMgr.getSelf();
         });
+
+        pomelo.on('onDrawCard', function(data){
+            cc.log('抽牌', data);
+            
+            var ui = that._uimgr.getCurMainUI();
+            ui.onFreshCardsNum(data.cardsNum);
+            combatMgr.getSelf().onDrawPile(data.inHands);
+            ui.ShowHandCards();
+        });
+    
+        pomelo.on('onMpRecover', function(data){
+            cc.log('灵力恢复', data);
+        });
+    
     },
     OnFreshPile : function(data)
     {

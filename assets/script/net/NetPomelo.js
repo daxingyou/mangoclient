@@ -7,11 +7,12 @@
 
 var netPomelo = {
     Request : function(proto,callback){
-        cc.log("pomelo.request head = " + proto.head + " data = " + proto.data);
+        cc.log("pomelo.request head = " , proto.head , " data = " , proto.data);
         pomelo.request(proto.head,proto.data,function(data){
 
-            cc.log("pomelo.respone " + data.code);
-            callback(data);
+            cc.log("pomelo.respone " , data.code);
+            if(callback != undefined)
+                callback(data);
         });
     }
 }

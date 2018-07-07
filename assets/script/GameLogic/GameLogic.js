@@ -1,10 +1,16 @@
 var combatMgr = require('CombatMgr')
 var dataMgr = require('DataMgr')
 var sceneMgr = require('SceneMgr')
+var constant = require('constants')
+var playCardMessage = require('playCardProto')
+var net = require('NetPomelo')
 
 var GameLogic = {
     get player(){
         return combatMgr.getSelf();
+    },
+    init(){
+        this.fightUI = cc.find('Canvas/ui/FightUI').getComponent('FightUI');
     },
     startFight : function(type,dungeonid){
         var dungeon = dataMgr.dungeon[dungeonid];
@@ -31,13 +37,13 @@ var GameLogic = {
     getCombatUnitForUid : function(uid){
         for(var i in combatMgr.getEnemys())
         {
-            if(combatMgr.getEnemys()[i].uid = uid)
+            if(combatMgr.getEnemys()[i].uid == uid)
                 return combatMgr.getEnemys()[i];
         }
 
         for(var i in combatMgr.getOwn())
         {
-            if(combatMgr.getOwn()[i].uid = uid)
+            if(combatMgr.getOwn()[i].uid == uid)
                 return combatMgr.getOwn()[i];
         }
 
@@ -46,8 +52,17 @@ var GameLogic = {
     DrawPile : function(CombatUnit,Card){
         CombatUnit.onDrawPile(Card);
     }, 
-    UsePile : function(CombatUnit,Card,target,targets){
+    UsePile : function(CombatUnit,Card,target,targets,curCardid,curObjective){
+        if(curObjective == constant.SkillTargetType.SINGEL)
+        {
+            net.Request(new playCardMessage(Card,curCardid,target.uid));
+        }
+        else{
+            net.Request(new playCardMessage(Card,curCardid,''));
+        }
         CombatUnit.onUsePile(Card,target,targets);
+
+        this.fightUI.UseCard(Card);
     },
     getEnemys : function(CombatUnit){
         if(CombatUnit.teamid == this.player.teamid)

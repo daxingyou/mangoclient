@@ -15,7 +15,7 @@ function Monster_(data,attributes,pos,teamid,combat,uid){
         that.loadok = true;
     });
 
-    CombatUnit.call(this,attributes,pos,teamid,combat,uid);
+    CombatUnit.call(this,data,attributes,pos,teamid,combat,uid);
 }
 
 (function(){

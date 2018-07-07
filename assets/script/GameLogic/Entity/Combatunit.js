@@ -78,15 +78,27 @@ CombatUnit.prototype.onDamage = function(dmg,from){
     if(this.Hp <= 0)
         this.onDie();
 };
-////抽牌
-CombatUnit.prototype.onDrawPile = function(id){
+////抽牌       服务器会将所有手牌下发，这里需要做校验
+CombatUnit.prototype.onDrawPile = function(ids){
     for(var i =0;i<this.abilitys.length;i++)
     {
         this.abilitys[i].onDrawPile();
     }
 
-    var card = new HandCard(DataMgr.card[id],this);
-    this.handsPile.push(card);
+    //理论上单次下发一张牌
+    if(ids.length - this.handsPile.length > 0)
+    {
+        for(var i = this.handsPile.length ;i<ids.length;i++)
+        {
+            var card = new HandCard(ids[i],this);
+            this.handsPile.push(card);
+
+            cc.log('当前抽牌 手牌数！',this.handsPile.length.toString());
+        }
+    }
+    else{
+        cc.log('发牌逻辑 异常请检查！');
+    }
 };
 ///使用卡牌监听
 CombatUnit.prototype.onUsePile = function(index,Target,targets){

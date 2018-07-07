@@ -39,9 +39,9 @@ cc.Class({
         var that = this;
 
         this.node.on('touchstart', function ( event ) {
-            console.log('Hello! card listen');
+            cc.log('Hello! card listen');
 
-            mgr.curSelectCard(parseInt(that.node.parent.name),event.curTarget);
+            mgr.curSelectCard(parseInt(that.node.parent.name),event.currentTarget);
             //GameLogic.UsePile(GameLogic.player,0,GameLogic.getEnemys(GameLogic.player)[0]);
         });
         this.node.on('touchmove', function ( event ) {
@@ -59,20 +59,15 @@ cc.Class({
         });
 
         this.node.on('touchend', function ( event ) {
-            console.log('Hello! card listen touchend' + that.node.name);
+            cc.log('Hello! card listen touchend ' + that.node.name);
             ctx.clear();
             mgr.CancleSelectCard(parseInt(that.node.parent.name));
         });
 
         this.node.on('touchcancel', function ( event ) {
-            console.log('Hello! card listen touchcancel' + that.node.name);
+            cc.log('Hello! card listen touchcancel ' + that.node.name);
             ctx.clear();
             mgr.CancleSelectCard(parseInt(that.node.parent.name));
-        });
-        
-        this.node.on('mouseup', function ( event ) {
-            console.log('Hello! card listen mouseup ' + that.node.name);
-            ctx.clear();
         });
     },
 

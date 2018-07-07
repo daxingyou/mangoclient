@@ -23,12 +23,13 @@ var TATest = function(data,ability,owner){
 
 TATest.prototype.Active = function(){
     this.active = true;
-    var func = actionFactory.actions[this.actionName];
-    //var func = actions[this.actionName];
-    if(func == null)
-        console.error('this action name is not found !'+this.actionName);
-    this.action = new func(this.attrs,this.ability,this.owner,this);
-    this.action.enter();
+    if(actionFactory.actions.hasOwnProperty(this.actionName))
+    {
+        var func = actionFactory.actions[this.actionName];
+    
+        this.action = new func(this.attrs,this.ability,this.owner,this);
+        this.action.enter();
+    }
 }
 
 TATest.prototype.tick = function(dt){

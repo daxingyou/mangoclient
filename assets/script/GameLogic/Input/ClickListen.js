@@ -43,12 +43,17 @@ cc.Class({
         this._input = input;
     },
     onEnable(){
-        this.node.on('touchstart',this.click(event));
+        var that = this;
+        this.node.on('touchstart',function(event){
+            that._input.CheckClickNode(event.target);
+        });
     },
     onDisable(){
-        this.node.off('foobar',this.click(event));
+        this.node.off('foobar',function(event){
+            
+        });
     },
     click(event){
-       this._input.CheckClickNode(event.target);
+        
     }
 });

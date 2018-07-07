@@ -29,9 +29,10 @@ cc.Class({
 
     },
     selelctTarget(index){
+        cc.log('cur selectTarget ',index);
         if(!this._IsSelectCard)
             return;
-        var curTarget = GameLogic.getCombatUnitForUid(GameLogic.player,index);
+        var curTarget = GameLogic.getCombatUnitForUid(index);
 
         if(this._target instanceof Array)
         {
@@ -39,7 +40,7 @@ cc.Class({
             {
                 if(this._target[key] == curTarget)
                 {
-                    GameLogic.UsePile(GameLogic.player,this._curCard,curTarget,this._target);
+                    GameLogic.UsePile(GameLogic.player,this._curCard,curTarget,this._target,this.curCardId,this.curObjective);
                 }
             }
         }
@@ -47,11 +48,12 @@ cc.Class({
         {
             if(this._target == curTarget);
             {
-                GameLogic.UsePile(GameLogic.player,this._curCard,curTarget,this._target);
+                GameLogic.UsePile(GameLogic.player,this._curCard,curTarget,this._target,this.curCardId,this.curObjective);
             }
         }
     },
     CheckClickNode(clickNode){
+        cc.log('cur CheckClickNode ',clickNode);
         this._IsSelectCard = this._clickNode == clickNode;
     },
     curSelectCard(index,clickNode){
@@ -59,8 +61,12 @@ cc.Class({
         this._clickNode = clickNode;
 
         var targets =  GameLogic.player.handsPile[this._curCard].ability.getTarget();
+        var card = GameLogic.player.handsPile[this._curCard];
 
-        if(GameLogic.player.handsPile[this._curCard].ability.actions[0].Objective == constant.SkillTargetType.ALL)
+        this.curCardId = card.id;
+        this.curObjective = card.ability.actions[0].Objective;
+
+        if(this.curObjective == constant.SkillTargetType.ALL)
         {
             if(targets instanceof Array)
             {
@@ -90,13 +96,7 @@ cc.Class({
     },
     CancleSelectCard(index){
         this._clickNode = null;
-        if(this._curCard == index)
-        {
-            this._curCard = 0;
-        }
-        else{
-            console.error("wtf?!~~");
-        }
+       
         this.CancleShowTargets();
     },
     CancleShowTargets(){

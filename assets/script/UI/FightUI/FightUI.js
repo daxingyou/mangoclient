@@ -28,14 +28,14 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        _clickListen = cc.find('Canvas').getComponent('ClickListen');
-        _clickListen.init(input);
+        this._clickListen = cc.find('Canvas').getComponent('ClickListen');
+        this._clickListen.init(this.input);
     },
     onEnable(){
-        _clickListen.enabled = true;
+        this._clickListen.enabled = true;
     },
     onDisable(){
-        _clickListen.enabled = false;
+        this._clickListen.enabled = false;
     },
 
     start () {
@@ -76,10 +76,14 @@ cc.Class({
         this.CardsLayout.updateLayout();
     },
     OnFresh : function(data){
-        this.ShowHandCards(data.playerCards);
-        this.cards.string = data.cards.toString();
-        this.DiscardPile.string = data.discardCards.toString();
-        this.DiscardPile.string = data.ExhaustedCards.toString();
+        //.mp data.inHands
+        this.ShowHandCards();
+        //this.cards.string = data.cards.toString();
+        this.DiscardPile.string = data.discardsNum.toString();
+        //this.DiscardPile.string = data.ExhaustedCards.toString();
+    },
+    onFreshCardsNum(num){
+        this.cards.string = num.toString();
     },
     ShowHandCards : function(){
         var player = combatmgr.getSelf();
@@ -88,6 +92,8 @@ cc.Class({
         {
             this._HandsCards[i].show();
             this._HandsCards[i].initData(player.handsPile[i].skillName);
+
+            //cc.log('%s cur',i.toString(),' name :',player.handsPile[i].skillName);
         }
     },
     UseCard : function(index){

@@ -7,6 +7,7 @@
 // Learn life-cycle callbacks:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
+var gamelogic = require('GameLogic')
 
 cc.Class({
     extends: cc.Component,
@@ -46,13 +47,27 @@ cc.Class({
         this._index = index;
     },
     initUI(){
+        gamelogic.init();
         var mgr = cc.find('Canvas/ui/FightUI/targetTips').getComponent('InputMgr');
         var that = this;
         this.node.on('mouseup', function ( event ) {
             mgr.selelctTarget(that._index);
         });
         this.node.on('touchstart',function(event){
-            cc.log('touchstart');
+            mgr.selelctTarget(that._index);
+            cc.log('target touchstart');
+        });
+        this.node.on('touchmove',function(event){
+            mgr.selelctTarget(that._index);
+            cc.log('target touchmove');
+        });
+        this.node.on('touchend',function(event){
+            mgr.selelctTarget(that._index);
+            cc.log('target touchend');
+        });
+        this.node.on('touchcancel',function(event){
+            mgr.selelctTarget(that._index);
+            cc.log('target touchcancel');
         });
     }
 

@@ -384,7 +384,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "a9affc77-b2ef-4414-8be5-650ca5e8a617"
+      "__uuid__": "41434795-0d1f-402e-9e03-ec93d05b15a1"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -659,7 +659,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "a9affc77-b2ef-4414-8be5-650ca5e8a617"
+      "__uuid__": "41434795-0d1f-402e-9e03-ec93d05b15a1"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -934,7 +934,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "a9affc77-b2ef-4414-8be5-650ca5e8a617"
+      "__uuid__": "41434795-0d1f-402e-9e03-ec93d05b15a1"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -1209,7 +1209,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "a9affc77-b2ef-4414-8be5-650ca5e8a617"
+      "__uuid__": "41434795-0d1f-402e-9e03-ec93d05b15a1"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -1484,7 +1484,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "a9affc77-b2ef-4414-8be5-650ca5e8a617"
+      "__uuid__": "41434795-0d1f-402e-9e03-ec93d05b15a1"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -1759,7 +1759,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "a9affc77-b2ef-4414-8be5-650ca5e8a617"
+      "__uuid__": "41434795-0d1f-402e-9e03-ec93d05b15a1"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -2034,7 +2034,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "a9affc77-b2ef-4414-8be5-650ca5e8a617"
+      "__uuid__": "41434795-0d1f-402e-9e03-ec93d05b15a1"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -2309,7 +2309,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "a9affc77-b2ef-4414-8be5-650ca5e8a617"
+      "__uuid__": "41434795-0d1f-402e-9e03-ec93d05b15a1"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -2584,7 +2584,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "a9affc77-b2ef-4414-8be5-650ca5e8a617"
+      "__uuid__": "41434795-0d1f-402e-9e03-ec93d05b15a1"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -2859,7 +2859,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "a9affc77-b2ef-4414-8be5-650ca5e8a617"
+      "__uuid__": "41434795-0d1f-402e-9e03-ec93d05b15a1"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -3829,11 +3829,14 @@
       "__id__": 123
     },
     "_enabled": true,
+    "_mgr": null,
     "frame": [],
     "_target": null,
+    "_clickNode": null,
     "fightUI": {
       "__id__": 134
-    }
+    },
+    "_IsSelectCard": false
   },
   {
     "__type__": "00cd2VtHXNLfrEPgNHKqYAD",
