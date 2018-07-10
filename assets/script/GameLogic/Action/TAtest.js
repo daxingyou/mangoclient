@@ -5,14 +5,22 @@ var TATest = function(data,ability,owner){
 	this.Index = data.Index;//// 子编号
     this.SkillName = data.SkillName;// String  技能名 
     
-    //this.Objective =JSON.parse(data.Objective) data.Target;
-	this.Objective = data.Target == '' ? null : JSON.parse(data.Target);// String  目标
-    ///this.Conditions = data.Conditions;// String  条件
+    this.Objective = data.Target;// String  目标
+    
+    this.aniName = data.Animation;
+    this.aniFrame = data.CriticalTime;
+    this.effect = data.Effect;
+    this.EffectiveTime = data.EffectiveTime;
 
-    this.actionName = data.Actions.split(':')[0];// String  行为
-    var sub = data.Actions.substring(this.actionName.length+1);
+    for(var name in data.Actions)
+    {
+        this.actionName = name;
+        this.attrs = data.Actions[name];
+    }
+    //.keys();// String  行为
+    //var sub = data.Actions.value();
 
-    this.attrs = sub == '' ? null :JSON.parse(sub);  ///参数
+    //this.attrs = sub == '' ? null :JSON.parse(sub);  ///参数
 
     this.ability = ability;
     this.owner = owner;
@@ -28,6 +36,8 @@ TATest.prototype.Active = function(){
     
         this.action = new func(this.attrs,this.ability,this.owner,this);
         this.action.enter();
+
+        
     }
 }
 

@@ -13,6 +13,7 @@ var constant = require('constants')
     this.width = 0;
     this.height = 0;
     this.contentSize = null;
+    this.aniMgr = null;
 
     var that = this;
     loadRes.load(path,(data)=>{
@@ -20,11 +21,11 @@ var constant = require('constants')
         that.go.parent = cc.find('Canvas/pool');
         that.go.position = cc.v2(pos.x,pos.y);
         that.go.scaleX = teamid == constant.Team.own ? constant.Team.enemy : -1;
-        var spData =  that.go.getComponent(sp.Skeleton);
+        var spData = that.go.getComponent(sp.Skeleton);
         that.height = Math.ceil(spData.skeletonData.skeletonJson.skeleton.height);
         that.width = Math.ceil(spData.skeletonData.skeletonJson.skeleton.width);
         that.contentSize = new cc.Rect(pos.x-that.width/2,pos.y,that.width,that.height);
-
+        that.aniMgr = that.go.getComponent('AnimationMgr');
         loadok();
     })
 

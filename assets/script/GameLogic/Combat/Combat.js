@@ -104,9 +104,13 @@ Combat.prototype.init = function(data){
     {
         var group_Data = dataMgr.group[dungeon.MonsterGroupID];
         var matrix = dataMgr.matrix[group_Data.Matrix];
-    
-        var monsters = new dict(group_Data.MonsterGroup);
-        //var matrix_pos = new MatrixPos(matrix.MatrixPos);
+        
+        var monsters = new Array();
+        for(var index in group_Data.MonsterGroup)
+        {
+            monsters[group_Data.MonsterGroup[index]] = index;
+        }
+        
 
         if(monsters.length > matrix.MatrixPos.length){
             cc.error('PVE matrix data error !');
@@ -116,9 +120,7 @@ Combat.prototype.init = function(data){
         ////怪物数据 暂是本地数据
         for(var uid in data.teamInfo.teamB){
             var i = 1;
-            //var pos =  matrix_pos.Matrixs[parseInt(monsters[i].key)];
-            //this.own[index] = new Hero_(data.teamInfo.teamB[uid],dataMgr.heroAttributes[1001],matrix_pos.Matrixs[index],constant.Team.own,this,uid);
-            this.enemy[i] = new Monster_(data.teamInfo.teamB[uid],dataMgr.monster[monsters[i].value],matrix.MatrixPos[i],constant.Team.enemy,this,uid);
+            this.enemy[i] = new Monster_(data.teamInfo.teamB[uid],dataMgr.monster[data.teamInfo.teamB[uid].monsterid],matrix.MatrixPos[monsters[data.teamInfo.teamB[uid].monsterid]],constant.Team.enemy,this,uid);
             i++;
         }
 

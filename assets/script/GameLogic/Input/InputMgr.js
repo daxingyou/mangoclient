@@ -60,7 +60,7 @@ cc.Class({
         var card = GameLogic.player.handsPile[this._curCard];
 
         this.curCardId = card.id;
-        this.curObjective = card.ability.actions[0].Objective;
+        this.curObjective = card.ability.actions[1].Objective;
 
         if(this.curObjective.type == constant.SkillTargetType.ALL)
         {

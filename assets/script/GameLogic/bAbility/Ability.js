@@ -9,7 +9,7 @@ var constant = require('constants')
 var CombatUtility = require('CombatUtility')
 
 var ability = function(data,owner){
-	this.actions = new Array(data.length);
+	this.actions = new Array();
 	this.owner = owner;
 	for(var i in data)
 	{
@@ -31,11 +31,10 @@ ability.prototype.Active = function(Target,targets){
 	this.curTarget = Target;
 	this.targets = targets;
 
-	for(var i=0;i<this.actions.length;i++)
+	for(var i in this.actions)
 	{
 		this.actions[i].Active();
 	}
-	//this.actions.Active();
 }
 ///技能失效
 ability.prototype.Exit = function(){
@@ -55,53 +54,29 @@ ability.prototype.ActionExit = function(index){
 
 //////////////////////// event ////////////////////////
 ability.prototype.onDie = function(){
-	for(var i=0;i<actions.length;i++)
-	{
-		if(this.actions[i].Conditions == constant.SkillActiveType.OnDie){
-			this.actions[i].Active();
-			break;
-		}
-	}
+	
 }
 
 ///使用卡牌监听
 ability.prototype.onUsePile = function(){
-	for(var i=0;i<this.actions.length;i++)
-	{
-		if(this.actions[i].Conditions == constant.SkillActiveType.OnUsePile){
-			this.actions[i].Active();
-			break;
-		}
-	}
+	
 }
 ////抽牌
 ability.prototype.onDrawPile = function(){
-	for(var i=0;i<this.actions.length;i++)
-	{
-		if(this.actions[i].Conditions == constant.SkillActiveType.onDrawPile){
-			this.actions[i].Active();
-			break;
-		}
-	}
+	
 }
 ability.prototype.onDamage = function(){
-	for(var i=0;i<this.actions.length;i++)
-	{
-		if(this.actions[i].Conditions == constant.SkillActiveType.onDamage){
-			this.actions[i].Active();
-			break;
-		}
-	}
+
 }
 ability.prototype.tick = function(dt){
-	for(var i=0;i<this.actions.length;i++)
+	for(var i in this.actions)
 	{
-		this.actions[i].tick(dt);
+		this.actions[i].tick();
 	}
 }
 
 ability.prototype.getTarget = function(){
-	return CombatUtility.getTargets(this.actions[0].Objective,this.owner.curCombat);
+	return CombatUtility.getTargets(this.actions[1].Objective,this.owner.curCombat);
 }
 
 module.exports = ability;

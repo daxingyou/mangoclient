@@ -20,8 +20,12 @@ cc.Class({
 
     properties: {
         _index : 1,
-        _standS : 'stand',
-        _attackS : 'attack'
+        _stand : 'guard',
+        _attack : 'attack',
+        _die : 'die',
+        _hit : 'hit',
+        _skilla : 'skilla',
+        _victory : 'victory'
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -29,7 +33,7 @@ cc.Class({
     onLoad () {
         var spine = this.spine = this.getComponent('sp.Skeleton');
 
-        this._setMix(this._standS,this._attackS);
+        //this._setMix(this._standS,this._attackS);
 
         spine.setStartListener(trackEntry => {
             var animationName = trackEntry.animation ? trackEntry.animation.name : "";
@@ -76,6 +80,7 @@ cc.Class({
     },
     //动画融合
     stand(){
+        //this.spine.
         this.spine.setAnimation(0,this.standS, true);
     },
     attack(){
