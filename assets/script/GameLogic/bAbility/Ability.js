@@ -5,7 +5,6 @@
  */
 
 var Action = require('TAtest')
-var constant = require('constants')
 var CombatUtility = require('CombatUtility')
 
 var ability = function(data,owner){

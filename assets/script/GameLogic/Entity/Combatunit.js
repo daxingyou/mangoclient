@@ -2,8 +2,6 @@
  *     角色对象父类
  *      by pwh
  */
-
- var DataMgr = require('DataMgr')
  var HandCard = require('HandCard')
 
 var CombatUnit = function(data,attrs,pos,teamid,combat,uid){

@@ -60,8 +60,6 @@ cc.Class({
             var animationName = trackEntry.animation ? trackEntry.animation.name : "";
             cc.log("[track %s][animation %s] event: %s, %s, %s, %s", trackEntry.trackIndex, animationName, event.data.name, event.intValue, event.floatValue, event.stringValue);
         });
-
-        //ShaderUtils.setShader(spine, "stroke");
     },
 
     start () {
@@ -85,5 +83,8 @@ cc.Class({
     },
     attack(){
         this.spine.setAnimation(1, this.attackS, false);
+    },
+    playAnimation(name,loop){
+        this.spine.setAnimation(0,this.name,loop);
     }
 });
