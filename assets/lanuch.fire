@@ -82,9 +82,6 @@
       },
       {
         "__id__": 15
-      },
-      {
-        "__id__": 16
       }
     ],
     "_prefab": null,
@@ -608,15 +605,5 @@
       "__id__": 2
     },
     "_enabled": true
-  },
-  {
-    "__type__": "67be2Hua+NPlZJA/RQmKtqo",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 2
-    },
-    "_enabled": false,
-    "_input": null
   }
 ]

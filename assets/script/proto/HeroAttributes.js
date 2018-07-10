@@ -1,22 +1,267 @@
 //
-// Auto Generated Code By pwh
+// Auto Generated Code
 //
 
 // Generate From Hero.xlsx
-function HeroAttributes(data)
-{
-	 this.ID = data.ID;// Int16Array  编号
-	 this.HeroName = data.HeroName;// String  名称
-	 this.HeroLevel = data.HeroLevel;// Int16Array  等级
-	 this.HeroMaxHP = data.HeroMaxHP;// Int16Array  最大气血
-	 this.HeroMaxMP = data.HeroMaxMP;// Int16Array  最大灵力
-	 this.HeroMaxThew = data.HeroMaxThew;// Int16Array  最大体力
-	 this.HeroBaseArmor = data.HeroBaseArmor;// Int16Array  基础护甲
-	 this.HeroBaseStrength = data.HeroBaseStrength;// Int16Array  力量
-	 this.HeroBaseStamina = data.HeroBaseStamina;// Int16Array  耐力
-	 this.HeroBaseIntellect = data.HeroBaseIntellect;// Int16Array  智慧
-	 this.HeroBaseAgile = data.HeroBaseAgile;// Int16Array  敏捷
-}
-
- module.exports = HeroAttributes; 
-// End of Auto Generated Code
+module.exports = {
+	1001: {
+		ID: 1001,
+		HeroName: '陈靖仇',
+		HeroLevel: 1,
+		HeroMaxHP: 1500,
+		HeroMaxMP: 10,
+		HeroMaxThew: 10,
+		HeroBaseArmor: 0,
+		HeroBaseStrength: 0,
+		HeroBaseStamina: 0,
+		HeroBaseIntellect: 0,
+		HeroBaseAgile: 0
+	},
+	1002: {
+		ID: 1002,
+		HeroName: '陈靖仇',
+		HeroLevel: 2,
+		HeroMaxHP: 1620,
+		HeroMaxMP: 10,
+		HeroMaxThew: 10,
+		HeroBaseArmor: 0,
+		HeroBaseStrength: 0,
+		HeroBaseStamina: 0,
+		HeroBaseIntellect: 0,
+		HeroBaseAgile: 0
+	},
+	1003: {
+		ID: 1003,
+		HeroName: '陈靖仇',
+		HeroLevel: 3,
+		HeroMaxHP: 1740,
+		HeroMaxMP: 10,
+		HeroMaxThew: 10,
+		HeroBaseArmor: 0,
+		HeroBaseStrength: 0,
+		HeroBaseStamina: 0,
+		HeroBaseIntellect: 0,
+		HeroBaseAgile: 0
+	},
+	1004: {
+		ID: 1004,
+		HeroName: '陈靖仇',
+		HeroLevel: 4,
+		HeroMaxHP: 1860,
+		HeroMaxMP: 10,
+		HeroMaxThew: 10,
+		HeroBaseArmor: 0,
+		HeroBaseStrength: 0,
+		HeroBaseStamina: 0,
+		HeroBaseIntellect: 0,
+		HeroBaseAgile: 0
+	},
+	1005: {
+		ID: 1005,
+		HeroName: '陈靖仇',
+		HeroLevel: 5,
+		HeroMaxHP: 1980,
+		HeroMaxMP: 10,
+		HeroMaxThew: 10,
+		HeroBaseArmor: 0,
+		HeroBaseStrength: 0,
+		HeroBaseStamina: 0,
+		HeroBaseIntellect: 0,
+		HeroBaseAgile: 0
+	},
+	1006: {
+		ID: 1006,
+		HeroName: '陈靖仇',
+		HeroLevel: 6,
+		HeroMaxHP: 2100,
+		HeroMaxMP: 10,
+		HeroMaxThew: 10,
+		HeroBaseArmor: 0,
+		HeroBaseStrength: 0,
+		HeroBaseStamina: 0,
+		HeroBaseIntellect: 0,
+		HeroBaseAgile: 0
+	},
+	1007: {
+		ID: 1007,
+		HeroName: '陈靖仇',
+		HeroLevel: 7,
+		HeroMaxHP: 2220,
+		HeroMaxMP: 10,
+		HeroMaxThew: 10,
+		HeroBaseArmor: 0,
+		HeroBaseStrength: 0,
+		HeroBaseStamina: 0,
+		HeroBaseIntellect: 0,
+		HeroBaseAgile: 0
+	},
+	1008: {
+		ID: 1008,
+		HeroName: '陈靖仇',
+		HeroLevel: 8,
+		HeroMaxHP: 2340,
+		HeroMaxMP: 10,
+		HeroMaxThew: 10,
+		HeroBaseArmor: 0,
+		HeroBaseStrength: 0,
+		HeroBaseStamina: 0,
+		HeroBaseIntellect: 0,
+		HeroBaseAgile: 0
+	},
+	1009: {
+		ID: 1009,
+		HeroName: '陈靖仇',
+		HeroLevel: 9,
+		HeroMaxHP: 2460,
+		HeroMaxMP: 10,
+		HeroMaxThew: 10,
+		HeroBaseArmor: 0,
+		HeroBaseStrength: 0,
+		HeroBaseStamina: 0,
+		HeroBaseIntellect: 0,
+		HeroBaseAgile: 0
+	},
+	1010: {
+		ID: 1010,
+		HeroName: '陈靖仇',
+		HeroLevel: 10,
+		HeroMaxHP: 2580,
+		HeroMaxMP: 10,
+		HeroMaxThew: 10,
+		HeroBaseArmor: 0,
+		HeroBaseStrength: 0,
+		HeroBaseStamina: 0,
+		HeroBaseIntellect: 0,
+		HeroBaseAgile: 0
+	},
+	2001: {
+		ID: 2001,
+		HeroName: '于小雪',
+		HeroLevel: 1,
+		HeroMaxHP: 1200,
+		HeroMaxMP: 10,
+		HeroMaxThew: 10,
+		HeroBaseArmor: 0,
+		HeroBaseStrength: 0,
+		HeroBaseStamina: 0,
+		HeroBaseIntellect: 0,
+		HeroBaseAgile: 0
+	},
+	2002: {
+		ID: 2002,
+		HeroName: '于小雪',
+		HeroLevel: 2,
+		HeroMaxHP: 1296,
+		HeroMaxMP: 10,
+		HeroMaxThew: 10,
+		HeroBaseArmor: 0,
+		HeroBaseStrength: 0,
+		HeroBaseStamina: 0,
+		HeroBaseIntellect: 0,
+		HeroBaseAgile: 0
+	},
+	2003: {
+		ID: 2003,
+		HeroName: '于小雪',
+		HeroLevel: 3,
+		HeroMaxHP: 1392,
+		HeroMaxMP: 10,
+		HeroMaxThew: 10,
+		HeroBaseArmor: 0,
+		HeroBaseStrength: 0,
+		HeroBaseStamina: 0,
+		HeroBaseIntellect: 0,
+		HeroBaseAgile: 0
+	},
+	2004: {
+		ID: 2004,
+		HeroName: '于小雪',
+		HeroLevel: 4,
+		HeroMaxHP: 1488,
+		HeroMaxMP: 10,
+		HeroMaxThew: 10,
+		HeroBaseArmor: 0,
+		HeroBaseStrength: 0,
+		HeroBaseStamina: 0,
+		HeroBaseIntellect: 0,
+		HeroBaseAgile: 0
+	},
+	2005: {
+		ID: 2005,
+		HeroName: '于小雪',
+		HeroLevel: 5,
+		HeroMaxHP: 1584,
+		HeroMaxMP: 10,
+		HeroMaxThew: 10,
+		HeroBaseArmor: 0,
+		HeroBaseStrength: 0,
+		HeroBaseStamina: 0,
+		HeroBaseIntellect: 0,
+		HeroBaseAgile: 0
+	},
+	2006: {
+		ID: 2006,
+		HeroName: '于小雪',
+		HeroLevel: 6,
+		HeroMaxHP: 1680,
+		HeroMaxMP: 10,
+		HeroMaxThew: 10,
+		HeroBaseArmor: 0,
+		HeroBaseStrength: 0,
+		HeroBaseStamina: 0,
+		HeroBaseIntellect: 0,
+		HeroBaseAgile: 0
+	},
+	2007: {
+		ID: 2007,
+		HeroName: '于小雪',
+		HeroLevel: 7,
+		HeroMaxHP: 1776,
+		HeroMaxMP: 10,
+		HeroMaxThew: 10,
+		HeroBaseArmor: 0,
+		HeroBaseStrength: 0,
+		HeroBaseStamina: 0,
+		HeroBaseIntellect: 0,
+		HeroBaseAgile: 0
+	},
+	2008: {
+		ID: 2008,
+		HeroName: '于小雪',
+		HeroLevel: 8,
+		HeroMaxHP: 1872,
+		HeroMaxMP: 10,
+		HeroMaxThew: 10,
+		HeroBaseArmor: 0,
+		HeroBaseStrength: 0,
+		HeroBaseStamina: 0,
+		HeroBaseIntellect: 0,
+		HeroBaseAgile: 0
+	},
+	2009: {
+		ID: 2009,
+		HeroName: '于小雪',
+		HeroLevel: 9,
+		HeroMaxHP: 1968,
+		HeroMaxMP: 10,
+		HeroMaxThew: 10,
+		HeroBaseArmor: 0,
+		HeroBaseStrength: 0,
+		HeroBaseStamina: 0,
+		HeroBaseIntellect: 0,
+		HeroBaseAgile: 0
+	},
+	2010: {
+		ID: 2010,
+		HeroName: '于小雪',
+		HeroLevel: 10,
+		HeroMaxHP: 2064,
+		HeroMaxMP: 10,
+		HeroMaxThew: 10,
+		HeroBaseArmor: 0,
+		HeroBaseStrength: 0,
+		HeroBaseStamina: 0,
+		HeroBaseIntellect: 0,
+		HeroBaseAgile: 0
+	},
+};

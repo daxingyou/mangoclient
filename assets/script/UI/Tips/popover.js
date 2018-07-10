@@ -7,40 +7,9 @@
 // Learn life-cycle callbacks:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
-
-var dataMgr = require("DataMgr")
-var gameLogic = require("GameLogic")
-var matchMessage = require("matchMessage")
-var constant = require('constants')
-var actionfactory = require('./GameLogic/Action/ActionFactory')
-var uimgr = require('UIMgr')
-
-/*
-// utils.js
-export function myFunctionA(value) {
-    console.log('Inside myFunctionA');
-    return(value + 1);
-}
-export function myFunctionB() {
-    console.log('Inside myFunctionB');
-}
-And when I need to call those functions, even from inside a component, I don’t have to type the module name, i.e. utils.myfunctionA(), I just call myFunctionA():
-
-// mycomponent.js
-
+var UIBase = require("UIBase")
 cc.Class({
-    extends: cc.Component,
-    properties: {
-    },
-    onLoad: function () {
-        var variable = 3;
-        var result = myFunctionA(variable);
-        console.log('result=' + result);
-    }
-});
-*/
-cc.Class({
-    extends: cc.Component,
+    extends: UIBase,
 
     properties: {
         // foo: {
@@ -62,24 +31,19 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {
-
-        actionfactory.init();
-        ////数据加载
-        dataMgr.init(()=>{
-            
-        });
-        uimgr = cc.find('Canvas').getComponent('UIMgr');
-        uimgr.loadUI(constant.UI.Login);
-
-        matchMessage.init();
-    },
+    // onLoad () {},
 
     start () {
 
     },
+    enter(){
 
-    update (dt) {
-        gameLogic.Tick(dt);
+        this.hide();
     },
+
+    quit(){
+        this.hide();
+    }
+
+    // update (dt) {},
 });

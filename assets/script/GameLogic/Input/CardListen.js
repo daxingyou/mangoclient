@@ -14,34 +14,26 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
+        _startPoint : null,
+        cardItem : cc.Component,
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
+        if(this.cardItem == null || this.cardItem == undefined)
+        {
+            this.cardItem = this.node.parent.getComponent('CardItem');
+        }
+
         var ctx = cc.find('Canvas/tips').getComponent(cc.Graphics);
         var mgr = cc.find('Canvas/ui/FightUI/targetTips').getComponent('InputMgr');
         var that = this;
 
         this.node.on('touchstart', function ( event ) {
-            cc.log('Hello! card listen');
+            //cc.log('Hello! card listen');
 
-            mgr.curSelectCard(parseInt(that.node.parent.name),event.currentTarget);
+            mgr.curSelectCard(that.cardItem._index,event.currentTouch.__instanceId,event.touch._startPoint);
             //GameLogic.UsePile(GameLogic.player,0,GameLogic.getEnemys(GameLogic.player)[0]);
         });
         this.node.on('touchmove', function ( event ) {
@@ -56,18 +48,21 @@ cc.Class({
             ctx.moveTo(newVec2.x - cc.winSize.width/2 + that.node.getContentSize().width/2,newVec2.y);
             ctx.quadraticCurveTo(newVec2.x - cc.winSize.width/2 + that.node.getContentSize().width/2,newVec2.y + 200,delta.x - newVec2.x - that.node.getContentSize().width/2,delta.y - newVec2.y);
             ctx.stroke();
+
+            mgr.touchMove(event.currentTouch.__instanceId,event.touch._point);
+            //cc.pDistance(event.touch._startPoint,event.touch._point);
         });
 
         this.node.on('touchend', function ( event ) {
             cc.log('Hello! card listen touchend ' + that.node.name);
             ctx.clear();
-            mgr.CancleSelectCard(parseInt(that.node.parent.name));
+            mgr.CancleSelectCard(that.cardItem._index,event.currentTouch.__instanceId,event.touch._point);
         });
 
         this.node.on('touchcancel', function ( event ) {
             cc.log('Hello! card listen touchcancel ' + that.node.name);
             ctx.clear();
-            mgr.CancleSelectCard(parseInt(that.node.parent.name));
+            mgr.CancleSelectCard(that.cardItem._index,event.currentTouch.__instanceId,event.touch._point);
         });
     },
 

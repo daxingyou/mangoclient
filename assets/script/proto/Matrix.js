@@ -1,14 +1,32 @@
 //
-// Auto Generated Code By pwh
+// Auto Generated Code
 //
 
 // Generate From Matrix.xlsx
-function Matrix(data)
-{
-	 this.ID = data.ID;// Int16Array  编号
-	 this.Name = data.Name;// String  名称
-	 this.MatrixPos = data.MatrixPos;// dict  阵形位置
-}
-
- module.exports = Matrix; 
-// End of Auto Generated Code
+module.exports = {
+	1: {
+		ID: 1,
+		Name: '三人阵',
+		MatrixPos: {"1":{"x":100, "y":300},"2":{"x":1010, "y":300},"3":{"x":100, "y":300}}
+	},
+	2: {
+		ID: 2,
+		Name: '五人阵',
+		MatrixPos: {"1":{"x":100, "y":300},"2":{"x":100, "y":300},"3":{"x":100, "y":300},"4":{"x":100, "y":300},"5":{"x":100, "y":300}}
+	},
+	3: {
+		ID: 3,
+		Name: '主角1',
+		MatrixPos: {"1":{"x":330, "y":300}}
+	},
+	4: {
+		ID: 4,
+		Name: '主角2',
+		MatrixPos: {"1":{"x":430, "y":300},"2":{"x":240, "y":300}}
+	},
+	5: {
+		ID: 5,
+		Name: '主角3',
+		MatrixPos: {"1":{"x":520, "y":300},"2":{"x":330, "y":300},"3":{"x":140, "y":300}}
+	},
+};

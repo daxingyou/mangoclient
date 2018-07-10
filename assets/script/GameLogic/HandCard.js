@@ -8,7 +8,7 @@ var Ability = require('Ability')
 
 var HandCard = function(id,owner){
     var skill = dataMgr.skill[id];
-    this.skillName = skill['0'].SkillName;
+    this.skillName = skill[1].SkillName;
     this.id = id;
     
     this.ability = new Ability(skill,owner);

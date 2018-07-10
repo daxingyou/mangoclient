@@ -1,14 +1,13 @@
 var actionFactory = require('./ActionFactory')
-//import {actions} from "./ActionFactory"
-
 
 var TATest = function(data,ability,owner){
     this.ID = data.ID;// Int16Array  编号
 	this.Index = data.Index;//// 子编号
     this.SkillName = data.SkillName;// String  技能名 
     
-	this.Objective = data.Objective== '' ? null : JSON.parse(data.Objective);// String  目标
-    this.Conditions = data.Conditions;// String  条件
+    //this.Objective =JSON.parse(data.Objective) data.Target;
+	this.Objective = data.Target == '' ? null : JSON.parse(data.Target);// String  目标
+    ///this.Conditions = data.Conditions;// String  条件
 
     this.actionName = data.Actions.split(':')[0];// String  行为
     var sub = data.Actions.substring(this.actionName.length+1);

@@ -15,6 +15,7 @@ cc.Class({
 
     properties: {
         Name : cc.Label,
+        _index : 0,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -24,8 +25,8 @@ cc.Class({
     start () {
 
     },
-    initData(data){
-        //console.log(this.super);
+    initData(data,index){
+        this._index = index;
         this.Name.string = data;
     }
     // update (dt) {},

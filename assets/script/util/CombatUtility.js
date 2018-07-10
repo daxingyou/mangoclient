@@ -81,6 +81,25 @@ var CombatUtility = {
         else{
             return target.curCombat.own;
         }
+     },
+     getTargetForPoint : function(point,combat){
+        for(var i in combat.own) 
+        {
+            if(combat.own[i].agent.getContentSize().contains(point))
+            {
+                return combat.own[i];
+            }
+        }
+
+        for(var i in combat.enemy) 
+        {
+            if(combat.enemy[i].agent.getContentSize().contains(point))
+            {
+                return combat.enemy[i];
+            }
+        }
+
+        return null;
      }
 }
 

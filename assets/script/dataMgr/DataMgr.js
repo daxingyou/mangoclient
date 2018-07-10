@@ -46,6 +46,7 @@ var dataMgr = {
     },
     init : function(callback){
         this.index = 0;
+        /*
         this.load(constant.DataResPath.dungeon,(data)=>{
             for(var i =0;i<data.length;i++)
             {
@@ -54,7 +55,9 @@ var dataMgr = {
             }
             this.index ++;
             this.check(callback);
-        });
+        });*/
+        this.dungeon = Dungeon;
+         /*
         this.load(constant.DataResPath.scene,(data)=>{
             for(var i =0;i<data.length;i++)
             {
@@ -63,7 +66,9 @@ var dataMgr = {
             }
             this.index ++;
             this.check(callback);
-        });
+        });*/
+        this.scene = Scene;
+        /*
         this.load(constant.DataResPath.monster,(data)=>{
             for(var i =0;i<data.length;i++)
             {
@@ -72,7 +77,9 @@ var dataMgr = {
             }
             this.index ++;
             this.check(callback);
-        });
+        });*/
+        this.monster = Monster;
+        /*
         this.load(constant.DataResPath.group,(data)=>{
             for(var i =0;i<data.length;i++)
             {
@@ -81,7 +88,9 @@ var dataMgr = {
             }
             this.index ++;
             this.check(callback);
-        });
+        });*/
+        this.group = Group;
+        /*
         this.load(constant.DataResPath.skill,(data)=>{
             var temp = 0;
             for(var i =0;i<data.length;i++)
@@ -96,7 +105,9 @@ var dataMgr = {
             }
             this.index ++;
             this.check(callback);
-        });
+        });*/
+        this.skill = Skill;
+        /*
         this.load(constant.DataResPath.matrix,(data)=>{
             for(var i =0;i<data.length;i++)
             {
@@ -105,7 +116,9 @@ var dataMgr = {
             }
             this.index ++;
             this.check(callback);
-        });
+        });*/
+        this.matrix = Matrix;
+        /*
         this.load(constant.DataResPath.hero,(data)=>{
             for(var i =0;i<data.length;i++)
             {
@@ -114,7 +127,9 @@ var dataMgr = {
             }
             this.index ++;
             this.check(callback);
-        });
+        });*/
+        this.hero = Hero;
+        /*
         this.load(constant.DataResPath.card,(data)=>{
             for(var i =0;i<data.length;i++)
             {
@@ -123,7 +138,9 @@ var dataMgr = {
             }
             this.index ++;
             this.check(callback);
-        });
+        });*/
+        this.card = Card;
+        /*
         this.load(constant.DataResPath.heroAttributes,(data)=>{
             for(var i =0;i<data.length;i++)
             {
@@ -132,8 +149,9 @@ var dataMgr = {
             }
             this.index ++;
             this.check(callback);
-        });
-        
+        });*/
+        this.heroAttributes = HeroAttributes;
+        callback();
     },
     check : function(callback){
         if(this.index == 9)

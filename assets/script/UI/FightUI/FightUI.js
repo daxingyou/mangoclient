@@ -21,66 +21,23 @@ cc.Class({
         HandsCardRoot : cc.Node,
         CardsLayout : cc.Layout,
         _HandsCards : [],
-        _clickListen : null,
         input : cc.Component        
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {
-        this._clickListen = cc.find('Canvas').getComponent('ClickListen');
-        this._clickListen.init(this.input);
-    },
-    onEnable(){
-        this._clickListen.enabled = true;
-    },
-    onDisable(){
-        this._clickListen.enabled = false;
-    },
-
     start () {
-        /*
-        this._mgr.loadUI(constant.UI.FightCard,(src)=>{
-
-            src.node.name = "0";
-            src.node.parent = this.HandsCardRoot;
-            src.node.positon = cc.v2(0,0);
-            //this.CardsLayout.node.addChild(src.node);
-            src.hide();
-            this._HandsCards.push(src);
-
-            for(var i =0;i<9;i++)
-            {
-                var node = cc.instantiate(this._HandsCards[i].node);
-                node.name = i.toString();
-                node.parent = this.HandsCardRoot;
-                node.positon = cc.v2(0,0);
-                //this.CardsLayout.node.addChild(src.node);
-                node.active = false;
-                var sc = node.getComponent('CardItem');
-                sc.hide();
-
-                this._HandsCards.push(sc);
-            }
-            
-            this.CardsLayout.updateLayout();
-        });*/
-
-        
         for (var i = 0; i < this.CardsLayout.node.children.length; ++i) {
             this._HandsCards.push(this.CardsLayout.node.children[i].getComponent('CardItem'));
         }
     },
 
     update (dt) {
-        this.CardsLayout.updateLayout();
     },
     OnFresh : function(data){
         //.mp data.inHands
         this.ShowHandCards();
-        //this.cards.string = data.cards.toString();
         this.DiscardPile.string = data.discardsNum.toString();
-        //this.DiscardPile.string = data.ExhaustedCards.toString();
     },
     onFreshCardsNum(num){
         this.cards.string = num.toString();
@@ -88,12 +45,18 @@ cc.Class({
     ShowHandCards : function(){
         var player = combatmgr.getSelf();
 
-        for(var i=0;i<player.handsPile.length;i++)
+        //for(var i=0;i<player.handsPile.length;i++)
+        for(var i=0;i<10;i++)
         {
-            this._HandsCards[i].show();
-            this._HandsCards[i].initData(player.handsPile[i].skillName);
-
-            //cc.log('%s cur',i.toString(),' name :',player.handsPile[i].skillName);
+            if(i < player.handsPile.length)
+            {
+                this._HandsCards[i].show();
+                this._HandsCards[i].initData(player.handsPile[i].skillName,i);
+                cc.log('%s cur',i.toString(),' name :',player.handsPile[i].skillName);
+            }
+            else{
+                this._HandsCards[i].hide();
+            }
         }
     },
     UseCard : function(index){

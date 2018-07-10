@@ -1,4 +1,5 @@
 var combatMgr = require('CombatMgr')
+var gameLogic = require('GameLogic')
 
 var fight = {
     _uimgr : null,
@@ -38,7 +39,7 @@ var fight = {
 
             var ui = that._uimgr.getCurMainUI();
             ui.ShowHandCards();
-            
+            gameLogic.init();
         });
     
         pomelo.on('onUseCard', function(data){
@@ -52,7 +53,7 @@ var fight = {
         });
     
         pomelo.on('onFightAttriUpdate', function(data){
-            cc.log('属性更新：',data );
+            //cc.log('属性更新：',data );
 
             //combatMgr.getSelf();
         });
@@ -67,7 +68,8 @@ var fight = {
         });
     
         pomelo.on('onMpRecover', function(data){
-            cc.log('灵力恢复', data);
+            //cc.log('灵力恢复', data);
+            
         });
     
     },

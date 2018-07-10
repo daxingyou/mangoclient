@@ -60,8 +60,8 @@ var GameLogic = {
         else{
             net.Request(new playCardMessage(Card,curCardid,''));
         }
+        
         CombatUnit.onUsePile(Card,target,targets);
-
         this.fightUI.UseCard(Card);
     },
     getEnemys : function(CombatUnit){

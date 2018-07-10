@@ -7,7 +7,7 @@
 var dataMgr = require('DataMgr')
 var gameCenter = require('DataCenter')
 var sceneMgr = require('SceneMgr')
-var MatrixPos = require('MatrixPos')
+//var MatrixPos = require('MatrixPos')
 var Hero_ = require('Hero_')
 var constant = require('constants')
 var consts = require('consts')
@@ -79,12 +79,12 @@ Combat.prototype.init = function(data){
 
     ///test demo 默认 为 PVE_2
     var matrix = dataMgr.matrix[4];
-    var matrix_pos = new MatrixPos(matrix.MatrixPos);
+    //var matrix_pos = new MatrixPos(matrix.MatrixPos);
 
     var index = 1;
     for(var uid in data.teamInfo.teamA)
     {
-        this.own[index] = new Hero_(data.teamInfo.teamA[uid],dataMgr.heroAttributes[1001],matrix_pos.Matrixs[index],constant.Team.own,this,uid);
+        this.own[index] = new Hero_(data.teamInfo.teamA[uid],dataMgr.heroAttributes[1001],matrix.MatrixPos[index],constant.Team.own,this,uid);
 
         if(uid == gameCenter.uuid)
         {
@@ -106,19 +106,19 @@ Combat.prototype.init = function(data){
         var matrix = dataMgr.matrix[group_Data.Matrix];
     
         var monsters = new dict(group_Data.MonsterGroup);
-        var matrix_pos = new MatrixPos(matrix.MatrixPos);
+        //var matrix_pos = new MatrixPos(matrix.MatrixPos);
 
-        if(monsters.length > matrix_pos.length){
+        if(monsters.length > matrix.MatrixPos.length){
             cc.error('PVE matrix data error !');
             return;
         }
 
         ////怪物数据 暂是本地数据
         for(var uid in data.teamInfo.teamB){
-            var i = 0;
-            var pos =  matrix_pos.Matrixs[parseInt(monsters[i].key)];
+            var i = 1;
+            //var pos =  matrix_pos.Matrixs[parseInt(monsters[i].key)];
             //this.own[index] = new Hero_(data.teamInfo.teamB[uid],dataMgr.heroAttributes[1001],matrix_pos.Matrixs[index],constant.Team.own,this,uid);
-            this.enemy[i] = new Monster_(data.teamInfo.teamB[uid],dataMgr.monster[monsters[i].value],pos,constant.Team.enemy,this,uid);
+            this.enemy[i] = new Monster_(data.teamInfo.teamB[uid],dataMgr.monster[monsters[i].value],matrix.MatrixPos[i],constant.Team.enemy,this,uid);
             i++;
         }
 

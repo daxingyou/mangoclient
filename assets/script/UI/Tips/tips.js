@@ -8,44 +8,47 @@
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 
-var UIBase = require('UIBase')
+var UIBase = require("UIBase")
 
 cc.Class({
     extends: UIBase,
 
     properties: {
         time : 2,
-        speed : 1000,
+        speed : 100,
         _aphla : 0,
         text : cc.Label,
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
+    onLoad () {
+        
+    },
 
     start () {
 
+       
     },
 
     update (dt) {
-        if(this._alpha < 255)
-            this._alpha += dt*this.speed;
-        else if(this._alpha > 255)
-            this._alpha = 255;
-        else if(this._alpha == 255)
+        if(this._aphla < 255)
+            this._aphla += dt*this.speed;
+        else if(this._aphla > 255)
+            this._aphla = 255;
+        else if(this._aphla == 255)
         {
             this.time -= dt*10;
         }
             
         if(this.time <= 0)
         {
-            this._alpha += dt*this.speed;
-            if(this._alpha <= 0)
+            this._aphla += dt*this.speed;
+            if(this._aphla <= 0)
                 this.hide();
         }
-            
-        this.node.opacity  = this._alpha;
+        this.node.opacity  = this._aphla;    
+        
     },
 
     onEnable(){
@@ -55,7 +58,17 @@ cc.Class({
     onDisable(){
 
     },
-    showText(text){
+    showText(text,type,callback){
         this.text.string = text;
-    }
+        /*
+        if(type == text)
+        {
+            1.show();
+        }
+        else if(type == button)
+        else if(type == button)
+        */
+    },
+
+  
 });
