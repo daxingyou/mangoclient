@@ -38,21 +38,19 @@ Combat.prototype.Tick = function(){
     {
         var result = true;
 
-        result = this.sceneLoadOk;
-
-        result = this.UILoadOk;
-
         for(var i in this.own)
         {
-            result = this.own[i].loadok;
+            if(!this.own[i].loadok)
+                result = false;
         }
 
         for(var i in this.enemy)
         {
-            result = this.enemy[i].loadok;
+            if(!this.enemy[i].loadok)
+                result = false;
         }
 
-        if(result)
+        if(this.sceneLoadOk && this.UILoadOk && result)
         {
             this.checkLoadRes = false;
             cc.log('加载完成！');
