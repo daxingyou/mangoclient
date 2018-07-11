@@ -21,6 +21,8 @@ var constant = require('constants')
         that.hpbar = cc.instantiate(data).getComponent('hpBar');
         that.hpbar.node.parent = cc.find('Canvas/ui'); 
         that.hpbar.freshen(hp,maxHp);
+
+        
     })
 
     loadRes.load(path,(data)=>{
