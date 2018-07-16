@@ -1,4 +1,5 @@
 var actionFactory = require('./ActionFactory')
+var ActionBase = require('ActionBase')
 
 var TATest = function(data,ability,owner){
     this.ID = data.ID;// Int16Array  编号
@@ -7,20 +8,13 @@ var TATest = function(data,ability,owner){
     
     this.Objective = data.Target;// String  目标
     
-    this.aniName = data.Animation;
-    this.aniFrame = data.CriticalTime;
-    this.effect = data.Effect;
-    this.EffectiveTime = data.EffectiveTime;
+    this.data = data;
 
     for(var name in data.Actions)
     {
         this.actionName = name;
         this.attrs = data.Actions[name];
     }
-    //.keys();// String  行为
-    //var sub = data.Actions.value();
-
-    //this.attrs = sub == '' ? null :JSON.parse(sub);  ///参数
 
     this.ability = ability;
     this.owner = owner;
@@ -34,11 +28,12 @@ TATest.prototype.Active = function(){
     {
         var func = actionFactory.actions[this.actionName];
     
-        this.action = new func(this.attrs,this.ability,this.owner,this);
-        this.action.enter();
-
-        
+        this.action = new func(this.attrs,this.ability,this.owner,this,this.data);
     }
+    else{
+        this.action = new ActionBase(this.attrs,this.ability,this.owner,this,this.data);
+    }
+    this.action.enter();
 }
 
 TATest.prototype.tick = function(dt){

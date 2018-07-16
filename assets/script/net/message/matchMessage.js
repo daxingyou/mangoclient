@@ -1,5 +1,7 @@
 var combatMgr = require('CombatMgr')
 var gameLogic = require('GameLogic')
+var consts = require('consts')
+var gameData = require('DataCenter')
 
 var fight = {
     _uimgr : null,
@@ -53,9 +55,35 @@ var fight = {
         });
     
         pomelo.on('onFightAttriUpdate', function(data){
-            //cc.log('属性更新：',data );
+            cc.log('属性更新：',data );
 
-            //combatMgr.getSelf();
+            for(var uid in data)
+            {
+                var player = gameLogic.getCombatUnitForUid(uid);
+                var curdata = data[uid];
+                switch(curdata.reason)
+                {
+                    case consts.FightUpdateReason.useCard :
+                    ////如果是当前玩家，不继续执行
+                    if(uid != gameData.uuid)
+                    {
+                        player.useCard(curdata);
+                    }
+                    break;
+                    case consts.FightUpdateReason.onDamage :
+                    player.onDamage(curdata.oriDamage,gameLogic.getCombatUnitForUid(curdata.attackID),curdata);
+                    break;
+                    case consts.FightUpdateReason.porpUpdate :
+                    player.porpUpdate(curdata);
+                    break;
+                    case consts.FightUpdateReason.skillEffective:
+                    player.skillEffective(curdata);
+                    break;
+                    case consts.FightUpdateReason.buffUpdate:
+                    player.buffUpdate(curdata);
+                    break;
+                }
+            }
         });
 
         pomelo.on('onDrawCard', function(data){
@@ -68,9 +96,14 @@ var fight = {
         });
     
         pomelo.on('onMpRecover', function(data){
-            //cc.log('灵力恢复', data);
+            cc.log('灵力恢复', data);
             
         });
+
+        pomelo.on('onAddSpawnSummon', function(data){
+            cc.log('增加召唤物', data);
+        })
+
     
     },
     OnFreshPile : function(data)

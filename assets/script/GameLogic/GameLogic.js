@@ -35,6 +35,9 @@ var GameLogic = {
         combatMgr.Tick(dt);
     },
     getCombatUnitForUid : function(uid){
+        if(combatMgr.curCombat.units.hasOwnProperty(uid))
+            return combatMgr.curCombat.units[uid];
+        /*
         for(var i in combatMgr.getEnemys())
         {
             if(combatMgr.getEnemys()[i].uid == uid)
@@ -46,7 +49,7 @@ var GameLogic = {
             if(combatMgr.getOwn()[i].uid == uid)
                 return combatMgr.getOwn()[i];
         }
-
+        */
         return null;
     },
     DrawPile : function(CombatUnit,Card){

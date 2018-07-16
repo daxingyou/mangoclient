@@ -23,7 +23,7 @@ HandCard.prototype.Enable = function(Target){
     return false;
 }
 
-HandCard.prototype.Active = function(Target,targets){
+HandCard.prototype.Active = function(Target,targets=null){
 
     this.ability.Active(Target,targets);
     return this.ability;

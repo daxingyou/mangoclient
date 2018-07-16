@@ -4,6 +4,26 @@
 
 // Generate From Buff.xlsx
 module.exports = {
+	2: {
+		ID: 2,
+		BuffName: '护甲',
+		Description: '增加60点护甲，持续5秒',
+		Type: 'addArm',
+		Logic: {arm:60},
+		SkillID: 0,
+		Image: '',
+		Effect: ''
+	},
+	1002: {
+		ID: 1002,
+		BuffName: '护甲',
+		Description: '增加15点护甲，持续5秒',
+		Type: 'addArm',
+		Logic: {arm:15},
+		SkillID: 0,
+		Image: '',
+		Effect: ''
+	},
 	1004: {
 		ID: 1004,
 		BuffName: '剑灵乱舞',

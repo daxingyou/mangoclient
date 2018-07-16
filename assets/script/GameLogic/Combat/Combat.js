@@ -26,6 +26,8 @@ Combat.prototype.enemy = [];
 
 Combat.prototype.own = [];
 
+Combat.prototype.units = [];
+
 ///检查资源是否加载完毕
 Combat.prototype.checkLoadRes = false;
 ////场景是否加载完毕
@@ -88,6 +90,7 @@ Combat.prototype.init = function(data){
             this.curPlayerIndex = index;
         }
         
+        this.units[uid] = this.own[index];
         index++;
     }
     
@@ -117,6 +120,8 @@ Combat.prototype.init = function(data){
         for(var uid in data.teamInfo.teamB){
             var i = 1;
             this.enemy[i] = new Monster_(data.teamInfo.teamB[uid],dataMgr.monster[data.teamInfo.teamB[uid].monsterid],matrix.MatrixPos[monsters[data.teamInfo.teamB[uid].monsterid]],constant.Team.enemy,this,uid);
+            
+            this.units[uid] = this.enemy[i];
             i++;
         }
 

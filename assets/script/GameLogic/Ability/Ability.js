@@ -15,6 +15,7 @@ var ability = function(data,owner){
 		this.ID = data[i].ID;// Int16Array  编号
 		this.actions[i] = new Action(data[i],this,owner);
 	}
+	
 }
 
 ability.prototype.owner = null;

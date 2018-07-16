@@ -3,6 +3,7 @@
  *      by pwh
  */
  var HandCard = require('HandCard')
+ var buff = require('Buff')
 
 var CombatUnit = function(data,attrs,pos,teamid,combat,uid){
    
@@ -10,6 +11,8 @@ var CombatUnit = function(data,attrs,pos,teamid,combat,uid){
     this.teamid = teamid;
     this.curCombat = combat;
     this.uid = uid;
+
+    this.uimgr = cc.find('Canvas').getComponent('UIMgr');
 };
 
 //////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////// 
@@ -45,7 +48,8 @@ CombatUnit.prototype.addtional_Physical_arm = 0;
 CombatUnit.prototype.handsPile = [];
 ///技能
 CombatUnit.prototype.abilitys = [];
-
+///buff
+CombatUnit.prototype.buffs = [];
 //////~~~~~~~~~~~~~~~~~~~~~~~~~~~Get function ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~///////
 
 CombatUnit.prototype.GetPhysical = function(){
@@ -63,15 +67,12 @@ CombatUnit.prototype.onDot = function(){
 
 };
 ////伤害监听
-CombatUnit.prototype.onDamage = function(dmg,from){
-    for(var i =0;i<this.abilitys.length;i++)
-    {
-        this.abilitys[i].onDamage();
-    }
-
-    this.Hp -= dmg;
-
+CombatUnit.prototype.onDamage = function(dmg,from,data = null){
+    this.Hp = data.hp;
+    this.basePhysical_arm = data.armor;
     this.agent.hpbar.freshen(this.Hp,this.MaxHp);
+
+    this.uimgr.loadDmg(this,dmg);
 
     if(this.Hp <= 0)
         this.onDie();
@@ -103,9 +104,13 @@ CombatUnit.prototype.onUsePile = function(index,Target,targets){
     var card = this.handsPile[index];
 
     if(card != null){
+        cc.log('使用卡牌监听 %s cur',index.toString(),' name :',this.handsPile[index].skillName);
+
         var ability = card.Active(Target,targets);
         this.abilitys.push(ability);
         this.handsPile.splice(index,1);
+        
+        cc.log('剩余卡牌数量%s cur',this.handsPile.length.toString());
     }
    
     for(var i =0;i<this.abilitys.length;i++)
@@ -113,6 +118,28 @@ CombatUnit.prototype.onUsePile = function(index,Target,targets){
         this.abilitys[i].onUsePile();
     }
 };
+
+CombatUnit.prototype.useCard = function(data)
+{
+    var card = new HandCard(data.cid,this);
+    card.Active(this.curCombat.units[data.tid]);
+}
+
+///播放技能特效
+CombatUnit.prototype.skillEffective = function(){
+
+}
+
+CombatUnit.prototype.porpUpdate = function(){
+
+}
+
+CombatUnit.prototype.buffUpdate = function(data){
+    //for(var )
+    this.buffs.push(new buff(data.info.id,data.info.cells));
+    
+    
+}
 
 CombatUnit.prototype.OnAbilityExit = function(ability){
     this.abilitys.splice(this.abilitys.indexof(ability),1);

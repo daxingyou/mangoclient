@@ -1,3 +1,4 @@
+//var util = require('utility');
 
 var ActionBase = function(attrs,ability,owner,action){
     this.ability = ability;
@@ -9,19 +10,19 @@ var ActionBase = function(attrs,ability,owner,action){
 }
 
 ActionBase.prototype.enter = function(){
-    this.time = util.GetValue('time');
+    //this.time = util.GetValue('time');
 
-    if(this.time > 0)
+    //if(this.time == 0)
         this.exit();
 };
 
 ActionBase.prototype.tick = function(dt){
-    this.time -= dt;
-    if(this.time <= 0)
-        this.exit();
+    //this.time -= dt;
+    //if(this.time <= 0)
+        //this.exit();
 };
 
-ActionBase.prototype.time = 0;
+//ActionBase.prototype.time = 0;
 
 ActionBase.prototype.exit = function(){
     this.ability.ActionExit(this.action.Index);
