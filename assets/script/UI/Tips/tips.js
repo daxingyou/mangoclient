@@ -23,7 +23,8 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        
+    cc.log("tip---x" +this.node.x + 'tip-----y'+ this.node.y);
+     
     },
 
     start () {
@@ -53,7 +54,7 @@ cc.Class({
 
     onEnable(){
         this.time = 2;
-    },
+    },//被激活时
 
     onDisable(){
 

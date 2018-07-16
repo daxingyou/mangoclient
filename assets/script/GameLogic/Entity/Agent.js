@@ -19,6 +19,7 @@ var constant = require('constants')
 
     loadRes.load('UI/hero/hpBar',(data)=>{
         that.hpbar = cc.instantiate(data).getComponent('hpBar');
+        cc.log(that.hpbar + "that.hpbar");
         that.hpbar.node.parent = cc.find('Canvas/ui'); 
         that.hpbar.freshen(hp,maxHp);
 
@@ -36,6 +37,7 @@ var constant = require('constants')
         that.contentSize = new cc.Rect(pos.x-that.width/2,pos.y,that.width,that.height);
         that.aniMgr = that.go.getComponent('AnimationMgr');
 
+        
         that.hpbar.node.position = cc.v2(pos.x - 667,pos.y+that.height + 20 - 375);
 
         loadok();

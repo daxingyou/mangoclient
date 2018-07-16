@@ -1,5 +1,5 @@
-var combatMgr = require('CombatMgr')
-var gameLogic = require('GameLogic')
+var combatMgr = require('CombatMgr')//战斗相关
+var gameLogic = require('GameLogic')//怪物相关
 var consts = require('consts')
 var gameData = require('DataCenter')
 
@@ -9,35 +9,42 @@ var fight = {
     init : function(){
         this._uimgr = cc.find('Canvas').getComponent('UIMgr');
         var that = this;
-        pomelo.on('onBeginSelect', function (data){
+        pomelo.on('onBeginSelect', function (data){//pomelo  全局发送和监听消息
+
             cc.log('匹配成功, 开始选英雄', data.teamInfo);
-            
+
             var ui = that._uimgr.getCurMainUI();
-            ui.showSelect();
+            that._uimgr.showTips('匹配成功, 开始选英雄');
+            
+            ui.showSelect();//match.js
         });
     
         pomelo.on('onSelectHeroNotify', function (data){
             cc.log('%s选择英雄:%s', data.uid, data.heroid);
+            that._uimgr.showTips('%s选择英雄:%s');
         });
     
         pomelo.on('onConfirmHeroNotify', function (data){
             cc.log('%s确认英雄:%s', data.uid, data.heroid);
+            that._uimgr.showTips('%s确认英雄:%s');
         });
     
         pomelo.on('onEnterLoadCD', function (data){
             cc.log('加载前倒计时:',data);
+            that._uimgr.showTips('加载前倒计时:');
             var ui = that._uimgr.getCurMainUI();
             ui.selectScr.beginLoadCD();
         });
     
         pomelo.on('onStartLoad', function(data){
             cc.log('开始加载战斗：', data.teamInfo, data.myInfo);
-            
+            that._uimgr.showTips('开始加载战斗：');
             combatMgr.initCombat(data);
         });
     
         pomelo.on('onFightBegin', function(data){
             cc.log('战斗开始 ',data);
+            that._uimgr.showTips('战斗开始 ',data);
 
             var ui = that._uimgr.getCurMainUI();
             ui.ShowHandCards();
@@ -46,7 +53,7 @@ var fight = {
     
         pomelo.on('onUseCard', function(data){
             cc.log('使用卡牌：', data);
-
+            that._uimgr.showTips('使用卡牌：');
             //data.mp
             //data.inHands
             //data.discardsNum
@@ -88,7 +95,7 @@ var fight = {
 
         pomelo.on('onDrawCard', function(data){
             cc.log('抽牌', data);
-            
+            that._uimgr.showTips('抽牌');
             var ui = that._uimgr.getCurMainUI();
             ui.onFreshCardsNum(data.cardsNum);
             combatMgr.getSelf().onDrawPile(data.inHands);

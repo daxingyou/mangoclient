@@ -12,6 +12,7 @@ var UIBase = require('UIBase')
 var net = require('NetPomelo')
 var matchProto = require('matchProto')
 var consts = require('consts')
+var uimgr = require('UIMgr')
 
 cc.Class({
     extends: UIBase,
@@ -46,7 +47,9 @@ cc.Class({
 
     matchTeam(){
         this._type = 1;
-        this._mgr.showTips('正在匹配');
+        uimgr = cc.find('Canvas').getComponent('UIMgr');
+        uimgr.showTips('正在匹配');
+       
         net.Request(new matchProto(consts.MatchType.PVE_2,1),(data)=>{
             console.log("match "+data);
 
@@ -54,10 +57,12 @@ cc.Class({
             if(data.code == 1)
             {
                 this._type = 2;
+               // uimgr.showTips('匹配成功');
+               
             }  ///队列中
             else if(data.code == 2)
             {
-                this._mgr.showTips('队列中');
+                uimgr.showTips('队列中');
             }
         });
     }, ///显示选择英雄

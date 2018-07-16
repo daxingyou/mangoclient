@@ -7,7 +7,7 @@ module.exports = {
 	1000: {
 		ID: 1000,
 		HeroName: '陈靖仇',
-		HeroModel: 'Hero/change',
+		HeroModel: 'Hero/jing',
 		InitialCard: 5,
 		InitialMP: 6,
 		InitialDrawPile: [1,1,1,1,1,2,2,2,2,2,1001,1002,1003,1004,1005,1006,1007,1008,1009,1010],

@@ -25,6 +25,8 @@ cc.Class({
      //  uimgr.loadUI(constant.UI.Login);
         uimgr.loadUI(constant.UI.SelectServer);
         matchMessage.init();
+        // uimgr.showTips('正在匹配');
+      
     },
     
     start () {

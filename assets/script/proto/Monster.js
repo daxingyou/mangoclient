@@ -8,7 +8,7 @@ module.exports = {
 		ID: 10001,
 		Name: '鲛精',
 		Type: 'Boss',
-		Model: "Hero/change",
+		Model: 'Hero/change',
 		Level: 10,
 		MaxHP: 3000,
 		MaxMP: 10,
