@@ -41,7 +41,6 @@ cc.Class({
             for(let i=0; i<serverlist.length; i++){
                 let itemData = JSON.stringify(serverlist[i]); 
                 
-              
                 cc.loader.loadRes('UI/selectServer/listItem', function(errorMessage, loadedResource){
                     if( errorMessage ) { cc.log( '载入预制资源失败, 原因:' + errorMessage ); return; }
                     if( !( loadedResource instanceof cc.Prefab ) ) { cc.log( '你载入的不是预制资源!' ); return; }
@@ -74,7 +73,7 @@ cc.Class({
             }
 
 
-            if(serverLast = serverlist[i].id && resIndex == 0){
+            if(serverLast = serverlist[i].id){
                 var item2Data = serverlist[i];
                 cc.loader.loadRes('UI/selectServer/test', function(errorMessage, loadedResource){
                     if( errorMessage ) { cc.log( '载入预制资源失败, 原因:' + errorMessage ); return; }

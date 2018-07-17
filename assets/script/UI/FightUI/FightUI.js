@@ -67,8 +67,7 @@ cc.Class({
     onFreshCardsNum(num){
         this.cards.string = num.toString();
     },
-    showNum(num1,num2,num3){
-        this.DiscardPile.string = num1.toString();
+    showNum(num2,num3){
         this.ExhaustedPile.string = num2.toString();
         this.mpLabel.string = num3.toString();
     },
