@@ -16,8 +16,8 @@ module.exports = {
 		CastThew: 0,
 		CardType: 1,
 		CardQuality: 1,
-		CardAttributes: [],
-		CardImage: ''
+		CardAttributes: [1],
+		CardImage: 'attack'
 	},
 	2: {
 		ID: 2,
@@ -31,8 +31,8 @@ module.exports = {
 		CastThew: 0,
 		CardType: 2,
 		CardQuality: 1,
-		CardAttributes: [],
-		CardImage: ''
+		CardAttributes: [1],
+		CardImage: 'defense'
 	},
 	1001: {
 		ID: 1001,
@@ -46,8 +46,8 @@ module.exports = {
 		CastThew: 0,
 		CardType: 1,
 		CardQuality: 1,
-		CardAttributes: [],
-		CardImage: ''
+		CardAttributes: [1],
+		CardImage: 'defense'
 	},
 	1002: {
 		ID: 1002,
@@ -61,8 +61,8 @@ module.exports = {
 		CastThew: 0,
 		CardType: 1,
 		CardQuality: 2,
-		CardAttributes: [],
-		CardImage: ''
+		CardAttributes: [1],
+		CardImage: 'defense'
 	},
 	1003: {
 		ID: 1003,
@@ -76,8 +76,8 @@ module.exports = {
 		CastThew: 0,
 		CardType: 1,
 		CardQuality: 2,
-		CardAttributes: [],
-		CardImage: ''
+		CardAttributes: [1],
+		CardImage: 'defense'
 	},
 	1004: {
 		ID: 1004,
@@ -91,8 +91,8 @@ module.exports = {
 		CastThew: 0,
 		CardType: 3,
 		CardQuality: 3,
-		CardAttributes: [],
-		CardImage: ''
+		CardAttributes: [1],
+		CardImage: 'defense'
 	},
 	1005: {
 		ID: 1005,
@@ -106,8 +106,8 @@ module.exports = {
 		CastThew: 3,
 		CardType: 3,
 		CardQuality: 4,
-		CardAttributes: [],
-		CardImage: ''
+		CardAttributes: [1],
+		CardImage: 'defense'
 	},
 	1006: {
 		ID: 1006,
@@ -122,7 +122,7 @@ module.exports = {
 		CardType: 2,
 		CardQuality: 3,
 		CardAttributes: [2],
-		CardImage: ''
+		CardImage: 'defense'
 	},
 	1007: {
 		ID: 1007,
@@ -136,8 +136,8 @@ module.exports = {
 		CastThew: 0,
 		CardType: 2,
 		CardQuality: 2,
-		CardAttributes: [],
-		CardImage: ''
+		CardAttributes: [1],
+		CardImage: 'defense'
 	},
 	1008: {
 		ID: 1008,
@@ -151,8 +151,8 @@ module.exports = {
 		CastThew: 0,
 		CardType: 2,
 		CardQuality: 3,
-		CardAttributes: [],
-		CardImage: ''
+		CardAttributes: [1],
+		CardImage: 'defense'
 	},
 	1009: {
 		ID: 1009,
@@ -166,8 +166,8 @@ module.exports = {
 		CastThew: 0,
 		CardType: 1,
 		CardQuality: 2,
-		CardAttributes: [],
-		CardImage: ''
+		CardAttributes: [1],
+		CardImage: 'defense'
 	},
 	1010: {
 		ID: 1010,
@@ -181,8 +181,8 @@ module.exports = {
 		CastThew: 3,
 		CardType: 1,
 		CardQuality: 4,
-		CardAttributes: [],
-		CardImage: ''
+		CardAttributes: [1],
+		CardImage: 'defense'
 	},
 	2001: {
 		ID: 2001,
@@ -196,8 +196,8 @@ module.exports = {
 		CastThew: 0,
 		CardType: 2,
 		CardQuality: 1,
-		CardAttributes: [],
-		CardImage: ''
+		CardAttributes: [1],
+		CardImage: 'defense'
 	},
 	2002: {
 		ID: 2002,
@@ -211,8 +211,8 @@ module.exports = {
 		CastThew: 0,
 		CardType: 2,
 		CardQuality: 2,
-		CardAttributes: [],
-		CardImage: ''
+		CardAttributes: [1],
+		CardImage: 'defense'
 	},
 	2003: {
 		ID: 2003,
@@ -226,8 +226,8 @@ module.exports = {
 		CastThew: 0,
 		CardType: 2,
 		CardQuality: 2,
-		CardAttributes: [],
-		CardImage: ''
+		CardAttributes: [1],
+		CardImage: 'defense'
 	},
 	2004: {
 		ID: 2004,
@@ -241,8 +241,8 @@ module.exports = {
 		CastThew: 4,
 		CardType: 2,
 		CardQuality: 3,
-		CardAttributes: [],
-		CardImage: ''
+		CardAttributes: [1],
+		CardImage: 'defense'
 	},
 	2005: {
 		ID: 2005,
@@ -256,8 +256,8 @@ module.exports = {
 		CastThew: 0,
 		CardType: 3,
 		CardQuality: 3,
-		CardAttributes: [],
-		CardImage: ''
+		CardAttributes: [1],
+		CardImage: 'defense'
 	},
 	2006: {
 		ID: 2006,
@@ -271,8 +271,8 @@ module.exports = {
 		CastThew: 2,
 		CardType: 2,
 		CardQuality: 2,
-		CardAttributes: [],
-		CardImage: ''
+		CardAttributes: [1],
+		CardImage: 'defense'
 	},
 	2007: {
 		ID: 2007,
@@ -286,8 +286,8 @@ module.exports = {
 		CastThew: 0,
 		CardType: 3,
 		CardQuality: 4,
-		CardAttributes: [],
-		CardImage: ''
+		CardAttributes: [1],
+		CardImage: 'defense'
 	},
 	2008: {
 		ID: 2008,
@@ -301,8 +301,8 @@ module.exports = {
 		CastThew: 0,
 		CardType: 3,
 		CardQuality: 3,
-		CardAttributes: [],
-		CardImage: ''
+		CardAttributes: [1],
+		CardImage: 'defense'
 	},
 	2009: {
 		ID: 2009,
@@ -316,8 +316,8 @@ module.exports = {
 		CastThew: 0,
 		CardType: 1,
 		CardQuality: 2,
-		CardAttributes: [],
-		CardImage: ''
+		CardAttributes: [1],
+		CardImage: 'defense'
 	},
 	2010: {
 		ID: 2010,
@@ -331,8 +331,8 @@ module.exports = {
 		CastThew: 0,
 		CardType: 1,
 		CardQuality: 4,
-		CardAttributes: [],
-		CardImage: ''
+		CardAttributes: [1],
+		CardImage: 'defense'
 	},
 	10001: {
 		ID: 10001,
@@ -346,8 +346,8 @@ module.exports = {
 		CastThew: 0,
 		CardType: 1,
 		CardQuality: 2,
-		CardAttributes: [],
-		CardImage: ''
+		CardAttributes: [1],
+		CardImage: 'defense'
 	},
 	10002: {
 		ID: 10002,
@@ -361,8 +361,8 @@ module.exports = {
 		CastThew: 0,
 		CardType: 1,
 		CardQuality: 2,
-		CardAttributes: [],
-		CardImage: ''
+		CardAttributes: [1],
+		CardImage: 'defense'
 	},
 	10003: {
 		ID: 10003,
@@ -376,8 +376,8 @@ module.exports = {
 		CastThew: 0,
 		CardType: 1,
 		CardQuality: 3,
-		CardAttributes: [],
-		CardImage: ''
+		CardAttributes: [1],
+		CardImage: 'defense'
 	},
 	10004: {
 		ID: 10004,
@@ -392,6 +392,6 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 3,
 		CardAttributes: [2,4],
-		CardImage: ''
+		CardImage: 'defense'
 	},
 };

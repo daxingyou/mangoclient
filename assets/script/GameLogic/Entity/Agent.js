@@ -23,24 +23,22 @@ var constant = require('constants')
         that.hpbar.node.parent = cc.find('Canvas/ui'); 
         that.hpbar.freshen(hp,maxHp);
 
-        
-    })
-
-    loadRes.load(path,(data)=>{
-        that.go = cc.instantiate(data);
-        that.go.parent = cc.find('Canvas/pool');
-        that.go.position = cc.v2(pos.x,pos.y);
-        that.go.scaleX = teamid == constant.Team.own ? constant.Team.enemy : -1;
-        var spData = that.go.getComponent(sp.Skeleton);
-        that.height = Math.ceil(spData.skeletonData.skeletonJson.skeleton.height);
-        that.width = Math.ceil(spData.skeletonData.skeletonJson.skeleton.width);
-        that.contentSize = new cc.Rect(pos.x-that.width/2,pos.y,that.width,that.height);
-        that.aniMgr = that.go.getComponent('AnimationMgr');
-
-        
-        that.hpbar.node.position = cc.v2(pos.x - 667,pos.y+that.height + 20 - 375);
-
-        loadok();
+        loadRes.load(path,(data)=>{
+            that.go = cc.instantiate(data);
+            that.go.parent = cc.find('Canvas/pool');
+            that.go.position = cc.v2(pos.x,pos.y);
+            that.go.scaleX = teamid == constant.Team.own ? constant.Team.enemy : -1;
+            var spData = that.go.getComponent(sp.Skeleton);
+            that.height = Math.ceil(spData.skeletonData.skeletonJson.skeleton.height);
+            that.width = Math.ceil(spData.skeletonData.skeletonJson.skeleton.width);
+            that.contentSize = new cc.Rect(pos.x-that.width/2,pos.y,that.width,that.height);
+            that.aniMgr = that.go.getComponent('AnimationMgr');
+    
+            
+            that.hpbar.node.position = cc.v2(pos.x - 667,pos.y+that.height + 20 - 375);
+    
+            loadok();
+        })
     })
  }
 

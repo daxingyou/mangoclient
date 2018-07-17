@@ -7,8 +7,10 @@ var dataMgr = require('DataMgr')
 var Ability = require('Ability')
 
 var HandCard = function(id,owner){
-    var skill = dataMgr.skill[id];
-    this.skillName = skill[1].SkillName;
+    var card = dataMgr.card[id];
+    var skill = dataMgr.skill[card.SkillID];
+    this.skillName = card.CardName;
+    this.spriteName = card.CardImage;
     this.id = id;
     
     this.ability = new Ability(skill,owner);

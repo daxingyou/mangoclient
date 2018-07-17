@@ -3,7 +3,7 @@
  *      by pwh
  */
  var HandCard = require('HandCard')
- var buff = require('Buff')
+ var buff = require('AbilityBuff')
 
 var CombatUnit = function(data,attrs,pos,teamid,combat,uid){
    

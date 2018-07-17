@@ -4,12 +4,32 @@
 
 // Generate From Buff.xlsx
 module.exports = {
+	2: {
+		ID: 2,
+		BuffName: '护甲',
+		Description: '增加60点护甲，持续5秒',
+		Type: 'addArm',
+		Logic: {arm:60},
+		SkillID: 0,
+		Image: '',
+		Effect: ''
+	},
+	1002: {
+		ID: 1002,
+		BuffName: '护甲',
+		Description: '增加15点护甲，持续5秒',
+		Type: 'addArm',
+		Logic: {arm:15},
+		SkillID: 0,
+		Image: '',
+		Effect: ''
+	},
 	1004: {
 		ID: 1004,
 		BuffName: '剑灵乱舞',
 		Description: '每使用1张卡牌，对随机一个敌方单位造成5点伤害',
-		Type: 'listener',
-		Logic: {event:"onUseCard","num":1,"cardType":1,"cardQuality":1,"cardAttributes":1},
+		Type: 'useCardListener',
+		Logic: {"num":1,"cardType":1,"cardQuality":1,"cardAttributes":1},
 		SkillID: 1104,
 		Image: '',
 		Effect: ''
@@ -18,8 +38,8 @@ module.exports = {
 		ID: 1005,
 		BuffName: '横剑摆渡',
 		Description: '每使用5张攻击牌，则抽取1张牌',
-		Type: 'listener',
-		Logic: {event:"onUseCard","num":5,"cardType":2,"cardQuality":1,"cardAttributes":1},
+		Type: 'useCardListener',
+		Logic: {"num":5,"cardType":2,"cardQuality":1,"cardAttributes":1},
 		SkillID: 1105,
 		Image: '',
 		Effect: ''

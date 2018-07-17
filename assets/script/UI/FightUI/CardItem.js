@@ -16,6 +16,8 @@ cc.Class({
     properties: {
         Name : cc.Label,
         _index : 0,
+        cardAtlas : cc.SpriteAtlas,
+        cardImage : cc.Sprite
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -25,9 +27,10 @@ cc.Class({
     start () {
 
     },
-    initData(data,index){
+    initData(data,srpiteName,index){
         this._index = index;
         this.Name.string = data;
+        this.cardImage.spriteFrame = this.cardAtlas.getSpriteFrame(srpiteName);
     }
     // update (dt) {},
 });

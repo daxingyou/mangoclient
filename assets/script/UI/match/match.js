@@ -11,6 +11,7 @@
 var UIBase = require('UIBase')
 var net = require('NetPomelo')
 var matchProto = require('matchProto')
+var unmatchProto = require('unmatchProto')
 var consts = require('consts')
 var uimgr = require('UIMgr')
 
@@ -22,6 +23,12 @@ cc.Class({
         select : cc.Node,
         _type : 0,
         selectScr : UIBase,
+        pipei:cc.Node,
+        dot:cc.Node,
+        btn_label:cc.Label,
+        cancel:0,
+       
+      
         //matching : 1,
         //select : 2,
     },
@@ -31,7 +38,7 @@ cc.Class({
     onLoad () {
         //this.match.active = true;
         //this.select.active = true;
-        //this._type = 0;
+        this._type = 0;
     },
 
     start () {
@@ -46,26 +53,48 @@ cc.Class({
     },
 
     matchTeam(){
-        this._type = 1;
-        uimgr = cc.find('Canvas').getComponent('UIMgr');
-        uimgr.showTips('正在匹配');
+        this.dot.getComponent(cc.Label).string = ".";
+        if(this.cancel ==0){
+            this._type = 1;
+            uimgr = cc.find('Canvas').getComponent('UIMgr');
+            this.pipei.active = true;
+            this.dot.active = true;
+            var dot = this.dot.getComponent(cc.Label).string;
+            this.schedule(function(){
+                this.dot.getComponent(cc.Label).string += dot;
+                if(this.dot.getComponent(cc.Label).string == "...."){
+                    this.dot.getComponent(cc.Label).string = ".";
+                }
+            },0.5);  
+            this.btn_label.string = "取消匹配";
+            this.cancel = 1;
+            net.Request(new matchProto(consts.MatchType.PVE_2,1),(data)=>{
+                cc.log("match "+data);
+    
+                ///匹配成功
+                if(data.code == 1)
+                {
+                    this._type = 2;
+                   // uimgr.showTips('匹配成功');
+                   
+                }  ///队列中
+                else if(data.code == 2)
+                {
+                    uimgr.showTips('队列中');
+                }
+            });
+        }
+        else{
+                this.cancel = 0;
+                this.btn_label.string = "开始匹配";
+                this.pipei.active = false;
+                this.dot.active = false;
+                net.Request(new unmatchProto(consts.MatchType.PVE_2,1),(data)=>{
+                    cc.log("match "+data + "取消匹配");
+                });
+        }
        
-        net.Request(new matchProto(consts.MatchType.PVE_2,1),(data)=>{
-            console.log("match "+data);
-
-            ///匹配成功
-            if(data.code == 1)
-            {
-                this._type = 2;
-               // uimgr.showTips('匹配成功');
-               
-            }  ///队列中
-            else if(data.code == 2)
-            {
-                uimgr.showTips('队列中');
-            }
-        });
-    }, ///显示选择英雄
+    }, 
     showSelect(){
         this.match.active = false;
         this.select.active = true;

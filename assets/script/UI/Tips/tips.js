@@ -23,7 +23,7 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-    cc.log("tip---x" +this.node.x + 'tip-----y'+ this.node.y);
+        cc.log("tip---x" +this.node.x + 'tip-----y'+ this.node.y);
      
     },
 
@@ -48,8 +48,8 @@ cc.Class({
             if(this._aphla <= 0)
                 this.hide();
         }
+
         this.node.opacity  = this._aphla;    
-        
     },
 
     onEnable(){
@@ -60,6 +60,7 @@ cc.Class({
 
     },
     showText(text,type,callback){
+        this.init();
         this.text.string = text;
         /*
         if(type == text)
@@ -70,6 +71,9 @@ cc.Class({
         else if(type == button)
         */
     },
-
+    init(){
+        this._aphla = 0;
+        this.time = 2;
+    }
   
 });

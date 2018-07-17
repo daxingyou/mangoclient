@@ -21,12 +21,12 @@ var fight = {
     
         pomelo.on('onSelectHeroNotify', function (data){
             cc.log('%s选择英雄:%s', data.uid, data.heroid);
-            that._uimgr.showTips('%s选择英雄:%s');
+            that._uimgr.showTips('%s选择英雄:%s', data.uid, data.heroid);
         });
     
         pomelo.on('onConfirmHeroNotify', function (data){
             cc.log('%s确认英雄:%s', data.uid, data.heroid);
-            that._uimgr.showTips('%s确认英雄:%s');
+            that._uimgr.showTips('%s确认英雄:%s', data.uid, data.heroid);
         });
     
         pomelo.on('onEnterLoadCD', function (data){
@@ -53,7 +53,10 @@ var fight = {
     
         pomelo.on('onUseCard', function(data){
             cc.log('使用卡牌：', data);
-            that._uimgr.showTips('使用卡牌：');
+            that._uimgr.showTips('使用卡牌：', data);
+            var ui = that._uimgr.getCurMainUI();
+            cc.log(data.inHands.length,data.discardsNum +"kdlsajfkldsajf");
+           // ui.showNum(data.mp,data.inHands,data.discardsNum);
             //data.mp
             //data.inHands
             //data.discardsNum
@@ -104,14 +107,24 @@ var fight = {
     
         pomelo.on('onMpRecover', function(data){
             cc.log('灵力恢复', data);
-            
         });
 
         pomelo.on('onAddSpawnSummon', function(data){
             cc.log('增加召唤物', data);
         })
 
-    
+        pomelo.on('onUseSkill', function(data){
+            cc.log('使用技能', data);
+        });
+
+        pomelo.on('onSpecificDrawCard', function(data){
+            cc.log('指定抽卡', data);
+        });
+
+        pomelo.on('onCreateCard', function(data){
+            cc.log('生成卡牌', data);
+        });
+
     },
     OnFreshPile : function(data)
     {

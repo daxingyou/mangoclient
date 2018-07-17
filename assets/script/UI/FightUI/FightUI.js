@@ -18,19 +18,44 @@ cc.Class({
         cards : cc.Label,
         DiscardPile : cc.Label,
         ExhaustedPile :cc.Label,
+        mpLabel:cc.Label, 
         HandsCardRoot : cc.Node,
         CardsLayout : cc.Layout,
         _HandsCards : [],
-        input : cc.Component        
+        input : cc.Component,
+        time:cc.Label,
+        min_time:2,
+        sec_time:60,   
+           
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     start () {
+        this.time.string = "3:0";
+        this.schedule(this.callback, 1);
         for (var i = 0; i < this.CardsLayout.node.children.length; ++i) {
             this._HandsCards.push(this.CardsLayout.node.children[i].getComponent('CardItem'));
         }
     },
+
+    
+ callback () {
+    this.sec_time--;
+    if(this.sec_time ===0){
+        this.min_time-=1;
+        this.sec_time = 60;
+    }
+    if(this.min_time < 0){
+        cc.log(this.min_time +"this.min");
+        this.unschedule(this.callback);
+        this.min_time = 0;
+        this.sec_time = 0;
+    }
+    this.time.string ="" +this.min_time + ":"  +""+this.sec_time;
+       },
+
+ 
 
     update (dt) {
     },
@@ -42,6 +67,11 @@ cc.Class({
     onFreshCardsNum(num){
         this.cards.string = num.toString();
     },
+    showNum(num1,num2,num3){
+        this.DiscardPile.string = num1.toString();
+        this.ExhaustedPile.string = num2.toString();
+        this.mpLabel.string = num3.toString();
+    },
     ShowHandCards : function(){
         var player = combatmgr.getSelf();
 
@@ -51,7 +81,7 @@ cc.Class({
             if(i < player.handsPile.length)
             {
                 this._HandsCards[i].show();
-                this._HandsCards[i].initData(player.handsPile[i].skillName,i);
+                this._HandsCards[i].initData(player.handsPile[i].skillName,player.handsPile[i].spriteName,i);
                 cc.log('%s cur',i.toString(),' name :',player.handsPile[i].skillName);
             }
             else{

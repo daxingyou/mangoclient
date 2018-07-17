@@ -747,7 +747,7 @@
       "__id__": 2
     },
     "component": "selectHero",
-    "handler": "bacKButton",
+    "handler": "back",
     "customEventData": ""
   },
   {
@@ -1304,7 +1304,13 @@
       "__id__": 25
     },
     "cdTime": 10,
-    "_CDState": true
+    "_CDState": true,
+    "pipei": {
+      "__id__": 51
+    },
+    "dot": {
+      "__id__": 54
+    }
   },
   {
     "__type__": "cc.Node",
@@ -1615,7 +1621,7 @@
     },
     "component": "match",
     "handler": "matchTeam",
-    "customEventData": ""
+    "customEventData": "1"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -1630,14 +1636,14 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "pipai",
+    "_name": "pipei",
     "_objFlags": 0,
     "_parent": {
       "__id__": 42
     },
     "_children": [],
     "_tag": -1,
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 52
@@ -1717,14 +1723,14 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "New Label",
+    "_name": "dot",
     "_objFlags": 0,
     "_parent": {
       "__id__": 42
     },
     "_children": [],
     "_tag": -1,
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 55
@@ -1746,12 +1752,12 @@
     "_anchorPoint": {
       "__type__": "cc.Vec2",
       "x": 0.5,
-      "y": 0.5
+      "y": 0.5897237582023032
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 33,
-      "height": 80
+      "width": 400,
+      "height": 40
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1760,7 +1766,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 68,
-      "y": -286
+      "y": -248
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -1781,15 +1787,15 @@
     "_actualFontSize": 40,
     "_fontSize": 40,
     "_lineHeight": 40,
-    "_enableWrapText": true,
+    "_enableWrapText": false,
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "...\n",
+    "_N$string": ".",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
-    "_N$overflow": 0
+    "_N$overflow": 2
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -1842,7 +1848,17 @@
     "_type": 0,
     "selectScr": {
       "__id__": 41
-    }
+    },
+    "pipei": {
+      "__id__": 51
+    },
+    "dot": {
+      "__id__": 54
+    },
+    "btn_label": {
+      "__id__": 45
+    },
+    "cancel": 0
   },
   {
     "__type__": "cc.PrefabInfo",

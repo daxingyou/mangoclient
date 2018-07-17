@@ -26,6 +26,8 @@ cc.Class({
         cdTimeLable : cc.Label,
         cdTime : 10,
         _CDState : false,
+        pipei:cc.Node,
+        dot:cc.Node,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -68,6 +70,9 @@ cc.Class({
 
     back (){
         this.matchUI.active = true;
+        this.pipei.active = false;
+        this.dot.active = false;
+        this.dot.getComponent.string = ".";
         this.node.active = false;
     },
     manSelect(event){

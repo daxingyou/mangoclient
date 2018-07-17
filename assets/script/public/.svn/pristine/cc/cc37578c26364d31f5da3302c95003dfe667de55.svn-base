@@ -75,7 +75,6 @@ module.exports = {
         porpUpdate: "propUpdate", // 属性更新
         buffUpdate: "buffUpdate", // buff更新
         specificDrawCard: "specificDrawCard",  // 指定抽卡
-        createCard: "createCard",  // 生成卡牌
     },
 
     // 技能常量

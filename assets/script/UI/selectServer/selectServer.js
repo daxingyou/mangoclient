@@ -1,8 +1,8 @@
 var UIBase = require('UIBase')
 var net = require('NetPomelo')
-var listItem = require('listItem');
-var constant = require('constants');
-var dataCenter = require('DataCenter');
+var listItem = require('listItem')
+var constant = require('constants')
+var dataCenter = require('DataCenter')
 
 cc.Class({
     extends:UIBase,
@@ -15,13 +15,20 @@ cc.Class({
        exit:cc.Node,
        serverName:cc.Label,
        status:cc.Label,
+       id:0,
        host:null,
        port:null,
        click:0,
        rootBtn:cc.Node,
+
+       
+
+       
     },
 
-    // onLoad () {},
+    onLoad () {
+
+    },
 
     start () {
         var uuid = '5b1e6ec687ce5a36ccb8191b';
@@ -33,6 +40,8 @@ cc.Class({
             var resIndex = 0;
             for(let i=0; i<serverlist.length; i++){
                 let itemData = JSON.stringify(serverlist[i]); 
+                
+              
                 cc.loader.loadRes('UI/selectServer/listItem', function(errorMessage, loadedResource){
                     if( errorMessage ) { cc.log( '载入预制资源失败, 原因:' + errorMessage ); return; }
                     if( !( loadedResource instanceof cc.Prefab ) ) { cc.log( '你载入的不是预制资源!' ); return; }
@@ -52,25 +61,34 @@ cc.Class({
                     }
                 });
 
-                if(i == 3){
-                    this.serverName.string = serverlist[i].name;
-                    this.status.string = serverlist[i].status;
-                    this.host = serverlist[i].ip;
-                    this.port = serverlist[i].port;
+                if(i == 0){
+                    self.serverName.string = serverlist[i].name;
+                    self.status.string = serverlist[i].status;
+                    self.id = serverlist[i].lastLoginSid;
+                    self.host = serverlist[i].ip;
+                    self.port = serverlist[i].port;
                 }//默认显示
+
+
+               
             }
-            cc.loader.loadRes('UI/selectServer/test', function(errorMessage, loadedResource){
-                if( errorMessage ) { cc.log( '载入预制资源失败, 原因:' + errorMessage ); return; }
-                if( !( loadedResource instanceof cc.Prefab ) ) { cc.log( '你载入的不是预制资源!' ); return; }
-                let item2 = cc.instantiate(loadedResource);   
-                self.last.addChild(item2);
-                // item2.getComponent('listItem').init({
-                //     name:itemData.name,
-                //     status:itemData.status,
-                // });暂未有数据
-                
-                cc.loader.release('UI/selectServer/test');
-            });   
+
+
+            if(serverLast = serverlist[i].id && resIndex == 0){
+                var item2Data = serverlist[i];
+                cc.loader.loadRes('UI/selectServer/test', function(errorMessage, loadedResource){
+                    if( errorMessage ) { cc.log( '载入预制资源失败, 原因:' + errorMessage ); return; }
+                    if( !( loadedResource instanceof cc.Prefab ) ) { cc.log( '你载入的不是预制资源!' ); return; }
+                    let item2 = cc.instantiate(loadedResource);   
+                    self.last.addChild(item2);
+                    item2.getComponent('listItem').init({
+                        name:item2Data.name,
+                        status:item2Data.status,
+                    });
+                    cc.loader.release('UI/selectServer/test');
+                });   
+            }
+           
         });
 
         this.rootBtn.on(cc.Node.EventType.TOUCH_START, function(event){
@@ -93,17 +111,18 @@ cc.Class({
         //     return;
         
         var uid = cc.sys.localStorage.getItem("uuid");
-        // cc.log(uid + "uid");
-        //var host = "192.168.0.139";
-        // var host = "192.168.0.151";
-        // var port = 3010;
+        cc.log(uid + "uid");
+
+        
+      
     //     cc.log(this.click + "执行到---");
     //    if(this.click == 1){ //判断是否勾选用户协议
     //     cc.log("进入游戏---------");
         var that = this;
+      
         pomelo.init({
-            host: '192.168.0.113',
-            port: 3010,
+            host: that.host,
+            port: that.port,
             log: true
           }, function() {
               /// 注册获取 uuid 获取逻辑服 地址
@@ -114,13 +133,12 @@ cc.Class({
             }
             that.port = data.port;
             cc.log(that.port + "that.port");
-            cc.log("请求登陆地址 = %s 端口： = %i,uuid = %s",'192.168.0.113',data.port,uuid);
+            cc.log("请求登陆地址 = %s 端口： = %i,uuid = %s",that.host,data.port,uuid);
             cc.sys.localStorage.setItem("uuid",data.uuid);
             ///连接逻辑服
-            pomelo.init({host:'192.168.0.113',port:data.port,log:true},function(data){
+            pomelo.init({host:that.host,port:data.port,log:true},function(data){
                 pomelo.request("connector.entryHandler.enter",{code:uuid},function(data){
                     cc.log("连接逻辑服 成功" + data.code + Object.keys(data.info));
-
                     dataCenter.uuid =  data.info.id;
                     that._mgr.release();
                     that._mgr.loadUI(constant.UI.Match);
