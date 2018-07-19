@@ -8,6 +8,7 @@ var constant = require('constants')
 var GameLogic = require('GameLogic')
 var UIBase = require('UIBase')
 var CombatUtility = require('CombatUtility')
+var utility = require('utility');
 
 cc.Class({
     extends: UIBase,
@@ -20,25 +21,39 @@ cc.Class({
         _startPoint : null,
         _canUseSkill : false,
         fightUI : cc.Component,
+        
     },
 
     onLoad () {
+      //  cc.log(this.fightUI.lineDot,this.fightUI.lineDot.children);
+        this.itemChild = this.fightUI.lineDot.children;
         for(var i in this.node.children){
             this.frame[i] = this.node.children[i];
         }
     },
 
     start () {
-
+       
     },
     touchMove(touchid,point)
     {
+        var points = utility.ComputeBezier(this._startPoint,point);//路径点数组
+        for(let i=0;i<points.length;i++){
+    
+            this.itemChild[i].x = points[i].x;
+            this.itemChild[i].y = points[i].y;
+            }
+
         if(this._touchid == touchid)
         {
+            
+
+
             if(this.curObjective.type != constant.SkillTargetType.SINGEL)
             {
                 if(cc.pDistance(this._startPoint,point) > this.dis)
                 {
+                  
                     this._canUseSkill = true;
                     this.showCanUseEffect();
                 }
@@ -50,7 +65,7 @@ cc.Class({
             }
         }
     },
-    curSelectCard(index,touchid,startPoint){
+    curSelectCard(index,touchid,startPoint){//当前卡牌的起点，触摸位移，起始位置
         this._curCard = index;
         this._touchid = touchid;
         this._startPoint = startPoint;
@@ -91,6 +106,13 @@ cc.Class({
         this._target = targets;
     },
     CancleSelectCard(index,touchid,point){
+       
+        for(var i =0;i<this.itemChild.length;i++){
+            this.itemChild[i].x = 0;
+            this.itemChild[i].y = 0;
+        }
+       
+       
         if(this._touchid == touchid && this._curCard == index)
         {
             if(this.curObjective.type != constant.SkillTargetType.SINGEL)
@@ -140,7 +162,7 @@ cc.Class({
     CancleShowTargets(){
         this._touchid = null;
         for(var i in this.node.children){
-            this.frame[i].active = false;
+           // this.frame[i].active = false;
         }
     },
     ShowTips(target,index){
@@ -158,6 +180,8 @@ cc.Class({
     },  //隐藏可使用技能特效
     hideCanUseSkillEffect(){
 
-    }
+    },
+  
+
     // update (dt) {},
 });

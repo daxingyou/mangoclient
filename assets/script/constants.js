@@ -55,5 +55,8 @@ module.exports = {
         SelectServer : {"id":7,"path":'UI/selectServer/selectServer','type':1,'script':'selectServer'}
 
     },
+    SummonedType : {
+        wSword : 'wSword',
+    },
     mixTime : 0.1,
 };

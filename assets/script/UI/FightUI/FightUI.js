@@ -1,13 +1,3 @@
-// Learn cc.Class:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
-
 var UIBase = require('UIBase')
 var combatmgr = require('CombatMgr')
 
@@ -18,7 +8,8 @@ cc.Class({
         cards : cc.Label,
         DiscardPile : cc.Label,
         ExhaustedPile :cc.Label,
-        mpLabel:cc.Label, 
+        mp:cc.Label, 
+        thew:cc.Label,
         HandsCardRoot : cc.Node,
         CardsLayout : cc.Layout,
         _HandsCards : [],
@@ -26,13 +17,12 @@ cc.Class({
         time:cc.Label,
         min_time:2,
         sec_time:60,   
+        lineDot:cc.Node,
            
     },
-
-    // LIFE-CYCLE CALLBACKS:
-
     start () {
-        this.time.string = "3:0";
+
+
         this.schedule(this.callback, 1);
         for (var i = 0; i < this.CardsLayout.node.children.length; ++i) {
             this._HandsCards.push(this.CardsLayout.node.children[i].getComponent('CardItem'));
@@ -43,16 +33,20 @@ cc.Class({
  callback () {
     this.sec_time--;
     if(this.sec_time ===0){
-        this.min_time-=1;
+        this.min_time -= 1;
         this.sec_time = 60;
     }
     if(this.min_time < 0){
-        cc.log(this.min_time +"this.min");
         this.unschedule(this.callback);
         this.min_time = 0;
         this.sec_time = 0;
     }
-    this.time.string ="" +this.min_time + ":"  +""+this.sec_time;
+    if(this.sec_time < 10 && this.sec_time !=0){
+        this.time.string ="" + this.min_time + ":0"  +""+this.sec_time;
+    }
+    else{
+        this.time.string ="" + this.min_time + ":"  +""+this.sec_time; 
+    }
        },
 
  
@@ -67,9 +61,11 @@ cc.Class({
     onFreshCardsNum(num){
         this.cards.string = num.toString();
     },
-    showNum(num2,num3){
-        this.ExhaustedPile.string = num2.toString();
-        this.mpLabel.string = num3.toString();
+    showNum(mp,disCard,exHaust){
+        this.mp.string ="" + mp;
+        this.thew.string = '10';
+        this.ExhaustedPile.string ="" + disCard;
+        this.ExhaustedPile.string ="" + exHaust;
     },
     ShowHandCards : function(){
         var player = combatmgr.getSelf();
@@ -81,7 +77,7 @@ cc.Class({
             {
                 this._HandsCards[i].show();
                 this._HandsCards[i].initData(player.handsPile[i].skillName,player.handsPile[i].spriteName,i);
-                cc.log('%s cur',i.toString(),' name :',player.handsPile[i].skillName);
+                //cc.log('%s cur',i.toString(),' name :',player.handsPile[i].skillName);
             }
             else{
                 this._HandsCards[i].hide();

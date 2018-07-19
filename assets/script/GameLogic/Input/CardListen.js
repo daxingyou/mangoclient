@@ -1,13 +1,3 @@
-// Learn cc.Class:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
-
 //var GameLogic = require('GameLogic')
 
 cc.Class({
@@ -17,23 +7,21 @@ cc.Class({
         _startPoint : null,
         cardItem : cc.Component,
     },
-
-    // LIFE-CYCLE CALLBACKS:
-
+    
     onLoad () {
         if(this.cardItem == null || this.cardItem == undefined)
         {
             this.cardItem = this.node.parent.getComponent('CardItem');
         }
 
-        var ctx = cc.find('Canvas/tips').getComponent(cc.Graphics);
+        var ctx = cc.find('Canvas/tips').getComponent(cc.Graphics);//获取组件
         var mgr = cc.find('Canvas/ui/FightUI/targetTips').getComponent('InputMgr');
         var that = this;
 
         this.node.on('touchstart', function ( event ) {
             //cc.log('Hello! card listen');
 
-            mgr.curSelectCard(that.cardItem._index,event.currentTouch.__instanceId,event.touch._startPoint);
+            mgr.curSelectCard(that.cardItem._index,event.currentTouch.__instanceId,event.touch._startPoint);//索引值，触摸位移，起始位置
             //GameLogic.UsePile(GameLogic.player,0,GameLogic.getEnemys(GameLogic.player)[0]);
         });
         this.node.on('touchmove', function ( event ) {
@@ -46,6 +34,7 @@ cc.Class({
             //console.log(curwindow.x.toString() + " =x , y =" + curwindow.y.toString() );
             ctx.clear();
             ctx.moveTo(newVec2.x - cc.winSize.width/2 + that.node.getContentSize().width/2,newVec2.y);
+            //起始点-目标点
             ctx.quadraticCurveTo(newVec2.x - cc.winSize.width/2 + that.node.getContentSize().width/2,newVec2.y + 200,delta.x - newVec2.x - that.node.getContentSize().width/2,delta.y - newVec2.y);
             ctx.stroke();
 

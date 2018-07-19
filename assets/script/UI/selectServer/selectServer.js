@@ -19,11 +19,7 @@ cc.Class({
        host:null,
        port:null,
        click:0,
-       rootBtn:cc.Node,
-
-       
-
-       
+       rootBtn:cc.Node
     },
 
     onLoad () {
@@ -66,10 +62,7 @@ cc.Class({
                     self.id = serverlist[i].lastLoginSid;
                     self.host = serverlist[i].ip;
                     self.port = serverlist[i].port;
-                }//默认显示
-
-
-               
+                }//默认显示   
             }
 
 

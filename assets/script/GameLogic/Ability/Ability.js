@@ -8,6 +8,7 @@ var Action = require('TAtest')
 var CombatUtility = require('CombatUtility')
 
 var ability = function(data,owner){
+	this.arrs = data;
 	this.actions = new Array();
 	this.owner = owner;
 	for(var i in data)
@@ -15,7 +16,6 @@ var ability = function(data,owner){
 		this.ID = data[i].ID;// Int16Array  编号
 		this.actions[i] = new Action(data[i],this,owner);
 	}
-	
 }
 
 ability.prototype.owner = null;
@@ -35,6 +35,9 @@ ability.prototype.Active = function(Target,targets){
 	{
 		this.actions[i].Active();
 	}
+
+	if(this.arrs.Animation != '')
+		this.owner.agent.PlayAnimation(this.arrs.Animation,false);
 }
 ///技能失效
 ability.prototype.Exit = function(){

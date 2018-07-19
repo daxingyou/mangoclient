@@ -76,13 +76,13 @@ Combat.prototype.init = function(data){
 
 
     ///test demo 默认 为 PVE_2
-    var matrix = dataMgr.matrix[4];
+    this.matrix = dataMgr.matrix[4];
     //var matrix_pos = new MatrixPos(matrix.MatrixPos);
 
     var index = 1;
     for(var uid in data.teamInfo.teamA)
     {
-        this.own[index] = new Hero_(data.teamInfo.teamA[uid],dataMgr.heroAttributes[1001],matrix.MatrixPos[index],constant.Team.own,this,uid);
+        this.own[index] = new Hero_(data.teamInfo.teamA[uid],dataMgr.heroAttributes[1001],this.matrix.MatrixPos[index],constant.Team.own,this,uid);
 
         if(uid == gameCenter.uuid)
         {

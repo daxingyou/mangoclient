@@ -4,7 +4,7 @@ var matchMessage = require("matchMessage")
 var constant = require('constants')
 var actionfactory = require('./GameLogic/Action/ActionFactory')
 var uimgr = require('UIMgr')
-//var net = require('NetPomelo')
+var utility = require('utility')
 
 cc.Class({
     extends: cc.Component,
@@ -28,7 +28,7 @@ cc.Class({
     },
     
     start () {
-
+        
     },
 
     update (dt) {

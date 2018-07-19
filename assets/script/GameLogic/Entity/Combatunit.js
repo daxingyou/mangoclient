@@ -4,6 +4,8 @@
  */
  var HandCard = require('HandCard')
  var buff = require('AbilityBuff')
+ var ability = require('Ability') 
+ var dataMgr = require('DataMgr') 
 
 var CombatUnit = function(data,attrs,pos,teamid,combat,uid){
    
@@ -123,6 +125,23 @@ CombatUnit.prototype.useCard = function(data)
 {
     var card = new HandCard(data.cid,this);
     card.Active(this.curCombat.units[data.tid]);
+}
+
+CombatUnit.prototype.useSkill = function(data)
+{
+    var skilldata = dataMgr.skill[data.sid];
+    var ab = new ability(skilldata);
+
+    var targets = new Array();
+
+    for(var i=0;i<data.targets.length;i++)
+    {
+        if(combatMgr.curCombat.units.hasOwnProperty(data.targets[i]))
+            targets[i] = combatMgr.curCombat.units[data.targets[i]];
+    }
+
+    ab.Active(null,targets);
+    this.abilitys.push(ab);
 }
 
 ///播放技能特效
