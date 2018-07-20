@@ -30,7 +30,7 @@
   "title": "mango",
   "webOrientation": "auto",
   "wechatgame": {
-    "REMOTE_SERVER_ROOT": "http://192.168.0.151:8080/mango/",
+    "REMOTE_SERVER_ROOT": "http://192.168.0.113:8080/mango/",
     "appid": "wx7c329421cad774dc",
     "isSubdomain": false,
     "orientation": "landscape",

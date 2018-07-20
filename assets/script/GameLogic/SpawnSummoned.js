@@ -4,25 +4,25 @@ var utility = require('utility')
 
 var SpawnSummoned = {
     create : function(data){
-        var range = null;
+        var area = null;
 
         if(data.area == 1)
         {
-            range = combatMgr.curCombat.matrix.Area1;
+            area = combatMgr.curCombat.matrix.Area1;
         }else if(data.area == 2)
         {
-            range = combatMgr.curCombat.matrix.Area2;
-        }else if(data.area == 1)
+            area = combatMgr.curCombat.matrix.Area2;
+        }else if(data.area == 3)
         {
-            range = combatMgr.curCombat.matrix.Area3;
+            area = combatMgr.curCombat.matrix.Area3;
         }
 
-        var index = utility.RandomInt(1,range.length);
+        var index = utility.RandomInt(1,area.length);
         //// 最大只填了3
-        if(index < 3)
+        if(index > 3)
             index = 3;
 
-        var pos =  range[index];
+        var pos =  area[index];
         var range = null;
 
         if(pos == 1)
@@ -43,7 +43,7 @@ var SpawnSummoned = {
 
         if(data.type == constant.SummonedType.wSword)
         {
-            
+
         }
     }
 }

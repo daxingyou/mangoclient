@@ -85,6 +85,6 @@ cc.Class({
         this.spine.setAnimation(1, this.attackS, false);
     },
     playAnimation(name,loop){
-        this.spine.setAnimation(0,this.name,loop);
+        this.spine.setAnimation(0,name,loop);
     }
 });

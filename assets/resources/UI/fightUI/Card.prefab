@@ -58,7 +58,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -216
+      "y": 0
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -175,7 +175,13 @@
     "Name": {
       "__id__": 6
     },
-    "_index": 0
+    "_index": 0,
+    "cardAtlas": {
+      "__uuid__": "9341919d-4cbc-4c91-b6a5-66ce0ff9e363"
+    },
+    "cardImage": {
+      "__id__": 3
+    }
   },
   {
     "__type__": "cc.Label",

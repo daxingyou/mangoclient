@@ -26,17 +26,17 @@ cc.Class({
         });
         this.node.on('touchmove', function ( event ) {
             //console.log('Hello! card listen touchmove');
-            var delta = event.touch.getLocation();
+            //var delta = event.touch.getLocation();
             //var curwindow = event.touch.getLocationInView();
-            var newVec2 = that.node.convertToWorldSpace(that.node.position);
+            //var newVec2 = that.node.convertToWorldSpace(that.node.position);
             //console.log(newVec2.x.toString() + " =x , y =" + newVec2.y.toString() );
             //console.log(delta.x.toString() + " =x , y =" + delta.y.toString() );
             //console.log(curwindow.x.toString() + " =x , y =" + curwindow.y.toString() );
-            ctx.clear();
-            ctx.moveTo(newVec2.x - cc.winSize.width/2 + that.node.getContentSize().width/2,newVec2.y);
+            //ctx.clear();
+            //ctx.moveTo(newVec2.x - cc.winSize.width/2 + that.node.getContentSize().width/2,newVec2.y);
             //起始点-目标点
-            ctx.quadraticCurveTo(newVec2.x - cc.winSize.width/2 + that.node.getContentSize().width/2,newVec2.y + 200,delta.x - newVec2.x - that.node.getContentSize().width/2,delta.y - newVec2.y);
-            ctx.stroke();
+            //ctx.quadraticCurveTo(newVec2.x - cc.winSize.width/2 + that.node.getContentSize().width/2,newVec2.y + 200,delta.x - newVec2.x - that.node.getContentSize().width/2,delta.y - newVec2.y);
+            //ctx.stroke();
 
             mgr.touchMove(event.currentTouch.__instanceId,event.touch._point);
             //cc.pDistance(event.touch._startPoint,event.touch._point);

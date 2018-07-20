@@ -19,7 +19,8 @@ cc.Class({
        host:null,
        port:null,
        click:0,
-       rootBtn:cc.Node
+       rootBtn:cc.Node,
+       storeId:[],
     },
 
     onLoad () {
@@ -27,16 +28,18 @@ cc.Class({
     },
 
     start () {
-        var uuid = '5b1e6ec687ce5a36ccb8191b';
+        var uuid = cc.sys.localStorage.getItem("uuid");
+        
         var self = this;
         net.HttpRequest('http://182.254.234.140:3001/ServerList?openid='+uuid,(data)=>{
             cc.log(data);
             var serverlist = data.serverlist;
             var serverLast = data.lastLoginSid;//上次登录的服务器
             var resIndex = 0;
-            for(let i=0; i<serverlist.length; i++){
+            for(var i=0; i<serverlist.length; i++){
+             
                 let itemData = JSON.stringify(serverlist[i]); 
-                
+                self.storeId.push(serverlist[i].id);
                 cc.loader.loadRes('UI/selectServer/listItem', function(errorMessage, loadedResource){
                     if( errorMessage ) { cc.log( '载入预制资源失败, 原因:' + errorMessage ); return; }
                     if( !( loadedResource instanceof cc.Prefab ) ) { cc.log( '你载入的不是预制资源!' ); return; }
@@ -44,6 +47,7 @@ cc.Class({
                     self.list.addChild(item);
                     itemData = JSON.parse(itemData); 
                     item.getComponent('listItem').init({
+                        id:itemData.id,
                         name:itemData.name,
                         status:itemData.status,
                         ip:itemData.ip,
@@ -65,8 +69,8 @@ cc.Class({
                 }//默认显示   
             }
 
-
-            if(serverLast = serverlist[i].id){
+           for(let i = 0;i < self.storeId.length; i++){
+               if(serverLast == self.storeId[i]){
                 var item2Data = serverlist[i];
                 cc.loader.loadRes('UI/selectServer/test', function(errorMessage, loadedResource){
                     if( errorMessage ) { cc.log( '载入预制资源失败, 原因:' + errorMessage ); return; }
@@ -79,8 +83,8 @@ cc.Class({
                     });
                     cc.loader.release('UI/selectServer/test');
                 });   
-            }
-           
+               }
+           }
         });
 
         this.rootBtn.on(cc.Node.EventType.TOUCH_START, function(event){
@@ -105,7 +109,6 @@ cc.Class({
         var uid = cc.sys.localStorage.getItem("uuid");
         cc.log(uid + "uid");
 
-        
       
     //     cc.log(this.click + "执行到---");
     //    if(this.click == 1){ //判断是否勾选用户协议
@@ -138,10 +141,6 @@ cc.Class({
                 });
             })
           });
-    //    }
-    //    else{cc.log("未同意授权");}
-       
     }
 
-    // update (dt) {},
 });

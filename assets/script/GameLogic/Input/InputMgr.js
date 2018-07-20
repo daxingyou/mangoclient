@@ -25,11 +25,12 @@ cc.Class({
     },
 
     onLoad () {
-      //  cc.log(this.fightUI.lineDot,this.fightUI.lineDot.children);
         this.itemChild = this.fightUI.lineDot.children;
+        
         for(var i in this.node.children){
             this.frame[i] = this.node.children[i];
         }
+       
     },
 
     start () {
@@ -38,17 +39,35 @@ cc.Class({
     touchMove(touchid,point)
     {
         var points = utility.ComputeBezier(this._startPoint,point);//路径点数组
-        for(let i=0;i<points.length;i++){
-    
-            this.itemChild[i].x = points[i].x;
-            this.itemChild[i].y = points[i].y;
+
+        if(points.length > 3)
+            this.fightUI.lineDotSrc.setDire(points[points.length-1],points[points.length-2]);
+
+        for(let k=0; k < this.itemChild.length;k++){
+            if(k < points.length - 1)
+            {
+                this.itemChild[k].x = points[k].x+100;
+                this.itemChild[k].y = points[k].y;
             }
+            else if(k == points.length-1)
+            {
+                this.itemChild[19].x = points[k].x+100;
+                this.itemChild[19].y = points[k].y;
+
+                this.itemChild[k].x = 0;
+                this.itemChild[k].y = -1000;
+            }
+            else{
+                if(k != this.itemChild.length-1)
+                {
+                    this.itemChild[k].x = 0;
+                    this.itemChild[k].y = -1000;
+                }
+            }
+        }
 
         if(this._touchid == touchid)
         {
-            
-
-
             if(this.curObjective.type != constant.SkillTargetType.SINGEL)
             {
                 if(cc.pDistance(this._startPoint,point) > this.dis)
@@ -112,7 +131,6 @@ cc.Class({
             this.itemChild[i].y = 0;
         }
        
-       
         if(this._touchid == touchid && this._curCard == index)
         {
             if(this.curObjective.type != constant.SkillTargetType.SINGEL)
@@ -132,18 +150,18 @@ cc.Class({
                 //判断当前选中目标是否可以释放技能
                 if(this._target != null)
                 {
-                    /*
-                    if(this._target instanceof Array)
+                    
+                    if(target instanceof Array)
                     {
-                        for(var key in this._target)
+                        for(var key in target)
                         {
-                            if(this._target[key] == curTarget)
+                            if(target[key] == this._target)
                             {
-                                GameLogic.UsePile(GameLogic.player,this._curCard,curTarget,this._target,this.curCardId,this.curObjective.type);
+                                GameLogic.UsePile(GameLogic.player,this._curCard,this._target,target,this.curCardId,this.curObjective.type);
                             }
                         }
                     }
-                    else*/
+                    else
                     {
                         if(this._target == target);
                         {
@@ -162,7 +180,7 @@ cc.Class({
     CancleShowTargets(){
         this._touchid = null;
         for(var i in this.node.children){
-           // this.frame[i].active = false;
+            this.frame[i].active = false;
         }
     },
     ShowTips(target,index){

@@ -163,6 +163,14 @@ var fight = {
         pomelo.on('onBuffModHp', function(data){
             cc.log('onBuffModHp', data);
         });
+
+        pomelo.on('onDropCard', function(data){
+            cc.log('弃牌', data);
+        });
+
+        pomelo.on('onDropCardNotify', function(data){
+            cc.log('弃牌广播', data);
+        });
     },
     OnFreshPile : function(data)
     {

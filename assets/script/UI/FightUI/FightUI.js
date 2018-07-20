@@ -18,15 +18,30 @@ cc.Class({
         min_time:2,
         sec_time:60,   
         lineDot:cc.Node,
-           
+        lineDotSrc : cc.Component
     },
+    onLoad () {
+        var self = this;
+        var resIndex = 0;
+        for(var i=0;i<10;i++)
+        {
+            cc.loader.loadRes('UI/fightUI/Card', function(errorMessage, loadedResource){
+                if( errorMessage ) { cc.log( '载入预制资源失败, 原因:' + errorMessage ); return; }
+                if( !( loadedResource instanceof cc.Prefab ) ) { cc.log( '你载入的不是预制资源!' ); return; }
+                let item = cc.instantiate(loadedResource);
+                self.HandsCardRoot.addChild(item);
+                self._HandsCards.push(item.getComponent('CardItem'));
+                resIndex ++ ;
+                if(resIndex == 10)
+                {
+                    cc.loader.release('UI/fightUI/Card');
+                }
+            });   
+        } 
+},
+    
     start () {
-
-
         this.schedule(this.callback, 1);
-        for (var i = 0; i < this.CardsLayout.node.children.length; ++i) {
-            this._HandsCards.push(this.CardsLayout.node.children[i].getComponent('CardItem'));
-        }
     },
 
     
@@ -67,6 +82,9 @@ cc.Class({
         this.ExhaustedPile.string ="" + disCard;
         this.ExhaustedPile.string ="" + exHaust;
     },
+    
+
+
     ShowHandCards : function(){
         var player = combatmgr.getSelf();
 
@@ -84,7 +102,10 @@ cc.Class({
             }
         }
     },
+
+
+
     UseCard : function(index){
-        this._HandsCards[index].hide();
+        this._HandsCards[i].hide();
     }
 });

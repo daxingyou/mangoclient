@@ -78,9 +78,19 @@ module.exports = {
 		ID: 2008,
 		BuffName: '女娲转世',
 		Description: '每当抽取1张卡牌，为自己恢复20点生命值',
-		Type: 'listener',
-		Logic: {event:"onDrawCard","num":1,"cardType":1,"cardQuality":1,"cardAttributes":1,"piletype":1},
+		Type: 'drawCardListener',
+		Logic: {"num":1,"cardType":1,"cardQuality":1,"cardAttributes":1,"piletype":1},
 		SkillID: 2108,
+		Image: '',
+		Effect: ''
+	},
+	10002: {
+		ID: 10002,
+		BuffName: '猛击',
+		Description: '增加40%受到的伤害',
+		Type: 'modProp',
+		Logic: {vulnerable:0.4},
+		SkillID: 0,
 		Image: '',
 		Effect: ''
 	},

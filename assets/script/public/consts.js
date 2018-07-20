@@ -100,5 +100,7 @@ module.exports = {
         CARDS: 1,  // 抽牌堆
         IN_HANDS: 2,  // 弃牌堆
         EXHAUSTS: 3,  // 消耗牌堆
+
+        MAX: 3
     },
 }

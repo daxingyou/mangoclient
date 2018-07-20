@@ -108,16 +108,9 @@ CombatUnit.prototype.onUsePile = function(index,Target,targets){
     if(card != null){
         cc.log('使用卡牌监听 %s cur',index.toString(),' name :',this.handsPile[index].skillName);
 
-        var ability = card.Active(Target,targets);
-        this.abilitys.push(ability);
         this.handsPile.splice(index,1);
         
         cc.log('剩余卡牌数量%s cur',this.handsPile.length.toString());
-    }
-   
-    for(var i =0;i<this.abilitys.length;i++)
-    {
-        this.abilitys[i].onUsePile();
     }
 };
 
@@ -130,7 +123,7 @@ CombatUnit.prototype.useCard = function(data)
 CombatUnit.prototype.useSkill = function(data)
 {
     var skilldata = dataMgr.skill[data.sid];
-    var ab = new ability(skilldata);
+    var ab = new ability(skilldata[1],this);
 
     var targets = new Array();
 
@@ -141,7 +134,7 @@ CombatUnit.prototype.useSkill = function(data)
     }
 
     ab.Active(null,targets);
-    this.abilitys.push(ab);
+    //this.abilitys.push(ab);
 }
 
 ///播放技能特效
@@ -157,11 +150,10 @@ CombatUnit.prototype.buffUpdate = function(data){
     //for(var )
     this.buffs.push(new buff(data.info.id,data.info.cells));
     
-    
 }
 
 CombatUnit.prototype.OnAbilityExit = function(ability){
-    this.abilitys.splice(this.abilitys.indexof(ability),1);
+    //this.abilitys.splice(this.abilitys.indexof(ability),1);
 }
 
 CombatUnit.prototype.tick = function(dt){
