@@ -5,7 +5,7 @@
  */
 
 var load = {
-    load : function (path,callback,release){
+    load : function (path,release,callback){
         cc.loader.loadRes(path,function(err,res)
         {
             callback(res);
@@ -14,6 +14,15 @@ var load = {
                 cc.loader.release(path);
         });
     },
+    loadSprite : function(path,release,callback){
+        cc.loader.loadRes(path,cc.SpriteFrame,function(err,res)
+        {
+            callback(res);
+            
+            if(release)
+                cc.loader.release(path);
+        });
+    }
 };
 
 module.exports = load;

@@ -11,9 +11,9 @@ module.exports = {
 			SkillName: '攻击',
 			Target: {"type":"single","team":1},
 			Actions: {damage:{"dmg":60}},
-			Animation: 'attack',
+			Animation: 'attack_01',
 			CriticalTime: 0,
-			Effect: '',
+			Effect: 'attack',
 			EffectiveTime: 0
 		}
 	},
@@ -24,9 +24,9 @@ module.exports = {
 			SkillName: '防御',
 			Target: {"type":"single","team":0},
 			Actions: {addBuff:{buffID:2, time:5}},
-			Animation: 'attack2',
+			Animation: 'attack_02',
 			CriticalTime: 0,
-			Effect: '',
+			Effect: 'attack',
 			EffectiveTime: 0
 		}
 	},
@@ -37,9 +37,9 @@ module.exports = {
 			SkillName: '桃木刃',
 			Target: {"type":"single","team":1},
 			Actions: {damage:{"dmg":45}},
-			Animation: 'skilla',
+			Animation: 'attack_03',
 			CriticalTime: 0,
-			Effect: '',
+			Effect: 'attack',
 			EffectiveTime: 0
 		},
 		2: {
@@ -61,9 +61,9 @@ module.exports = {
 			SkillName: '木藤刺',
 			Target: {"type":"single","team":1},
 			Actions: {damage:{"dmg":25}},
-			Animation: 'attack3',
+			Animation: 'attack_04',
 			CriticalTime: 0,
-			Effect: '',
+			Effect: 'attack',
 			EffectiveTime: 0
 		},
 		2: {
@@ -96,9 +96,9 @@ module.exports = {
 			SkillName: '木剑雨',
 			Target: {"type":"all","team":1},
 			Actions: {damage:{"dmg":45}},
-			Animation: 'skilla1',
+			Animation: 'attack_05',
 			CriticalTime: 0,
-			Effect: '',
+			Effect: 'attack',
 			EffectiveTime: 0
 		},
 		2: {
@@ -120,9 +120,9 @@ module.exports = {
 			SkillName: '剑灵乱舞',
 			Target: {"type":"self","team":0},
 			Actions: {addBuff:{"buffID":1004}},
-			Animation: 'skilla2',
+			Animation: 'attack_06',
 			CriticalTime: 0,
-			Effect: '',
+			Effect: 'attack',
 			EffectiveTime: 0
 		}
 	},
@@ -146,9 +146,9 @@ module.exports = {
 			SkillName: '横剑摆渡',
 			Target: {"type":"self","team":0},
 			Actions: {addBuff:{"buffID":1005}},
-			Animation: 'skilla2',
+			Animation: 'attack_06',
 			CriticalTime: 0,
-			Effect: '',
+			Effect: 'attack',
 			EffectiveTime: 0
 		}
 	},
@@ -172,9 +172,9 @@ module.exports = {
 			SkillName: '桃木刃匣',
 			Target: {"type":"self","team":0},
 			Actions: {create:{"cardID":1001,"num":3}},
-			Animation: 'skilla2',
+			Animation: 'attack_06',
 			CriticalTime: 0,
-			Effect: '',
+			Effect: 'attack',
 			EffectiveTime: 0
 		}
 	},
@@ -185,9 +185,9 @@ module.exports = {
 			SkillName: '枯木逢春',
 			Target: {"type":"self","team":0},
 			Actions: {drawCard:{"num":2,"cardType":1,"cardQuality":1,"cardAttributes":1,"piletype":2}},
-			Animation: 'skilla2',
+			Animation: 'attack_06',
 			CriticalTime: 0,
-			Effect: '',
+			Effect: 'attack',
 			EffectiveTime: 0
 		},
 		2: {
@@ -209,9 +209,9 @@ module.exports = {
 			SkillName: '取竹成剑',
 			Target: {"type":"self","team":0},
 			Actions: {drawCard:{"num":1,"cardType":1,"cardQuality":1,"cardAttributes":1,"piletype":2}},
-			Animation: 'skilla2',
+			Animation: 'attack_06',
 			CriticalTime: 0,
-			Effect: '',
+			Effect: 'attack',
 			EffectiveTime: 0
 		},
 		2: {
@@ -233,9 +233,9 @@ module.exports = {
 			SkillName: '秋镰游刃',
 			Target: {"type":"all","team":1},
 			Actions: {reverse:{"type":"wSword","dmg":35,"consume":1}},
-			Animation: 'skilla2',
+			Animation: 'attack_06',
 			CriticalTime: 0,
-			Effect: '',
+			Effect: 'attack',
 			EffectiveTime: 0
 		}
 	},
@@ -246,9 +246,9 @@ module.exports = {
 			SkillName: '映日剑轮',
 			Target: {"type":"single","team":1},
 			Actions: {swordWheel:{"type":"wSword","dmg":15,"consume":0}},
-			Animation: 'skillj',
+			Animation: 'attack_06',
 			CriticalTime: 0,
-			Effect: '',
+			Effect: 'attack',
 			EffectiveTime: 0
 		}
 	},
@@ -530,7 +530,7 @@ module.exports = {
 			Index: 2,
 			SkillName: '巨浪',
 			Target: {"type":"all","team":1},
-			Actions: {getMPPct:{"MPPct":0,"time":5}},
+			Actions: {addBuff:{"buffID":10003, time:5}},
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',

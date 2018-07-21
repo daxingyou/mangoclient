@@ -163,4 +163,9 @@ CombatUnit.prototype.tick = function(dt){
     }
 };
 
+CombatUnit.prototype.release = function(){
+    this.agent.Release();
+    this.agent = null;
+}
+
 module.exports = CombatUnit;

@@ -9,6 +9,13 @@ var dataMgr = require('DataMgr');
 var sceneMgr = {
     curid : 0,
     sceneRoot : null,
+    backSprite : cc.Sprite,
+    frontSprite : cc.Sprite,
+
+    init : function() {
+        this.backSprite = cc.find('Canvas/background/image 2').getComponent(cc.Sprite);
+        this.frontSprite = cc.find('Canvas/background/image 2').getComponent(cc.Sprite);
+    },
 
     loadScene : function(id,callback){
         if(this.sceneRoot == null)

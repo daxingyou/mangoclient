@@ -53,10 +53,10 @@ module.exports = {
         Fight : {"id":5,"path":"UI/fightUI/FightUI",'type':1,'script':'FightUI'},
         FightCard : {"id":6,"path":'UI/fightUI/Card','type':2,'script':'CardItem'},
         SelectServer : {"id":7,"path":'UI/selectServer/selectServer','type':1,'script':'selectServer'}
-
     },
     SummonedType : {
         wSword : 'wSword',
     },
+    EffectPath : 'Effect/',
     mixTime : 0.1,
 };

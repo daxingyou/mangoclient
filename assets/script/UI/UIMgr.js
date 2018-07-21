@@ -81,7 +81,7 @@ cc.Class({
             }
         }
 
-        loadRes.load(ui.path,(data)=>{
+        loadRes.load(ui.path,true,(data)=>{
             var go = cc.instantiate(data);
 
             if(ui.type == 3)
@@ -114,7 +114,7 @@ cc.Class({
 
             if(callback != undefined)
                 callback(scr);
-        },true)
+        })
     },
     ///伤害跳转接口
     loadDmg(combatunit,dmg){

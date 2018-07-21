@@ -17,13 +17,13 @@ var constant = require('constants')
 
     var that = this;
 
-    loadRes.load('UI/hero/hpBar',(data)=>{
+    loadRes.load('UI/hero/hpBar',true,(data)=>{
         that.hpbar = cc.instantiate(data).getComponent('hpBar');
         cc.log(that.hpbar + "that.hpbar");
         that.hpbar.node.parent = cc.find('Canvas/ui'); 
         that.hpbar.freshen(hp,maxHp);
 
-        loadRes.load(path,(data)=>{
+        loadRes.load(path,true,(data)=>{
             that.go = cc.instantiate(data);
             that.go.parent = cc.find('Canvas/pool');
             that.go.position = cc.v2(pos.x,pos.y);
@@ -49,5 +49,15 @@ var constant = require('constants')
  Agent.prototype.getContentSize = function(){
      return this.contentSize;
  }
+
+Agent.prototype.Release = function(){
+    this.go = null;
+    this.hpbar = null;
+    this.spData = null;
+    this.width = 0;
+    this.height = 0;
+    this.contentSize = null;
+    this.aniMgr = null;
+}
 
  module.exports = Agent;

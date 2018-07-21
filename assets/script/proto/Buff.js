@@ -94,4 +94,14 @@ module.exports = {
 		Image: '',
 		Effect: ''
 	},
+	10003: {
+		ID: 10003,
+		BuffName: '巨浪',
+		Description: '无法获取灵力，持续5秒',
+		Type: 'recoverMpRate',
+		Logic: {rate:0},
+		SkillID: 0,
+		Image: '',
+		Effect: ''
+	},
 };
