@@ -13,8 +13,9 @@ module.exports = {
 			Actions: {damage:{"dmg":60}},
 			Animation: 'attack_01',
 			CriticalTime: 0,
-			Effect: 'attack',
-			EffectiveTime: 0
+			Effect: 'attack2',
+			EffectiveTime: 0,
+			Path: 'chenjinchou'
 		}
 	},
 	2: {
@@ -26,8 +27,9 @@ module.exports = {
 			Actions: {addBuff:{buffID:2, time:5}},
 			Animation: 'attack_02',
 			CriticalTime: 0,
-			Effect: 'attack',
-			EffectiveTime: 0
+			Effect: 'attack2',
+			EffectiveTime: 0,
+			Path: 'chenjinchou'
 		}
 	},
 	1001: {
@@ -39,8 +41,9 @@ module.exports = {
 			Actions: {damage:{"dmg":45}},
 			Animation: 'attack_03',
 			CriticalTime: 0,
-			Effect: 'attack',
-			EffectiveTime: 0
+			Effect: 'attack2',
+			EffectiveTime: 0,
+			Path: 'chenjinchou'
 		},
 		2: {
 			ID: 1001,
@@ -51,7 +54,8 @@ module.exports = {
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',
-			EffectiveTime: 0
+			EffectiveTime: 0,
+			Path: ''
 		}
 	},
 	1002: {
@@ -63,8 +67,9 @@ module.exports = {
 			Actions: {damage:{"dmg":25}},
 			Animation: 'attack_04',
 			CriticalTime: 0,
-			Effect: 'attack',
-			EffectiveTime: 0
+			Effect: 'attack2',
+			EffectiveTime: 0,
+			Path: 'chenjinchou'
 		},
 		2: {
 			ID: 1002,
@@ -75,7 +80,8 @@ module.exports = {
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',
-			EffectiveTime: 0
+			EffectiveTime: 0,
+			Path: ''
 		},
 		3: {
 			ID: 1002,
@@ -86,7 +92,8 @@ module.exports = {
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',
-			EffectiveTime: 0
+			EffectiveTime: 0,
+			Path: ''
 		}
 	},
 	1003: {
@@ -98,8 +105,9 @@ module.exports = {
 			Actions: {damage:{"dmg":45}},
 			Animation: 'attack_05',
 			CriticalTime: 0,
-			Effect: 'attack',
-			EffectiveTime: 0
+			Effect: 'attack2',
+			EffectiveTime: 0,
+			Path: 'chenjinchou'
 		},
 		2: {
 			ID: 1003,
@@ -110,7 +118,8 @@ module.exports = {
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',
-			EffectiveTime: 0
+			EffectiveTime: 0,
+			Path: ''
 		}
 	},
 	1004: {
@@ -122,8 +131,9 @@ module.exports = {
 			Actions: {addBuff:{"buffID":1004}},
 			Animation: 'attack_06',
 			CriticalTime: 0,
-			Effect: 'attack',
-			EffectiveTime: 0
+			Effect: 'attack2',
+			EffectiveTime: 0,
+			Path: 'chenjinchou'
 		}
 	},
 	1104: {
@@ -136,7 +146,8 @@ module.exports = {
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',
-			EffectiveTime: 0
+			EffectiveTime: 0,
+			Path: ''
 		}
 	},
 	1005: {
@@ -148,8 +159,9 @@ module.exports = {
 			Actions: {addBuff:{"buffID":1005}},
 			Animation: 'attack_06',
 			CriticalTime: 0,
-			Effect: 'attack',
-			EffectiveTime: 0
+			Effect: 'attack2',
+			EffectiveTime: 0,
+			Path: 'chenjinchou'
 		}
 	},
 	1105: {
@@ -162,7 +174,8 @@ module.exports = {
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',
-			EffectiveTime: 0
+			EffectiveTime: 0,
+			Path: ''
 		}
 	},
 	1006: {
@@ -174,8 +187,9 @@ module.exports = {
 			Actions: {create:{"cardID":1001,"num":3}},
 			Animation: 'attack_06',
 			CriticalTime: 0,
-			Effect: 'attack',
-			EffectiveTime: 0
+			Effect: 'attack2',
+			EffectiveTime: 0,
+			Path: 'chenjinchou'
 		}
 	},
 	1007: {
@@ -187,8 +201,9 @@ module.exports = {
 			Actions: {drawCard:{"num":2,"cardType":1,"cardQuality":1,"cardAttributes":1,"piletype":2}},
 			Animation: 'attack_06',
 			CriticalTime: 0,
-			Effect: 'attack',
-			EffectiveTime: 0
+			Effect: 'attack2',
+			EffectiveTime: 0,
+			Path: 'chenjinchou'
 		},
 		2: {
 			ID: 1007,
@@ -199,7 +214,8 @@ module.exports = {
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',
-			EffectiveTime: 0
+			EffectiveTime: 0,
+			Path: ''
 		}
 	},
 	1008: {
@@ -211,8 +227,9 @@ module.exports = {
 			Actions: {drawCard:{"num":1,"cardType":1,"cardQuality":1,"cardAttributes":1,"piletype":2}},
 			Animation: 'attack_06',
 			CriticalTime: 0,
-			Effect: 'attack',
-			EffectiveTime: 0
+			Effect: 'attack2',
+			EffectiveTime: 0,
+			Path: 'chenjinchou'
 		},
 		2: {
 			ID: 1008,
@@ -223,7 +240,8 @@ module.exports = {
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',
-			EffectiveTime: 0
+			EffectiveTime: 0,
+			Path: ''
 		}
 	},
 	1009: {
@@ -235,8 +253,9 @@ module.exports = {
 			Actions: {reverse:{"type":"wSword","dmg":35,"consume":1}},
 			Animation: 'attack_06',
 			CriticalTime: 0,
-			Effect: 'attack',
-			EffectiveTime: 0
+			Effect: 'attack2',
+			EffectiveTime: 0,
+			Path: 'chenjinchou'
 		}
 	},
 	1010: {
@@ -248,8 +267,9 @@ module.exports = {
 			Actions: {swordWheel:{"type":"wSword","dmg":15,"consume":0}},
 			Animation: 'attack_06',
 			CriticalTime: 0,
-			Effect: 'attack',
-			EffectiveTime: 0
+			Effect: 'attack2',
+			EffectiveTime: 0,
+			Path: 'chenjinchou'
 		}
 	},
 	2001: {
@@ -262,7 +282,8 @@ module.exports = {
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',
-			EffectiveTime: 0
+			EffectiveTime: 0,
+			Path: ''
 		}
 	},
 	2002: {
@@ -275,7 +296,8 @@ module.exports = {
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',
-			EffectiveTime: 0
+			EffectiveTime: 0,
+			Path: ''
 		},
 		2: {
 			ID: 2002,
@@ -286,7 +308,8 @@ module.exports = {
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',
-			EffectiveTime: 0
+			EffectiveTime: 0,
+			Path: ''
 		}
 	},
 	2003: {
@@ -299,7 +322,8 @@ module.exports = {
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',
-			EffectiveTime: 0
+			EffectiveTime: 0,
+			Path: ''
 		}
 	},
 	2004: {
@@ -312,7 +336,8 @@ module.exports = {
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',
-			EffectiveTime: 0
+			EffectiveTime: 0,
+			Path: ''
 		},
 		2: {
 			ID: 2004,
@@ -323,7 +348,8 @@ module.exports = {
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',
-			EffectiveTime: 0
+			EffectiveTime: 0,
+			Path: ''
 		}
 	},
 	2005: {
@@ -336,7 +362,8 @@ module.exports = {
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',
-			EffectiveTime: 0
+			EffectiveTime: 0,
+			Path: ''
 		}
 	},
 	2105: {
@@ -349,7 +376,8 @@ module.exports = {
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',
-			EffectiveTime: 0
+			EffectiveTime: 0,
+			Path: ''
 		}
 	},
 	2006: {
@@ -362,7 +390,8 @@ module.exports = {
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',
-			EffectiveTime: 0
+			EffectiveTime: 0,
+			Path: ''
 		},
 		2: {
 			ID: 2006,
@@ -373,7 +402,8 @@ module.exports = {
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',
-			EffectiveTime: 0
+			EffectiveTime: 0,
+			Path: ''
 		}
 	},
 	2007: {
@@ -386,7 +416,8 @@ module.exports = {
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',
-			EffectiveTime: 0
+			EffectiveTime: 0,
+			Path: ''
 		}
 	},
 	2107: {
@@ -399,7 +430,8 @@ module.exports = {
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',
-			EffectiveTime: 0
+			EffectiveTime: 0,
+			Path: ''
 		}
 	},
 	2008: {
@@ -412,7 +444,8 @@ module.exports = {
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',
-			EffectiveTime: 0
+			EffectiveTime: 0,
+			Path: ''
 		}
 	},
 	2108: {
@@ -425,7 +458,8 @@ module.exports = {
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',
-			EffectiveTime: 0
+			EffectiveTime: 0,
+			Path: ''
 		}
 	},
 	2009: {
@@ -438,7 +472,8 @@ module.exports = {
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',
-			EffectiveTime: 0
+			EffectiveTime: 0,
+			Path: ''
 		},
 		2: {
 			ID: 2009,
@@ -449,7 +484,8 @@ module.exports = {
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',
-			EffectiveTime: 0
+			EffectiveTime: 0,
+			Path: ''
 		}
 	},
 	2010: {
@@ -462,7 +498,8 @@ module.exports = {
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',
-			EffectiveTime: 0
+			EffectiveTime: 0,
+			Path: ''
 		},
 		2: {
 			ID: 2010,
@@ -473,7 +510,8 @@ module.exports = {
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',
-			EffectiveTime: 0
+			EffectiveTime: 0,
+			Path: ''
 		}
 	},
 	10001: {
@@ -486,7 +524,8 @@ module.exports = {
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',
-			EffectiveTime: 0
+			EffectiveTime: 0,
+			Path: ''
 		}
 	},
 	10002: {
@@ -499,7 +538,8 @@ module.exports = {
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',
-			EffectiveTime: 0
+			EffectiveTime: 0,
+			Path: ''
 		},
 		2: {
 			ID: 10002,
@@ -510,7 +550,8 @@ module.exports = {
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',
-			EffectiveTime: 0
+			EffectiveTime: 0,
+			Path: ''
 		}
 	},
 	10003: {
@@ -523,7 +564,8 @@ module.exports = {
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',
-			EffectiveTime: 0
+			EffectiveTime: 0,
+			Path: ''
 		},
 		2: {
 			ID: 10003,
@@ -534,7 +576,8 @@ module.exports = {
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',
-			EffectiveTime: 0
+			EffectiveTime: 0,
+			Path: ''
 		}
 	},
 	10004: {
@@ -547,7 +590,8 @@ module.exports = {
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',
-			EffectiveTime: 0
+			EffectiveTime: 0,
+			Path: ''
 		},
 		2: {
 			ID: 10004,
@@ -558,7 +602,8 @@ module.exports = {
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',
-			EffectiveTime: 0
+			EffectiveTime: 0,
+			Path: ''
 		}
 	},
 };

@@ -13,6 +13,7 @@ var consts = require('consts')
 var Monster_ = require('Monster_')
 var net = require('NetPomelo')
 var loadFinishedProto = require('loadFinishedProto')
+var Effectmgr = require('EffectMgr')
 
 var Combat = function(){
     
@@ -74,16 +75,15 @@ Combat.prototype.init = function(data){
 
     this.time = dungeon.TimeLimit;
 
-
     ///test demo 默认 为 PVE_2
     this.matrix = dataMgr.matrix[4];
-    //var matrix_pos = new MatrixPos(matrix.MatrixPos);
 
     var index = 1;
     for(var uid in data.teamInfo.teamA)
     {
-        this.own[index] = new Hero_(data.teamInfo.teamA[uid],dataMgr.heroAttributes[1001],this.matrix.MatrixPos[index],constant.Team.own,this,uid);
+        this.own[index] = new Hero_(data.teamInfo.teamA[uid],dataMgr.heroAttributes[data.teamInfo.teamA[uid].heroid],this.matrix.MatrixPos[index],constant.Team.own,this,uid);
 
+        Effectmgr.init(dataMgr.hero[data.teamInfo.teamA[uid].heroid].InitialDrawPile);
         if(uid == gameCenter.uuid)
         {
             this.own[index].InitHands(data.myInfo.inHands);
@@ -121,6 +121,7 @@ Combat.prototype.init = function(data){
             var i = 1;
             this.enemy[i] = new Monster_(data.teamInfo.teamB[uid],dataMgr.monster[data.teamInfo.teamB[uid].monsterid],matrix.MatrixPos[monsters[data.teamInfo.teamB[uid].monsterid]],constant.Team.enemy,this,uid);
             
+            Effectmgr.init(dataMgr.monster[data.teamInfo.teamB[uid].monsterid].InitialDrawPile);
             this.units[uid] = this.enemy[i];
             i++;
         }

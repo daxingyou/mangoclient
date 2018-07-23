@@ -4,12 +4,15 @@
  * Description:资源加载工具类
  */
 
+var constant = require('constants')
+
 var load = {
     load : function (path,release,callback){
         cc.loader.loadRes(path,function(err,res)
         {
             callback(res);
-            
+            if(err != null)
+                cc.error(err);
             if(release)
                 cc.loader.release(path);
         });
@@ -18,7 +21,19 @@ var load = {
         cc.loader.loadRes(path,cc.SpriteFrame,function(err,res)
         {
             callback(res);
-            
+            if(err != null)
+                cc.error(err);
+            if(release)
+                cc.loader.release(path);
+        });
+    },
+    loadEffect : function(path,release,callback){
+        var effectpath = constant.EffectPath.concat(path);
+        cc.loader.loadRes(effectpath,function(err,res)
+        {
+            callback(res,effectpath.replace(constant.EffectPath,''));
+            if(err != null)
+                cc.error(err);
             if(release)
                 cc.loader.release(path);
         });

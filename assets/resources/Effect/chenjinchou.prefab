@@ -10,7 +10,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "attack",
+    "_name": "chenjinchou",
     "_objFlags": 0,
     "_parent": null,
     "_children": [],
@@ -19,10 +19,13 @@
     "_components": [
       {
         "__id__": 2
+      },
+      {
+        "__id__": 3
       }
     ],
     "_prefab": {
-      "__id__": 3
+      "__id__": 4
     },
     "_id": "",
     "_opacity": 255,
@@ -50,8 +53,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
+      "x": 282,
+      "y": 278
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -71,8 +74,8 @@
     "_paused": false,
     "defaultSkin": "",
     "defaultAnimation": "",
-    "loop": true,
-    "_premultipliedAlpha": true,
+    "loop": false,
+    "_premultipliedAlpha": false,
     "_N$skeletonData": {
       "__uuid__": "183dac41-00ff-4bce-acc1-ba3c0122994e"
     },
@@ -81,12 +84,25 @@
     "_N$debugBones": false
   },
   {
+    "__type__": "a1af6onpshPdIgTRkQqNuNi",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "effect": {
+      "__id__": 2
+    },
+    "path": ""
+  },
+  {
     "__type__": "cc.PrefabInfo",
     "root": {
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "e35ee07a-58e3-49d3-920c-31b4894030bd"
     },
     "fileId": "5dt1JvFWRIIYojZ15mDK3n",
     "sync": false

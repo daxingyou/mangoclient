@@ -6,6 +6,7 @@
 
 var Action = require('TAtest')
 var CombatUtility = require('CombatUtility')
+var effectMgr = require('EffectMgr')
 
 var ability = function(data,owner){
 	this.arrs = data;
@@ -38,6 +39,8 @@ ability.prototype.Active = function(Target,targets){
 
 	if(this.arrs.Animation != '')
 		this.owner.agent.PlayAnimation(this.arrs.Animation,false);
+
+	effectMgr.getEffect(this.arrs.Path,this.owner.agent.go.position,this.arrs.Effect);
 }
 ///技能失效
 ability.prototype.Exit = function(){

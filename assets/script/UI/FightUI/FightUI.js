@@ -53,8 +53,8 @@ cc.Class({
         this.now_time = 1;
         this.is_running = false;
         this.mpSprite.active = true; 
-        var rotationTo = cc.rotateTo(0.0001,180);
-        this.mpSprite.runAction(rotationTo);
+        //var rotationTo = cc.rotateTo(0.0001,180);
+        //this.mpSprite.runAction(rotationTo);
         this.sprite = this.mpSprite.getComponent(cc.Sprite);
         if (this.play_onload) {
             this.start_clock_action(this.action_time);

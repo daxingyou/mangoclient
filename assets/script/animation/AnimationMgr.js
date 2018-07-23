@@ -54,6 +54,8 @@ cc.Class({
         spine.setCompleteListener((trackEntry, loopCount) => {
             var animationName = trackEntry.animation ? trackEntry.animation.name : "";
             
+            if(animationName != 'guard' && animationName != 'guard2' && animationName != 'die')
+                this.spine.setAnimation(0,this._stand, true);
             //cc.log("[track %s][animation %s] complete: %s", trackEntry.trackIndex, animationName, loopCount);
         });
         spine.setEventListener((trackEntry, event) => {
