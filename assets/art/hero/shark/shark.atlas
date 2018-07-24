@@ -1,0 +1,96 @@
+
+shark.png
+size: 2023,2031
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+beard_1
+  rotate: true
+  xy: 721, 582
+  size: 200, 470
+  orig: 200, 470
+  offset: 0, 0
+  index: -1
+beard_2
+  rotate: true
+  xy: 2, 2
+  size: 80, 183
+  orig: 80, 183
+  offset: 0, 0
+  index: -1
+beard_3
+  rotate: false
+  xy: 721, 395
+  size: 63, 185
+  orig: 63, 185
+  offset: 0, 0
+  index: -1
+beard_4
+  rotate: false
+  xy: 1398, 1180
+  size: 200, 422
+  orig: 200, 422
+  offset: 0, 0
+  index: -1
+body
+  rotate: false
+  xy: 2, 784
+  size: 1394, 1245
+  orig: 1394, 1245
+  offset: 0, 0
+  index: -1
+eye
+  rotate: false
+  xy: 1193, 710
+  size: 74, 72
+  orig: 74, 72
+  offset: 0, 0
+  index: -1
+eye_02
+  rotate: false
+  xy: 430, 168
+  size: 201, 179
+  orig: 201, 179
+  offset: 0, 0
+  index: -1
+fins_1
+  rotate: false
+  xy: 2, 349
+  size: 717, 433
+  orig: 717, 433
+  offset: 0, 0
+  index: -1
+fins_2
+  rotate: false
+  xy: 1398, 1604
+  size: 366, 425
+  orig: 366, 425
+  offset: 0, 0
+  index: -1
+mouth
+  rotate: false
+  xy: 2, 84
+  size: 426, 263
+  orig: 426, 263
+  offset: 0, 0
+  index: -1
+oral
+  rotate: false
+  xy: 1766, 1816
+  size: 255, 213
+  orig: 255, 213
+  offset: 0, 0
+  index: -1
+
+shark2.png
+size: 1042,897
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+fins_3
+  rotate: false
+  xy: 2, 2
+  size: 1038, 893
+  orig: 1038, 893
+  offset: 0, 0
+  index: -1

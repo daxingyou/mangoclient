@@ -5,7 +5,8 @@ cc.Class({
 
     properties: {
         effect : sp.Skeleton,
-        path : ''
+        _path : '',
+        _active : false,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -16,7 +17,7 @@ cc.Class({
         spine.setCompleteListener((trackEntry, loopCount) => {
             var animationName = trackEntry.animation ? trackEntry.animation.name : "";
             cc.log('effect show over = ',animationName);
-            effectMgr.putEffect(this.path,this);
+            this._active = false;
         });
         spine.setStartListener(trackEntry => {
             var animationName = trackEntry.animation ? trackEntry.animation.name : "";
@@ -29,6 +30,7 @@ cc.Class({
         spine.setEndListener(trackEntry => {
             var animationName = trackEntry.animation ? trackEntry.animation.name : "";
             cc.log("[track %s][animation %s] end.", trackEntry.trackIndex, animationName);
+            this._active = false;
         });
     },
 
@@ -37,9 +39,10 @@ cc.Class({
     },
 
     init(path){
-        this.path = path;
+        this._path = path;
     },
     show(name){
         this.effect.setAnimation(0,name, false);
+        //this._active = true; 
     }
 });

@@ -5,6 +5,7 @@ var constant = require('constants')
 var actionfactory = require('./GameLogic/Action/ActionFactory')
 var uimgr = require('UIMgr')
 var scenemgr = require('SceneMgr')
+var Pool = require('Pool')
 
 cc.Class({
     extends: cc.Component,
@@ -14,6 +15,7 @@ cc.Class({
     },
 
     onLoad () {
+        Pool.init();
         scenemgr.init();
         actionfactory.init();
         ////数据加载
@@ -23,7 +25,6 @@ cc.Class({
         uimgr = cc.find('Canvas').getComponent('UIMgr');
         uimgr.loadUI(constant.UI.SelectServer);
         matchMessage.init();
-
     },
     
     start () {

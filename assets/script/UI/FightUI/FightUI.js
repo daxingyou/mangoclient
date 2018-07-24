@@ -24,11 +24,11 @@ cc.Class({
         clockwise: false, // 是否为顺时针
         reverse: false, 
         play_onload: true, // 是否在加载
+        angle:30,
     },
     onLoad () {
      
        var self = this;
-      
        var resIndex = 0;
        for(var i=0;i<10;i++)
        {
@@ -38,7 +38,8 @@ cc.Class({
                let item = cc.instantiate(loadedResource);
                self.HandsCardRoot.addChild(item);
                self._HandsCards.push(item.getComponent('CardItem'));
-               resIndex ++ ;
+              
+             
             //    self.HandsCardRoot[i].hide();
             //    self._HandsCards[i].hide();
                if(resIndex == 10)
@@ -53,8 +54,6 @@ cc.Class({
         this.now_time = 1;
         this.is_running = false;
         this.mpSprite.active = true; 
-        //var rotationTo = cc.rotateTo(0.0001,180);
-        //this.mpSprite.runAction(rotationTo);
         this.sprite = this.mpSprite.getComponent(cc.Sprite);
         if (this.play_onload) {
             this.start_clock_action(this.action_time);
@@ -80,7 +79,7 @@ start_clock_action: function(action_time) {
         this.now_time += dt * 10;
         var per = this.now_time / this.action_time;//百分比
         this.sprite.fillRange = per;
-        if(per >0.9){
+        if(per >0.6){
             this.is_running = false;
         }    
       
@@ -105,10 +104,10 @@ start_clock_action: function(action_time) {
             this.sec_time = 0;
         }
         if(this.sec_time < 10 && this.sec_time !=0){
-            this.time.string ="" + this.min_time + ":0"  +""+this.sec_time;
+            this.time.string ="" + this.min_time + ":0"  + "" + this.sec_time;
         }
         else{
-            this.time.string ="" + this.min_time + ":"  +""+this.sec_time; 
+            this.time.string ="" + this.min_time + ":"  + "" + this.sec_time; 
         }
            },//定时器
     OnFresh : function(data){
@@ -150,5 +149,6 @@ start_clock_action: function(action_time) {
 
     UseCard : function(index){
         this._HandsCards[i].hide();
+
     }
 });

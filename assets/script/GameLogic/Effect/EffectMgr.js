@@ -1,18 +1,14 @@
 var datamgr = require('DataMgr')
 var LoadRes = require('LoadRes')
 var constant = require('constants')
+var Pool = require('Pool')
 
 var mgr = {
-    Pool : null,
     cardList : null,
     effectNameList : null,
     init : function(list){
         var that = this;
-        if(this.Pool == null)
-        {
-            this.Pool = new Array();
-            this.cardList = new Array();
-        }
+        this.cardList = new Array();
 
         for(var i =0;i<list.length;i++)
         {
@@ -24,30 +20,29 @@ var mgr = {
 
                 for(var j in skilList)
                 {
-                    if(!this.Pool.hasOwnProperty(skilList[j].Path) && skilList[j].Path != '')
+                    if(!Pool.hasOwnProperty(skilList[j].Path) && skilList[j].Path != '')
                     {
-                        this.Pool[skilList[j].Path] = new cc.NodePool();
+                        Pool.create(skilList[j].Path);
                         var path = constant.EffectPath.concat();
                         LoadRes.loadEffect(skilList[j].Path,true,function(data,effect){
                             var go = cc.instantiate(data);
                             go.parent = cc.find('Canvas/fightEffect');
                             go.position = new cc.Vec2(0,-1000);
-                            go.getComponent('EffectListen').init(effect);
-                            that.Pool[effect].put(go);
+                            var src = go.getComponent('EffectListen')
+                            src.init(effect);
+                            Pool.put(effect,src);
                         });
-
                     }
                 }
             }
         }
     },
     getEffect : function(name,pos,effect){
-        if(this.Pool.hasOwnProperty(name))
+        if(Pool.hasOwnProperty(name))
         {
-            var go = this.Pool[name].get();
-            go.parent = cc.find('Canvas/fightEffect');
-            go.position = pos;
-            go.getComponent('EffectListen').show(effect);
+            var go = Pool.get(name);
+            go.node.position = pos;
+            go.show(effect);
 
             return go;
         }
@@ -56,18 +51,17 @@ var mgr = {
         }
     },
     putEffect : function(name,node){
-        if(this.Pool.hasOwnProperty(name))
+        if(Pool.hasOwnProperty(name))
         {
-            node.position = new cc.Vec2(0,-1000);
-            this.Pool[name].put(node);
+            node.node.position = new cc.Vec2(0,-1000);
+            Pool.put(name,node);
         }
         else{
             cc.error('putEffect not found effect name = ',name);
         }
     },
     release : function(){
-        this.Pool.clear();
-        this.Pool = null;
+        Pool.clear();
         this.cardList = null;
     }
 }
