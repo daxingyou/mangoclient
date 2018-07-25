@@ -3,4 +3,5 @@ module.exports = {
     mp:0,
     discardsNum:0,
     exhaustsNum:0,
+    userName:''
 }

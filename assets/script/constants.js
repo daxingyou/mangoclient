@@ -52,11 +52,21 @@ module.exports = {
         Tips : {"id":4,"path":'UI/tips/Tips','type':3,"script":'tips'},
         Fight : {"id":5,"path":"UI/fightUI/FightUI",'type':1,'script':'FightUI'},
         FightCard : {"id":6,"path":'UI/fightUI/Card','type':2,'script':'CardItem'},
-        SelectServer : {"id":7,"path":'UI/selectServer/selectServer','type':1,'script':'selectServer'}
+        SelectServer : {"id":7,"path":'UI/selectServer/selectServer','type':1,'script':'selectServer'},
+        FightOver : {"id":8,"path":'UI/FightOver/FightOverUI','type':1,'script':'FightOver'},
     },
     SummonedType : {
         wSword : 'wSword',
     },
     EffectPath : 'Effect/',
     mixTime : 0.1,
+    FightCode : {
+        1 : '卡牌信息错误',
+        2 : '灵力不足',
+        3 : '体力不足',
+        4 : '已经死亡',
+        10 : '技能不存在',
+        11 : '已经死亡',
+        12 : '已经死亡',
+    },
 };

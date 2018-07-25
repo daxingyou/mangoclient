@@ -23,7 +23,7 @@ cc.Class({
             
         });
         uimgr = cc.find('Canvas').getComponent('UIMgr');
-        uimgr.loadUI(constant.UI.SelectServer);
+        uimgr.loadUI(constant.UI.Login);
         matchMessage.init();
     },
     

@@ -13,7 +13,7 @@ function Hero_(data,attributes,pos,teamid,combat,uid){
 
     var that = this;
     var hero = DataMgr.hero[data.heroid];
-    this.agent = new Agent(hero.HeroModel,pos,teamid,this.Hp,this.MaxHp,uid,function(){
+    this.agent = new Agent(hero.HeroModel,pos,teamid,this.Hp,this.MaxHp,this.basePhysical_arm,uid,function(){
         that.loadok = true;
     });
 

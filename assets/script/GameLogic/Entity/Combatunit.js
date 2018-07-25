@@ -19,6 +19,7 @@ var CombatUnit = function(data,attrs,pos,teamid,combat,uid){
 
 //////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////// 
 
+CombatUnit.prototype.IsDie = false;
 ///资源加载完成
 CombatUnit.prototype.loadok = false;
 ///角色唯一id
@@ -72,47 +73,40 @@ CombatUnit.prototype.onDot = function(){
 CombatUnit.prototype.onDamage = function(dmg,from,data = null){
     this.Hp = data.hp;
     this.basePhysical_arm = data.armor;
-    this.agent.hpbar.freshen(this.Hp,this.MaxHp);
+    this.agent.hpbar.freshen(this.Hp,this.MaxHp,this.basePhysical_arm);
 
-    this.uimgr.loadDmg(this,dmg);
+    this.uimgr.loadDmg(this,dmg,true);
 
     if(this.Hp <= 0)
         this.onDie();
 };
+
+CombatUnit.prototype.onHeal = function(curhp,value){
+    this.HP = curhp;
+    this.agent.hpbar.freshen(this.Hp,this.MaxHp,this.basePhysical_arm);
+    this.uimgr.loadDmg(this,value,false);
+}
+
 ////抽牌       服务器会将所有手牌下发，这里需要做校验
 CombatUnit.prototype.onDrawPile = function(ids){
-    for(var i =0;i<this.abilitys.length;i++)
-    {
-        this.abilitys[i].onDrawPile();
-    }
+    cc.log('服务器下发 手牌 = ',ids);
+    cc.log('当前 手牌 = ',this.handsPile);
 
-    //理论上单次下发一张牌
-    if(ids.length - this.handsPile.length > 0)
+    this.handsPile.length = 0;
+    for(var i = 0 ;i<ids.length;i++)
     {
-        for(var i = this.handsPile.length ;i<ids.length;i++)
-        {
-            var card = new HandCard(ids[i],this);
-            this.handsPile.push(card);
-
-            cc.log('当前抽牌 手牌数！',this.handsPile.length.toString());
-        }
-    }
-    else{
-        cc.log('发牌逻辑 异常请检查！');
+        this.handsPile[i] = new HandCard(ids[i],this);
     }
 };
-///使用卡牌监听
-CombatUnit.prototype.onUsePile = function(index,Target,targets){
-    var card = this.handsPile[index];
 
-    if(card != null){
-        cc.log('使用卡牌监听 %s cur',index.toString(),' name :',this.handsPile[index].skillName);
-
-        this.handsPile.splice(index,1);
-        
-        cc.log('剩余卡牌数量%s cur',this.handsPile.length.toString());
+///刷新数据
+CombatUnit.prototype.onUsePile = function(ids){
+    this.handsPile.length = 0;
+    for(var i =0;i<ids.length;i++)
+    {
+        this.handsPile[i] = new HandCard(ids[i],this);
     }
-};
+}
 
 CombatUnit.prototype.useCard = function(data)
 {
@@ -127,10 +121,10 @@ CombatUnit.prototype.useSkill = function(data)
 
     var targets = new Array();
 
-    for(var i=0;i<data.targets.length;i++)
+    for(var i in data.targets)
     {
-        if(combatMgr.curCombat.units.hasOwnProperty(data.targets[i]))
-            targets[i] = combatMgr.curCombat.units[data.targets[i]];
+        if(this.curCombat.units.hasOwnProperty(data.targets[i]))
+            targets[i] = this.curCombat.units[data.targets[i]];
     }
 
     ab.Active(null,targets);
@@ -142,18 +136,30 @@ CombatUnit.prototype.skillEffective = function(){
 
 }
 
-CombatUnit.prototype.porpUpdate = function(){
-
+///基础属性改变
+CombatUnit.prototype.porpUpdate = function(data){
+    ///护甲
+    this.basePhysical_arm = data.armor;
+    this.agent.hpbar.freshen(this.Hp,this.MaxHp,this.basePhysical_arm);
 }
 
 CombatUnit.prototype.buffUpdate = function(data){
-    //for(var )
-    this.buffs.push(new buff(data.info.id,data.info.cells));
+    cc.log('buff Update ',data);
+    //this.buffs.push(new buff(data.info.id,data.info.cells));
     
+}
+
+CombatUnit.prototype.onReverse = function(data){
+
 }
 
 CombatUnit.prototype.OnAbilityExit = function(ability){
     //this.abilitys.splice(this.abilitys.indexof(ability),1);
+}
+
+CombatUnit.prototype.onDie = function(){
+    this.IsDie = true;
+    this.agent.PlayAnimation('die',false);
 }
 
 CombatUnit.prototype.tick = function(dt){

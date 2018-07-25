@@ -1,19 +1,13 @@
-// Learn cc.Class:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 var uibase = require('UIBase')
 
 cc.Class({
     extends: uibase,
 
     properties: {
-       text : cc.Label
+       text : cc.Label,
+       armor : cc.Label,
+       bar : cc.ProgressBar,
+       bufflist : cc.Node
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -27,7 +21,11 @@ cc.Class({
 
     // update (dt) {},
 
-    freshen(cur,max){
+    freshen(cur,max,curArmo){
         this.text.string = cur.toString() + '/'+ max.toString();
+        if(curArmo > 999)
+            curArmo = 999;
+        this.armor.string = curArmo.toString();
+        this.bar.progress = cur / max;
     }
 });

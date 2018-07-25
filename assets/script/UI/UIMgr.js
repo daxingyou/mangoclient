@@ -98,18 +98,28 @@ cc.Class({
 
             if(ui.type == 1)
             {
+                if(this._curMainUI != null)
+                    this._curMainUI.hide();
                 this._FirstMainUI[ui.id] = scr;
                 this._curMainUI = scr;
+                this._curMainUI.show();
+
             }
             else if(ui.type == 2)
             {
+                if(this._curSecondUI != null)
+                    this._curSecondUI.hide();
                 this._SecondUI[ui.id] = scr;
                 this._curSecondUI = scr;
+                this._curSecondUI.show();
             }
             else if(ui.type == 3)
             {
+                if(this._curThirdUI != null)
+                    this._curThirdUI.hide();
                 this._ThirdUI[ui.id] = scr;
                 this._curThirdUI = scr;
+                this._curThirdUI.show();
             }
 
             if(callback != undefined)
@@ -117,7 +127,7 @@ cc.Class({
         })
     },
     ///伤害跳转接口
-    loadDmg(combatunit,dmg){
+    loadDmg(combatunit,dmg,dmgorheal){
         let enemy = null;
         if (this.dmgPool.size() > 0) { // 通过 size 接口判断对象池中是否有空闲的对象
             enemy = this.dmgPool.get();
@@ -125,7 +135,7 @@ cc.Class({
             enemy = cc.instantiate(this.dmg);
         }
         enemy.parent = this.tips; // 将生成的敌人加入节点树
-        enemy.getComponent('showDamge').init(combatunit,dmg,this); //接下来就可以调用 enemy 身上的脚本进行初始化
+        enemy.getComponent('showDamge').init(combatunit,dmg,this,dmgorheal); //接下来就可以调用 enemy 身上的脚本进行初始化
     },
     ///伤害对象池收回
     collectDmg(dmg){

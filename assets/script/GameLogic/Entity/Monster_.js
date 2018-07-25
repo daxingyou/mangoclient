@@ -11,7 +11,7 @@ function Monster_(data,attributes,pos,teamid,combat,uid){
     
     var that = this;
     var monster = DataMgr.monster[data.monsterid];
-    this.agent = new Agent(monster.Model,pos,teamid,this.Hp,this.MaxHp,uid,function(){
+    this.agent = new Agent(monster.Model,pos,teamid,this.Hp,this.MaxHp,this.basePhysical_arm,uid,function(){
         that.loadok = true;
     });
 

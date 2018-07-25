@@ -64,7 +64,7 @@ var GameLogic = {
             net.Request(new playCardMessage(Card,curCardid,''));
         }
         
-        CombatUnit.onUsePile(Card,target,targets);
+        //CombatUnit.onUsePile(Card,target,targets);
         this.fightUI.UseCard(Card);
     },
     getEnemys : function(CombatUnit){

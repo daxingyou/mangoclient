@@ -11,7 +11,7 @@ module.exports = {
 		Type: 'addArm',
 		Logic: {arm:60},
 		SkillID: 0,
-		Image: '',
+		Image: 'buff1',
 		Effect: ''
 	},
 	1002: {
@@ -21,7 +21,7 @@ module.exports = {
 		Type: 'addArm',
 		Logic: {arm:15},
 		SkillID: 0,
-		Image: '',
+		Image: 'buff2',
 		Effect: ''
 	},
 	1004: {
@@ -31,7 +31,7 @@ module.exports = {
 		Type: 'useCardListener',
 		Logic: {"num":1,"cardType":1,"cardQuality":1,"cardAttributes":1},
 		SkillID: 1104,
-		Image: '',
+		Image: 'buff3',
 		Effect: ''
 	},
 	1005: {
@@ -41,7 +41,7 @@ module.exports = {
 		Type: 'useCardListener',
 		Logic: {"num":5,"cardType":2,"cardQuality":1,"cardAttributes":1},
 		SkillID: 1105,
-		Image: '',
+		Image: 'buff1',
 		Effect: ''
 	},
 	2004: {
@@ -51,7 +51,7 @@ module.exports = {
 		Type: 'heal',
 		Logic: {"heal":40,"count":4,"time":1},
 		SkillID: 0,
-		Image: '',
+		Image: 'buff2',
 		Effect: ''
 	},
 	2005: {
@@ -61,7 +61,7 @@ module.exports = {
 		Type: 'damageListener',
 		Logic: {dmg:150},
 		SkillID: 2105,
-		Image: '',
+		Image: 'buff3',
 		Effect: ''
 	},
 	2007: {
@@ -71,7 +71,7 @@ module.exports = {
 		Type: 'dieListener',
 		Logic: {target:"friend","count":1},
 		SkillID: 2107,
-		Image: '',
+		Image: 'buff1',
 		Effect: ''
 	},
 	2008: {
@@ -81,7 +81,7 @@ module.exports = {
 		Type: 'drawCardListener',
 		Logic: {"num":1,"cardType":1,"cardQuality":1,"cardAttributes":1,"piletype":1},
 		SkillID: 2108,
-		Image: '',
+		Image: 'buff2',
 		Effect: ''
 	},
 	10002: {
@@ -91,7 +91,7 @@ module.exports = {
 		Type: 'modProp',
 		Logic: {vulnerable:0.4},
 		SkillID: 0,
-		Image: '',
+		Image: 'buff3',
 		Effect: ''
 	},
 	10003: {
@@ -101,7 +101,7 @@ module.exports = {
 		Type: 'recoverMpRate',
 		Logic: {rate:0},
 		SkillID: 0,
-		Image: '',
+		Image: 'buff1',
 		Effect: ''
 	},
 };

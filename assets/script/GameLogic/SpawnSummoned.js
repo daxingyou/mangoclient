@@ -17,7 +17,7 @@ var SpawnSummoned = {
             area = combatMgr.curCombat.matrix.Area3;
         }
 
-        var index = utility.RandomInt(1,area.length);
+        var index = utility.RandomInt(0,area.length-1);
         //// 最大只填了3
         if(index > 3)
             index = 3;

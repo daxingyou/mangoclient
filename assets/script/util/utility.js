@@ -59,6 +59,20 @@ var utility ={
 
         return result;
     },
+    ComputeCardsBezier : function(start,end,num,point){
+        var cp = new Array(cc.Vec2);
+        cp[0] = start;
+        cp[1] = new cc.Vec2(point.x,point.y);
+        cp[2] = new cc.Vec2(point.x,point.y);
+        cp[3] = end;
+
+        var result = new Array();
+        var dt = 1.0 / ( num - 1 ); 
+        for(var i = 0; i < num; i++) 
+            result[i] = this.PointOnCubicBezier( cp, i*dt ); 
+
+        return result;
+    },
     RandomInt : function(n, m){
         var random = Math.floor(Math.random()*(m-n+1)+n);
         return random;

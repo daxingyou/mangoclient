@@ -6,7 +6,7 @@
 var loadRes = require('LoadRes')
 var constant = require('constants')
 
- var Agent = function(path,pos,teamid,hp,maxHp,uid,loadok){
+ var Agent = function(path,pos,teamid,hp,maxHp,armo,uid,loadok){
     this.go = null;
     this.hpbar = null;
     this.spData = null;
@@ -19,9 +19,9 @@ var constant = require('constants')
 
     loadRes.load('UI/hero/hpBar',true,(data)=>{
         that.hpbar = cc.instantiate(data).getComponent('hpBar');
-        cc.log(that.hpbar + "that.hpbar");
+        //cc.log(that.hpbar + "that.hpbar");
         that.hpbar.node.parent = cc.find('Canvas/ui'); 
-        that.hpbar.freshen(hp,maxHp);
+        that.hpbar.freshen(hp,maxHp,armo);
 
         loadRes.load(path,true,(data)=>{
             that.go = cc.instantiate(data);

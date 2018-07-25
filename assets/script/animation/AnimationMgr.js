@@ -37,19 +37,19 @@ cc.Class({
 
         spine.setStartListener(trackEntry => {
             var animationName = trackEntry.animation ? trackEntry.animation.name : "";
-            cc.log("[track %s][animation %s] start.", trackEntry.trackIndex, animationName);
+            //cc.log("[track %s][animation %s] start.", trackEntry.trackIndex, animationName);
         });
         spine.setInterruptListener(trackEntry => {
             var animationName = trackEntry.animation ? trackEntry.animation.name : "";
-            cc.log("[track %s][animation %s] interrupt.", trackEntry.trackIndex, animationName);
+            //cc.log("[track %s][animation %s] interrupt.", trackEntry.trackIndex, animationName);
         });
         spine.setEndListener(trackEntry => {
             var animationName = trackEntry.animation ? trackEntry.animation.name : "";
-            cc.log("[track %s][animation %s] end.", trackEntry.trackIndex, animationName);
+            //cc.log("[track %s][animation %s] end.", trackEntry.trackIndex, animationName);
         });
         spine.setDisposeListener(trackEntry => {
             var animationName = trackEntry.animation ? trackEntry.animation.name : "";
-            cc.log("[track %s][animation %s] will be disposed.", trackEntry.trackIndex, animationName);
+            //cc.log("[track %s][animation %s] will be disposed.", trackEntry.trackIndex, animationName);
         });
         spine.setCompleteListener((trackEntry, loopCount) => {
             var animationName = trackEntry.animation ? trackEntry.animation.name : "";
@@ -60,7 +60,7 @@ cc.Class({
         });
         spine.setEventListener((trackEntry, event) => {
             var animationName = trackEntry.animation ? trackEntry.animation.name : "";
-            cc.log("[track %s][animation %s] event: %s, %s, %s, %s", trackEntry.trackIndex, animationName, event.data.name, event.intValue, event.floatValue, event.stringValue);
+            //cc.log("[track %s][animation %s] event: %s, %s, %s, %s", trackEntry.trackIndex, animationName, event.data.name, event.intValue, event.floatValue, event.stringValue);
         });
     },
 

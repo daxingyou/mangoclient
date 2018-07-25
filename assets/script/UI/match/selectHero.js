@@ -4,8 +4,7 @@ var ShaderUtils = require("ShaderUtils")
 var net = require("NetPomelo")
 var selectHeroProto = require("selectHeroProto")
 var confirmHeroProto = require("confirmHeroProto")
-var constant = require('constants')
-var combatMgr = require('CombatMgr')
+var dataCenter = require('DataCenter')
 
 cc.Class({
     extends: UIBase,
@@ -51,10 +50,7 @@ cc.Class({
             if(this.cdTime <= 0){
                 this.cdTimeLable.string = '0';
                 this._CDState = false;
-                this._mgr.loadUI(constant.UI.Fight,function(data){
-                    combatMgr.curCombat.UILoadOk = true;
-                })
-                this._mgr.release();
+                
             }
         }
     },
@@ -68,6 +64,8 @@ cc.Class({
     },
     manSelect(event){
         var that = this;
+        
+        dataCenter.userName = '陈靖仇';
         net.Request(new selectHeroProto(1000),function(data){
             if(data.code == 1)
             {
@@ -94,6 +92,8 @@ cc.Class({
     },
     womanSelect(event){
         var that = this;
+        
+        dataCenter.userName = '于小雪';
         net.Request(new selectHeroProto(2000),function(data){
             if(data.code == 1)
             {

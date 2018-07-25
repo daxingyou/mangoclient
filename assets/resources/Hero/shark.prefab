@@ -19,10 +19,13 @@
     "_components": [
       {
         "__id__": 2
+      },
+      {
+        "__id__": 3
       }
     ],
     "_prefab": {
-      "__id__": 3
+      "__id__": 4
     },
     "_id": "",
     "_opacity": 255,
@@ -81,12 +84,28 @@
     "_N$debugBones": false
   },
   {
+    "__type__": "e5d18knDzZPwpEU+aNWNyAH",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "_index": 1,
+    "_stand": "guard",
+    "_attack": "attack",
+    "_die": "die",
+    "_hit": "hit",
+    "_skilla": "skilla",
+    "_victory": "victory"
+  },
+  {
     "__type__": "cc.PrefabInfo",
     "root": {
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "68b4e0a5-ef21-4bfa-b829-d207f1cca035"
     },
     "fileId": "c2O6MXxHRLlJTn13D0YD7o",
     "sync": false

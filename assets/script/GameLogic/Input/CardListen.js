@@ -43,13 +43,13 @@ cc.Class({
         });
 
         this.node.on('touchend', function ( event ) {
-            cc.log('Hello! card listen touchend ' + that.node.name);
+            //cc.log('Hello! card listen touchend ' + that.node.name);
             ctx.clear();
             mgr.CancleSelectCard(that.cardItem._index,event.currentTouch.__instanceId,event.touch._point);
         });
 
         this.node.on('touchcancel', function ( event ) {
-            cc.log('Hello! card listen touchcancel ' + that.node.name);
+            //cc.log('Hello! card listen touchcancel ' + that.node.name);
             ctx.clear();
             mgr.CancleSelectCard(that.cardItem._index,event.currentTouch.__instanceId,event.touch._point);
         });

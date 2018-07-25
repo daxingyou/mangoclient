@@ -656,7 +656,8 @@
     "clockwise": true,
     "reverse": true,
     "play_onload": true,
-    "angle": 30
+    "R": 50,
+    "delta_angle": 15
   },
   {
     "__type__": "cc.Label",
@@ -2307,7 +2308,7 @@
     "_rotationX": 0,
     "_rotationY": 0,
     "_scaleX": 1,
-    "_scaleY": 1,
+    "_scaleY": -1,
     "_position": {
       "__type__": "cc.Vec2",
       "x": -1,

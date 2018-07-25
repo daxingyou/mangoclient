@@ -3,6 +3,7 @@ var gameLogic = require('GameLogic')//怪物相关
 var consts = require('consts')
 var gameData = require('DataCenter')
 var spawnSummoned = require('SpawnSummoned')
+var constant = require('constants')
 
 var fight = {
     _uimgr : null,
@@ -46,6 +47,11 @@ var fight = {
             cc.log('开始加载战斗：', data.teamInfo, data.myInfo);
             that._uimgr.showTips('开始加载战斗：');
             combatMgr.initCombat(data);
+            
+            that._uimgr.release();
+            that._uimgr.loadUI(constant.UI.Fight,function(data){
+                combatMgr.curCombat.UILoadOk = true;
+            })
         });
     
         pomelo.on('onFightBegin', function(data){
@@ -61,24 +67,26 @@ var fight = {
             cc.log('使用卡牌：', data);
             that._uimgr.showTips('使用卡牌：', data);
             var ui = that._uimgr.getCurMainUI();
-            cc.log(data.mp,data.discardsNum,data.exhaustsNum);//undifined 1 undifinded
-            cc.log(gameData.mp,gameData.discardsNum,gameData.exhaustsNum);
-            gameData.discardsNum = data.discardsNum + 1;
+            //cc.log(data.mp,data.discardsNum,data.exhaustsNum);//undifined 1 undifinded
+            //cc.log(gameData.mp,gameData.discardsNum,gameData.exhaustsNum);
+            gameData.discardsNum = data.discardsNum;
             ui.showNum(gameData.mp,gameData.discardsNum,gameData.exhaustsNum);
             //data.mp
             //data.inHands
             //data.discardsNum
            
+            combatMgr.getSelf().onUsePile(data.inHands);
             ui.ShowHandCards();
+            //ui.UseCard(Card);
         });
     
         pomelo.on('onFightAttriUpdate', function(data){
-            cc.log('属性更新：',data );
-
+            cc.log('属性更新：',data);
             for(var uid in data)
             {
                 var player = gameLogic.getCombatUnitForUid(uid);
                 var curdata = data[uid];
+                cc.log('属性更新：',curdata.reason );
                 switch(curdata.reason)
                 {
                     case consts.FightUpdateReason.useCard :
@@ -92,12 +100,15 @@ var fight = {
                     player.onDamage(curdata.oriDamage,gameLogic.getCombatUnitForUid(curdata.attackID),curdata);
                     break;
                     case consts.FightUpdateReason.porpUpdate :
+                    ///targetID armor
                     player.porpUpdate(curdata);
                     break;
                     case consts.FightUpdateReason.skillEffective:
                     player.skillEffective(curdata);
                     break;
                     case consts.FightUpdateReason.buffUpdate:
+                    //.realID  .info 
+                    player = gameLogic.getCombatUnitForUid(uid);
                     player.buffUpdate(curdata);
                     break;
                 }
@@ -106,7 +117,7 @@ var fight = {
 
         pomelo.on('onDrawCard', function(data){
             cc.log('抽牌', data);
-            that._uimgr.showTips('抽牌');
+            //that._uimgr.showTips('抽牌');
             var ui = that._uimgr.getCurMainUI();
             ui.onFreshCardsNum(data.cardsNum);
             combatMgr.getSelf().onDrawPile(data.inHands);
@@ -114,14 +125,16 @@ var fight = {
         });
     
         pomelo.on('onMpRecover', function(data){
-            cc.log('灵力恢复', data);
+            //cc.log('灵力恢复', data);
+
+            //var ui = that._uimgr.getCurMainUI();
+            //ui.onFreshCardsNum(data.cardsNum);
         });
 
         pomelo.on('onAddSpawnSummon', function(data){
             cc.log('增加召唤物', data);
 
             spawnSummoned.create(data);
-            //combatMgr.
 
         })
 
@@ -133,11 +146,23 @@ var fight = {
         });
 
         pomelo.on('onSpecificDrawCard', function(data){
-            cc.log('指定抽卡', data);
+            //cc.log('指定抽卡', data);
+
+            var ui = that._uimgr.getCurMainUI();
+            combatMgr.getSelf().onDrawPile(data.inHands);
+            ui.ShowHandCards();
+        });
+
+        ///他人接收指定抽卡
+        pomelo.on('onSpecificDrawCardNotify', function(data){
+            //cc.log('指定抽卡', data);
+
         });
 
         pomelo.on('onCreateCard', function(data){
             cc.log('生成卡牌', data);
+
+
         });
 
         pomelo.on('onReverse', function(data){
@@ -148,29 +173,52 @@ var fight = {
         pomelo.on('onSwordWheel', function(data){
             cc.log('swordWheel伤害', data);
 
+            var player = gameLogic.getCombatUnitForUid(data.caster);
+            player.useSkill(data);
         });
 
         pomelo.on('onHeal', function(data){
             cc.log('治疗', data);
 
-            
+            var player = gameLogic.getCombatUnitForUid(data.targetID);
+            player.onHeal(data.toHP,data.toHP - data.fromHp);
         });
 
         pomelo.on('onRelive', function(data){
             cc.log('复活', data);
+
+
         });
 
         pomelo.on('onBuffModHp', function(data){
             cc.log('onBuffModHp', data);
+            
+            var player = gameLogic.getCombatUnitForUid(data.targetID);
+            player.onHeal(data.toHP,data.val);
         });
 
         pomelo.on('onDropCard', function(data){
             cc.log('弃牌', data);
+
         });
 
         pomelo.on('onDropCardNotify', function(data){
             cc.log('弃牌广播', data);
+
         });
+
+        pomelo.on('onFightEnd', function(data){
+            cc.log('战斗结束', data);
+
+            //that._uimgr.loadUI(constans.UI.FightOver,function(){});
+        });
+
+        pomelo.on('onDie', function(data){
+            var player = gameLogic.getCombatUnitForUid(data.targetID);
+            player.onDie();
+        });
+
+
     },
     OnFreshPile : function(data)
     {

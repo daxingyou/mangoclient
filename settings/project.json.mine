@@ -11,16 +11,7 @@
       true
     ]
   ],
-<<<<<<< .mine
   "design-resolution-height": 640,
-||||||| .r525
-  "excluded-modules": [],
-=======
-  "design-resolution-height": 750,
-  "design-resolution-width": 1335,
-  "excluded-modules": [],
->>>>>>> .r792
-<<<<<<< .mine
   "design-resolution-width": 960,
   "excluded-modules": [
     "CCSpriteDistortion",
@@ -53,19 +44,6 @@
   "group-list": [
     "default"
   ],
-||||||| .r525
-  "design-resolution-width": 960,
-  "design-resolution-height": 640,
-  "fit-width": false,
-  "fit-height": true,
-  "use-project-simulator-setting": false,
-=======
-  "fit-height": false,
-  "fit-width": true,
-  "group-list": [
-    "default"
-  ],
->>>>>>> .r792
   "simulator-orientation": false,
   "simulator-resolution": {
     "height": 640,

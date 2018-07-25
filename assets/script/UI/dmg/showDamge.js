@@ -16,7 +16,9 @@ cc.Class({
         dmg : cc.Label,
         speed : 1000,
         _alpha : 255,
-        _uimgr : null
+        _uimgr : null,
+        dmgColor : cc.color,
+        healColor : cc.color,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -38,9 +40,14 @@ cc.Class({
         }
     },
 
-    init(combatUnit,dmg,uimgr){
+    init(combatUnit,dmg,uimgr,dmgorheal){
         this.dmg.string = dmg.toString();
         this._uimgr = uimgr;
         this.node.position = cc.v2(combatUnit.agent.go.position.x+100,combatUnit.agent.go.position.y + 220);
+
+        if(dmgorheal)
+            this.node.color = new cc.color(211,13,13);
+        else
+            this.node.color = new cc.color(13,211,61);
     }
 });
