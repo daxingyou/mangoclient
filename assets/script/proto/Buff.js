@@ -11,6 +11,7 @@ module.exports = {
 		Type: 'addArm',
 		Logic: {arm:60},
 		SkillID: 0,
+		IsHide: 0,
 		Image: 'buff1',
 		Effect: ''
 	},
@@ -21,6 +22,7 @@ module.exports = {
 		Type: 'addArm',
 		Logic: {arm:15},
 		SkillID: 0,
+		IsHide: 0,
 		Image: 'buff2',
 		Effect: ''
 	},
@@ -31,6 +33,7 @@ module.exports = {
 		Type: 'useCardListener',
 		Logic: {"num":1,"cardType":1,"cardQuality":1,"cardAttributes":1},
 		SkillID: 1104,
+		IsHide: 0,
 		Image: 'buff3',
 		Effect: ''
 	},
@@ -41,6 +44,7 @@ module.exports = {
 		Type: 'useCardListener',
 		Logic: {"num":5,"cardType":2,"cardQuality":1,"cardAttributes":1},
 		SkillID: 1105,
+		IsHide: 0,
 		Image: 'buff1',
 		Effect: ''
 	},
@@ -51,6 +55,7 @@ module.exports = {
 		Type: 'heal',
 		Logic: {"heal":40,"count":4,"time":1},
 		SkillID: 0,
+		IsHide: 0,
 		Image: 'buff2',
 		Effect: ''
 	},
@@ -61,6 +66,7 @@ module.exports = {
 		Type: 'damageListener',
 		Logic: {dmg:150},
 		SkillID: 2105,
+		IsHide: 0,
 		Image: 'buff3',
 		Effect: ''
 	},
@@ -71,6 +77,7 @@ module.exports = {
 		Type: 'dieListener',
 		Logic: {target:"friend","count":1},
 		SkillID: 2107,
+		IsHide: 0,
 		Image: 'buff1',
 		Effect: ''
 	},
@@ -81,6 +88,7 @@ module.exports = {
 		Type: 'drawCardListener',
 		Logic: {"num":1,"cardType":1,"cardQuality":1,"cardAttributes":1,"piletype":1},
 		SkillID: 2108,
+		IsHide: 0,
 		Image: 'buff2',
 		Effect: ''
 	},
@@ -91,6 +99,7 @@ module.exports = {
 		Type: 'modProp',
 		Logic: {vulnerable:0.4},
 		SkillID: 0,
+		IsHide: 0,
 		Image: 'buff3',
 		Effect: ''
 	},
@@ -101,7 +110,30 @@ module.exports = {
 		Type: 'recoverMpRate',
 		Logic: {rate:0},
 		SkillID: 0,
+		IsHide: 0,
 		Image: 'buff1',
+		Effect: ''
+	},
+	10005: {
+		ID: 10005,
+		BuffName: '幻象',
+		Description: '增加400%受到的伤害',
+		Type: 'modProp',
+		Logic: {vulnerable:4},
+		SkillID: 0,
+		IsHide: 0,
+		Image: 'buff3',
+		Effect: ''
+	},
+	10105: {
+		ID: 10105,
+		BuffName: '模型缩小',
+		Description: '',
+		Type: 'model',
+		Logic: {scale:0.6},
+		SkillID: 0,
+		IsHide: 1,
+		Image: '',
 		Effect: ''
 	},
 };

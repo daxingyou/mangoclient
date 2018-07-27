@@ -8,6 +8,7 @@
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 var uibase = require('UIBase')
+var utility = require('utility')
 
 cc.Class({
     extends: uibase,
@@ -43,7 +44,7 @@ cc.Class({
     init(combatUnit,dmg,uimgr,dmgorheal){
         this.dmg.string = dmg.toString();
         this._uimgr = uimgr;
-        this.node.position = cc.v2(combatUnit.agent.go.position.x+100,combatUnit.agent.go.position.y + 220);
+        this.node.position = cc.v2(combatUnit.agent.go.position.x+100+utility.RandomInt(0,50),combatUnit.agent.go.position.y + 220+utility.RandomInt(0,50));
 
         if(dmgorheal)
             this.node.color = new cc.color(211,13,13);

@@ -57,9 +57,10 @@ cc.Class({
             var serverlist = data.serverlist;
             var serverLast = data.lastLoginSid;//上次登录的服务器
             var resIndex = 0;
+            var findLast = false;
             for(var i=0; i<serverlist.length; i++){
-             
-                let itemData = JSON.stringify(serverlist[i]); 
+                var serverinfo = serverlist[i];
+                let itemData = JSON.stringify(serverinfo); 
                 self.storeId.push(serverlist[i].id);
                 cc.loader.loadRes('UI/selectServer/listItem', function(errorMessage, loadedResource){
                     if( errorMessage ) { cc.log( '载入预制资源失败, 原因:' + errorMessage ); return; }
@@ -81,32 +82,40 @@ cc.Class({
                     }
                 });
 
-                if(i == 0){
-                    self.serverName.string = serverlist[i].name;
-                    self.status.string = serverlist[i].status;
-                    self.id = serverlist[i].lastLoginSid;
-                    self.host = serverlist[i].ip;
-                    self.port = serverlist[i].port;
+                if(serverLast == serverinfo.id){
+                    self.serverName.string = serverinfo.name;
+                    self.status.string = serverinfo.status;
+                    self.id = serverinfo.lastLoginSid;
+                    self.host = serverinfo.ip;
+                    self.port = serverinfo.port;
+                    findLast = true;
                 }//默认显示   
+            }
+            var serverinfo = serverlist[0];
+            if (!findLast) {
+                self.serverName.string = serverinfo.name;
+                self.status.string = serverinfo.status;
+                self.id = serverinfo.lastLoginSid;
+                self.host = serverinfo.ip;
+                self.port = serverinfo.port;
             }
 
            for(let i = 0;i < self.storeId.length; i++){
                if(serverLast == self.storeId[i]){
-                 
-                var item2Data = serverlist[i];
-                cc.loader.loadRes('UI/selectServer/test', function(errorMessage, loadedResource){
-                    if( errorMessage ) { cc.log( '载入预制资源失败, 原因:' + errorMessage ); return; }
-                    if( !( loadedResource instanceof cc.Prefab ) ) { cc.log( '你载入的不是预制资源!' ); return; }
-                    let item2 = cc.instantiate(loadedResource);   
-                    self.last.addChild(item2);
-                    item2.getComponent('listItem').init({
-                        name:item2Data.name,
-                        status:item2Data.status,
-                    });
-                    cc.loader.release('UI/selectServer/test');
-                });   
-               }
-           }
+                    var item2Data = serverlist[i];
+                    cc.loader.loadRes('UI/selectServer/test', function(errorMessage, loadedResource){
+                        if( errorMessage ) { cc.log( '载入预制资源失败, 原因:' + errorMessage ); return; }
+                        if( !( loadedResource instanceof cc.Prefab ) ) { cc.log( '你载入的不是预制资源!' ); return; }
+                        let item2 = cc.instantiate(loadedResource);   
+                        self.last.addChild(item2);
+                        item2.getComponent('listItem').init({
+                            name:item2Data.name,
+                            status:item2Data.status,
+                        });
+                        cc.loader.release('UI/selectServer/test');
+                    });   
+                }
+            }
         });
 
         this.rootBtn.on(cc.Node.EventType.TOUCH_START, function(event){

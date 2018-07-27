@@ -19,13 +19,14 @@ var fight = {
         });
     
         pomelo.on('onSelectHeroNotify', function (data){
-            cc.log('%s选择英雄:%s', data.uid, data.heroid);
-            that._uimgr.showTips('%s选择英雄:%s', data.uid, data.heroid);
+            cc.log(data.uid,'选择英雄:%s', data.heroid);
+            that._uimgr.showTips('确认英雄:'+""+data.heroid);
         });
     
         pomelo.on('onConfirmHeroNotify', function (data){
-            cc.log('%s确认英雄:%s', data.uid, data.heroid);
-            that._uimgr.showTips('%s确认英雄:%s', data.uid, data.heroid);
+            cc.log(data.uid, '%s确认英雄:%s', data.heroid);
+           // that._uimgr.showTips(data.uid,'%s确认英雄:%s',  data.heroid);
+            that._uimgr.showTips('确认英雄:'+""+data.heroid);
         });
     
         pomelo.on('onEnterLoadCD', function (data){
@@ -67,10 +68,10 @@ var fight = {
             cc.log('使用卡牌：', data);
             that._uimgr.showTips('使用卡牌：', data);
             var ui = that._uimgr.getCurMainUI();
-            //cc.log(data.mp,data.discardsNum,data.exhaustsNum);//undifined 1 undifinded
+           cc.log(data.mp,data.discardsNum,data.exhaustsNum);//undifined 1 undifinded
             //cc.log(gameData.mp,gameData.discardsNum,gameData.exhaustsNum);
             gameData.discardsNum = data.discardsNum;
-            ui.showNum(gameData.mp,gameData.discardsNum,gameData.exhaustsNum);
+            ui.showNum(data.mp,data.discardsNum,data.exhaustsNum);
             //data.mp
             //data.inHands
             //data.discardsNum
@@ -98,6 +99,9 @@ var fight = {
                     break;
                     case consts.FightUpdateReason.onDamage :
                     player.onDamage(curdata.oriDamage,gameLogic.getCombatUnitForUid(curdata.attackID),curdata);
+                    
+                    var ui = that._uimgr.getCurMainUI();
+                    ui.FreshHp();
                     break;
                     case consts.FightUpdateReason.porpUpdate :
                     ///targetID armor
@@ -125,10 +129,12 @@ var fight = {
         });
     
         pomelo.on('onMpRecover', function(data){
-            //cc.log('灵力恢复', data);
+            cc.log('灵力恢复', data);
 
-            //var ui = that._uimgr.getCurMainUI();
-            //ui.onFreshCardsNum(data.cardsNum);
+            gameData.mp = data.mp;
+            combatMgr.getSelf().Mp = data.mp;
+            var ui = that._uimgr.getCurMainUI();
+            ui.onFreshMp(data.mp);
         });
 
         pomelo.on('onAddSpawnSummon', function(data){
@@ -168,6 +174,8 @@ var fight = {
         pomelo.on('onReverse', function(data){
             cc.log('回收召唤物伤害', data);
 
+            var ui = that._uimgr.getCurMainUI();
+            ui.FreshHp();
         });
 
         pomelo.on('onSwordWheel', function(data){
@@ -175,6 +183,9 @@ var fight = {
 
             var player = gameLogic.getCombatUnitForUid(data.caster);
             player.useSkill(data);
+
+            var ui = that._uimgr.getCurMainUI();
+            ui.FreshHp();
         });
 
         pomelo.on('onHeal', function(data){
@@ -182,6 +193,9 @@ var fight = {
 
             var player = gameLogic.getCombatUnitForUid(data.targetID);
             player.onHeal(data.toHP,data.toHP - data.fromHp);
+
+            var ui = that._uimgr.getCurMainUI();
+            ui.FreshHp();
         });
 
         pomelo.on('onRelive', function(data){
@@ -195,6 +209,16 @@ var fight = {
             
             var player = gameLogic.getCombatUnitForUid(data.targetID);
             player.onHeal(data.toHP,data.val);
+
+            var ui = that._uimgr.getCurMainUI();
+            ui.FreshHp();
+        });
+
+        pomelo.on('onPropUpdate', function(data){
+            cc.log('onPropUpdate', data);
+            
+            var player = gameLogic.getCombatUnitForUid(data.targetID);
+            player.porpUpdate(data);
         });
 
         pomelo.on('onDropCard', function(data){
@@ -218,13 +242,21 @@ var fight = {
             player.onDie();
         });
 
+        pomelo.on('onDungeonReconnect', function(data){
+            cc.log('副本顶号重连', data);
+        });
 
-    },
-    OnFreshPile : function(data)
-    {
-       
+        pomelo.on('onAddMonsterSummon', function(data){
+            cc.log('增加分身', data);
+
+        });
+
+        pomelo.on('onRemoveMonsterSummon', function(data){
+            cc.log('移除分身', data);
+            
+        });
+
     }
-
 }
 
 module.exports = fight;

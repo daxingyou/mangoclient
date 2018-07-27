@@ -133,6 +133,7 @@ cc.Class({
             enemy = this.dmgPool.get();
         } else { // 如果没有空闲对象，也就是对象池中备用对象不够时，我们就用 cc.instantiate 重新创建
             enemy = cc.instantiate(this.dmg);
+            this.dmgPool.put(enemy);
         }
         enemy.parent = this.tips; // 将生成的敌人加入节点树
         enemy.getComponent('showDamge').init(combatunit,dmg,this,dmgorheal); //接下来就可以调用 enemy 身上的脚本进行初始化

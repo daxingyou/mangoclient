@@ -13,7 +13,7 @@ var HandCard = function(id,owner){
     this.spriteName = card.CardImage;
     this.id = id;
     
-    this.ability = new Ability(skill,owner);
+    this.ability = new Ability(skill[1],owner);
 }
 
 HandCard.prototype.ability = null;

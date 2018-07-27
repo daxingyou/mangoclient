@@ -29,11 +29,11 @@ var constant = require('constants')
             that.go.position = cc.v2(pos.x,pos.y);
            
             that.go.scaleX = teamid == constant.Team.own ? constant.Team.enemy : -1;
-            var spData = that.go.getComponent(sp.Skeleton);
+            var spData = that.go.getChildByName('body').getComponent(sp.Skeleton);
             that.height = Math.ceil(spData.skeletonData.skeletonJson.skeleton.height);
             that.width = Math.ceil(spData.skeletonData.skeletonJson.skeleton.width);
             that.contentSize = new cc.Rect(pos.x-that.width/2,pos.y,that.width,that.height);
-            that.aniMgr = that.go.getComponent('AnimationMgr');
+            that.aniMgr = that.go.getChildByName('body').getComponent('AnimationMgr');
     
             that.hpbar.node.position = cc.v2(pos.x - 667,pos.y+that.height + 20 - 375);
     
