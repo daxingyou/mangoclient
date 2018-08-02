@@ -23,14 +23,33 @@ var mgr = {
                     if(!Pool.hasOwnProperty(skilList[j].Path) && skilList[j].Path != '')
                     {
                         Pool.create(skilList[j].Path);
-                        var path = constant.EffectPath.concat();
+                        //var path = constant.EffectPath.concat();
                         LoadRes.loadEffect(skilList[j].Path,true,function(data,effect){
-                            var go = cc.instantiate(data);
-                            go.parent = cc.find('Canvas/fightEffect');
-                            go.position = new cc.Vec2(0,-1000);
-                            var src = go.getComponent('EffectListen')
-                            src.init(effect);
-                            Pool.put(effect,src);
+                            for(var z =0;z<10;z++)
+                            {
+                                var go = cc.instantiate(data);
+                                go.parent = cc.find('Canvas/fightEffect');
+                                go.position = new cc.Vec2(0,-1000);
+                                var src = go.getComponent('EffectListen')
+                                src.init(effect);
+                                Pool.put(effect,src);
+                            }
+                        });
+                    }
+
+                    if(!Pool.hasOwnProperty(skilList[j].HitEffectPath) && skilList[j].HitEffectPath != '')
+                    {
+                        Pool.create(skilList[j].HitEffectPath);
+                        LoadRes.loadEffect(skilList[j].HitEffectPath,true,function(data,effect){
+                            for(var z =0;z<3;z++)
+                            {
+                                var go = cc.instantiate(data);
+                                go.parent = cc.find('Canvas/fightEffect');
+                                go.position = new cc.Vec2(0,-1000);
+                                var src = go.getComponent('EffectListen')
+                                src.init(effect);
+                                Pool.put(effect,src);
+                            }
                         });
                     }
                 }
@@ -44,6 +63,7 @@ var mgr = {
             go.node.position = pos;
             go.show(effect);
 
+            //cc.log('getEffect name = ',name,' effect =',effect,' go =',go,' active = ',go._active);
             return go;
         }
         else{

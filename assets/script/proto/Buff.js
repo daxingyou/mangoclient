@@ -129,7 +129,7 @@ module.exports = {
 		ID: 10105,
 		BuffName: '模型缩小',
 		Description: '',
-		Type: 'model',
+		Type: 'modPropPct',
 		Logic: {scale:0.6},
 		SkillID: 0,
 		IsHide: 1,

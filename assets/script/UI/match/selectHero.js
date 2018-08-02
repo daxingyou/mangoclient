@@ -31,7 +31,7 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-     this.init()
+     this.init();
      
     
     },
@@ -39,6 +39,7 @@ cc.Class({
       
         var chen =  datamgr.hero[1000];
         var yu =  datamgr.hero[2000];
+     
         this.chen_name.string = chen.HeroName; 
         this.chen_nameLeft.string = chen.HeroName;
         this.chen_icon.string = chen.HeroIcon;

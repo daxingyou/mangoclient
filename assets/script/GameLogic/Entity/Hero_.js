@@ -13,11 +13,16 @@ function Hero_(data,attributes,pos,teamid,combat,uid){
 
     var that = this;
     var hero = DataMgr.hero[data.heroid];
-    this.agent = new Agent(hero.HeroModel,pos,teamid,this.Hp,this.MaxHp,this.basePhysical_arm,uid,function(){
-        that.loadok = true;
-    });
 
     CombatUnit.call(this,data,attributes,pos,teamid,combat,uid);
+
+    var scale = 1;
+    if(data.hasOwnProperty('scale'))
+        scale = data.scale;
+
+    this.agent = new Agent(hero.HeroModel,pos,teamid,this.Hp,this.MaxHp,this.basePhysical_arm,uid,this.buffs,scale,function(){
+        that.loadok = true;
+    });
 }
 
 (function(){
@@ -34,6 +39,7 @@ function Hero_(data,attributes,pos,teamid,combat,uid){
 
   ///初始化当前玩家初始手牌
   Hero_.prototype.InitHands = function(hands){
+    hands = hands || [];
     for(var i = 0; i<hands.length;i++)
     {
         this.handsPile.push(new Card(hands[i],this));

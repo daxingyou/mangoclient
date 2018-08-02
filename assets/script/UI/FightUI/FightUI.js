@@ -1,6 +1,8 @@
 var UIBase = require('UIBase')
 var combatmgr = require('CombatMgr')
 var dataCenter = require('DataCenter')
+var datamgr = require('DataMgr')
+
 
 
 cc.Class({
@@ -11,7 +13,10 @@ cc.Class({
         ExhaustedPile :cc.Label,
         mp:cc.Label, 
         mpSpire : cc.Sprite,
+        mp_fill:cc.Node,
         thew:cc.Label,
+        thewSpire:cc.Sprite,
+        thew_fill:cc.Node,
         HandsCardRoot : cc.Node,
         //CardsLayout : cc.Layout,
         _HandsCards : [],
@@ -21,7 +26,6 @@ cc.Class({
         sec_time:60,   
         lineDot:cc.Node,
         lineDotSrc : cc.Component,
-        mpSprite:cc.Node,
         action_time: 15,
         clockwise: false, // 是否为顺时针
         reverse: false, 
@@ -29,12 +33,12 @@ cc.Class({
         delta_angle: 3,
         userName:cc.Label,
         playerHpBar:cc.ProgressBar,
-       
+        barLabel:cc.Label,
+        headImg:cc.Sprite,
+        heroIcon:cc.SpriteAtlas,
     },
     onLoad () {
-     
-        var self = this;
-        self.userName.string = dataCenter.userName;
+        var self = this;   
         var resIndex = 0;
         for(var i=0;i<10;i++)
         {
@@ -45,20 +49,34 @@ cc.Class({
                 resIndex ++ ;
                 self.HandsCardRoot.addChild(item);
                 self._HandsCards.push(item.getComponent('CardItem'));
+               
                 if(resIndex == 10)
                 {
                     cc.loader.release('UI/fightUI/Card'); 
-                 
                 }
             });   
         } 
+        self.initData();
  
+     },
+     initData(){
+         this.userName.string = dataCenter.userName;
+         if(dataCenter.userName==="于小雪"){
+            this.headImg.spriteFrame = this.heroIcon.getSpriteFrame('yuxiaoxue');
+         }
+         else{
+            this.headImg.spriteFrame = this.heroIcon.getSpriteFrame('chenjingchou');
+         }
+        this.mp_fill.active = false;
+        this.thew_fill.active = false;
+        this.barLabel.string = combatmgr.getSelf().Hp + '/'+  combatmgr.getSelf().MaxHp;
+     },
+     updateBarLabel(HP,MaxHp){
+        this.barLabel.string = HP.toString() +'/' + MaxHp.toString();
      },
 
     layout() {
-        
-        cc.log(combatmgr.getSelf().handsPile.length,"length");
-        var num =  combatmgr.getSelf().handsPile.length;;
+        var num =  combatmgr.getSelf().handsPile.length;
         this.angle_set = [];
         var count = num / 2;
         var angle = 90 + count * this.delta_angle;
@@ -67,42 +85,51 @@ cc.Class({
         }
         for(var i = 0; i < num; i ++) {
             this.angle_set.push(angle);
-           cc.log(angle);
+            //cc.log(angle);
             angle -= this.delta_angle;
         }
 
         for(var i = 0; i < num; i ++) {
-            var item = this.HandsCardRoot.children[i];
+            //var item = this.HandsCardRoot.children[i];
+            var x,y,rotation;
+            var itemCom = this._HandsCards[i];
             var r = (this.angle_set[i] / 180) * Math.PI;
-           item.x = -(count - 0.5) * 80 + i * 80;
-            
+           if(count < 3){
+            x = -(count - 0.5) * 100 + i * 100;
+
+           }
+           else{
+            x = -(count - 0.5) * 80 + i * 80;
+           }
+         //   x = -(count - 0.5) * 80 + i * 80;
+          
            if(i < count){
-            if(i<=0){
-                item.y = -(num-1)*count -15;
+                if(i<=0){
+                    y = -(num-1)*count -15;
+                }
+                else{
+                    y = this._HandsCards[i-1].y + 5*((count+1)-i);
+                } 
             }
-            else{
-                item.y = this.HandsCardRoot.children[i-1].y + 5*((count+1)-i);
-            } 
-        }
+
            if(i >= count){
                if( i == count ){
-                   item.y=count*(count) - 15;
+                   y = count*(count) - 15;
                }
                else{
-                   item.y=this.HandsCardRoot.children[i-1].y -5*(i + 1 - count);
+                   y = this._HandsCards[i-1].y -5*(i + 1 - count);
                }
            }
-            item.rotation = 360 - this.angle_set[i] + 90;
-            cc.log(360 - this.angle_set[i]);
-            cc.log(item.x + '#' + item.y);
+            rotation = 360 - this.angle_set[i] + 90;
+            //cc.log(360 - this.angle_set[i]);
+            //cc.log(x + '#' + y);
+            itemCom.change(x,y,rotation);
         }
     },
 
     loadCircle() {
         this.now_time = 1;
         this.is_running = false;
-        this.mpSprite.active = true; 
-        this.sprite = this.mpSprite.getComponent(cc.Sprite);
         if (this.play_onload) {
             this.start_clock_action(this.action_time);
         } 
@@ -119,58 +146,21 @@ cc.Class({
         var self = this;
         self.userName.string = dataCenter.userName;
         self.schedule(self.callback, 1);
-        self.loadCircle();
-        var length = self.HandsCardRoot.childrenCount;
-
-        for(var i=0;i<length;i++){
-            var item =self.HandsCardRoot.children[i];
-            var start_rotation = item.rotation;
-            cc.log("item.rotation",start_rotation);
-            var item_y = item.y;
-            var item_x = item.x;
-            item.on(cc.Node.EventType.TOUCH_START, function (event) {//节点区域时   
-                cc.log("start----------------");
-                item.rotation = 0;
-                item.y +=  400;
-                item.x = 0;
-                var s = cc.scaleTo(0.001, 1.3).easing(cc.easeBackOut());
-                item.runAction(s);
-                cc.log("start------------end");
-            }, item);
-
-            item.on(cc.Node.EventType.TOUCH_END, function (event) {//节点区域时   
-                cc.log("touch----------------");
-                item.rotation = start_rotation;
-                item.y = item_y;
-                item.x = item_x;
-                var s = cc.scaleTo(0.001, 1).easing(cc.easeBackOut());
-                item.runAction(s);
-                cc.log("touch------------end");
-            }, item);
-
-            item.on(cc.Node.EventType.TOUCH_CANCEL, function (event) {//节点区域时   
-                cc.log("touch----------------cancel");
-                item.rotation = start_rotation;
-                item.y = item_y;
-                item.x = item_x;
-                var s = cc.scaleTo(0.001, 1).easing(cc.easeBackOut());
-                item.runAction(s);
-                cc.log("touch------------cancel");
-            }, item);
-        }   
+        self.loadCircle();  
         },
        
     
     update (dt) {
-        if (!this.is_running) {
-            return;
-        }
-        this.now_time += dt * 10;
-        var per = this.now_time / this.action_time;//百分比
-        this.sprite.fillRange = per;
-        if(per >0.6){
-            this.is_running = false;
-        }    
+        // if (!this.is_running) {
+        //     return;
+        // }
+        // this.now_time += dt * 10;
+        // var per = this.now_time / this.action_time;//百分比
+        // this.mpSpire.fillRange = per;
+        // this.thewSpire.fillRange = per;
+        // if(per >0.6){
+        //     this.is_running = false;
+        // }    
       
     },
   
@@ -181,15 +171,13 @@ cc.Class({
             this.min_time -= 1;
             this.sec_time = 59;
         }
-        
         if(this.min_time >=0){
             if(this.sec_time < 10 && this.sec_time !=0){
                 this.time.string ="" + this.min_time + ":0"  + "" + this.sec_time;
             }
             else{
                 this.time.string ="" + this.min_time + ":"  + "" + this.sec_time; 
-            }
-           
+            }  
         }
         if(this.min_time < 0){
             this.unschedule(this.callback);
@@ -197,9 +185,6 @@ cc.Class({
             this.sec_time = 0;
             this.time.string ="" + this.min_time + ":0"  + "" + this.sec_time; 
         }
-        
-       
-       
            },//定时器
     OnFresh : function(data){
         //.mp data.inHands
@@ -210,14 +195,37 @@ cc.Class({
         this.cards.string = num.toString();
     },
     onFreshMp(mp){
-        this.mp.string = mp;
-        this.mpSpire.fillRange = mp / 10;
+        if(mp<10){
+            this.mp.string = " "+mp + "/10";
+        }
+        else{
+            this.mp.string = mp + "/10";
+        }
+      
+        this.mpSpire.fillRange = mp / 10;  
+        if(mp/10==1){
+            this.mp_fill.active = true;
+        }
+        else{
+            this.mp_fill.active = false;
+        }
     },
-    showNum(mp,disCard,exHaust){
+    onFreshThew(thew){
+        this.thew.string = thew + "/10";
+        this.thewSpire.fillRange = thew /10;
+        if(thew/10==1){
+            cc.log("fill------thew");
+            this.thew_fill.active = true;
+        }
+        else{
+           this.thew_fill.active = false;
+        }
+    },
+    
+    showNum(mp,disCard,thew){
         this.onFreshMp(mp);
-        this.thew.string = '10';
-        this.DiscardPile.string = disCard;
-        this.ExhaustedPile.string = exHaust;
+        this.DiscardPile.string = disCard;  
+       this.onFreshThew(thew);
     },
     
     ShowHandCards : function(){
@@ -229,8 +237,13 @@ cc.Class({
         {
             if(i < player.handsPile.length)
             {
+                var pile = player.handsPile[i].id;
+               
+                var data = datamgr.card[pile];
+                this._HandsCards[i].initData(i,data.CardName,data.CardQuality,data.CardImage,data.CardDescription,data.CardType,data.CastThew,data.CastMP);
+              //  this._HandsCards[i].initData(i,data.CardName,data.CardQuality,data.CardImage,data.CardAttributes,data.CardType,data.CastThew);
                 this._HandsCards[i].show();
-                this._HandsCards[i].initData(player.handsPile[i].skillName,player.handsPile[i].spriteName,i);
+              //  this._HandsCards[i].initData(player.handsPile[i].skillName,player.handsPile[i].spriteName,i);
                 //cc.log('%s cur',i.toString(),' name :',player.handsPile[i].skillName);
             }
             else{

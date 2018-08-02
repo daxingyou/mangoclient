@@ -16,10 +16,12 @@ var pool = {
         {
             for(var i =0;i<this.pools[name].length;i++)
             {
-                if(!this.pools[name][i]._active)
+                var pool = this.pools[name][i];
+                
+                if(!pool._active)
                 {
-                    this.pools[name][i]._active = true;
-                    return this.pools[name][i];
+                    pool._active = true;
+                    return pool;
                 }
             }
             return null;

@@ -1,5 +1,3 @@
-var effectMgr = require('EffectMgr')
-
 cc.Class({
     extends: cc.Component,
 
@@ -7,17 +5,24 @@ cc.Class({
         effect : sp.Skeleton,
         _path : '',
         _active : false,
+        _curAni : '',
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
         var spine = this.effect = this.getComponent('sp.Skeleton');
+        cc.log('wtf ??????? this = ',this.uuid, ' spine == ',spine.uuid);
+        var that = this;
 
         spine.setCompleteListener((trackEntry, loopCount) => {
             var animationName = trackEntry.animation ? trackEntry.animation.name : "";
             cc.log('effect show over = ',animationName);
-            this._active = false;
+            if(animationName == this._curAni)
+            {
+                that._active = false;
+                cc.log('wtf ??????? this = ',this.uuid, ' spine == ',this.effect,' name ==',name ,' active = ',this._active);
+            }   
         });
         spine.setStartListener(trackEntry => {
             var animationName = trackEntry.animation ? trackEntry.animation.name : "";
@@ -30,7 +35,12 @@ cc.Class({
         spine.setEndListener(trackEntry => {
             var animationName = trackEntry.animation ? trackEntry.animation.name : "";
             cc.log("[track %s][animation %s] end.", trackEntry.trackIndex, animationName);
-            this._active = false;
+            if(animationName == this._curAni)
+            {
+                that._active = false;
+                cc.log('wtf ??????? this = ',this.uuid, ' spine == ',this.effect,' name ==',name ,' active = ',this._active);
+            }   
+            
         });
     },
 
@@ -42,7 +52,9 @@ cc.Class({
         this._path = path;
     },
     show(name){
+        this._curAni = name;
         this.effect.setAnimation(0,name, false);
-        //this._active = true; 
+        this._active = true;
+        cc.log('wtf ??????? this = ',this.uuid, ' spine == ',this.effect,' name ==',name ,' active = ',this._active);
     }
 });

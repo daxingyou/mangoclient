@@ -4,18 +4,28 @@
  *    by pwh  
  */
 
-//var Action = require('TAtest')
 var CombatUtility = require('CombatUtility')
 var effectMgr = require('EffectMgr')
 
 var ability = function(data,owner){
 	
 	this.arrs = data;
-	//this.actions = new Array();
 	this.owner = owner;
+	this.ID = data.ID;	// Int16Array  编号
+
+	this.singing = data.Target.singing;
+	this.effectTime = this.arrs.CriticalTime / 1000 + this.singing;
+	this.hitEffectTime = new Array();
+	
+	for(var i in this.arrs.EffectiveTime)
+	{
+		this.hitEffectTime.push(this.arrs.EffectiveTime[i] / 1000 + this.singing + this.effectTime );
+	}
+
+	//this.actions = new Array();
 	//for(var i in data)
 	//{
-	//	this.ID = data[i].ID;// Int16Array  编号
+	//	
 	//	this.actions[i] = new Action(data,this,owner);
 	//}
 }
@@ -41,7 +51,6 @@ ability.prototype.Active = function(Target,targets){
 	if(this.arrs.Animation != '')
 		this.owner.agent.PlayAnimation(this.arrs.Animation,false);
 
-	effectMgr.getEffect(this.arrs.Path,this.owner.agent.go.position,this.arrs.Effect);
 }
 ///技能失效
 ability.prototype.Exit = function(){
@@ -76,10 +85,41 @@ ability.prototype.onDamage = function(){
 
 }
 ability.prototype.tick = function(dt){
-	//for(var i in this.actions)
-	//{
-	//	this.actions[i].tick();
-	//}
+	this.effectTime -= dt;
+
+	if(this.effectTime <= 0)
+	{
+		this.effectTime = 999999;
+	
+		cc.log('arrs getEffect name = ',this.arrs.Path,' effect =',this.arrs.Effect);
+		var go = effectMgr.getEffect(this.arrs.Path,this.owner.agent.go.position,this.arrs.Effect);
+
+		if(this.hitEffectTime.length == 0)
+		{
+			this.Exit();
+		}
+	}
+
+	for(var i in this.hitEffectTime)
+	{
+		this.hitEffectTime[i] -= dt;
+
+		if(this.hitEffectTime[i] <= 0)
+		{
+			this.hitEffectTime[i] = 999999;
+
+			for(var j in this.targets)
+			{
+				if(this.targets[j] != null){
+					var go = effectMgr.getEffect(this.arrs.HitEffectPath,this.targets[j].agent.go.position,this.arrs.HitEffect);
+					//cc.log('arrs getEffect go = ',go);
+				}
+			}
+
+			if(i == this.hitEffectTime.length - 1)
+				this.Exit();
+		}
+	}
 }
 
 ability.prototype.getTarget = function(){

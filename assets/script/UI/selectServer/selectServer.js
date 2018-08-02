@@ -3,7 +3,8 @@ var net = require('NetPomelo')
 var listItem = require('listItem')
 var constant = require('constants')
 var dataCenter = require('DataCenter')
-var consts = require('consts');
+var consts = require('consts')
+
 
 cc.Class({
     extends:UIBase,
@@ -25,27 +26,10 @@ cc.Class({
        card:cc.Node,
     },
 
-    // onLoad () {
+    onLoad () {
      
-    //     var self = this;
-       
-    //     var resIndex = 0;
-    //     for(var i=0;i<10;i++)
-    //     {
-    //         cc.loader.loadRes('UI/fightUI/Card', function(errorMessage, loadedResource){
-    //             if( errorMessage ) { cc.log( '载入预制资源失败, 原因:' + errorMessage ); return; }
-    //             if( !( loadedResource instanceof cc.Prefab ) ) { cc.log( '你载入的不是预制资源!' ); return; }
-    //             let item = cc.instantiate(loadedResource);
-    //             self.card.addChild(item);
-    //             resIndex ++ ;
-    //             if(resIndex == 10)
-    //             {
-    //                 cc.loader.release('UI/fightUI/Card'); 
-    //             }
-    //         });   
-    //     } 
  
-    //  },
+     },
 
     start () {
         //var uuid = cc.sys.localStorage.getItem("uuid");

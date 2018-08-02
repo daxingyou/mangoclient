@@ -15,7 +15,7 @@ cc.Class({
 
     properties: {
         frame : [],
-        dis : 20.0,
+        dis : 50.0,
         _target : null,
         _touchid : null,
         _startPoint : null,
@@ -88,7 +88,7 @@ cc.Class({
         this._curCard = index;
         this._touchid = touchid;
         this._startPoint = startPoint;
-        cc.log('cur point = ',startPoint);
+        //cc.log('cur point = ',startPoint);
         ///显示可攻击目标
         var targets =  GameLogic.player.handsPile[this._curCard].ability.getTarget();
         var card = GameLogic.player.handsPile[this._curCard];
@@ -189,9 +189,18 @@ cc.Class({
         this.frame[index].setContentSize(200,220); 
     },
     ShowALl(){
-        this.frame[0].active = true;
-        this.frame[0].position = cc.v2(1000,407);
-        this.frame[0].setContentSize(550,320);
+        if(this.curObjective.team == constant.Team.own)
+        {
+            this.frame[0].active = true;
+            this.frame[0].position = cc.v2(280,407);
+            this.frame[0].setContentSize(550,320);
+        }
+        else{
+            this.frame[0].active = true;
+            this.frame[0].position = cc.v2(1000,407);
+            this.frame[0].setContentSize(550,320);
+        }
+
     },  ///显示可以使用技能特效
     showCanUseEffect(){
 
@@ -199,7 +208,4 @@ cc.Class({
     hideCanUseSkillEffect(){
 
     },
-  
-
-    // update (dt) {},
 });

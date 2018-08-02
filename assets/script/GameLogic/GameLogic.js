@@ -56,16 +56,20 @@ var GameLogic = {
         CombatUnit.onDrawPile(Card);
     }, 
     UsePile : function(CombatUnit,Card,target,targets,curCardid,curObjective){
-        if(curObjective == constant.SkillTargetType.SINGEL)
+
+        if(CombatUnit.handsPile[Card].Enable())
         {
-            net.Request(new playCardMessage(Card,curCardid,target.uid));
+            if(curObjective == constant.SkillTargetType.SINGEL)
+            {
+                net.Request(new playCardMessage(Card,curCardid,target.uid));
+            }
+            else{
+                net.Request(new playCardMessage(Card,curCardid,''));
+            }
+            
+            //CombatUnit.onUsePile(Card,target,targets);
+            this.fightUI.UseCard(Card);
         }
-        else{
-            net.Request(new playCardMessage(Card,curCardid,''));
-        }
-        
-        //CombatUnit.onUsePile(Card,target,targets);
-        this.fightUI.UseCard(Card);
     },
     getEnemys : function(CombatUnit){
         if(CombatUnit.teamid == this.player.teamid)

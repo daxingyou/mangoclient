@@ -1,4 +1,3 @@
-var constant = require('constants')
 var Dungeon = require('Dungeon')
 var Scene = require('Scene')
 var Monster = require('Monster')
@@ -8,6 +7,7 @@ var Skill = require('Skill')
 var Card = require('Card')
 var Hero = require('Hero')
 var HeroAttributes = require('HeroAttributes')
+var buff = require('Buff')
 
 //heroAttributes
 var dataMgr = {
@@ -30,6 +30,8 @@ var dataMgr = {
     hero : [],
     ///英雄属性
     heroAttributes : [],
+    ///buff
+    buff : [],
     load : function (path,callback){
         //var url = cc.url.raw(path);
         cc.loader.loadRes(path,function(err,res)
@@ -151,13 +153,8 @@ var dataMgr = {
             this.check(callback);
         });*/
         this.heroAttributes = HeroAttributes;
+        this.buff = buff;
         callback();
-    },
-    check : function(callback){
-        if(this.index == 9)
-        {
-            callback();
-        }
     }
 };
 

@@ -10,12 +10,17 @@ function Monster_(data,attributes,pos,teamid,combat,uid){
     this.basePhysical_arm = data.armor;
     
     var that = this;
+
     var monster = DataMgr.monster[data.monsterid];
-    this.agent = new Agent(monster.Model,pos,teamid,this.Hp,this.MaxHp,this.basePhysical_arm,uid,function(){
+    CombatUnit.call(this,data,attributes,pos,teamid,combat,uid);
+    
+    var scale = 1;
+    if(data.hasOwnProperty('scale'))
+        scale = data.scale;
+
+    this.agent = new Agent(monster.Model,pos,teamid,this.Hp,this.MaxHp,this.basePhysical_arm,uid,this.buffs,scale,function(){
         that.loadok = true;
     });
-
-    CombatUnit.call(this,data,attributes,pos,teamid,combat,uid);
 }
 
 (function(){
@@ -26,6 +31,6 @@ function Monster_(data,attributes,pos,teamid,combat,uid){
     Monster_.prototype = new Super();
   })();
 
-  Monster_.prototype.constructor = Monster_;
+Monster_.prototype.constructor = Monster_;
 
 module.exports = Monster_;

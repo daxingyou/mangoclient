@@ -21,10 +21,36 @@ var CombatUtility = {
          {
              if(targetData.team == constant.Team.own)
              {
+                 if(targetData.hasOwnProperty('dead'))
+                 {
+                     var result = [];
+                     for(var i in combat.own)
+                     {
+                         if(combat.own[i].IsDie)
+                         {
+                            result.push(combat.own[i]);
+                         }
+                     }
+
+                     return result;
+                 }
                  return combat.own;
              }
              else if(targetData.team == constant.Team.enemy)
              {
+                if(targetData.hasOwnProperty('dead'))
+                {
+                    var result = [];
+                    for(var i in combat.enemy)
+                    {
+                        if(combat.enemy[i].IsDie)
+                        {
+                           result.push(combat.enemy[i]);
+                        }
+                    }
+
+                    return result;
+                }
                 return combat.enemy;
              }
          }

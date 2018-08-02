@@ -30,7 +30,7 @@ module.exports = {
 		CardType: 2,
 		CardQuality: 1,
 		CardAttributes: [1],
-		CardImage: 'defense'
+		CardImage: 'defence'
 	},
 	1001: {
 		ID: 1001,
@@ -44,7 +44,7 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 1,
 		CardAttributes: [1],
-		CardImage: 'defense'
+		CardImage: 'attack'
 	},
 	1002: {
 		ID: 1002,
@@ -58,7 +58,7 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 2,
 		CardAttributes: [1],
-		CardImage: 'defense'
+		CardImage: 'attack'
 	},
 	1003: {
 		ID: 1003,
@@ -72,7 +72,7 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 2,
 		CardAttributes: [1],
-		CardImage: 'defense'
+		CardImage: 'attack'
 	},
 	1004: {
 		ID: 1004,
@@ -86,7 +86,7 @@ module.exports = {
 		CardType: 3,
 		CardQuality: 3,
 		CardAttributes: [1],
-		CardImage: 'defense'
+		CardImage: 'attack'
 	},
 	1005: {
 		ID: 1005,
@@ -100,7 +100,7 @@ module.exports = {
 		CardType: 3,
 		CardQuality: 4,
 		CardAttributes: [1],
-		CardImage: 'defense'
+		CardImage: 'attack'
 	},
 	1006: {
 		ID: 1006,
@@ -114,7 +114,7 @@ module.exports = {
 		CardType: 2,
 		CardQuality: 3,
 		CardAttributes: [2],
-		CardImage: 'defense'
+		CardImage: 'attack'
 	},
 	1007: {
 		ID: 1007,
@@ -128,7 +128,7 @@ module.exports = {
 		CardType: 2,
 		CardQuality: 2,
 		CardAttributes: [1],
-		CardImage: 'defense'
+		CardImage: 'heal'
 	},
 	1008: {
 		ID: 1008,
@@ -142,7 +142,7 @@ module.exports = {
 		CardType: 2,
 		CardQuality: 3,
 		CardAttributes: [1],
-		CardImage: 'defense'
+		CardImage: 'attack'
 	},
 	1009: {
 		ID: 1009,
@@ -156,7 +156,7 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 2,
 		CardAttributes: [1],
-		CardImage: 'defense'
+		CardImage: 'attack'
 	},
 	1010: {
 		ID: 1010,
@@ -170,7 +170,7 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 4,
 		CardAttributes: [1],
-		CardImage: 'defense'
+		CardImage: 'attack'
 	},
 	2001: {
 		ID: 2001,
@@ -184,7 +184,7 @@ module.exports = {
 		CardType: 2,
 		CardQuality: 1,
 		CardAttributes: [1],
-		CardImage: 'defense'
+		CardImage: 'heal'
 	},
 	2002: {
 		ID: 2002,
@@ -198,7 +198,7 @@ module.exports = {
 		CardType: 2,
 		CardQuality: 2,
 		CardAttributes: [1],
-		CardImage: 'defense'
+		CardImage: 'heal'
 	},
 	2003: {
 		ID: 2003,
@@ -212,7 +212,7 @@ module.exports = {
 		CardType: 2,
 		CardQuality: 2,
 		CardAttributes: [1],
-		CardImage: 'defense'
+		CardImage: 'heal'
 	},
 	2004: {
 		ID: 2004,
@@ -226,7 +226,7 @@ module.exports = {
 		CardType: 2,
 		CardQuality: 3,
 		CardAttributes: [1],
-		CardImage: 'defense'
+		CardImage: 'heal'
 	},
 	2005: {
 		ID: 2005,
@@ -240,7 +240,7 @@ module.exports = {
 		CardType: 3,
 		CardQuality: 3,
 		CardAttributes: [1],
-		CardImage: 'defense'
+		CardImage: 'heal'
 	},
 	2006: {
 		ID: 2006,
@@ -254,7 +254,7 @@ module.exports = {
 		CardType: 2,
 		CardQuality: 2,
 		CardAttributes: [1],
-		CardImage: 'defense'
+		CardImage: 'defence'
 	},
 	2007: {
 		ID: 2007,
@@ -268,7 +268,7 @@ module.exports = {
 		CardType: 3,
 		CardQuality: 4,
 		CardAttributes: [1],
-		CardImage: 'defense'
+		CardImage: 'defence'
 	},
 	2008: {
 		ID: 2008,
@@ -282,7 +282,7 @@ module.exports = {
 		CardType: 3,
 		CardQuality: 3,
 		CardAttributes: [1],
-		CardImage: 'defense'
+		CardImage: 'defence'
 	},
 	2009: {
 		ID: 2009,
@@ -296,7 +296,7 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 2,
 		CardAttributes: [1],
-		CardImage: 'defense'
+		CardImage: 'attack'
 	},
 	2010: {
 		ID: 2010,
@@ -310,7 +310,7 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 4,
 		CardAttributes: [1],
-		CardImage: 'defense'
+		CardImage: 'attack'
 	},
 	10001: {
 		ID: 10001,
@@ -319,12 +319,12 @@ module.exports = {
 		HeroID: 0,
 		SkillID: 10001,
 		Treasure: 0,
-		CastMP: 3,
+		CastMP: 1,
 		CastThew: 0,
 		CardType: 1,
 		CardQuality: 2,
 		CardAttributes: [1],
-		CardImage: 'defense'
+		CardImage: 'attack'
 	},
 	10002: {
 		ID: 10002,
@@ -333,12 +333,12 @@ module.exports = {
 		HeroID: 0,
 		SkillID: 10002,
 		Treasure: 0,
-		CastMP: 6,
+		CastMP: 3,
 		CastThew: 0,
 		CardType: 1,
 		CardQuality: 2,
 		CardAttributes: [1],
-		CardImage: 'defense'
+		CardImage: 'attack'
 	},
 	10003: {
 		ID: 10003,
@@ -347,12 +347,12 @@ module.exports = {
 		HeroID: 0,
 		SkillID: 10003,
 		Treasure: 0,
-		CastMP: 6,
+		CastMP: 5,
 		CastThew: 0,
 		CardType: 1,
 		CardQuality: 3,
 		CardAttributes: [1],
-		CardImage: 'defense'
+		CardImage: 'attack'
 	},
 	10004: {
 		ID: 10004,
@@ -361,12 +361,12 @@ module.exports = {
 		HeroID: 0,
 		SkillID: 10004,
 		Treasure: 0,
-		CastMP: 8,
+		CastMP: 6,
 		CastThew: 0,
 		CardType: 1,
 		CardQuality: 3,
 		CardAttributes: [2,4],
-		CardImage: 'defense'
+		CardImage: 'attack'
 	},
 	10005: {
 		ID: 10005,
@@ -375,11 +375,11 @@ module.exports = {
 		HeroID: 0,
 		SkillID: 10005,
 		Treasure: 0,
-		CastMP: 10,
-		CastThew: 0,
+		CastMP: 0,
+		CastThew: 10,
 		CardType: 2,
 		CardQuality: 4,
 		CardAttributes: [2,4],
-		CardImage: 'defense'
+		CardImage: 'defence'
 	},
 };

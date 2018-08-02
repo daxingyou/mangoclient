@@ -6,7 +6,10 @@
     "version": ""
   },
   "collision-matrix": [],
+  "design-resolution-height": 640,
+  "design-resolution-width": 960,
   "excluded-modules": [
+    "Mask",
     "CCSpriteDistortion",
     "TiledMap",
     "PageView",
@@ -14,11 +17,12 @@
     "VideoPlayer",
     "WebView",
     "RichText",
+    "AudioSource",
     "Animation",
     "MotionStreak",
     "Collider",
-    "Action",
     "Audio",
+    "DragonBones",
     "Physics",
     "StudioComponent",
     "RenderTexture",
@@ -27,14 +31,12 @@
     "Intersection",
     "Native NetWork"
   ],
+  "fit-height": true,
+  "fit-width": false,
   "group-list": [],
   "simulator-orientation": false,
   "simulator-resolution": {},
   "use-customize-simulator": true,
   "use-project-simulator-setting": false,
-  "start-scene": "current",
-  "design-resolution-width": 960,
-  "design-resolution-height": 640,
-  "fit-width": false,
-  "fit-height": true
+  "start-scene": "current"
 }

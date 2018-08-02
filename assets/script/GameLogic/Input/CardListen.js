@@ -38,6 +38,10 @@ cc.Class({
             //ctx.quadraticCurveTo(newVec2.x - cc.winSize.width/2 + that.node.getContentSize().width/2,newVec2.y + 200,delta.x - newVec2.x - that.node.getContentSize().width/2,delta.y - newVec2.y);
             //ctx.stroke();
 
+            ///当拖拽距离大于5个像素就还原放大显示
+            if(cc.pDistance(event.currentTouch._startPoint,event.currentTouch._point) > 5)
+                that.cardItem.cardReturnAni();
+
             mgr.touchMove(event.currentTouch.__instanceId,event.touch._point);
             //cc.pDistance(event.touch._startPoint,event.touch._point);
         });

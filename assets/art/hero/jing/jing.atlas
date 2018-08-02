@@ -1,215 +1,215 @@
 
 jing.png
-size: 1020,1022
+size: 1024,1024
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 arm1_1
   rotate: false
-  xy: 351, 60
+  xy: 353, 60
   size: 169, 238
   orig: 169, 238
   offset: 0, 0
   index: -1
 arm2_1
-  rotate: false
-  xy: 522, 0
+  rotate: true
+  xy: 727, 291
   size: 123, 195
   orig: 123, 195
   offset: 0, 0
   index: -1
 arms
   rotate: false
-  xy: 395, 721
+  xy: 397, 721
   size: 360, 301
   orig: 360, 301
   offset: 0, 0
   index: -1
 arms_01
-  rotate: true
-  xy: 910, 13
+  rotate: false
+  xy: 902, 172
   size: 118, 103
   orig: 118, 103
   offset: 0, 0
   index: -1
 body
   rotate: true
-  xy: 522, 524
+  xy: 524, 524
   size: 195, 233
   orig: 195, 233
   offset: 0, 0
   index: -1
 clothes_1
-  rotate: false
-  xy: 750, 75
+  rotate: true
+  xy: 710, 28
   size: 158, 179
   orig: 158, 179
   offset: 0, 0
   index: -1
 clothes_2
   rotate: true
-  xy: 725, 256
+  xy: 524, 37
   size: 158, 184
   orig: 158, 184
   offset: 0, 0
   index: -1
 clothes_3
   rotate: true
-  xy: 216, 55
+  xy: 218, 55
   size: 243, 133
   orig: 243, 133
   offset: 0, 0
   index: -1
 clothes_4
   rotate: true
-  xy: 757, 610
+  xy: 759, 610
   size: 412, 222
   orig: 412, 222
   offset: 0, 0
   index: -1
 effect
   rotate: false
-  xy: 0, 689
+  xy: 2, 689
   size: 393, 333
   orig: 393, 333
   offset: 0, 0
   index: -1
 eye
-  rotate: true
-  xy: 647, 9
+  rotate: false
+  xy: 714, 188
   size: 186, 101
   orig: 186, 101
   offset: 0, 0
   index: -1
 eye02
   rotate: false
-  xy: 0, 2
+  xy: 2, 2
   size: 163, 22
   orig: 163, 22
   offset: 0, 0
   index: -1
 eyebrow
   rotate: true
-  xy: 981, 865
+  xy: 983, 865
   size: 157, 39
   orig: 157, 39
   offset: 0, 0
   index: -1
 hair
   rotate: false
-  xy: 291, 423
+  xy: 293, 423
   size: 93, 264
   orig: 93, 264
   offset: 0, 0
   index: -1
 hair_1
-  rotate: true
-  xy: 750, 7
+  rotate: false
+  xy: 924, 277
   size: 66, 137
   orig: 66, 137
   offset: 0, 0
   index: -1
 hair_2
   rotate: true
-  xy: 216, 6
+  xy: 218, 6
   size: 47, 145
   orig: 47, 145
   offset: 0, 0
   index: -1
 hand2
   rotate: false
-  xy: 291, 300
+  xy: 293, 300
   size: 99, 121
   orig: 99, 121
   offset: 0, 0
   index: -1
 hard1_2
   rotate: false
-  xy: 911, 281
+  xy: 394, 344
   size: 91, 133
   orig: 91, 133
   offset: 0, 0
   index: -1
 head
   rotate: false
-  xy: 0, 300
+  xy: 2, 300
   size: 289, 387
   orig: 289, 387
   offset: 0, 0
   index: -1
 leg1_1
   rotate: false
-  xy: 522, 197
+  xy: 524, 197
   size: 188, 170
   orig: 188, 170
   offset: 0, 0
   index: -1
 leg1_2
   rotate: true
-  xy: 510, 369
+  xy: 512, 369
   size: 153, 213
   orig: 153, 213
   offset: 0, 0
   index: -1
 leg2
   rotate: false
-  xy: 0, 26
+  xy: 2, 26
   size: 214, 272
   orig: 214, 272
   offset: 0, 0
   index: -1
 mouth
   rotate: false
-  xy: 395, 691
+  xy: 983, 835
   size: 32, 28
   orig: 32, 28
   offset: 0, 0
   index: -1
-pendant_1
-  rotate: false
-  xy: 910, 133
-  size: 62, 121
-  orig: 62, 121
-  offset: 0, 0
-  index: -1
 pendant_2
   rotate: false
-  xy: 392, 362
+  xy: 891, 55
   size: 108, 115
   orig: 108, 115
   offset: 0, 0
   index: -1
 ribbon_1
   rotate: false
-  xy: 757, 416
+  xy: 759, 416
   size: 231, 192
   orig: 231, 192
   offset: 0, 0
   index: -1
 ribbon_2
   rotate: true
-  xy: 386, 479
+  xy: 388, 479
   size: 208, 122
   orig: 208, 122
   offset: 0, 0
   index: -1
 
 jing2.png
-size: 200,99
+size: 254,125
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 hand1_1
-  rotate: true
-  xy: 120, 14
+  rotate: false
+  xy: 167, 43
   size: 85, 80
   orig: 85, 80
   offset: 0, 0
   index: -1
 hand2_2
-  rotate: true
-  xy: 0, 0
+  rotate: false
+  xy: 2, 5
   size: 99, 118
   orig: 99, 118
+  offset: 0, 0
+  index: -1
+pendant_1
+  rotate: false
+  xy: 103, 2
+  size: 62, 121
+  orig: 62, 121
   offset: 0, 0
   index: -1

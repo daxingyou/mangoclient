@@ -1,202 +1,202 @@
 
 snow.png
-size: 978,774
+size: 992,756
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 arms
-  rotate: false
-  xy: 656, 553
+  rotate: true
+  xy: 768, 523
   size: 231, 219
   orig: 231, 219
   offset: 0, 0
   index: -1
 body
-  rotate: true
-  xy: 517, 302
+  rotate: false
+  xy: 2, 8
   size: 196, 181
   orig: 196, 181
   offset: 0, 0
   index: -1
 bow_1
-  rotate: false
-  xy: 834, 406
+  rotate: true
+  xy: 732, 73
   size: 142, 145
   orig: 142, 145
   offset: 0, 0
   index: -1
 bow_2
   rotate: true
-  xy: 834, 337
+  xy: 295, 16
   size: 67, 132
   orig: 67, 132
   offset: 0, 0
   index: -1
 calf_1
   rotate: false
-  xy: 396, 32
+  xy: 656, 372
   size: 101, 223
   orig: 101, 223
   offset: 0, 0
   index: -1
 calf_2
-  rotate: true
-  xy: 176, 12
+  rotate: false
+  xy: 276, 277
   size: 73, 218
   orig: 73, 218
   offset: 0, 0
   index: -1
 clothes_1
   rotate: false
-  xy: 2, 515
-  size: 346, 257
-  orig: 346, 257
+  xy: 2, 497
+  size: 353, 257
+  orig: 353, 257
   offset: 0, 0
   index: -1
 clothes_2
   rotate: false
-  xy: 2, 87
-  size: 392, 157
-  orig: 392, 157
+  xy: 357, 597
+  size: 409, 157
+  orig: 409, 157
   offset: 0, 0
   index: -1
 eyebrow
-  rotate: true
-  xy: 942, 191
+  rotate: false
+  xy: 706, 47
   size: 144, 24
   orig: 144, 24
   offset: 0, 0
   index: -1
 eyes_1a
-  rotate: false
-  xy: 517, 207
+  rotate: true
+  xy: 200, 3
   size: 186, 93
   orig: 186, 93
   offset: 0, 0
   index: -1
 eyes_1b
   rotate: false
-  xy: 2, 2
+  xy: 563, 269
   size: 172, 83
   orig: 172, 83
   offset: 0, 0
   index: -1
 eyes_2
-  rotate: false
-  xy: 396, 2
+  rotate: true
+  xy: 947, 344
   size: 177, 28
   orig: 177, 28
   offset: 0, 0
   index: -1
 eyes_l
   rotate: true
-  xy: 806, 86
+  xy: 706, 8
   size: 37, 58
   orig: 37, 58
   offset: 0, 0
   index: -1
 eyes_r
-  rotate: false
-  xy: 885, 126
+  rotate: true
+  xy: 852, 4
   size: 51, 60
   orig: 51, 60
   offset: 0, 0
   index: -1
 hair_01
   rotate: false
-  xy: 2, 246
-  size: 327, 267
-  orig: 327, 267
+  xy: 357, 354
+  size: 297, 241
+  orig: 297, 241
   offset: 0, 0
   index: -1
 hair_02
   rotate: true
-  xy: 652, 2
-  size: 76, 206
-  orig: 76, 206
+  xy: 429, 4
+  size: 70, 198
+  orig: 70, 198
   offset: 0, 0
   index: -1
 hair_03
   rotate: false
-  xy: 331, 257
-  size: 184, 241
-  orig: 184, 241
+  xy: 295, 85
+  size: 154, 179
+  orig: 154, 179
   offset: 0, 0
   index: -1
 hair_04
-  rotate: false
-  xy: 889, 562
+  rotate: true
+  xy: 351, 266
   size: 86, 210
   orig: 86, 210
   offset: 0, 0
   index: -1
 hair_05
   rotate: false
-  xy: 700, 363
+  xy: 451, 76
   size: 132, 188
   orig: 132, 188
   offset: 0, 0
   index: -1
 hand_1
-  rotate: true
-  xy: 575, 4
-  size: 48, 56
-  orig: 48, 56
+  rotate: false
+  xy: 907, 264
+  size: 63, 76
+  orig: 63, 76
   offset: 0, 0
   index: -1
 hand_2
   rotate: false
-  xy: 806, 125
-  size: 77, 61
-  orig: 77, 61
+  xy: 629, 2
+  size: 75, 69
+  orig: 75, 69
   offset: 0, 0
   index: -1
 head
-  rotate: true
-  xy: 350, 500
+  rotate: false
+  xy: 2, 191
   size: 272, 304
   orig: 272, 304
   offset: 0, 0
   index: -1
 lower_arm_1
-  rotate: false
-  xy: 499, 54
-  size: 151, 151
-  orig: 151, 151
+  rotate: true
+  xy: 759, 342
+  size: 179, 186
+  orig: 179, 186
   offset: 0, 0
   index: -1
 lower_arm_2
-  rotate: true
-  xy: 830, 188
-  size: 147, 110
-  orig: 147, 110
+  rotate: false
+  xy: 585, 82
+  size: 145, 185
+  orig: 145, 185
   offset: 0, 0
   index: -1
 mouth_1
-  rotate: true
-  xy: 938, 130
-  size: 56, 23
-  orig: 56, 23
+  rotate: false
+  xy: 276, 266
+  size: 35, 9
+  orig: 35, 9
   offset: 0, 0
   index: -1
 mouth_2
-  rotate: true
-  xy: 866, 69
-  size: 54, 29
-  orig: 54, 29
+  rotate: false
+  xy: 907, 241
+  size: 36, 21
+  orig: 36, 21
   offset: 0, 0
   index: -1
 upper_arm_1
-  rotate: false
-  xy: 705, 193
+  rotate: true
+  xy: 737, 217
   size: 123, 168
   orig: 123, 168
   offset: 0, 0
   index: -1
 upper_arm_2
-  rotate: true
-  xy: 652, 80
-  size: 111, 152
-  orig: 111, 152
+  rotate: false
+  xy: 879, 57
+  size: 111, 158
+  orig: 111, 158
   offset: 0, 0
   index: -1

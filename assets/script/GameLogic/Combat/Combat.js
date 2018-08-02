@@ -29,6 +29,8 @@ Combat.prototype.own = [];
 
 Combat.prototype.units = [];
 
+Combat.prototype.UIMgr = null;
+
 ///检查资源是否加载完毕
 Combat.prototype.checkLoadRes = false;
 ////场景是否加载完毕
@@ -65,6 +67,8 @@ Combat.prototype.Tick = function(){
 }
 
 Combat.prototype.init = function(data){
+    this.UIMgr = cc.find('Canvas').getComponent('UIMgr');
+    
     var dungeon = dataMgr.dungeon[data.dgId];
     var that = this;
 
@@ -79,11 +83,12 @@ Combat.prototype.init = function(data){
     this.matrix = dataMgr.matrix[4];
 
     var index = 1;
-    for(var uid in data.teamInfo.teamA)
+    for(var entity of data.teamInfo.teamA)
     {
-        this.own[index] = new Hero_(data.teamInfo.teamA[uid],dataMgr.heroAttributes[data.teamInfo.teamA[uid].heroid],this.matrix.MatrixPos[index],constant.Team.own,this,uid);
+        var uid = entity.uid;
+        this.own[index] = new Hero_(entity,dataMgr.heroAttributes[entity.heroid],this.matrix.MatrixPos[index],constant.Team.own,this,uid);
 
-        Effectmgr.init(dataMgr.hero[data.teamInfo.teamA[uid].heroid].InitialDrawPile);
+        Effectmgr.init(dataMgr.hero[entity.heroid].InitialDrawPile);
         if(uid == gameCenter.uuid)
         {
             this.own[index].InitHands(data.myInfo.inHands);
@@ -102,7 +107,7 @@ Combat.prototype.init = function(data){
     else    ///初始化怪物
     {
         var group_Data = dataMgr.group[dungeon.MonsterGroupID];
-        var matrix = dataMgr.matrix[group_Data.Matrix];
+        this.monsterMatrix = dataMgr.matrix[group_Data.Matrix];
         
         var monsters = new Array();
         for(var index in group_Data.MonsterGroup)
@@ -111,17 +116,18 @@ Combat.prototype.init = function(data){
         }
         
 
-        if(monsters.length > matrix.MatrixPos.length){
+        if(monsters.length > this.monsterMatrix.MatrixPos.length){
             cc.error('PVE matrix data error !');
             return;
         }
 
         ////怪物数据 暂是本地数据
-        for(var uid in data.teamInfo.teamB){
+        for(var entity of data.teamInfo.teamB){
             var i = 1;
-            this.enemy[i] = new Monster_(data.teamInfo.teamB[uid],dataMgr.monster[data.teamInfo.teamB[uid].monsterid],matrix.MatrixPos[monsters[data.teamInfo.teamB[uid].monsterid]],constant.Team.enemy,this,uid);
+            var uid = entity.uid;
+            this.enemy[i] = new Monster_(entity,dataMgr.monster[entity.monsterid],this.monsterMatrix.MatrixPos[monsters[entity.monsterid]],constant.Team.enemy,this,uid);
             
-            Effectmgr.init(dataMgr.monster[data.teamInfo.teamB[uid].monsterid].InitialDrawPile);
+            Effectmgr.init(dataMgr.monster[entity.monsterid].InitialDrawPile);
             this.units[uid] = this.enemy[i];
             i++;
         }

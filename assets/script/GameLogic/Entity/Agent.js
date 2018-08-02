@@ -6,7 +6,7 @@
 var loadRes = require('LoadRes')
 var constant = require('constants')
 
- var Agent = function(path,pos,teamid,hp,maxHp,armo,uid,loadok){
+ var Agent = function(path,pos,teamid,hp,maxHp,armo,uid,buffs,scale,loadok){
     this.go = null;
     this.hpbar = null;
     this.spData = null;
@@ -14,7 +14,7 @@ var constant = require('constants')
     this.height = 0;
     this.contentSize = null;
     this.aniMgr = null;
-
+    this.teamid = teamid;
     var that = this;
 
     loadRes.load('UI/hero/hpBar',true,(data)=>{
@@ -22,19 +22,24 @@ var constant = require('constants')
         //cc.log(that.hpbar + "that.hpbar");
         that.hpbar.node.parent = cc.find('Canvas/ui'); 
         that.hpbar.freshen(hp,maxHp,armo);
+        that.hpbar.freshenBuff(buffs);
 
         loadRes.load(path,true,(data)=>{
             that.go = cc.instantiate(data);
             that.go.parent = cc.find('Canvas/pool');
             that.go.position = cc.v2(pos.x,pos.y);
            
-            that.go.scaleX = teamid == constant.Team.own ? constant.Team.enemy : -1;
+            if(this.teamid == constant.Team.own)
+                this.go.scaleX = scale;
+            else
+                this.go.scaleX = -scale;
+            that.go.scaleY = scale;
             var spData = that.go.getChildByName('body').getComponent(sp.Skeleton);
             that.height = Math.ceil(spData.skeletonData.skeletonJson.skeleton.height);
             that.width = Math.ceil(spData.skeletonData.skeletonJson.skeleton.width);
             that.contentSize = new cc.Rect(pos.x-that.width/2,pos.y,that.width,that.height);
             that.aniMgr = that.go.getChildByName('body').getComponent('AnimationMgr');
-    
+            
             that.hpbar.node.position = cc.v2(pos.x - 667,pos.y+that.height + 20 - 375);
     
             loadok();
@@ -50,7 +55,22 @@ var constant = require('constants')
      return this.contentSize;
  }
 
+Agent.prototype.setPos = function(pos){
+    this.go.position = cc.v2(pos.x,pos.y);
+    this.hpbar.node.position = cc.v2(pos.x - 667,pos.y+this.height + 20 - 375);
+}
+
+Agent.prototype.setScale = function(scale){
+    if(this.teamid == constant.Team.own)
+        this.go.scaleX = scale;
+    else
+        this.go.scaleX = -scale;
+    this.go.scaleY = scale;
+}
+
 Agent.prototype.Release = function(){
+    this.go.destroy();
+    this.hpbar.node.destroy();
     this.go = null;
     this.hpbar = null;
     this.spData = null;

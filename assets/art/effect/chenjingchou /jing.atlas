@@ -1,0 +1,76 @@
+
+jing.png
+size: 904,763
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+arms
+  rotate: true
+  xy: 601, 401
+  size: 360, 301
+  orig: 360, 301
+  offset: 0, 0
+  index: -1
+arms_01
+  rotate: false
+  xy: 464, 193
+  size: 118, 103
+  orig: 118, 103
+  offset: 0, 0
+  index: -1
+effect
+  rotate: false
+  xy: 206, 428
+  size: 393, 333
+  orig: 393, 333
+  offset: 0, 0
+  index: -1
+effect/beam12
+  rotate: false
+  xy: 206, 170
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect/jian_01
+  rotate: true
+  xy: 2, 2
+  size: 166, 539
+  orig: 166, 539
+  offset: 0, 0
+  index: -1
+effect/jian_02
+  rotate: false
+  xy: 2, 188
+  size: 202, 573
+  orig: 202, 573
+  offset: 0, 0
+  index: -1
+effect/jpg_a007
+  rotate: false
+  xy: 464, 298
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+effect/jpg_texiao001
+  rotate: false
+  xy: 543, 13
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+effect/png_parti_b
+  rotate: false
+  xy: 673, 13
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+effect/png_ray012
+  rotate: false
+  xy: 594, 143
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
