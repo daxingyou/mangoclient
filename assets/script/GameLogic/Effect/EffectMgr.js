@@ -1,6 +1,5 @@
 var datamgr = require('DataMgr')
 var LoadRes = require('LoadRes')
-var constant = require('constants')
 var Pool = require('Pool')
 
 var mgr = {
@@ -63,7 +62,32 @@ var mgr = {
             go.node.position = pos;
             go.show(effect);
 
-            //cc.log('getEffect name = ',name,' effect =',effect,' go =',go,' active = ',go._active);
+            return go;
+        }
+        else{
+            cc.error('getEffect not found effect name = ',name);
+        }
+    },
+    getMoveEffect : function(name,pos,end,frame,effect){
+        if(Pool.hasOwnProperty(name))
+        {
+            var go = Pool.get(name);
+            go.node.position = pos;
+            go.showMove(effect,end,frame);
+
+            return go;
+        }
+        else{
+            cc.error('getEffect not found effect name = ',name);
+        }
+    },
+    geBezierEffect : function(name,pos,end,frame,effect){
+        if(Pool.hasOwnProperty(name))
+        {
+            var go = Pool.get(name);
+            go.node.position = pos;
+            go.showBezier(effect,pos,end);
+
             return go;
         }
         else{

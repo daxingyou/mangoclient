@@ -28,6 +28,9 @@ var ShaderUtils = {
             }
             else*/
             {
+                //var glProgram_state = cc.GLProgramState.getOrCreateWithGLProgram(glProgram);
+                //glProgram.setUniformLocationWith1f
+
                 //glProgram.initWithVertexShaderByteArray(vert, frag);
                 glProgram.addAttribute(cc.macro.ATTRIBUTE_NAME_POSITION, cc.macro.VERTEX_ATTRIB_POSITION);  
                 glProgram.addAttribute(cc.macro.ATTRIBUTE_NAME_COLOR, cc.macro.VERTEX_ATTRIB_COLOR);  

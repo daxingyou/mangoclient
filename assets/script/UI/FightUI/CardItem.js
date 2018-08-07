@@ -32,7 +32,7 @@ cc.Class({
         var cese =new cc.Color(210,97,49);//橙色4
 
         var goji =new cc.Color(221,81,81);//攻击1
-        var qishu =new  cc.Color(255,139,69);//奇术2
+        var qishu =new  cc.Color(31,231,255);//奇术2
         var tianfu =new cc.Color(90,161,68);//天赋3
         var baowu =new cc.Color(255,244,44);//宝物
 

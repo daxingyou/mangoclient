@@ -286,15 +286,17 @@ var fight = {
             ///重置位置
             var player = gameLogic.getCombatUnitForUid(data.casterID);
 
-            if(player.teamid == combatMgr.curCombat.getSelf().teamid)
-            {
-                combatMgr.curCombat.own[data.casterPos] = combatMgr.curCombat.own[player.Pos];
-                combatMgr.curCombat.own.splice(player.Pos,1);
-            }
-            else
-            {
-                combatMgr.curCombat.enemy[data.casterPos] = combatMgr.curCombat.enemy[player.Pos];
-                combatMgr.curCombat.enemy.splice(player.Pos,1);
+            if (player.Pos !== data.casterPos) {
+                if(player.teamid == combatMgr.curCombat.getSelf().teamid)
+                {
+                    combatMgr.curCombat.own[data.casterPos] = player;
+                    delete combatMgr.curCombat.own[player.Pos];
+                }
+                else
+                {
+                    combatMgr.curCombat.enemy[data.casterPos] = player;
+                    delete combatMgr.curCombat.enemy[player.Pos];
+                }
             }
 
             player.onAddSummon(data.casterPos);
@@ -339,7 +341,7 @@ var fight = {
 
             if(index != 0)
             {
-                combatMgr.curCombat.own.splice(index,1);
+                delete combatMgr.curCombat.own[index];
                 return;
             }
 
@@ -353,7 +355,7 @@ var fight = {
 
             if(index != 0)
             {
-                combatMgr.curCombat.enemy.splice(index,1);
+                delete combatMgr.curCombat.enemy[index];
                 return;
             }
         });

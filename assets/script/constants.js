@@ -59,6 +59,14 @@ module.exports = {
         wSword : 'wSword',
     },
     EffectPath : 'Effect/',
+    EffectType : {
+        Bullt:'bullt',
+        origin:'target'
+    },
+    EffectOrigin : {
+        target:'target',
+        onwer:'onwer'
+    },
     mixTime : 0.1,
     FightCode : {
         1 : '卡牌信息错误',

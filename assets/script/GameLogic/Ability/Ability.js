@@ -6,17 +6,23 @@
 
 var CombatUtility = require('CombatUtility')
 var effectMgr = require('EffectMgr')
+var constant = require('constants')
 
 var ability = function(data,owner){
 	
 	this.arrs = data;
 	this.owner = owner;
 	this.ID = data.ID;	// Int16Array  编号
+	this.effectType = data.EffectType;
 
 	this.singing = data.Target.singing;
+	this.effectFrame = 5;
 	this.effectTime = this.arrs.CriticalTime / 1000 + this.singing;
+	this.attackEffect = this.arrs.CriticalTime / 1000 + this.singing;
 	this.hitEffectTime = new Array();
-	
+	this.hitEffectFrame = 1.2;
+	this.attackFrame = 0.9;
+
 	for(var i in this.arrs.EffectiveTime)
 	{
 		this.hitEffectTime.push(this.arrs.EffectiveTime[i] / 1000 + this.singing + this.effectTime );
@@ -51,6 +57,7 @@ ability.prototype.Active = function(Target,targets){
 	if(this.arrs.Animation != '')
 		this.owner.agent.PlayAnimation(this.arrs.Animation,false);
 
+	
 }
 ///技能失效
 ability.prototype.Exit = function(){
@@ -84,25 +91,96 @@ ability.prototype.onDrawPile = function(){
 ability.prototype.onDamage = function(){
 
 }
+
 ability.prototype.tick = function(dt){
+	
+	/*
 	this.effectTime -= dt;
+
+	//cc.log('effectTime = ',this.effectTime);
 
 	if(this.effectTime <= 0)
 	{
 		this.effectTime = 999999;
 	
-		cc.log('arrs getEffect name = ',this.arrs.Path,' effect =',this.arrs.Effect);
-		var go = effectMgr.getEffect(this.arrs.Path,this.owner.agent.go.position,this.arrs.Effect);
+		//cc.log('arrs getEffect name = ',this.arrs.Path,' effect =',this.arrs.Effect);
+		effectMgr.getEffect(this.arrs.Path,this.owner.agent.go.position,this.arrs.Effect);
+
+		if(this.hitEffectTime.length == 0)
+		{
+			this.Exit();
+		}
+	}*/
+
+	
+	this.effectFrame --;
+
+	//cc.log('effectTime = ',this.effectTime);
+
+	if(this.effectFrame <= 0)
+	{
+		this.effectFrame = 999999;
+	
+		//cc.log('arrs getEffect name = ',this.arrs.Path,' effect =',this.arrs.Effect);
+		effectMgr.getEffect(this.arrs.Path,this.owner.agent.go.position,this.arrs.Effect);
 
 		if(this.hitEffectTime.length == 0)
 		{
 			this.Exit();
 		}
 	}
+	
+	this.attackEffect -=dt;
 
+	if(this.attackEffect <= 0)
+	{
+		this.attackEffect = 9999999999;
+
+		if(this.effectType.type == constant.EffectType.Bullt)
+		{
+			if(this.effectType.origin == constant.EffectOrigin.target)
+			{
+				effectMgr.getMoveEffect(this.arrs.Path,this.owner.agent.go.position.add(new cc.Vec2(10,0)),new cc.Vec2(1100,310),5,'wsword');
+			}
+			else if(this.effectType.origin == constant.EffectOrigin.onwer)
+			{
+				if(this.ID == 1009)
+				{
+					
+				}
+
+				effectMgr.getMoveEffect(this.arrs.Path,this.owner.agent.go.position.add(new cc.Vec2(10,0)),new cc.Vec2(1100,310),5,'wsword');
+			}
+		}
+		else if(this.effectType.type == constant.EffectType.origin)
+		{
+			if(this.effectType.origin == constant.EffectOrigin.target)
+			{
+				effectMgr.getEffect(this.arrs.Path,this.curTarget.agent.go.position,this.Effect);
+			}
+			else if(this.effectType.origin == constant.EffectOrigin.onwer)
+			{
+				effectMgr.getEffect(this.arrs.Path,this.owner.agent.go.position,this.Effect);
+			}
+		}
+	}
+
+	this.hitEffectFrame -=dt;
+
+	if(this.hitEffectFrame <= 0)
+	{
+		this.hitEffectFrame = 999999;
+
+		effectMgr.getEffect(this.arrs.HitEffectPath,new cc.Vec2(1100,310),this.arrs.HitEffect);
+
+		this.Exit();
+	}
+/*
 	for(var i in this.hitEffectTime)
 	{
 		this.hitEffectTime[i] -= dt;
+
+		//cc.log('i =',i,'time = ',this.hitEffectTime[i]);
 
 		if(this.hitEffectTime[i] <= 0)
 		{
@@ -111,8 +189,7 @@ ability.prototype.tick = function(dt){
 			for(var j in this.targets)
 			{
 				if(this.targets[j] != null){
-					var go = effectMgr.getEffect(this.arrs.HitEffectPath,this.targets[j].agent.go.position,this.arrs.HitEffect);
-					//cc.log('arrs getEffect go = ',go);
+					effectMgr.getEffect(this.arrs.HitEffectPath,this.targets[j].agent.go.position,this.arrs.HitEffect);
 				}
 			}
 
@@ -120,6 +197,7 @@ ability.prototype.tick = function(dt){
 				this.Exit();
 		}
 	}
+	*/
 }
 
 ability.prototype.getTarget = function(){

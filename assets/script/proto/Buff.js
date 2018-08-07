@@ -7,9 +7,9 @@ module.exports = {
 	2: {
 		ID: 2,
 		BuffName: '护甲',
-		Description: '增加60点护甲，持续5秒',
+		Description: '增加80点护甲，持续15秒',
 		Type: 'addArm',
-		Logic: {arm:60},
+		Logic: {arm:80},
 		SkillID: 0,
 		IsHide: 0,
 		Image: 'buff1',
@@ -18,9 +18,9 @@ module.exports = {
 	1002: {
 		ID: 1002,
 		BuffName: '护甲',
-		Description: '增加15点护甲，持续5秒',
+		Description: '增加25点护甲，持续15秒',
 		Type: 'addArm',
-		Logic: {arm:15},
+		Logic: {arm:25},
 		SkillID: 0,
 		IsHide: 0,
 		Image: 'buff2',
@@ -29,7 +29,7 @@ module.exports = {
 	1004: {
 		ID: 1004,
 		BuffName: '剑灵乱舞',
-		Description: '每使用1张卡牌，对随机一个敌方单位造成5点伤害',
+		Description: '每使用1张卡牌，对随机一个敌方单位造成10点伤害',
 		Type: 'useCardListener',
 		Logic: {"num":1,"cardType":1,"cardQuality":1,"cardAttributes":1},
 		SkillID: 1104,
@@ -51,9 +51,9 @@ module.exports = {
 	2004: {
 		ID: 2004,
 		BuffName: '万物复苏',
-		Description: '在4秒内恢复160点生命值',
+		Description: '每秒恢复80点生命，持续4秒',
 		Type: 'heal',
-		Logic: {"heal":40,"count":4,"time":1},
+		Logic: {"heal":80,"count":4,"time":1},
 		SkillID: 0,
 		IsHide: 0,
 		Image: 'buff2',
@@ -84,7 +84,7 @@ module.exports = {
 	2008: {
 		ID: 2008,
 		BuffName: '女娲转世',
-		Description: '每当抽取1张卡牌，为自己恢复20点生命值',
+		Description: '每当抽取1张卡牌，为自己恢复40点生命值',
 		Type: 'drawCardListener',
 		Logic: {"num":1,"cardType":1,"cardQuality":1,"cardAttributes":1,"piletype":1},
 		SkillID: 2108,

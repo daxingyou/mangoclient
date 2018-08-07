@@ -25,10 +25,11 @@ cc.Class({
         uimgr = cc.find('Canvas').getComponent('UIMgr');
         uimgr.loadUI(constant.UI.Login);
         matchMessage.init();
+        //cc.game.setFrameRate(30);
     },
     
     start () {
-        
+      
     },
 
     update (dt) {

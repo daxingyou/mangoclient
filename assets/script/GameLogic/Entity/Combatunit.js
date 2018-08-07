@@ -8,7 +8,7 @@
  var dataMgr = require('DataMgr') 
 
 var CombatUnit = function(data,attrs,pos,teamid,combat,uid){
-    this.Pos = pos.index;
+    this.Pos = data.pos;
     this.teamid = teamid;
     this.curCombat = combat;
     this.uid = uid;

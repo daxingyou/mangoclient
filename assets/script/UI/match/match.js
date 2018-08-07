@@ -17,8 +17,8 @@ cc.Class({
         dot:cc.Node,
         btn_label:cc.Label,
         cancel:0,
-       
-      
+        start_pipei:cc.Node,
+        pipei_bg:cc.Node,
         //matching : 1,
         //select : 2,
     },
@@ -41,14 +41,15 @@ cc.Class({
     update (dt) {
 
     },
-
     matchTeam(){
         this.dot.getComponent(cc.Label).string = ".";
+        this.start_pipei.active = false;
         if(this.cancel ==0){
             this._type = 1;
             uimgr = cc.find('Canvas').getComponent('UIMgr');
             this.pipei.active = true;
             this.dot.active = true;
+            this.pipei_bg.active = true;
             var dot = this.dot.getComponent(cc.Label).string;
             this.schedule(function(){
                 this.dot.getComponent(cc.Label).string += dot;
@@ -79,6 +80,7 @@ cc.Class({
                 this.btn_label.string = "开始匹配";
                 this.pipei.active = false;
                 this.dot.active = false;
+                this.pipei_bg.active = false;
                 net.Request(new unmatchProto(consts.MatchType.PVE_2,1),(data)=>{
                     cc.log("match "+data + "取消匹配");
                 });

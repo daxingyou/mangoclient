@@ -8,7 +8,7 @@ module.exports = {
 		ID: 1,
 		CardName: '攻击',
 		CardDescription: '对目标造成60点伤害',
-		HeroID: 0,
+		HeroID: 1000,
 		SkillID: 1,
 		Treasure: 0,
 		CastMP: 1,
@@ -21,8 +21,36 @@ module.exports = {
 	2: {
 		ID: 2,
 		CardName: '防御',
-		CardDescription: '给队友添加60点护甲，持续5秒',
-		HeroID: 0,
+		CardDescription: '给队友添加80点护甲，持续15秒',
+		HeroID: 1000,
+		SkillID: 2,
+		Treasure: 0,
+		CastMP: 1,
+		CastThew: 0,
+		CardType: 2,
+		CardQuality: 1,
+		CardAttributes: [1],
+		CardImage: 'defence'
+	},
+	3: {
+		ID: 3,
+		CardName: '攻击',
+		CardDescription: '对目标造成60点伤害',
+		HeroID: 2000,
+		SkillID: 1,
+		Treasure: 0,
+		CastMP: 1,
+		CastThew: 0,
+		CardType: 1,
+		CardQuality: 1,
+		CardAttributes: [1],
+		CardImage: 'attack'
+	},
+	4: {
+		ID: 4,
+		CardName: '防御',
+		CardDescription: '给队友添加80点护甲，持续15秒',
+		HeroID: 2000,
 		SkillID: 2,
 		Treasure: 0,
 		CastMP: 1,
@@ -49,7 +77,7 @@ module.exports = {
 	1002: {
 		ID: 1002,
 		CardName: '木藤刺',
-		CardDescription: '对目标造成25点伤害，获得15点护甲，落地生成一把木刃',
+		CardDescription: '对目标造成25点伤害，获得25点护甲，落地生成一把木刃',
 		HeroID: 1000,
 		SkillID: 1002,
 		Treasure: 0,
@@ -77,7 +105,7 @@ module.exports = {
 	1004: {
 		ID: 1004,
 		CardName: '剑灵乱舞',
-		CardDescription: '为自己增加天赋奇术：每使用一张卡牌，对随机一个敌人造成5点伤害',
+		CardDescription: '为自己增加天赋奇术：每使用一张卡牌，对随机一个敌人造成10点伤害',
 		HeroID: 1000,
 		SkillID: 1004,
 		Treasure: 0,
@@ -85,7 +113,7 @@ module.exports = {
 		CastThew: 0,
 		CardType: 3,
 		CardQuality: 3,
-		CardAttributes: [1],
+		CardAttributes: [2],
 		CardImage: 'attack'
 	},
 	1005: {
@@ -99,7 +127,7 @@ module.exports = {
 		CastThew: 3,
 		CardType: 3,
 		CardQuality: 4,
-		CardAttributes: [1],
+		CardAttributes: [2],
 		CardImage: 'attack'
 	},
 	1006: {
@@ -147,7 +175,7 @@ module.exports = {
 	1009: {
 		ID: 1009,
 		CardName: '秋镰游刃',
-		CardDescription: '回收在场所有木刃和乌雪刃，穿刺在场敌人，每次造成30点伤害，消耗所有刀刃',
+		CardDescription: '回收在场所有木刃和乌雪刃，穿刺在场敌人，每次造成35点伤害，消耗所有刀刃',
 		HeroID: 1000,
 		SkillID: 1009,
 		Treasure: 0,
@@ -161,7 +189,7 @@ module.exports = {
 	1010: {
 		ID: 1010,
 		CardName: '映日剑轮',
-		CardDescription: '牵引在场所有木刃和乌雪刃攻击一个敌人，每把刀刃造成15点伤害，刀刃在攻击后重新落地',
+		CardDescription: '牵引在场所有木刃和乌雪刃攻击一个敌人，每把刀刃造成25点伤害，刀刃在攻击后重新落地',
 		HeroID: 1000,
 		SkillID: 1010,
 		Treasure: 0,
@@ -175,7 +203,7 @@ module.exports = {
 	2001: {
 		ID: 2001,
 		CardName: '气疗术',
-		CardDescription: '为一名队友恢复40点生命值',
+		CardDescription: '为一名队友恢复80点生命值',
 		HeroID: 2000,
 		SkillID: 2001,
 		Treasure: 0,
@@ -189,7 +217,7 @@ module.exports = {
 	2002: {
 		ID: 2002,
 		CardName: '风砂甘霖术',
-		CardDescription: '为自身和一位随机队友恢复60点生命值',
+		CardDescription: '为自身和一位随机队友恢复120点生命值',
 		HeroID: 2000,
 		SkillID: 2002,
 		Treasure: 0,
@@ -217,7 +245,7 @@ module.exports = {
 	2004: {
 		ID: 2004,
 		CardName: '万物复苏',
-		CardDescription: '为我方全体每秒恢复40点，持续4秒，生命最低的队友效果翻倍',
+		CardDescription: '为我方全体每秒恢复80点，持续4秒，生命最低的队友效果翻倍',
 		HeroID: 2000,
 		SkillID: 2004,
 		Treasure: 0,
@@ -239,7 +267,7 @@ module.exports = {
 		CastThew: 0,
 		CardType: 3,
 		CardQuality: 3,
-		CardAttributes: [1],
+		CardAttributes: [2],
 		CardImage: 'heal'
 	},
 	2006: {
@@ -267,13 +295,13 @@ module.exports = {
 		CastThew: 0,
 		CardType: 3,
 		CardQuality: 4,
-		CardAttributes: [1],
+		CardAttributes: [2],
 		CardImage: 'defence'
 	},
 	2008: {
 		ID: 2008,
 		CardName: '女娲转世',
-		CardDescription: '为自己增加天赋奇术：每当抽取1张卡牌，为自己恢复20点生命值',
+		CardDescription: '为自己增加天赋奇术：每当抽取1张卡牌，为自己恢复40点生命值',
 		HeroID: 2000,
 		SkillID: 2008,
 		Treasure: 0,
@@ -281,7 +309,7 @@ module.exports = {
 		CastThew: 0,
 		CardType: 3,
 		CardQuality: 3,
-		CardAttributes: [1],
+		CardAttributes: [2],
 		CardImage: 'defence'
 	},
 	2009: {

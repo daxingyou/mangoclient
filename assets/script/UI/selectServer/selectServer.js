@@ -11,7 +11,8 @@ cc.Class({
     listItem:listItem,
 
     properties: {
-       serverScrollView:cc.Node,
+       serverList:cc.Node,
+       content:cc.Node,
        list:cc.Node,
        last:cc.Node,
        exit:cc.Node,
@@ -20,15 +21,27 @@ cc.Class({
        id:0,
        host:null,
        port:null,
-       click:0,
+       click:true,
+       click_status:cc.Node,
        rootBtn:cc.Node,
        storeId:[],
        card:cc.Node,
+       showItem:cc.Node,
+       start_btn:cc.Node,
+       lastBar:cc.Node,
+       exitBar:cc.Node,
+       listBar:cc.Node,
+       expret:cc.Node,
+       root_N:cc.Node,
     },
 
     onLoad () {
-     
- 
+       this.expret.on(cc.Node.EventType.TOUCH_START,function(){
+           return true;},this);//阻止往下传递
+
+        //    this.exit.height = 52 * 5;
+        //             var dis = this.exit.height - 52 * 2;
+        //             this.listBar.y -=dis;
      },
 
     start () {
@@ -36,16 +49,29 @@ cc.Class({
         var uuid = dataCenter.uuid;
 
         var self = this;
-        net.HttpRequest('http://182.254.234.140:3001/ServerList?code='+uuid,(data)=>{
+        net.HttpRequest('http://203.195.206.97:3001/ServerList?code='+uuid,(data)=>{
             cc.log(data);
             var serverlist = data.serverlist;
-            var serverLast = data.lastLoginSid;//上次登录的服务器
+            var serverLast = data.lastLoginSid;
+            var roleList = data.ownRoleServers;
+            if(serverLast==0){
+                self.lastBar.active = false;
+                self.exitBar.active = false;
+                self.listBar.y += 230;
+                self.content.height = 510;
+            } //第一次登录
+            else{
+                var list_hei =Math.ceil(serverlist.length/2);
+                self.list.height = 52 * list_hei;
+                self.content.height = 600 + self.list.height;
+            }//动态改变滑动的高度
+           
             var resIndex = 0;
             var findLast = false;
             for(var i=0; i<serverlist.length; i++){
-                var serverinfo = serverlist[i];
+               var serverinfo = serverlist[i];
                 let itemData = JSON.stringify(serverinfo); 
-                self.storeId.push(serverlist[i].id);
+               self.storeId.push(serverlist[i].id);
                 cc.loader.loadRes('UI/selectServer/listItem', function(errorMessage, loadedResource){
                     if( errorMessage ) { cc.log( '载入预制资源失败, 原因:' + errorMessage ); return; }
                     if( !( loadedResource instanceof cc.Prefab ) ) { cc.log( '你载入的不是预制资源!' ); return; }
@@ -68,7 +94,8 @@ cc.Class({
 
                 if(serverLast == serverinfo.id){
                     self.serverName.string = serverinfo.name;
-                    self.status.string = serverinfo.status;
+                   // self.status.string = serverinfo.status;
+                   self.status.string = "火爆";
                     self.id = serverinfo.lastLoginSid;
                     self.host = serverinfo.ip;
                     self.port = serverinfo.port;
@@ -78,16 +105,17 @@ cc.Class({
             var serverinfo = serverlist[0];
             if (!findLast) {
                 self.serverName.string = serverinfo.name;
-                self.status.string = serverinfo.status;
+               // self.status.string = serverinfo.status;
+                self.status.string = "火爆";
                 self.id = serverinfo.lastLoginSid;
                 self.host = serverinfo.ip;
                 self.port = serverinfo.port;
-            }
+            }//服务器列表
 
-           for(let i = 0;i < self.storeId.length; i++){
+            for(let i = 0;i < self.storeId.length; i++){
                if(serverLast == self.storeId[i]){
                     var item2Data = serverlist[i];
-                    cc.loader.loadRes('UI/selectServer/test', function(errorMessage, loadedResource){
+                    cc.loader.loadRes('UI/selectServer/lastItem', function(errorMessage, loadedResource){
                         if( errorMessage ) { cc.log( '载入预制资源失败, 原因:' + errorMessage ); return; }
                         if( !( loadedResource instanceof cc.Prefab ) ) { cc.log( '你载入的不是预制资源!' ); return; }
                         let item2 = cc.instantiate(loadedResource);   
@@ -95,26 +123,77 @@ cc.Class({
                         item2.getComponent('listItem').init({
                             name:item2Data.name,
                             status:item2Data.status,
-                        });
-                        cc.loader.release('UI/selectServer/test');
+                        },self);
+                        cc.loader.release('UI/selectServer/lastItem');
                     });   
                 }
-            }
-        });
+            }//上次登录
+           
+                // for(let i=0;i<10;i++){
+                //         cc.loader.loadRes('UI/selectServer/roleItem', function(errorMessage, loadedResource){
+                //             if( errorMessage ) { cc.log( '载入预制资源失败, 原因:' + errorMessage ); return; }
+                //             if( !( loadedResource instanceof cc.Prefab ) ) { cc.log( '你载入的不是预制资源!' ); return; }
+                //             let item3 = cc.instantiate(loadedResource);   
+                           
+                //             self.exit.addChild(item3);
 
-        this.rootBtn.on(cc.Node.EventType.TOUCH_START, function(event){
-            this.click = 1;
-            cc.log(this.click);
-            });//判断是否同意root
-        
+                //         });   
+                    
+                // }
+           
+            for(let item in roleList){
+                var len = Math.ceil(Object.keys(roleList).length/2);
+                if(len>2){
+                     this.exit.height = 52 * len;
+                     var dis = this.exit.height - 52 * 2;
+                     this.listBar.y -=dis;
+                }//下移list
+                var roleItem = item;
+                for(let i=0;i<self.storeId.length;i++){
+                    if(roleItem == self.storeId[i]){
+                        var item3Data = serverlist[i];
+                        cc.loader.loadRes('UI/selectServer/roleItem', function(errorMessage, loadedResource){
+                            if( errorMessage ) { cc.log( '载入预制资源失败, 原因:' + errorMessage ); return; }
+                            if( !( loadedResource instanceof cc.Prefab ) ) { cc.log( '你载入的不是预制资源!' ); return; }
+                            let item3 = cc.instantiate(loadedResource);   
+                            self.exit.addChild(item3);
+                            item3.getComponent('roleItem').init({
+                                name:item3Data.name,
+                                status: roleList[item],
+                            },self);
+                            cc.loader.release('UI/selectServer/roleItem');
+                        });   
+                    }
+                }
+            }
+        });//已有角色
     },
+
+    rootEvent(){
+        if(!this.click){
+            this.click = true;
+            this.click_status.active = true;
+        }
+        else{
+            this.click = false;
+            this.click_status.active = false;
+        }
+    },//是否同意授权
 
     show_scrollView: function () {
-        this.serverScrollView.active = true;
+        this.serverList.active = true;
+        this.showItem.active = false;
+        this.start_btn.active = false;
+        this.root_N.active = false;
     },
-    hide_scrollView: function () {
-        this.serverScrollView.active = false;
+    hide_scrollView: function () {     
+            this.serverList.active = false;
+            this.showItem.active = true;
+            this.start_btn.active = true;
+            this.root_N.active = true;
     },
+
+    
     
 
     loginClick(event){
@@ -126,7 +205,7 @@ cc.Class({
         cc.log(uid + "uid");
 
       
-    //     cc.log(this.click + "执行到---");
+    
     //    if(this.click == 1){ //判断是否勾选用户协议
     //     cc.log("进入游戏---------");
         var that = this;
@@ -140,9 +219,6 @@ cc.Class({
             pomelo.request("gate.gateHandler.queryEntry", {code: uid}, function(data) {
                 pomelo.disconnect();
                 var uuid = data.uuid;
-                if(data.host != '127.0.0.1'){
-                host = data.host;
-                }
                 that.port = data.port;
                 cc.log(that.port + "that.port");
                 cc.log("请求登陆地址 = %s 端口： = %i,uuid = %s",that.host,data.port,uuid);

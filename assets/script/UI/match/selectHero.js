@@ -5,8 +5,9 @@ var net = require("NetPomelo")
 var selectHeroProto = require("selectHeroProto")
 var confirmHeroProto = require("confirmHeroProto")
 var dataCenter = require('DataCenter')
-var heroData = require('Hero');
+var heroData = require('Hero')
 var datamgr = require('DataMgr')
+
 
 cc.Class({
     extends: UIBase,
@@ -25,21 +26,16 @@ cc.Class({
         chen_nameLeft:cc.Label,
         yu_nameLeft:cc.Label,
         yu_icon:cc.Label,
-        yu_name:cc.Label,   
+        yu_name:cc.Label,
+        selectMan_light:cc.Node,
+        selectWomen_light:cc.Node,
     },
-
-    // LIFE-CYCLE CALLBACKS:
-
     onLoad () {
      this.init();
-     
-    
     },
     init(){
-      
         var chen =  datamgr.hero[1000];
         var yu =  datamgr.hero[2000];
-     
         this.chen_name.string = chen.HeroName; 
         this.chen_nameLeft.string = chen.HeroName;
         this.chen_icon.string = chen.HeroIcon;
@@ -88,16 +84,31 @@ cc.Class({
     },
     manSelect(event){
         var that = this;
-        
         dataCenter.userName = '陈靖仇';
-       
         net.Request(new selectHeroProto(1000),function(data){
             if(data.code == 1)
             {
-                if(that.woman != null)
+                if(that.woman != null){
                     ShaderUtils.setShader(that.woman, "gray");
-                if(that.man != null)
+                   
+                   
+                    cc.log("男的选了女的----");
+                    that.selectMan_light.active = true;
+                    that.selectWomen_light.active = false;
+                }
+                else{
+                    that.selectMan_light.active = false;
+                }
+                   
+                if(that.man != null){
                     ShaderUtils.setShader(that.man, "normal");
+                    // that.selectMan_light.active = true;
+                    // that.selectMan_light.active = false;
+                }
+                // else{
+                //     that.selectMan_light.active = false;
+                // }
+                   
             }
             else if(data.code == 2)
             {
@@ -118,14 +129,29 @@ cc.Class({
     womanSelect(event){
         var that = this;
         dataCenter.userName = '于小雪';
-     
         net.Request(new selectHeroProto(2000),function(data){
             if(data.code == 1)
             {
-                if(that.woman != null)
+                if(that.woman != null){
                     ShaderUtils.setShader(that.woman, "normal");
-                if(that.man != null)
+                    that.selectWomen_light.active = true;
+                    that.selectMan_light.active = false;
+                    cc.log("女的选了女的");
+                }
+                else{
+                    that.selectWomen_light.active = false;
+                }
+                   
+                if(that.man != null){
+                    // that.selectMan_light.active = true;
+                    // that.selectWomen_light.active = false;
                     ShaderUtils.setShader(that.man, "gray");
+                    // cc.log("nv");
+                }
+                // else{
+                //     that.selectMan_light.active = false;
+                // }
+                    
             }
             else if(data.code == 2)
             {
@@ -141,12 +167,12 @@ cc.Class({
             }
         });
 
-        cc.log('womanSelect');
+        cc.log('womanSelect',"男的");
     },
     beginFight(){
         var that = this;
         net.Request(new confirmHeroProto(),function(data){
-            
+
         });//点击准备执行
     },
     beginLoadCD(){
