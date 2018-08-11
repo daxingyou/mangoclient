@@ -5,12 +5,18 @@
 
  var dataMgr = require('DataMgr')
 
- var Buff = function(id){
-    this.id = id;
-    this.image = dataMgr.buff[id].Image;
- }
+ var Buff = function(info){
+    this.info = info;
+    // this.image = dataMgr.buff[info.id].Image;
+    this.data = dataMgr.buff[info.id];
+ };
 
- Buff.prototype.id = 0;
- Buff.prototype.image = '';
+ Buff.prototype.updateInfo = function (info) {
+    this.info = info;
+ };
+
+ Buff.prototype.isHide = function () {
+    return this.data.IsHide === 1;
+ };
 
  module.exports = Buff;

@@ -37,7 +37,13 @@ cc.Class({
 
     onLoad () {
        this.expret.on(cc.Node.EventType.TOUCH_START,function(){
-           return true;},this);//阻止往下传递
+           return true;},this);//阻止往上传递
+        //    this.expret.on('hide_scrollView', function (event) {
+        //     event.stopPropagation();
+        //   });
+         
+     
+           
 
         //    this.exit.height = 52 * 5;
         //             var dis = this.exit.height - 52 * 2;

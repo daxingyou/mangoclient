@@ -82,21 +82,20 @@ Combat.prototype.init = function(data){
     ///test demo 默认 为 PVE_2
     this.matrix = dataMgr.matrix[4];
 
-    var index = 1;
     for(var entity of data.teamInfo.teamA)
     {
-        var uid = entity.uid;
-        this.own[index] = new Hero_(entity,dataMgr.heroAttributes[entity.heroid],this.matrix.MatrixPos[index],constant.Team.own,this,uid);
+        var uid = entity.uid, idx = entity.pos;
+        var hero = new Hero_(entity,dataMgr.heroAttributes[entity.heroid],this.matrix.MatrixPos[idx],constant.Team.own,this,uid);
+        this.own[idx] = hero;
 
         Effectmgr.init(dataMgr.hero[entity.heroid].InitialDrawPile);
         if(uid == gameCenter.uuid)
         {
-            this.own[index].InitHands(data.myInfo.inHands);
-            this.curPlayerIndex = index;
+            hero.InitMyInfo(data.myInfo);
+            this.curPlayerIndex = idx;
         }
         
-        this.units[uid] = this.own[index];
-        index++;
+        this.units[uid] = hero;
     }
     
     ///低方初始化
@@ -108,28 +107,15 @@ Combat.prototype.init = function(data){
     {
         var group_Data = dataMgr.group[dungeon.MonsterGroupID];
         this.monsterMatrix = dataMgr.matrix[group_Data.Matrix];
-        
-        var monsters = new Array();
-        for(var index in group_Data.MonsterGroup)
-        {
-            monsters[group_Data.MonsterGroup[index]] = index;
-        }
-        
-
-        if(monsters.length > this.monsterMatrix.MatrixPos.length){
-            cc.error('PVE matrix data error !');
-            return;
-        }
 
         ////怪物数据 暂是本地数据
         for(var entity of data.teamInfo.teamB){
-            var i = 1;
-            var uid = entity.uid;
-            this.enemy[i] = new Monster_(entity,dataMgr.monster[entity.monsterid],this.monsterMatrix.MatrixPos[monsters[entity.monsterid]],constant.Team.enemy,this,uid);
-            
+            var uid = entity.uid, idx = entity.pos;
+            var monster = new Monster_(entity,dataMgr.monster[entity.monsterid],this.monsterMatrix.MatrixPos[idx],constant.Team.enemy,this,uid);
+            this.enemy[idx] = monster;
+
             Effectmgr.init(dataMgr.monster[entity.monsterid].InitialDrawPile);
-            this.units[uid] = this.enemy[i];
-            i++;
+            this.units[uid] = monster;
         }
 
         this.checkLoadRes = true;

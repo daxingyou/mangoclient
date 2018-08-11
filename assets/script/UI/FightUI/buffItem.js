@@ -16,8 +16,14 @@ cc.Class({
     start () {
     },
 
-    fresh(image){
+    fresh(image, level){
         this.image.spriteFrame = this.atls.getSpriteFrame(image);
+        if (!level) {
+            this.level.string = "";
+        }
+        else {
+            this.level.string = level;
+        }
     }
     // update (dt) {},
 });

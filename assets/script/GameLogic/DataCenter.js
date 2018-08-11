@@ -6,4 +6,8 @@ module.exports = {
     exhaustsNum:0,
     thew:0,
     userName:'',
+    user_first:'',
+    user_second:'',
+    _first_uid:'',
+    _second_uid:'',
 }

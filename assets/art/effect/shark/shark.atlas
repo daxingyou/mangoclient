@@ -1,0 +1,76 @@
+
+shark.png
+size: 1813,1796
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect/010907/01
+  rotate: true
+  xy: 260, 19
+  size: 109, 128
+  orig: 109, 128
+  offset: 0, 0
+  index: -1
+effect/010907/02
+  rotate: true
+  xy: 390, 35
+  size: 93, 125
+  orig: 93, 125
+  offset: 0, 0
+  index: -1
+effect/010907/03
+  rotate: false
+  xy: 650, 137
+  size: 98, 121
+  orig: 98, 121
+  offset: 0, 0
+  index: -1
+effect/010907/04
+  rotate: false
+  xy: 750, 140
+  size: 92, 118
+  orig: 92, 118
+  offset: 0, 0
+  index: -1
+effect/010907/05
+  rotate: false
+  xy: 844, 146
+  size: 95, 112
+  orig: 95, 112
+  offset: 0, 0
+  index: -1
+effect/bmp_lxuanxuan
+  rotate: false
+  xy: 260, 130
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+effect/jpg_shuilanghua3
+  rotate: false
+  xy: 390, 130
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+effect/ring16
+  rotate: false
+  xy: 2, 2
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect/tga_ly_waikuozaozao
+  rotate: false
+  xy: 520, 130
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+mh
+  rotate: false
+  xy: 2, 260
+  size: 1809, 1534
+  orig: 1809, 1534
+  offset: 0, 0
+  index: -1

@@ -42,6 +42,8 @@ cc.Class({
     },
 
     init(combatUnit,dmg,uimgr,dmgorheal){
+        this._alpha = 255;
+        this.node.opacity  = this._alpha;
         this.dmg.string = dmg.toString();
         this._uimgr = uimgr;
         this.node.position = cc.v2(combatUnit.agent.go.position.x+100+utility.RandomInt(0,50),combatUnit.agent.go.position.y + 220+utility.RandomInt(0,50));

@@ -15,11 +15,13 @@ var CombatUnit = function(data,attrs,pos,teamid,combat,uid){
 
     this.uimgr = cc.find('Canvas').getComponent('UIMgr');
 
+    this.buffs = {};
     if(data.hasOwnProperty('buffs'))
     {
-        for(var i =0;i<data.buffs.length;i++)
+        for(var i = 0; i < data.buffs.length; i++)
         {
-            this.buffs.push(new buff(data.buffs[i].id));
+            var info = data.buffs[i];
+            this.buffs[info.realID] = new buff(info);
         }
     }
 };
@@ -55,6 +57,12 @@ CombatUnit.prototype.MaxThew = 0;
 CombatUnit.prototype.basePhysical_arm = 0;
 ///附加防御供计算
 CombatUnit.prototype.addtional_Physical_arm = 0;
+// MP恢复基础时间
+CombatUnit.prototype.mpRecoverTime = 3000;
+// MP恢复速率
+CombatUnit.prototype.mpRecoverRate = 1;
+// MP恢复暂停
+CombatUnit.prototype.mpRecoverPause = false;
 
 //////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////// 
 
@@ -62,8 +70,6 @@ CombatUnit.prototype.addtional_Physical_arm = 0;
 CombatUnit.prototype.handsPile = [];
 ///技能
 CombatUnit.prototype.abilitys = [];
-///buff
-CombatUnit.prototype.buffs = [];
 //////~~~~~~~~~~~~~~~~~~~~~~~~~~~Get function ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~///////
 
 CombatUnit.prototype.GetPhysical = function(){
@@ -99,6 +105,21 @@ CombatUnit.prototype.onDamage = function(dmg,from,data = null){
     }
 };
 
+// spawnSummon伤害
+CombatUnit.prototype.onSpawnSummonDamage = function (damageData) {
+    this.Hp = damageData.curHp;
+    this.basePhysical_arm = damageData.curArmor;
+    this.agent.hpbar.freshen(this.Hp, this.MaxHp, this.basePhysical_arm);
+
+    for (var damageItem of damageData.damageList) {
+        var deltaHp = damageItem[0] - damageItem[1];
+        var deltaArmor = damageItem[2] - damageItem[3];
+        if (deltaHp > 0) {
+            this.uimgr.loadDmg(this, deltaHp, true);
+        }
+    }
+};
+
 CombatUnit.prototype.onHeal = function(curhp,value){
     this.Hp = curhp;
     this.agent.hpbar.freshen(this.Hp,this.MaxHp,this.basePhysical_arm);
@@ -119,8 +140,8 @@ CombatUnit.prototype.Relive = function(curhp,value){
         this.agent.PlayAnimation('guard',true);
     }
 
-    this.HP = curhp;
-    this.agent.hpbar.freshen(this.Hp,this.MaxHp,this.basePhysical_arm);
+    this.Hp = curhp;
+    this.agent.hpbar.freshen(this.Hp, this.MaxHp, this.basePhysical_arm);
     this.uimgr.loadDmg(this,value,false);
 
     if(this.uid == this.curCombat.getSelf().uid)
@@ -196,9 +217,17 @@ CombatUnit.prototype.porpUpdate = function(data){
     }
 }
 
-CombatUnit.prototype.buffUpdate = function(data){
-    cc.log('buff Update ',data);
-    //this.buffs.push(new buff(data.info.id,data.info.cells));
+CombatUnit.prototype.buffUpdate = function(realID, info){
+    if (!info) {
+        delete this.buffs[realID];
+    }
+    else if (this.buffs.hasOwnProperty(realID)) {
+        this.buffs[realID].updateInfo(info);
+    }
+    else {
+        this.buffs[realID] = new buff(info);
+    }
+    this.agent.hpbar.freshenBuff(this.buffs);
 }
 
 CombatUnit.prototype.onReverse = function(data){

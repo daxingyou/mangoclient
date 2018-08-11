@@ -1,82 +1,68 @@
 
 jing.png
-size: 1005,821
+size: 978,689
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-arms
-  rotate: false
-  xy: 601, 518
-  size: 360, 301
-  orig: 360, 301
-  offset: 0, 0
-  index: -1
-arms_01
-  rotate: false
-  xy: 2, 11
-  size: 118, 103
-  orig: 118, 103
-  offset: 0, 0
-  index: -1
-effect
-  rotate: false
-  xy: 206, 486
-  size: 393, 333
-  orig: 393, 333
-  offset: 0, 0
-  index: -1
 effect/beam12
   rotate: false
-  xy: 747, 260
+  xy: 392, 11
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 effect/jian_01
-  rotate: true
-  xy: 206, 318
-  size: 166, 539
-  orig: 166, 539
+  rotate: false
+  xy: 2, 132
+  size: 190, 555
+  orig: 190, 555
   offset: 0, 0
   index: -1
 effect/jian_02
   rotate: false
-  xy: 2, 246
-  size: 202, 573
-  orig: 202, 573
-  offset: 0, 0
-  index: -1
-effect/jian_03
-  rotate: true
-  xy: 206, 150
-  size: 166, 539
-  orig: 166, 539
+  xy: 194, 132
+  size: 190, 555
+  orig: 190, 555
   offset: 0, 0
   index: -1
 effect/jpg_a007
   rotate: false
-  xy: 2, 116
+  xy: 2, 2
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 effect/jpg_texiao001
   rotate: false
-  xy: 132, 20
+  xy: 132, 2
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
+effect/k
+  rotate: false
+  xy: 386, 269
+  size: 294, 418
+  orig: 294, 418
+  offset: 0, 0
+  index: -1
+effect/k_01
+  rotate: false
+  xy: 682, 269
+  size: 294, 418
+  orig: 294, 418
+  offset: 0, 0
+  index: -1
 effect/png_parti_b
   rotate: false
-  xy: 262, 20
+  xy: 262, 2
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 effect/png_ray012
   rotate: false
-  xy: 747, 2
+  xy: 650, 11
   size: 256, 256
   orig: 256, 256
   offset: 0, 0

@@ -13,10 +13,10 @@ cc.Class({
         select : cc.Node,
         _type : 0,
         selectScr : UIBase,
-        pipei:cc.Node,
+        pipeiIng:cc.Node,
         dot:cc.Node,
         btn_label:cc.Label,
-        cancel:0,
+        cancel:false,
         start_pipei:cc.Node,
         pipei_bg:cc.Node,
         //matching : 1,
@@ -28,7 +28,7 @@ cc.Class({
     onLoad () {
         //this.match.active = true;
         //this.select.active = true;
-        this._type = 0;
+       // this._type = 0;
     },
 
     start () {
@@ -41,13 +41,13 @@ cc.Class({
     update (dt) {
 
     },
-    matchTeam(){
+    matchTeam(){//点击了开始匹配
         this.dot.getComponent(cc.Label).string = ".";
         this.start_pipei.active = false;
-        if(this.cancel ==0){
+        if(this.cancel){
             this._type = 1;
             uimgr = cc.find('Canvas').getComponent('UIMgr');
-            this.pipei.active = true;
+            this.pipeiIng.active = true;
             this.dot.active = true;
             this.pipei_bg.active = true;
             var dot = this.dot.getComponent(cc.Label).string;
@@ -58,7 +58,7 @@ cc.Class({
                 }
             },0.5);  
             this.btn_label.string = "取消匹配";
-            this.cancel = 1;
+            // this.cancel = false;
             net.Request(new matchProto(consts.MatchType.PVE_2,1),(data)=>{
                 cc.log("match "+data);
     
@@ -66,7 +66,8 @@ cc.Class({
                 if(data.code == 1)
                 {
                     this._type = 2;
-                   // uimgr.showTips('匹配成功');
+                   // this.start_pipei.active = true;
+                   // uimgr.showTips('正在匹配');
                    
                 }  ///队列中
                 else if(data.code == 2)
@@ -76,9 +77,9 @@ cc.Class({
             });
         }
         else{
-                this.cancel = 0;
+                this.cancel = true;
                 this.btn_label.string = "开始匹配";
-                this.pipei.active = false;
+                this.pipeiIng.active = false;
                 this.dot.active = false;
                 this.pipei_bg.active = false;
                 net.Request(new unmatchProto(consts.MatchType.PVE_2,1),(data)=>{

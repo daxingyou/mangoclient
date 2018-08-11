@@ -23,30 +23,19 @@ HandCard.prototype.ability = null;
 ///检测是否能够释放技能
 HandCard.prototype.Enable = function(){
 
-    if(this.data.CastMP > 0)
+    if(this.data.CastMP > this.owner.Mp)
     {
-        if(this.owner.Mp >= this.data.CastMP)
-        {
-            return true;
-        }
-        else
-        {
-            this.owner.curCombat.UIMgr.showTips('灵力不足');
-        }
+        this.owner.curCombat.UIMgr.showTips('灵力不足');
+        return false;
     }
 
-    if(this.data.CastThew > 0)
+    if(this.data.CastThew > this.owner.Thew)
     {
-        if(this.owner.Thew >= this.data.CastThew)
-        {
-            return true;
-        }
-        else{
-            this.owner.curCombat.UIMgr.showTips('体力不足');
-        }
+        this.owner.curCombat.UIMgr.showTips('体力不足');
+        return false;
     }
 
-    return false;
+    return true;
 }
 
 HandCard.prototype.Active = function(Target,targets=null){

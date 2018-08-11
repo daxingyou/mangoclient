@@ -198,7 +198,9 @@
       "__id__": 3
     },
     "_enabled": true,
-    "_spriteFrame": null,
+    "_spriteFrame": {
+      "__uuid__": "acc831c0-9287-4d33-a624-e51b62dd7f61"
+    },
     "_type": 0,
     "_sizeMode": 1,
     "_fillType": 0,
@@ -212,7 +214,9 @@
     "_isTrimmedMode": true,
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_atlas": null
+    "_atlas": {
+      "__uuid__": "ef28c0b2-a5f3-4874-8296-2267ad91fdc5"
+    }
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -546,11 +550,21 @@
     "_N$normalSprite": {
       "__uuid__": "29d3ca00-4b1b-46c8-9eea-c8dfd8178cdd"
     },
-    "_N$pressedSprite": null,
-    "pressedSprite": null,
-    "_N$hoverSprite": null,
-    "hoverSprite": null,
-    "_N$disabledSprite": null,
+    "_N$pressedSprite": {
+      "__uuid__": "29d3ca00-4b1b-46c8-9eea-c8dfd8178cdd"
+    },
+    "pressedSprite": {
+      "__uuid__": "29d3ca00-4b1b-46c8-9eea-c8dfd8178cdd"
+    },
+    "_N$hoverSprite": {
+      "__uuid__": "29d3ca00-4b1b-46c8-9eea-c8dfd8178cdd"
+    },
+    "hoverSprite": {
+      "__uuid__": "29d3ca00-4b1b-46c8-9eea-c8dfd8178cdd"
+    },
+    "_N$disabledSprite": {
+      "__uuid__": "29d3ca00-4b1b-46c8-9eea-c8dfd8178cdd"
+    },
     "_N$target": {
       "__id__": 6
     }
@@ -1018,11 +1032,21 @@
     "_N$normalSprite": {
       "__uuid__": "fd231115-d211-41b2-867f-55a97505ff43"
     },
-    "_N$pressedSprite": null,
-    "pressedSprite": null,
-    "_N$hoverSprite": null,
-    "hoverSprite": null,
-    "_N$disabledSprite": null,
+    "_N$pressedSprite": {
+      "__uuid__": "fd231115-d211-41b2-867f-55a97505ff43"
+    },
+    "pressedSprite": {
+      "__uuid__": "fd231115-d211-41b2-867f-55a97505ff43"
+    },
+    "_N$hoverSprite": {
+      "__uuid__": "fd231115-d211-41b2-867f-55a97505ff43"
+    },
+    "hoverSprite": {
+      "__uuid__": "fd231115-d211-41b2-867f-55a97505ff43"
+    },
+    "_N$disabledSprite": {
+      "__uuid__": "fd231115-d211-41b2-867f-55a97505ff43"
+    },
     "_N$target": {
       "__id__": 24
     }
@@ -4459,7 +4483,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 134,
+      "width": 130,
       "height": 26
     },
     "_rotationX": 0,

@@ -52,7 +52,7 @@ cc.Class({
        if(CardQuality==4){
         this.cardName.color = cese;
        }
-        if(thew==1||mp==0){
+        if(thew > 0){
             //cc.log(thew,mp,"thew==1");
             this.left.spriteFrame = this.cardAtlas.getSpriteFrame('thew2');  
         }

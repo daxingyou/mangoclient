@@ -31,19 +31,35 @@ function Hero_(data,attributes,pos,teamid,combat,uid){
     Super.prototype = CombatUnit.prototype;
     //将实例作为子类的原型
     Hero_.prototype = new Super();
-  })();
+})();
 
-  Hero_.prototype.constructor = Hero_;
+    Hero_.prototype.constructor = Hero_;
 
-  Hero_.prototype.handsPile = [];
+    Hero_.prototype.handsPile = [];
 
-  ///初始化当前玩家初始手牌
-  Hero_.prototype.InitHands = function(hands){
-    hands = hands || [];
-    for(var i = 0; i<hands.length;i++)
-    {
-        this.handsPile.push(new Card(hands[i],this));
+    Hero_.prototype.InitMyInfo = function (myInfo) {
+        this.InitHands(myInfo.inHands);
+        this.SetMpRecoverRate(myInfo.mpRecoverRate, myInfo.stopMpRecoverBuffCnt);
+        this.mpRecoverTime = myInfo.mpRecoverTime;
     }
-  }
+
+    ///初始化当前玩家初始手牌
+    Hero_.prototype.InitHands = function(hands){
+        hands = hands || [];
+        for(var i = 0; i<hands.length;i++)
+        {
+            this.handsPile.push(new Card(hands[i],this));
+        }
+    }
+
+    Hero_.prototype.SetMpRecoverRate = function (mpRecoverRate, stopMpRecoverBuffCnt) {
+        this.mpRecoverRate = mpRecoverRate;
+        if (stopMpRecoverBuffCnt > 0) {
+            this.mpRecoverPause = true;
+        }
+        else {
+            this.mpRecoverPause = false;
+        }
+    }
 
 module.exports = Hero_;

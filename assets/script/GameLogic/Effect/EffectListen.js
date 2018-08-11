@@ -15,8 +15,12 @@ cc.Class({
 
     onLoad () {
         var spine = this.effect = this.getComponent('sp.Skeleton');
+
+
+        if(spine == null)
+            return;
+
         var track = spine.getCurrent(1);
-        cc.log('wtf ??????? this = ',this.uuid, ' spine == ',spine.uuid,' tarck',track);
         var that = this;
 
         spine.setCompleteListener((trackEntry, loopCount) => {
@@ -68,6 +72,9 @@ cc.Class({
     showMove(name,end,frame){
         this._MoveAni = true;
         this._active = true;
+        this.points = undefined;
+
+        //cc.log('why... showMove');
 
         this.effect.clearTrack();
         this.effect.setAnimation(0,name, false);
@@ -78,12 +85,16 @@ cc.Class({
         this.step = dir.div(frame);
         this.frame = frame;
     },
-    showBezier(name,start,end){
+    showBezier(name,start,end,callBack){
         this._MoveAni = true;
         this._active = true;
 
+        //cc.log('why... showBezier');
+
         this.effect.clearTrack();
         this.effect.setAnimation(0,name, false);
+
+        this.callBack = callBack;
 
         ////确定起点和终点的中间点
         var center = start.add(end).div(2);
@@ -117,14 +128,23 @@ cc.Class({
                 this.frame -- ;
             }
             
-            /*
             if(this.frame == 0)
             {
+                cc.log('why...');
+
                 this._MoveAni = false;
                 this._active = false;
+
+                if(this.callBack != null)
+                {
+                    this.callBack(this.node.position);
+                    this.callBack = null;
+                } 
                 this.node.position = new cc.v2(0,-1000);
             }
-            */
         }
+    },
+    onFinish(){
+
     }
 });

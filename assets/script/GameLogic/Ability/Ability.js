@@ -16,12 +16,12 @@ var ability = function(data,owner){
 	this.effectType = data.EffectType;
 
 	this.singing = data.Target.singing;
-	this.effectFrame = 5;
-	this.effectTime = this.arrs.CriticalTime / 1000 + this.singing;
-	this.attackEffect = this.arrs.CriticalTime / 1000 + this.singing;
+	//this.effectFrame = 5;
+	this.effectTime = this.arrs.CriticalTime / 1000;
+	this.attackEffect = this.arrs.CriticalTime / 1000 + 2;
 	this.hitEffectTime = new Array();
-	this.hitEffectFrame = 1.2;
-	this.attackFrame = 0.9;
+	this.hitEffectFrame = 2.2;
+	//this.attackFrame = 0.9;
 
 	for(var i in this.arrs.EffectiveTime)
 	{
@@ -94,25 +94,22 @@ ability.prototype.onDamage = function(){
 
 ability.prototype.tick = function(dt){
 	
-	/*
 	this.effectTime -= dt;
-
-	//cc.log('effectTime = ',this.effectTime);
 
 	if(this.effectTime <= 0)
 	{
 		this.effectTime = 999999;
 	
 		//cc.log('arrs getEffect name = ',this.arrs.Path,' effect =',this.arrs.Effect);
-		effectMgr.getEffect(this.arrs.Path,this.owner.agent.go.position,this.arrs.Effect);
+		effectMgr.getPosEffect(this.arrs.Path,this.owner.agent.go.position,this.arrs.Effect,this.owner.teamid);
 
 		if(this.hitEffectTime.length == 0)
 		{
 			this.Exit();
 		}
-	}*/
+	}
 
-	
+	/*
 	this.effectFrame --;
 
 	//cc.log('effectTime = ',this.effectTime);
@@ -122,13 +119,13 @@ ability.prototype.tick = function(dt){
 		this.effectFrame = 999999;
 	
 		//cc.log('arrs getEffect name = ',this.arrs.Path,' effect =',this.arrs.Effect);
-		effectMgr.getEffect(this.arrs.Path,this.owner.agent.go.position,this.arrs.Effect);
+		effectMgr.getPosEffect(this.arrs.Path,this.owner.agent.go.position,this.arrs.Effect,this.owner.teamid);
 
 		if(this.hitEffectTime.length == 0)
 		{
 			this.Exit();
 		}
-	}
+	}*/
 	
 	this.attackEffect -=dt;
 
@@ -140,7 +137,7 @@ ability.prototype.tick = function(dt){
 		{
 			if(this.effectType.origin == constant.EffectOrigin.target)
 			{
-				effectMgr.getMoveEffect(this.arrs.Path,this.owner.agent.go.position.add(new cc.Vec2(10,0)),new cc.Vec2(1100,310),5,'wsword');
+				effectMgr.getMoveEffect(this.arrs.Path,this.owner.agent.go.position.add(new cc.Vec2(10,0)),new cc.Vec2(1100,310),5,'wsword',this.owner.teamid);
 			}
 			else if(this.effectType.origin == constant.EffectOrigin.onwer)
 			{
@@ -149,19 +146,23 @@ ability.prototype.tick = function(dt){
 					
 				}
 
-				effectMgr.getMoveEffect(this.arrs.Path,this.owner.agent.go.position.add(new cc.Vec2(10,0)),new cc.Vec2(1100,310),5,'wsword');
+				effectMgr.getMoveEffect(this.arrs.Path,this.owner.agent.go.position.add(new cc.Vec2(10,0)),new cc.Vec2(1100,310),5,'wsword',this.owner.teamid);
 			}
 		}
-		else if(this.effectType.type == constant.EffectType.origin)
+		else if(this.effectType.type == constant.EffectType.Point)
 		{
 			if(this.effectType.origin == constant.EffectOrigin.target)
 			{
-				effectMgr.getEffect(this.arrs.Path,this.curTarget.agent.go.position,this.Effect);
+				effectMgr.getPosEffect(this.arrs.Path,this.curTarget.agent.go.position,this.Effect,this.owner.teamid);
 			}
 			else if(this.effectType.origin == constant.EffectOrigin.onwer)
 			{
-				effectMgr.getEffect(this.arrs.Path,this.owner.agent.go.position,this.Effect);
+				effectMgr.getPosEffect(this.arrs.Path,this.owner.agent.go.position,this.Effect,this.owner.teamid);
 			}
+		}
+		else if(this.effectType.type == constant.EffectType.SwordWheel)
+		{
+			effectMgr.getSwordWheel(this.arrs.Path,this.owner.agent.go.position,this.Effect,this.owner.teamid);
 		}
 	}
 
@@ -171,7 +172,7 @@ ability.prototype.tick = function(dt){
 	{
 		this.hitEffectFrame = 999999;
 
-		effectMgr.getEffect(this.arrs.HitEffectPath,new cc.Vec2(1100,310),this.arrs.HitEffect);
+		effectMgr.getPosEffect(this.arrs.HitEffectPath,new cc.Vec2(1100,310),this.arrs.HitEffect,this.owner.teamid);
 
 		this.Exit();
 	}
@@ -189,7 +190,7 @@ ability.prototype.tick = function(dt){
 			for(var j in this.targets)
 			{
 				if(this.targets[j] != null){
-					effectMgr.getEffect(this.arrs.HitEffectPath,this.targets[j].agent.go.position,this.arrs.HitEffect);
+					effectMgr.getPosEffect(this.arrs.HitEffectPath,this.targets[j].agent.go.position,this.arrs.HitEffect,this.owner.teamid);
 				}
 			}
 

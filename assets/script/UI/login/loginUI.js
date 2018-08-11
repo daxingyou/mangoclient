@@ -1,12 +1,3 @@
-// Learn cc.Class:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 
 var dataCenter = require('DataCenter')
 var uibase = require('UIBase')
@@ -18,7 +9,9 @@ cc.Class({
     properties: {
         userName : cc.EditBox,
         loginButton : cc.Button,
-        _userName : ''
+        _userName : '',
+        showLabel:cc.Label,
+        copy:cc.Node,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -28,17 +21,21 @@ cc.Class({
         if(uuid == null)
             uuid = '';
         this._userName = this.userName.string = uuid;
-
+        dataCenter.userId = uuid;
+     
+       
     },
 
     start () {
-
+       
     },
 
     // update (dt) {},
     
     editingDidBegan : function(){
         this._userName = this.userName.string;
+        this.showLabel.string = this.userName.string;
+        cc.log(this.showLabel.string);
     },
 
     loginClick(event){

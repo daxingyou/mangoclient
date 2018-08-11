@@ -10,8 +10,6 @@ var netPomelo = {
 
             cc.log("pomelo.respone " , data.code);
 
-            
-
             if(callback != undefined)
                 callback(data);
         });

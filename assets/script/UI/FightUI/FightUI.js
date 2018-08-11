@@ -2,7 +2,7 @@ var UIBase = require('UIBase')
 var combatmgr = require('CombatMgr')
 var dataCenter = require('DataCenter')
 var datamgr = require('DataMgr')
-
+var consts = require('consts')
 
 
 cc.Class({
@@ -28,7 +28,6 @@ cc.Class({
         lineDot:cc.Node,
         lineDotSrc : cc.Component,
         action_time: 15,
-        is_running:true,
         clockwise: false, // 是否为顺时针
         reverse: false, 
         play_mpAni: true, // 是否在加载
@@ -36,8 +35,10 @@ cc.Class({
         userName:cc.Label,
         playerHpBar:cc.ProgressBar,
         barLabel:cc.Label,
-        headImg:cc.Sprite,
+        headImg:cc.Node,
         heroIcon:cc.SpriteAtlas,
+        count:0,
+        _bMpFull: false,
     },
     onLoad () {
         var self = this;   
@@ -64,10 +65,10 @@ cc.Class({
      initData(){
          this.userName.string = dataCenter.userName;
          if(dataCenter.userName==="于小雪"){
-            this.headImg.spriteFrame = this.heroIcon.getSpriteFrame('yuxiaoxue');
+            this.headImg.getComponent(cc.Sprite).spriteFrame = this.heroIcon.getSpriteFrame('yuxiaoxue');
          }
          else{
-            this.headImg.spriteFrame = this.heroIcon.getSpriteFrame('chenjingchou');
+            this.headImg.getComponent(cc.Sprite).spriteFrame = this.heroIcon.getSpriteFrame('chenjingchou');
          }
         this.mp_fill.active = false;
         this.thew_fill.active = false;
@@ -154,20 +155,21 @@ cc.Class({
         self.schedule(self.callback, 1);
         },
     update (dt) {//dt==0.016
-        if(this.is_running){
-            this.now_time += dt * 10;
-            var per = this.now_time / this.action_time;//百分比
+        var target = combatmgr.getSelf();
+        if(!target.mpRecoverPause){
+            this.now_time += dt / target.mpRecoverRate;
+            var per = this.now_time * 1000 / target.mpRecoverTime;//百分比
            
             this.mpSpire.fillRange = per;
             if(per >= 1){
                 this.mpSpire.fillRange = 1;
-                this.is_running = false;
-                if(this.curMp==10){
+                if(this.curMp == consts.Fight.MP_MAX){
                     this.mp_fill.active = true;
                 }
             }
         }
     },
+
     callback () {
         this.sec_time--;
         if(this.sec_time == 0){
@@ -198,17 +200,23 @@ cc.Class({
     onFreshCardsNum(num){
         this.cards.string = num.toString();
     },
-    onFreshMp(mp){
+    onFreshMp(mp, bFresh){
         this.curMp = mp;
-        this.now_time = 1;
-        this.is_running = true;//转圈
+        if (bFresh) {
+            this.now_time = 0;
+        }
         this.mp_fill.active = false;
-         if(mp<10){
-            this.mp.string = " "+""+ mp + "/10";
-         }
-         else{
+        if(mp < consts.Fight.MP_MAX){
+            if (this._bMpFull) {
+                this.now_time = 0;
+            }
+            this._bMpFull = false;
+            this.mp.string = " " + mp + "/10";
+        }
+        else {
+            this._bMpFull = true;
             this.mp.string = mp + "/10";
-         }
+        }
     },
     onFreshThew(thew){
         this.thew.string = thew + "/10";
@@ -221,12 +229,11 @@ cc.Class({
         }
     },
     
-    showNum(mp,disCard,thew){
-        this.onFreshMp(mp);
-        if(disCard!=undefined){
-            this.DiscardPile.string = disCard;  
-        }
-       this.onFreshThew(thew);
+    showNum(data){
+        this.onFreshMp(data.mp);
+        this.DiscardPile.string = data.discardsNum;  
+        this.onFreshThew(data.thew);
+        this.ExhaustedPile.string = data.exhaustsNum;
     },
     
     ShowHandCards : function(){
@@ -258,5 +265,6 @@ cc.Class({
     FreshHp : function(){
         var player = combatmgr.getSelf();
         this.playerHpBar.progress = player.Hp / player.MaxHp;
+        this.updateBarLabel(player.Hp, player.MaxHp);
     }
 });

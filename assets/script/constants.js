@@ -61,7 +61,8 @@ module.exports = {
     EffectPath : 'Effect/',
     EffectType : {
         Bullt:'bullt',
-        origin:'target'
+        Point:'point',
+        SwordWheel:'swordwheel',
     },
     EffectOrigin : {
         target:'target',

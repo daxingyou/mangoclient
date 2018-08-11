@@ -11,16 +11,40 @@ cc.Class({
        armor : cc.Label,
        bar : cc.ProgressBar,
        bufflist : cc.Node,
-       _bufflist : []
+       _bufflist : [],
+       buffItem: cc.Node
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
+        this._buffItems = [];
     },
 
     start () {
         
+    },
+
+    getValidBuffItem: function () {
+        for (var item of this._buffItems) {
+            if (!item.active)
+                return item;
+        }
+        if (this._buffItems.length >= 10) 
+            return null;
+        var item = cc.instantiate(this.buffItem);
+        item.parent = this.bufflist;
+        this._buffItems.push(item);
+        return item;
+    },
+
+    deActiveBuffItems: function () {
+        if(this._buffItems != undefined)
+        {
+            for (var item of this._buffItems) {
+                item.active = false;
+            }
+        }
     },
 
     // update (dt) {},
@@ -37,33 +61,20 @@ cc.Class({
 
         this.bar.progress = cur / max;
     },
-    freshenBuff(data){
-        for(var i=0;i<data.length;i++)
-        {
-            var buff = dataMgr.buff[data[i].id];
-            if(buff.IsHide != 1)
-            {
-                this.showbuff(buff.Image);
-            }
-        }
-    },
-    showbuff(image){
-        if(this._bufflist == null)
-        {
-            this._bufflist = new Array();
 
-            for(var i=0;i<this.bufflist.children.length;i++)
-            {
-                this._bufflist.push(this.bufflist.children[i].getComponent('buffItem'));
-            }
-        }
-
-        for(var i =0;i<this._bufflist.length;i++)
-        {
-            if(!this._bufflist[i].node.active)
-            {
-                this._bufflist[i].show();
-                this._bufflist[i].fresh(image);
+    freshenBuff(buffs){
+        this.deActiveBuffItems();
+        for (var realID in buffs) {
+            var buff = buffs[realID];
+            if (buff.isHide())
+                continue;
+            var image = buff.data.Image;
+            for (var _ in buff.info.cells) {
+                var item = this.getValidBuffItem();
+                if (!item)
+                    break;
+                item.active = true;
+                item.getComponent('buffItem').fresh(image);
             }
         }
     }

@@ -6,6 +6,7 @@ var actionfactory = require('./GameLogic/Action/ActionFactory')
 var uimgr = require('UIMgr')
 var scenemgr = require('SceneMgr')
 var Pool = require('Pool')
+//var utility = require('utility')
 
 cc.Class({
     extends: cc.Component,
@@ -26,6 +27,8 @@ cc.Class({
         uimgr.loadUI(constant.UI.Login);
         matchMessage.init();
         //cc.game.setFrameRate(30);
+
+        
     },
     
     start () {

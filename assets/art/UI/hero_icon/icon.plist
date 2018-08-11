@@ -9,13 +9,13 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{-9,0}</string>
+                <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{94,90}</string>
+                <string>{120,90}</string>
                 <key>spriteSourceSize</key>
                 <string>{120,90}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{94,90}}</string>
+                <string>{{1,1},{120,90}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -24,13 +24,13 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{-3,0}</string>
+                <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{94,90}</string>
+                <string>{120,90}</string>
                 <key>spriteSourceSize</key>
                 <string>{120,90}</string>
                 <key>textureRect</key>
-                <string>{{97,1},{94,90}}</string>
+                <string>{{123,1},{120,90}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -39,13 +39,13 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{1,0}</string>
+                <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{90,90}</string>
+                <string>{120,90}</string>
                 <key>spriteSourceSize</key>
                 <string>{120,90}</string>
                 <key>textureRect</key>
-                <string>{{193,1},{90,90}}</string>
+                <string>{{245,1},{120,90}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -61,9 +61,9 @@
             <key>realTextureFileName</key>
             <string>icon.png</string>
             <key>size</key>
-            <string>{284,92}</string>
+            <string>{366,92}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:a15dc0b20c4be20b1055acf3c0cdec55:164d9ba0be2d4d9d4e2e4f7f999c2d0b:240848ad97db3b21fd898f16a7d3102d$</string>
+            <string>$TexturePacker:SmartUpdate:ca7651830a3330df2fc597b14a9d8b65:610d2d4eb5e920a45c4bee8879395d64:240848ad97db3b21fd898f16a7d3102d$</string>
             <key>textureFileName</key>
             <string>icon.png</string>
         </dict>
