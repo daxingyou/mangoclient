@@ -25,7 +25,7 @@ var mgr = {
                         Pool.create(skilList[j].Path);
                         //var path = constant.EffectPath.concat();
                         LoadRes.loadEffect(skilList[j].Path,true,function(data,effect){
-                            for(var z =0;z<10;z++)
+                            for(var z =0;z<20;z++)
                             {
                                 var go = cc.instantiate(data);
                                 go.parent = cc.find('Canvas/fightEffect');
@@ -40,92 +40,58 @@ var mgr = {
             }
         }
 
-        Pool.create('sword');
+        Pool.create('swordf');
+        Pool.create('swordb');
         LoadRes.loadEffect('sword',true,function(data,effect){
-            for(var z =0;z<40;z++)
+            for(var a =0;a<30;a++)
+            {
+                var go = cc.instantiate(data);
+                go.parent = cc.find('Canvas/frontEffect');
+                go.position = new cc.Vec2(0,-1000);
+                var src = go.getComponent('EffectListen')
+
+                src.init(effect);
+                Pool.put(effect+'f',src);
+            }
+
+            for(var z =0;z<30;z++)
             {
                 var go = cc.instantiate(data);
                 go.parent = cc.find('Canvas/fightEffect');
                 go.position = new cc.Vec2(0,-1000);
                 var src = go.getComponent('EffectListen')
                 src.init(effect);
-                Pool.put(effect,src);
+                Pool.put(effect+'b',src);
             }
         });
-    },  
+    },
     ///普通特效
-    getPosEffect : function(name,pos,effect,teamID){
+    getPosEffect : function(name,pos,effect,teamID,callback){
         var go = this.getEffect(name,pos,teamID);
         if(go != null)
-            go.show(effect);
+            go.show(effect,callback);
         return go;
-        /*
-        if(Pool.hasOwnProperty(name))
-        {
-            var go = Pool.get(name);
-            go.node.position = pos;
-            go.show(effect);
-
-            return go;
-        }
-        else{
-            cc.error('getEffect not found effect name = ',name);
-        }*/
+       
     },                  //子弹特效
     getMoveEffect : function(name,pos,end,frame,effect,teamID){
         var go = this.getEffect(name,pos,teamID);
         if(go != null)
             go.showMove(effect,end,frame);
         return go;
-        /*
-        if(Pool.hasOwnProperty(name))
-        {
-            var go = Pool.get(name);
-            go.node.position = pos;
-            go.showMove(effect,end,frame);
-
-            return go;
-        }
-        else{
-            cc.error('getEffect not found effect name = ',name);
-        }
-        */
+      
     },                  //抛物线特效
     geBezierEffect : function(name,pos,end,frame,effect,teamID,callback){
         var go = this.getEffect(name,pos,teamID);
         if(go != null)
             go.showBezier(effect,pos,end,callback);
         return go;
-        /*
-        if(Pool.hasOwnProperty(name))
-        {
-            var go = Pool.get(name);
-            go.node.position = pos;
-            go.showBezier(effect,pos,end,callback);
-
-            return go;
-        }
-        else{
-            cc.error('getEffect not found effect name = ',name);
-        }*/
     },              //桃木刃插地特效
     getWswordEffect : function(name,pos,teamID){
-        var go = this.getEffect(name,pos,teamID);
+        var go = this.getSwordEffect(name,pos,teamID);
         if(go != null)
             go.showSword();
         return go;
-        /*
-        if(Pool.hasOwnProperty(name))
-        {
-            var go = Pool.get(name);
-            go.node.position = pos;
-            go.showSword();
-
-            return go;
-        }
-        else{
-            cc.error('getEffect not found effect name = ',name);
-        }*/
+       
     },
     getSwordWheel : function(name,pos,teamID){
         var go = this.getEffect(name,pos,teamID);
@@ -137,21 +103,52 @@ var mgr = {
         if(Pool.hasOwnProperty(name))
         {
             var go = Pool.get(name);
-            go.node.position = pos;
 
-            if(teamID == constant.Team.own)
+            if(go != null)
             {
-                go.node.Scale = 1;
+                go.node.position = pos;
+
+                if(teamID == constant.Team.own)
+                {
+                    go.node.Scale = 1;
+                }
+                else
+                {
+                    go.node.Scale = -1;
+                }
             }
-            else{
-                go.node.Scale = -1;
+            else
+            {
+                cc.error('getEffect not found effect name = ',name);
             }
+            
 
             return go;
         }
         else{
             cc.error('getEffect not found effect name = ',name);
         }
+    },
+    getSwordEffect : function(name,pos,teamID){
+        //if(Pool.hasOwnProperty(name))
+        {
+            var go = Pool.getPos(name,pos);
+            go.node.position = pos;
+
+            if(teamID == constant.Team.own)
+            {
+                go.node.Scale = 1;
+            }
+            else
+            {
+                go.node.Scale = -1;
+            }
+
+            return go;
+        }
+        //else{
+        //    cc.error('getEffect not found effect name = ',name);
+        //}
     },
                   //特效回收
     putEffect : function(name,node){

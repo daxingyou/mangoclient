@@ -63,7 +63,7 @@ module.exports = {
 	1001: {
 		ID: 1001,
 		CardName: '桃木刃',
-		CardDescription: '对目标造成25点伤害，落地生成一把木刃',
+		CardDescription: '对目标造成25点伤害，落地生成1把木刃',
 		HeroID: 1000,
 		SkillID: 1001,
 		Treasure: 0,
@@ -77,7 +77,7 @@ module.exports = {
 	1002: {
 		ID: 1002,
 		CardName: '木藤刺',
-		CardDescription: '对目标造成60点伤害，获得15点护甲，落地生成一把木刃',
+		CardDescription: '对目标造成60点伤害，落地生成2把木刃',
 		HeroID: 1000,
 		SkillID: 1002,
 		Treasure: 0,
@@ -85,13 +85,13 @@ module.exports = {
 		CastThew: 0,
 		CardType: 1,
 		CardQuality: 2,
-		CardAttributes: [1],
+		CardAttributes: [2],
 		CardImage: 'attack'
 	},
 	1003: {
 		ID: 1003,
 		CardName: '木剑雨',
-		CardDescription: '对全部敌人造成60点伤害，每击中一个目标，落地生成一把木刃',
+		CardDescription: '对全部敌人造成60点伤害，每击中1个目标，落地生成1把木刃',
 		HeroID: 1000,
 		SkillID: 1003,
 		Treasure: 0,
@@ -105,7 +105,7 @@ module.exports = {
 	1004: {
 		ID: 1004,
 		CardName: '剑灵乱舞',
-		CardDescription: '为自己增加天赋奇术：每使用一张卡牌，对随机一个敌人造成20点伤害',
+		CardDescription: '为自己增加天赋奇术：每使用1张卡牌，对随机1个敌人造成20点伤害',
 		HeroID: 1000,
 		SkillID: 1004,
 		Treasure: 0,
@@ -119,7 +119,7 @@ module.exports = {
 	1005: {
 		ID: 1005,
 		CardName: '横剑摆渡',
-		CardDescription: '为自己增加天赋奇术：每使用4张攻击卡牌，则抽取一张卡牌',
+		CardDescription: '为自己增加天赋奇术：每使用4张攻击卡牌，则抽取1张卡牌',
 		HeroID: 1000,
 		SkillID: 1005,
 		Treasure: 0,
@@ -133,7 +133,7 @@ module.exports = {
 	1006: {
 		ID: 1006,
 		CardName: '桃木刃包',
-		CardDescription: '获得3张桃木刃卡牌',
+		CardDescription: '获得3张桃木刃',
 		HeroID: 1000,
 		SkillID: 1006,
 		Treasure: 0,
@@ -147,7 +147,7 @@ module.exports = {
 	1007: {
 		ID: 1007,
 		CardName: '枯木逢春',
-		CardDescription: '抽2张卡牌，生成1把木刃',
+		CardDescription: '抽2张卡牌',
 		HeroID: 1000,
 		SkillID: 1007,
 		Treasure: 0,
@@ -161,7 +161,7 @@ module.exports = {
 	1008: {
 		ID: 1008,
 		CardName: '取竹成剑',
-		CardDescription: '抽1张卡牌，生成3把木刃',
+		CardDescription: '抽1张卡牌，获得1张木藤刺',
 		HeroID: 1000,
 		SkillID: 1008,
 		Treasure: 0,
@@ -189,7 +189,7 @@ module.exports = {
 	1010: {
 		ID: 1010,
 		CardName: '映日剑轮',
-		CardDescription: '牵引在场所有木刃和乌雪刃攻击一个敌人，每把刀刃造成25点伤害，刀刃在攻击后重新落地',
+		CardDescription: '牵引在场所有木刃和乌雪刃攻击1个敌人，每把刀刃造成25点伤害，刀刃在攻击后重新落地',
 		HeroID: 1000,
 		SkillID: 1010,
 		Treasure: 0,
@@ -203,7 +203,7 @@ module.exports = {
 	2001: {
 		ID: 2001,
 		CardName: '气疗术',
-		CardDescription: '为一名队友恢复240点生命值',
+		CardDescription: '为1名队友恢复240点生命值',
 		HeroID: 2000,
 		SkillID: 2001,
 		Treasure: 0,
@@ -217,7 +217,7 @@ module.exports = {
 	2002: {
 		ID: 2002,
 		CardName: '风砂甘霖术',
-		CardDescription: '为自身和一名队友（可为自身）恢复200点生命值',
+		CardDescription: '为自身和1名队友（可为自身）恢复200点生命值',
 		HeroID: 2000,
 		SkillID: 2002,
 		Treasure: 0,
@@ -231,7 +231,7 @@ module.exports = {
 	2003: {
 		ID: 2003,
 		CardName: '唤魂咒',
-		CardDescription: '复活一个队友，恢复其100点生命值',
+		CardDescription: '复活1个队友，恢复其100点生命值',
 		HeroID: 2000,
 		SkillID: 2003,
 		Treasure: 0,
@@ -287,7 +287,7 @@ module.exports = {
 	2007: {
 		ID: 2007,
 		CardName: '地灵庇佑',
-		CardDescription: '当队友力竭时，把自己当前一半生命值给予力竭者，该效果持续5秒，卡牌生效一次',
+		CardDescription: '当队友力竭时，把自己当前一半生命值给予力竭者，该效果持续5秒，卡牌生效1次',
 		HeroID: 2000,
 		SkillID: 2007,
 		Treasure: 0,
@@ -329,7 +329,7 @@ module.exports = {
 	2010: {
 		ID: 2010,
 		CardName: '石破惊天',
-		CardDescription: '对目标造成2次100点的伤害，如果两次目标一致，则抽一张卡牌',
+		CardDescription: '对目标造成2次100点的伤害，如果两次目标一致，则抽1张卡牌',
 		HeroID: 2000,
 		SkillID: 2010,
 		Treasure: 0,
@@ -403,7 +403,7 @@ module.exports = {
 		HeroID: 0,
 		SkillID: 10005,
 		Treasure: 0,
-		CastMP: 2,
+		CastMP: 0,
 		CastThew: 0,
 		CardType: 2,
 		CardQuality: 4,

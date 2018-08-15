@@ -93,11 +93,19 @@
       "__id__": 1
     },
     "_enabled": true,
+    "effect": null,
+    "_path": "",
+    "_active": false,
+    "_curAni": "",
+    "_MoveAni": false,
     "dmg": {
       "__id__": 2
     },
     "speed": 100,
-    "_alpha": 255
+    "_alpha": 255,
+    "_uimgr": null,
+    "dmgColor": null,
+    "healColor": null
   },
   {
     "__type__": "cc.PrefabInfo",

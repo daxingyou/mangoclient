@@ -7,8 +7,8 @@ var constant = require('constants')
 var hero = require('Hero_')
 var monster = require('Monster_')
 var dataMgr = require('DataMgr')
-var selectHero = require('selectHero');
-
+var FSMEvent = require('FSMEvent');
+var efferMgr = require('EffectMgr')
 
 var fight = {
     _uimgr : null,
@@ -67,6 +67,7 @@ var fight = {
             gameData.mp = myInfo.mp;
             gameData.discardsNum = myInfo.discardsNum;
             gameData.exhaustsNum = myInfo.exhaustsNum;
+            gameData.cardsNum = myInfo.cardsNum;
             gameData.thew = myInfo.thew;
             cc.log('开始加载战斗：', data.teamInfo, data.myInfo);
             that._uimgr.showTips('开始加载战斗：');
@@ -132,6 +133,41 @@ var fight = {
                     
                     var ui = that._uimgr.getCurMainUI();
                     ui.FreshHp();
+
+
+                    var curskill = dataMgr.skill[curdata.sid][1];
+                    if(curskill.HitTime.length > 0 && curskill.DmgFlag == 1)
+                    {
+                        //存储技能伤害
+                        if(gameData.fightDamage.hasOwnProperty(curdata.attackID))
+                        {
+                            if(gameData.fightDamage[curdata.attackID].hasOwnProperty(curdata.sid))
+                            {
+                                gameData.fightDamage[curdata.attackID][curdata.sid].push(curdata.oriDamage);
+                            }
+                            else
+                            {
+                                gameData.fightDamage[curdata.attackID][curdata.sid] = new Array();
+                                gameData.fightDamage[curdata.attackID][curdata.sid].push(curdata.oriDamage);
+                            }
+                        }
+                        else{
+                            gameData.fightDamage[curdata.attackID] = new Array();
+                            gameData.fightDamage[curdata.attackID][curdata.sid] = new Array();
+                            gameData.fightDamage[curdata.attackID][curdata.sid].push(curdata.oriDamage);
+                        }
+                    }
+                    else
+                    {
+                        if(curskill.HitEffect != '')
+                        {
+                            efferMgr.getPosEffect(curskill.HitEffectPath,new cc.v2(player.agent.go.position.x+player.table.HitPoint[0],player.agent.go.position.y +player.table.HitPoint[1]) ,curskill.HitEffect,player.teamid);
+                        }
+                    }
+                    
+                    //gameData.fightDamage[curdata.attackID] = 
+                    //var skillDamage = new Array();
+                    //skillDamage[]
                     break;
                     case consts.FightUpdateReason.skillEffective:
                     player.skillEffective(curdata);
@@ -143,9 +179,12 @@ var fight = {
         pomelo.on('onDrawCard', function(data){
             cc.log('抽牌', data);
             data.inHands = data.inHands || [];
+            gameData.cardsNum = data.cardsNum;
+            if ("discardsNum" in data)
+                gameData.discardsNum = data.discardsNum;
           
             var ui = that._uimgr.getCurMainUI();
-            ui.onFreshCardsNum(data.cardsNum);
+            ui.showNum(gameData);
             combatMgr.getSelf().onDrawPile(data.inHands);
             ui.ShowHandCards();
         });
@@ -276,7 +315,8 @@ var fight = {
             //player.onHeal(data.toHP,data.toHP - data.fromHp);
 
             var target = gameLogic.getCombatUnitForUid(data.targetID);
-            target.Relive(data.hp,data.hp);
+            // target.Relive(data.hp,data.hp);
+            target.fsm.handleEvent(FSMEvent.RELIVE, data);
         });
 
         pomelo.on('onBuffUpdate', function (data) {
@@ -336,7 +376,8 @@ var fight = {
 
         pomelo.on('onDie', function(data){
             var player = gameLogic.getCombatUnitForUid(data.targetID);
-            player.onDie();
+            // player.onDie();
+            player.fsm.handleEvent(FSMEvent.DIE);
         });
 
         pomelo.on('onDungeonReconnect', function(data){

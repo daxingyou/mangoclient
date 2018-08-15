@@ -11,14 +11,14 @@ function Monster_(data,attributes,pos,teamid,combat,uid){
     
     var that = this;
 
-    var monster = DataMgr.monster[data.monsterid];
+    this.table = DataMgr.monster[data.monsterid];
     CombatUnit.call(this,data,attributes,pos,teamid,combat,uid);
     
     var scale = 1;
     if(data.hasOwnProperty('scale'))
         scale = data.scale;
 
-    this.agent = new Agent(monster.Model,pos,teamid,this.Hp,this.MaxHp,this.basePhysical_arm,uid,this.buffs,scale,function(){
+    this.agent = new Agent(this.table.Model,pos,teamid,this.Hp,this.MaxHp,this.basePhysical_arm,uid,this.buffs,scale,function(){
         that.loadok = true;
     });
 }

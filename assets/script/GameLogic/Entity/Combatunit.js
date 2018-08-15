@@ -7,6 +7,15 @@
  var ability = require('Ability') 
  var dataMgr = require('DataMgr') 
 
+ var FSM = require('FSM');
+ var FSMEvent = require('FSMEvent');
+ var StandbyState = require('StandbyState');
+ var DieState = require('DieState');
+ var HitState = require('HitState');
+ var SingState = require('SingState');
+ var SwoonState = require('SwoonState');
+ var ReliveState = require('ReliveState');
+
 var CombatUnit = function(data,attrs,pos,teamid,combat,uid){
     this.Pos = data.pos;
     this.teamid = teamid;
@@ -24,6 +33,20 @@ var CombatUnit = function(data,attrs,pos,teamid,combat,uid){
             this.buffs[info.realID] = new buff(info);
         }
     }
+
+    this._initFSM();
+};
+
+CombatUnit.prototype._initFSM = function () {
+    var fsm = new FSM(this);
+    fsm.addInitState(new StandbyState(fsm));
+    fsm.addState(new DieState(fsm));
+    fsm.addState(new HitState(fsm));
+    fsm.addState(new SingState(fsm));
+    fsm.addState(new SwoonState(fsm));
+    fsm.addState(new ReliveState(fsm));
+
+    this.fsm = fsm;
 };
 
 //////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////// 
@@ -95,7 +118,10 @@ CombatUnit.prototype.onDamage = function(dmg,from,data = null){
     this.uimgr.loadDmg(this,dmg,true);
 
     if(this.Hp <= 0)
-        this.onDie();
+        // this.onDie();
+        this.fsm.handleEvent(FSMEvent.DIE);
+    else
+        this.fsm.handleEvent(FSMEvent.HIT);
 
     if(this.uid == this.curCombat.getSelf().uid)
     {
@@ -134,12 +160,6 @@ CombatUnit.prototype.onHeal = function(curhp,value){
 }
 
 CombatUnit.prototype.Relive = function(curhp,value){
-    if(this.IsDie)
-    {
-        this.IsDie = false;
-        this.agent.PlayAnimation('guard',true);
-    }
-
     this.Hp = curhp;
     this.agent.hpbar.freshen(this.Hp, this.MaxHp, this.basePhysical_arm);
     this.uimgr.loadDmg(this,value,false);

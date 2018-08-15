@@ -10,4 +10,5 @@ module.exports = {
     user_second:'',
     _first_uid:'',
     _second_uid:'',
+    fightDamage : [],
 }

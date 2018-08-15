@@ -16,7 +16,7 @@ cc.Class({
     },
 
     onLoad () {
-        Pool.init();
+        //Pool.init();
         scenemgr.init();
         actionfactory.init();
         ////数据加载
@@ -26,9 +26,6 @@ cc.Class({
         uimgr = cc.find('Canvas').getComponent('UIMgr');
         uimgr.loadUI(constant.UI.Login);
         matchMessage.init();
-        //cc.game.setFrameRate(30);
-
-        
     },
     
     start () {

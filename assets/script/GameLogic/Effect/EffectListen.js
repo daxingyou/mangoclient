@@ -27,13 +27,17 @@ cc.Class({
             var animationName = trackEntry.animation ? trackEntry.animation.name : "";
             cc.log('effect show over = ',animationName);
            
+            if(this.callBack != undefined)
+            {
+                this.callBack();
+            }
+            
             if(!this._MoveAni)
             {
                 that._active = false;
                 that.node.position = new cc.v2(0,-1000);
-            
-                cc.log('wtf ??????? this = ',this.uuid, ' spine == ',this.effect,' name ==',name ,' active = ',this._active);
             }
+            //cc.log('wtf ??????? this = ',this.uuid, ' spine == ',this.effect,' name ==',name ,' active = ',this._active);
         });
         spine.setStartListener(trackEntry => {
             var animationName = trackEntry.animation ? trackEntry.animation.name : "";
@@ -62,11 +66,13 @@ cc.Class({
     init(path){
         this._path = path;
     },
-    show(name){
+    show(name,callBack){
         this._curAni = name;
         this._active = true;
         this.effect.clearTrack();
         this.effect.setAnimation(0,name, false);
+        this.callBack = callBack;
+
         cc.log('wtf ??????? this = ',this.uuid, ' spine == ',this.effect,' name ==',name ,' active = ',this._active);
     },
     showMove(name,end,frame){
@@ -74,12 +80,10 @@ cc.Class({
         this._active = true;
         this.points = undefined;
 
-        //cc.log('why... showMove');
-
         this.effect.clearTrack();
         this.effect.setAnimation(0,name, false);
-        var track = this.effect.getCurrent(0);
-        cc.log('track = ',track);
+        //var track = this.effect.getCurrent(0);
+        //cc.log('track = ',track);
 
         var dir = end.sub(this.node.position);
         this.step = dir.div(frame);
@@ -88,8 +92,6 @@ cc.Class({
     showBezier(name,start,end,callBack){
         this._MoveAni = true;
         this._active = true;
-
-        //cc.log('why... showBezier');
 
         this.effect.clearTrack();
         this.effect.setAnimation(0,name, false);
@@ -117,6 +119,7 @@ cc.Class({
                 this._MoveAni = false;
                 this._active = false;
                 this.node.position = new cc.v2(0,-1000);
+
             }
         }
         else if(this._MoveAni && this._active && this.points != null)
@@ -130,7 +133,7 @@ cc.Class({
             
             if(this.frame == 0)
             {
-                cc.log('why...');
+                //cc.log('why...');
 
                 this._MoveAni = false;
                 this._active = false;

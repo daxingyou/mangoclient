@@ -155,18 +155,14 @@ cc.Class({
         self.schedule(self.callback, 1);
         },
     update (dt) {//dt==0.016
+        if (this._bMpFull) {
+            return;
+        }
         var target = combatmgr.getSelf();
         if(!target.mpRecoverPause){
             this.now_time += dt / target.mpRecoverRate;
-            var per = this.now_time * 1000 / target.mpRecoverTime;//百分比
-           
+            var per = Math.min(1, this.now_time * 1000 / target.mpRecoverTime);  //百分比
             this.mpSpire.fillRange = per;
-            if(per >= 1){
-                this.mpSpire.fillRange = 1;
-                if(this.curMp == consts.Fight.MP_MAX){
-                    this.mp_fill.active = true;
-                }
-            }
         }
     },
 
@@ -205,17 +201,19 @@ cc.Class({
         if (bFresh) {
             this.now_time = 0;
         }
-        this.mp_fill.active = false;
         if(mp < consts.Fight.MP_MAX){
             if (this._bMpFull) {
                 this.now_time = 0;
             }
             this._bMpFull = false;
             this.mp.string = " " + mp + "/10";
+            this.mp_fill.active = false;
         }
         else {
             this._bMpFull = true;
             this.mp.string = mp + "/10";
+            this.mpSpire.fillRange = 1;
+            this.mp_fill.active = true;
         }
     },
     onFreshThew(thew){
@@ -234,6 +232,7 @@ cc.Class({
         this.DiscardPile.string = data.discardsNum;  
         this.onFreshThew(data.thew);
         this.ExhaustedPile.string = data.exhaustsNum;
+        this.cards.string = data.cardsNum;
     },
     
     ShowHandCards : function(){

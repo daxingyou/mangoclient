@@ -31,6 +31,7 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
+        this._completeCallback = {};
         var spine = this.spine = this.getComponent('sp.Skeleton');
 
         //this._setMix(this._standS,this._attackS);
@@ -54,8 +55,11 @@ cc.Class({
         spine.setCompleteListener((trackEntry, loopCount) => {
             var animationName = trackEntry.animation ? trackEntry.animation.name : "";
             
-            if(animationName != 'guard' && animationName != 'guard2' && animationName != 'die')
-                this.spine.setAnimation(0,this._stand, true);
+            if (this._completeCallback[animationName]) {
+                this._completeCallback[animationName]();
+            }
+            // if(animationName != 'guard' && animationName != 'guard2' && animationName != 'die')
+            //     this.spine.setAnimation(0,this._stand, true);
             //cc.log("[track %s][animation %s] complete: %s", trackEntry.trackIndex, animationName, loopCount);
         });
         spine.setEventListener((trackEntry, event) => {
@@ -87,6 +91,12 @@ cc.Class({
         this.spine.setAnimation(1, this.attackS, false);
     },
     playAnimation(name,loop){
-        this.spine.setAnimation(0,name,loop);
+        return this.spine.setAnimation(0,name,loop);
+    },
+    setCompleteCallback(name, cb) {
+        if (cb)
+            this._completeCallback[name] = cb;
+        else
+            delete this._completeCallback[name];
     }
 });

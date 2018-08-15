@@ -74,7 +74,7 @@
     "_paused": false,
     "defaultSkin": "",
     "defaultAnimation": "",
-    "loop": true,
+    "loop": false,
     "_premultipliedAlpha": false,
     "_N$skeletonData": {
       "__uuid__": "dbd3648e-2385-49cc-ae7e-ea1c40323557"

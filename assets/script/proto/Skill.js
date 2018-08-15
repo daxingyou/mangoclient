@@ -13,12 +13,14 @@ module.exports = {
 			Actions: {damage:{"dmg":60}},
 			Animation: 'attack_01',
 			CriticalTime: 66,
-			Effect: 'attack',
-			EffectType: {"type":"bullt","origin":"target"},
-			EffectiveTime: [151],
+			Effect: 'wsword',
+			EffectType: {"type":"bullt","origin":"owner","delay":1.7},
+			EffectiveTime: 151,
 			Path: 'chenjinchou',
 			HitEffect: 'hiteffect',
-			HitEffectPath: 'chenjinchou'
+			HitEffectPath: 'chenjinchou',
+			HitTime: [],
+			DmgFlag: ""
 		}
 	},
 	2: {
@@ -32,10 +34,12 @@ module.exports = {
 			CriticalTime: 66,
 			Effect: '',
 			EffectType: {},
-			EffectiveTime: [],
+			EffectiveTime: 0,
 			Path: 'chenjinchou',
 			HitEffect: '',
-			HitEffectPath: ''
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
 		}
 	},
 	3: {
@@ -47,12 +51,14 @@ module.exports = {
 			Actions: {damage:{"dmg":60}},
 			Animation: 'attack_01',
 			CriticalTime: 66,
-			Effect: 'attack',
-			EffectType: {"type":"bullt","origin":"target"},
-			EffectiveTime: [151],
+			Effect: 'wsword',
+			EffectType: {"type":"bullt","origin":"owner","delay":1.7},
+			EffectiveTime: 151,
 			Path: 'yuxiaoxue',
 			HitEffect: 'hiteffect',
-			HitEffectPath: 'yuxiaoxue'
+			HitEffectPath: 'yuxiaoxue',
+			HitTime: [],
+			DmgFlag: ""
 		}
 	},
 	4: {
@@ -66,10 +72,12 @@ module.exports = {
 			CriticalTime: 66,
 			Effect: '',
 			EffectType: {},
-			EffectiveTime: [],
+			EffectiveTime: 0,
 			Path: 'yuxiaoxue',
 			HitEffect: '',
-			HitEffectPath: ''
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
 		}
 	},
 	1001: {
@@ -81,12 +89,14 @@ module.exports = {
 			Actions: {damage:{"dmg":25}},
 			Animation: 'attack_02',
 			CriticalTime: 66,
-			Effect: 'wthorn',
-			EffectType: {"type":"bullt","origin":"target"},
-			EffectiveTime: [151],
+			Effect: 'wsword',
+			EffectType: {"type":"bullt","origin":"owner","delay":1.7},
+			EffectiveTime: 151,
 			Path: 'chenjinchou',
 			HitEffect: 'hiteffect',
-			HitEffectPath: 'chenjinchou'
+			HitEffectPath: 'chenjinchou',
+			HitTime: [],
+			DmgFlag: ""
 		},
 		2: {
 			ID: 1001,
@@ -98,10 +108,12 @@ module.exports = {
 			CriticalTime: 0,
 			Effect: '',
 			EffectType: {},
-			EffectiveTime: [],
+			EffectiveTime: 0,
 			Path: '',
 			HitEffect: '',
-			HitEffectPath: ''
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
 		}
 	},
 	1002: {
@@ -113,42 +125,31 @@ module.exports = {
 			Actions: {damage:{"dmg":60}},
 			Animation: 'attack_02',
 			CriticalTime: 66,
-			Effect: 'wthorn',
-			EffectType: {"type":"bullt","origin":"target"},
-			EffectiveTime: [151],
+			Effect: 'wsword',
+			EffectType: {"type":"bullt","origin":"owner","delay":1.7},
+			EffectiveTime: 151,
 			Path: 'chenjinchou',
 			HitEffect: 'hiteffect',
-			HitEffectPath: 'chenjinchou'
+			HitEffectPath: 'chenjinchou',
+			HitTime: [],
+			DmgFlag: ""
 		},
 		2: {
 			ID: 1002,
 			Index: 2,
 			SkillName: '木藤刺',
-			Target: {"type":"self","team":0},
-			Actions: {addBuff:{buffID:1002,"time":15}},
-			Animation: '',
-			CriticalTime: 0,
-			Effect: '',
-			EffectType: {},
-			EffectiveTime: [],
-			Path: '',
-			HitEffect: '',
-			HitEffectPath: ''
-		},
-		3: {
-			ID: 1002,
-			Index: 3,
-			SkillName: '木藤刺',
 			Target: {},
-			Actions: {spawnSummoned:{"type":"wSword","num":1,"area":"random"}},
+			Actions: {spawnSummoned:{"type":"wSword","num":2,"area":"random"}},
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',
 			EffectType: {},
-			EffectiveTime: [],
+			EffectiveTime: 0,
 			Path: '',
 			HitEffect: '',
-			HitEffectPath: ''
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
 		}
 	},
 	1003: {
@@ -162,10 +163,12 @@ module.exports = {
 			CriticalTime: 66,
 			Effect: 'rainofsword',
 			EffectType: {"type":"point","origin":"target"},
-			EffectiveTime: [151],
+			EffectiveTime: 151,
 			Path: 'chenjinchou',
 			HitEffect: 'hiteffect',
-			HitEffectPath: 'chenjinchou'
+			HitEffectPath: 'chenjinchou',
+			HitTime: [3.5,3.6,3.7,3.8,4.0,4.3,4.5],
+			DmgFlag: ""
 		},
 		2: {
 			ID: 1003,
@@ -177,10 +180,12 @@ module.exports = {
 			CriticalTime: 0,
 			Effect: '',
 			EffectType: {},
-			EffectiveTime: [],
+			EffectiveTime: 0,
 			Path: '',
 			HitEffect: '',
-			HitEffectPath: ''
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
 		}
 	},
 	1004: {
@@ -194,10 +199,12 @@ module.exports = {
 			CriticalTime: 66,
 			Effect: 'ghostcard',
 			EffectType: {"type":"point","origin":"owner"},
-			EffectiveTime: [],
+			EffectiveTime: 0,
 			Path: 'chenjinchou',
 			HitEffect: '',
-			HitEffectPath: ''
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
 		}
 	},
 	1104: {
@@ -211,10 +218,12 @@ module.exports = {
 			CriticalTime: 0,
 			Effect: '',
 			EffectType: {},
-			EffectiveTime: [],
+			EffectiveTime: 0,
 			Path: '',
 			HitEffect: '',
-			HitEffectPath: ''
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
 		}
 	},
 	1005: {
@@ -228,10 +237,12 @@ module.exports = {
 			CriticalTime: 66,
 			Effect: 'ghostcard',
 			EffectType: {"type":"point","origin":"owner"},
-			EffectiveTime: [],
+			EffectiveTime: 0,
 			Path: 'chenjinchou',
 			HitEffect: '',
-			HitEffectPath: ''
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
 		}
 	},
 	1105: {
@@ -245,10 +256,12 @@ module.exports = {
 			CriticalTime: 0,
 			Effect: '',
 			EffectType: {},
-			EffectiveTime: [],
+			EffectiveTime: 0,
 			Path: '',
 			HitEffect: '',
-			HitEffectPath: ''
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
 		}
 	},
 	1006: {
@@ -262,10 +275,12 @@ module.exports = {
 			CriticalTime: 66,
 			Effect: 'ghostcard',
 			EffectType: {"type":"point","origin":"owner"},
-			EffectiveTime: [],
+			EffectiveTime: 0,
 			Path: 'chenjinchou',
 			HitEffect: '',
-			HitEffectPath: ''
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
 		}
 	},
 	1007: {
@@ -279,25 +294,12 @@ module.exports = {
 			CriticalTime: 66,
 			Effect: 'ghostcard',
 			EffectType: {"type":"point","origin":"owner"},
-			EffectiveTime: [],
+			EffectiveTime: 0,
 			Path: 'chenjinchou',
 			HitEffect: '',
-			HitEffectPath: ''
-		},
-		2: {
-			ID: 1007,
-			Index: 2,
-			SkillName: '枯木逢春',
-			Target: {},
-			Actions: {spawnSummoned:{"type":"wSword","num":1,"area":"random","team":1}},
-			Animation: '',
-			CriticalTime: 0,
-			Effect: '',
-			EffectType: {},
-			EffectiveTime: [],
-			Path: '',
-			HitEffect: '',
-			HitEffectPath: ''
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
 		}
 	},
 	1008: {
@@ -311,25 +313,29 @@ module.exports = {
 			CriticalTime: 66,
 			Effect: 'ghostcard',
 			EffectType: {"type":"point","origin":"owner"},
-			EffectiveTime: [],
+			EffectiveTime: 0,
 			Path: 'chenjinchou',
 			HitEffect: '',
-			HitEffectPath: ''
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
 		},
 		2: {
 			ID: 1008,
 			Index: 2,
 			SkillName: '取竹成剑',
 			Target: {},
-			Actions: {spawnSummoned:{"type":"wSword","num":3,"area":"random","team":1}},
+			Actions: {create:{"cardID":1002,"num":1}},
 			Animation: '',
 			CriticalTime: 0,
 			Effect: '',
 			EffectType: {},
-			EffectiveTime: [],
+			EffectiveTime: 0,
 			Path: '',
 			HitEffect: '',
-			HitEffectPath: ''
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
 		}
 	},
 	1009: {
@@ -343,10 +349,12 @@ module.exports = {
 			CriticalTime: 66,
 			Effect: '',
 			EffectType: {},
-			EffectiveTime: [33],
+			EffectiveTime: 33,
 			Path: '',
 			HitEffect: '',
-			HitEffectPath: ''
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
 		}
 	},
 	1010: {
@@ -359,11 +367,13 @@ module.exports = {
 			Animation: 'attack_03',
 			CriticalTime: 66,
 			Effect: 'swordwheel',
-			EffectType: {"type":"bullt","origin":"target"},
-			EffectiveTime: [212,45,45,46,45,45,46],
+			EffectType: {"type":"point","origin":"owner"},
+			EffectiveTime: 484,
 			Path: 'chenjinchou',
 			HitEffect: 'hiteffect',
-			HitEffectPath: 'chenjinchou'
+			HitEffectPath: 'chenjinchou',
+			HitTime: [4.4,4.5,4.6,4.7,4.9,5.1,5.3],
+			DmgFlag: 1
 		}
 	},
 	2001: {
@@ -377,10 +387,12 @@ module.exports = {
 			CriticalTime: 66,
 			Effect: 'healrain',
 			EffectType: {"type":"point","origin":"target"},
-			EffectiveTime: [434],
+			EffectiveTime: 434,
 			Path: 'snow',
 			HitEffect: 'hiteffect',
-			HitEffectPath: 'snow'
+			HitEffectPath: 'snow',
+			HitTime: [],
+			DmgFlag: ""
 		}
 	},
 	2002: {
@@ -392,12 +404,14 @@ module.exports = {
 			Actions: {heal:{"heal":200}},
 			Animation: 'skill_02',
 			CriticalTime: 66,
-			Effect: 'healrain',
+			Effect: 'healrain,healFog',
 			EffectType: {"type":"point","origin":"target"},
-			EffectiveTime: [434],
+			EffectiveTime: 434,
 			Path: 'snow',
 			HitEffect: 'hiteffect',
-			HitEffectPath: 'snow'
+			HitEffectPath: 'snow',
+			HitTime: [],
+			DmgFlag: ""
 		},
 		2: {
 			ID: 2002,
@@ -409,10 +423,12 @@ module.exports = {
 			CriticalTime: 0,
 			Effect: '',
 			EffectType: {},
-			EffectiveTime: [],
+			EffectiveTime: 0,
 			Path: '',
 			HitEffect: '',
-			HitEffectPath: ''
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
 		}
 	},
 	2003: {
@@ -426,10 +442,12 @@ module.exports = {
 			CriticalTime: 66,
 			Effect: 'heallight',
 			EffectType: {"type":"point","origin":"target"},
-			EffectiveTime: [434],
+			EffectiveTime: 434,
 			Path: 'snow',
 			HitEffect: 'hiteffect',
-			HitEffectPath: 'snow'
+			HitEffectPath: 'snow',
+			HitTime: [],
+			DmgFlag: ""
 		}
 	},
 	2004: {
@@ -443,10 +461,12 @@ module.exports = {
 			CriticalTime: 66,
 			Effect: 'healrain',
 			EffectType: {"type":"point","origin":"target"},
-			EffectiveTime: [434],
+			EffectiveTime: 434,
 			Path: 'snow',
 			HitEffect: 'hiteffect',
-			HitEffectPath: 'snow'
+			HitEffectPath: 'snow',
+			HitTime: [],
+			DmgFlag: ""
 		},
 		2: {
 			ID: 2004,
@@ -458,10 +478,12 @@ module.exports = {
 			CriticalTime: 0,
 			Effect: '',
 			EffectType: {},
-			EffectiveTime: [],
+			EffectiveTime: 0,
 			Path: '',
 			HitEffect: '',
-			HitEffectPath: ''
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
 		}
 	},
 	2005: {
@@ -473,12 +495,14 @@ module.exports = {
 			Actions: {addBuff:{"buffID":2005}},
 			Animation: 'talent_01',
 			CriticalTime: 66,
-			Effect: '',
-			EffectType: {},
-			EffectiveTime: [],
-			Path: '',
+			Effect: 'ghostcard',
+			EffectType: {"type":"point","origin":"owner"},
+			EffectiveTime: 0,
+			Path: 'chenjinchou',
 			HitEffect: '',
-			HitEffectPath: ''
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
 		}
 	},
 	2105: {
@@ -492,10 +516,12 @@ module.exports = {
 			CriticalTime: 0,
 			Effect: '',
 			EffectType: {},
-			EffectiveTime: [],
+			EffectiveTime: 0,
 			Path: '',
 			HitEffect: '',
-			HitEffectPath: ''
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
 		}
 	},
 	2006: {
@@ -507,12 +533,14 @@ module.exports = {
 			Actions: {normalDrawCard:{"num":2}},
 			Animation: 'skill_04',
 			CriticalTime: 66,
-			Effect: '',
-			EffectType: {},
-			EffectiveTime: [],
-			Path: '',
+			Effect: 'ghostcard',
+			EffectType: {"type":"point","origin":"owner"},
+			EffectiveTime: 0,
+			Path: 'chenjinchou',
 			HitEffect: '',
-			HitEffectPath: ''
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
 		},
 		2: {
 			ID: 2006,
@@ -524,10 +552,12 @@ module.exports = {
 			CriticalTime: 0,
 			Effect: '',
 			EffectType: {},
-			EffectiveTime: [],
+			EffectiveTime: 0,
 			Path: '',
 			HitEffect: '',
-			HitEffectPath: ''
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
 		}
 	},
 	2007: {
@@ -539,12 +569,14 @@ module.exports = {
 			Actions: {addBuff:{"buffID":2007,"time":10}},
 			Animation: 'talent_01',
 			CriticalTime: 66,
-			Effect: '',
-			EffectType: {},
-			EffectiveTime: [],
-			Path: '',
+			Effect: 'ghostcard',
+			EffectType: {"type":"point","origin":"owner"},
+			EffectiveTime: 0,
+			Path: 'chenjinchou',
 			HitEffect: '',
-			HitEffectPath: ''
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
 		}
 	},
 	2107: {
@@ -558,10 +590,12 @@ module.exports = {
 			CriticalTime: 0,
 			Effect: '',
 			EffectType: {},
-			EffectiveTime: [],
+			EffectiveTime: 0,
 			Path: '',
 			HitEffect: '',
-			HitEffectPath: ''
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
 		}
 	},
 	2008: {
@@ -573,12 +607,14 @@ module.exports = {
 			Actions: {addBuff:{"buffID":2008}},
 			Animation: 'talent_01',
 			CriticalTime: 66,
-			Effect: '',
-			EffectType: {},
-			EffectiveTime: [],
-			Path: '',
+			Effect: 'ghostcard',
+			EffectType: {"type":"point","origin":"owner"},
+			EffectiveTime: 0,
+			Path: 'chenjinchou',
 			HitEffect: '',
-			HitEffectPath: ''
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
 		}
 	},
 	2108: {
@@ -592,10 +628,12 @@ module.exports = {
 			CriticalTime: 0,
 			Effect: '',
 			EffectType: {},
-			EffectiveTime: [],
+			EffectiveTime: 0,
 			Path: '',
 			HitEffect: '',
-			HitEffectPath: ''
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
 		}
 	},
 	2009: {
@@ -609,10 +647,12 @@ module.exports = {
 			CriticalTime: 66,
 			Effect: 'groundfire',
 			EffectType: {"type":"bullt","origin":"target"},
-			EffectiveTime: [66],
+			EffectiveTime: 66,
 			Path: 'snow',
 			HitEffect: 'hiteffect',
-			HitEffectPath: 'snow'
+			HitEffectPath: 'snow',
+			HitTime: [],
+			DmgFlag: ""
 		},
 		2: {
 			ID: 2009,
@@ -624,10 +664,12 @@ module.exports = {
 			CriticalTime: 0,
 			Effect: '',
 			EffectType: {},
-			EffectiveTime: [],
+			EffectiveTime: 0,
 			Path: '',
 			HitEffect: '',
-			HitEffectPath: ''
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
 		}
 	},
 	2010: {
@@ -640,11 +682,13 @@ module.exports = {
 			Animation: 'attack_02',
 			CriticalTime: 66,
 			Effect: 'aerolite',
-			EffectType: {"type":"bullt","origin":"target"},
-			EffectiveTime: [333],
+			EffectType: {"type":"point","origin":"target"},
+			EffectiveTime: 333,
 			Path: 'snow',
 			HitEffect: 'hiteffect',
-			HitEffectPath: 'snow'
+			HitEffectPath: 'snow',
+			HitTime: [],
+			DmgFlag: ""
 		},
 		2: {
 			ID: 2010,
@@ -656,10 +700,12 @@ module.exports = {
 			CriticalTime: 0,
 			Effect: '',
 			EffectType: {},
-			EffectiveTime: [],
+			EffectiveTime: 0,
 			Path: '',
 			HitEffect: '',
-			HitEffectPath: ''
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
 		}
 	},
 	10001: {
@@ -673,10 +719,12 @@ module.exports = {
 			CriticalTime: 66,
 			Effect: '',
 			EffectType: {},
-			EffectiveTime: [],
+			EffectiveTime: 0,
 			Path: '',
-			HitEffect: '',
-			HitEffectPath: ''
+			HitEffect: 'hiteffect',
+			HitEffectPath: 'chenjinchou',
+			HitTime: [],
+			DmgFlag: ""
 		}
 	},
 	10002: {
@@ -690,10 +738,12 @@ module.exports = {
 			CriticalTime: 66,
 			Effect: 'skill_01',
 			EffectType: {"type":"point","origin":"owner"},
-			EffectiveTime: [],
+			EffectiveTime: 0,
 			Path: 'shark',
-			HitEffect: '',
-			HitEffectPath: ''
+			HitEffect: 'hiteffect',
+			HitEffectPath: 'chenjinchou',
+			HitTime: [],
+			DmgFlag: ""
 		},
 		2: {
 			ID: 10002,
@@ -705,10 +755,12 @@ module.exports = {
 			CriticalTime: 0,
 			Effect: '',
 			EffectType: {},
-			EffectiveTime: [],
+			EffectiveTime: 0,
 			Path: '',
 			HitEffect: '',
-			HitEffectPath: ''
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
 		}
 	},
 	10003: {
@@ -722,10 +774,12 @@ module.exports = {
 			CriticalTime: 66,
 			Effect: 'billow',
 			EffectType: {"type":"point","origin":"owner"},
-			EffectiveTime: [],
+			EffectiveTime: 0,
 			Path: 'shark',
-			HitEffect: '',
-			HitEffectPath: ''
+			HitEffect: 'hiteffect',
+			HitEffectPath: 'chenjinchou',
+			HitTime: [],
+			DmgFlag: ""
 		},
 		2: {
 			ID: 10003,
@@ -737,10 +791,12 @@ module.exports = {
 			CriticalTime: 0,
 			Effect: '',
 			EffectType: {},
-			EffectiveTime: [],
+			EffectiveTime: 0,
 			Path: '',
 			HitEffect: '',
-			HitEffectPath: ''
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
 		}
 	},
 	10004: {
@@ -754,10 +810,12 @@ module.exports = {
 			CriticalTime: 66,
 			Effect: 'wind',
 			EffectType: {"type":"point","origin":"owner"},
-			EffectiveTime: [],
+			EffectiveTime: 0,
 			Path: 'shark',
-			HitEffect: '',
-			HitEffectPath: ''
+			HitEffect: 'hiteffect',
+			HitEffectPath: 'chenjinchou',
+			HitTime: [],
+			DmgFlag: ""
 		},
 		2: {
 			ID: 10004,
@@ -769,10 +827,12 @@ module.exports = {
 			CriticalTime: 0,
 			Effect: '',
 			EffectType: {},
-			EffectiveTime: [],
+			EffectiveTime: 0,
 			Path: '',
 			HitEffect: '',
-			HitEffectPath: ''
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
 		}
 	},
 	10005: {
@@ -786,10 +846,12 @@ module.exports = {
 			CriticalTime: 0,
 			Effect: 'phantom',
 			EffectType: {"type":"point","origin":"owner"},
-			EffectiveTime: [],
+			EffectiveTime: 0,
 			Path: 'shark',
-			HitEffect: '',
-			HitEffectPath: ''
+			HitEffect: 'hiteffect',
+			HitEffectPath: 'chenjinchou',
+			HitTime: [],
+			DmgFlag: ""
 		},
 		2: {
 			ID: 10005,
@@ -801,10 +863,12 @@ module.exports = {
 			CriticalTime: 0,
 			Effect: '',
 			EffectType: {},
-			EffectiveTime: [],
+			EffectiveTime: 0,
 			Path: '',
 			HitEffect: '',
-			HitEffectPath: ''
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
 		}
 	},
 };

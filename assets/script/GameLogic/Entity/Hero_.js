@@ -12,7 +12,7 @@ function Hero_(data,attributes,pos,teamid,combat,uid){
     this.basePhysical_arm = data.armor;
 
     var that = this;
-    var hero = DataMgr.hero[data.heroid];
+    this.table = DataMgr.hero[data.heroid];
 
     CombatUnit.call(this,data,attributes,pos,teamid,combat,uid);
 
@@ -20,7 +20,7 @@ function Hero_(data,attributes,pos,teamid,combat,uid){
     if(data.hasOwnProperty('scale'))
         scale = data.scale;
 
-    this.agent = new Agent(hero.HeroModel,pos,teamid,this.Hp,this.MaxHp,this.basePhysical_arm,uid,this.buffs,scale,function(){
+    this.agent = new Agent(this.table.HeroModel,pos,teamid,this.Hp,this.MaxHp,this.basePhysical_arm,uid,this.buffs,scale,function(){
         that.loadok = true;
     });
 }

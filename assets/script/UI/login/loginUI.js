@@ -35,7 +35,7 @@ cc.Class({
     editingDidBegan : function(){
         this._userName = this.userName.string;
         this.showLabel.string = this.userName.string;
-        cc.log(this.showLabel.string);
+        //cc.log(this.showLabel.string);
     },
 
     loginClick(event){

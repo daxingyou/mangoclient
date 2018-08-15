@@ -7,6 +7,9 @@ var SpawnSummoned = {
     summoneds : [],
     index : 0,
     create : function(data){
+        if(combatMgr.curCombat.summonedMgr == null)
+            combatMgr.curCombat.summonedMgr = this;
+
         var area = null;
 
         if(data.area == 1)
@@ -49,15 +52,11 @@ var SpawnSummoned = {
             effectMgr.geBezierEffect('chenjinchou',new cc.Vec2(1100,310),new cc.Vec2(x,y),5,'wsword_bounce',0,()=>{
                 this.summoneds.push(effectMgr.getWswordEffect('sword',new cc.Vec2(x,y),0));
             });
+
+            combatMgr.curCombat.summoneds = this.summoneds;
         }
     },
     Reset(data){
-        for(var a =0;a<this.summoneds.length;a++)
-        {
-            effectMgr.putEffect('sword',this.summoneds[a]);
-        }
-        this.summoneds.splice(0,this.summoneds.length);
-
         for(var i in data)
         {
             var area = null;
@@ -120,7 +119,41 @@ var SpawnSummoned = {
         {
             this.summoneds[i].showCollect(this.ShowDamage);
         }
-    },      //木刃回收跳伤害
+        
+    },   
+    collectItem(){
+        if(this.summoneds[a].node.position.y >= 300)
+                {
+                    effectMgr.putEffect('swordf',this.summoneds[0]);
+                }
+                else{
+                    effectMgr.putEffect('swordb',this.summoneds[0]);
+                }
+        this.summoneds.splice(0,1);
+        
+        combatMgr.curCombat.summoneds = this.summoneds;
+    },
+    collectAll(){
+        for(var a =0;a<this.summoneds.length;a++)
+        {
+            if(this.summoneds[a] instanceof cc.Component)
+            {
+                var name = 'sword';
+                if(this.summoneds[a].node.position.y >= 300)
+                {
+                    effectMgr.putEffect('swordf',this.summoneds[a]);
+                }
+                else{
+                    effectMgr.putEffect('swordb',this.summoneds[a]);
+                }
+            }
+                
+        }
+        this.summoneds.splice(0,this.summoneds.length);
+        
+        combatMgr.curCombat.summoneds = this.summoneds;
+    },
+       //木刃回收跳伤害
     ShowDamage(){
         for(var i in this.damage) 
         {
@@ -139,6 +172,7 @@ var SpawnSummoned = {
         }
         
         this.index++;
-    }
+    },
+
 }
 module.exports = SpawnSummoned;

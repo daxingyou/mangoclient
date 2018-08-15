@@ -7,33 +7,21 @@
 var CombatUtility = require('CombatUtility')
 var effectMgr = require('EffectMgr')
 var constant = require('constants')
+var utility = require('utility')
+var gamedata = require('DataCenter')
+var FSMEvent = require('FSMEvent')
 
 var ability = function(data,owner){
-	
 	this.arrs = data;
 	this.owner = owner;
 	this.ID = data.ID;	// Int16Array  编号
 	this.effectType = data.EffectType;
+	this.effects = this.arrs.Effect.split(',');
 
 	this.singing = data.Target.singing;
-	//this.effectFrame = 5;
-	this.effectTime = this.arrs.CriticalTime / 1000;
-	this.attackEffect = this.arrs.CriticalTime / 1000 + 2;
-	this.hitEffectTime = new Array();
-	this.hitEffectFrame = 2.2;
-	//this.attackFrame = 0.9;
-
-	for(var i in this.arrs.EffectiveTime)
-	{
-		this.hitEffectTime.push(this.arrs.EffectiveTime[i] / 1000 + this.singing + this.effectTime );
-	}
-
-	//this.actions = new Array();
-	//for(var i in data)
-	//{
-	//	
-	//	this.actions[i] = new Action(data,this,owner);
-	//}
+	this.effectFrame = 0;
+	this.effectTime = 0;
+	this.hitEffectTime = this.arrs.HitTime;
 }
 
 ability.prototype.owner = null;
@@ -46,19 +34,71 @@ ability.prototype.actions = null;
 ///技能生效
 ability.prototype.Active = function(Target,targets){
 	this.active = true;
-	this.curTarget = Target;
 	this.targets = targets;
+	this.curTarget = Target;
+	this.effectTime = 0;
+	this.hurtEffectIndex = 0;
 
-	//for(var i in this.actions)
-	//{
-	//	this.actions[i].Active();
-	//}
+	if(Target == null && targets != null)
+		this.curTarget = targets[0];
 
 	if(this.arrs.Animation != '')
-		this.owner.agent.PlayAnimation(this.arrs.Animation,false);
+		this.owner.fsm.handleEvent(FSMEvent.SING, this.arrs.Animation);
+		// this.owner.agent.PlayAnimation(this.arrs.Animation,false);
 
-	
+	this.delay = 0;
+	if(this.arrs.EffectType.hasOwnProperty('delay'))
+	{
+		this.delay = this.arrs.EffectType.delay;
+	}
+	else
+	{
+		for(var i =0;i<this.effects.length;i++)
+		{
+			this.ShowEffect(this.effects[i]);
+		}
+	}
 }
+
+ability.prototype.ShowEffect = function(effect){
+	///特效播放
+	if(this.effectType.type == constant.EffectType.Bullt)
+	{
+		cc.log('origin = ',this.effectType.origin ,',  onwer = ',constant.EffectOrigin.onwer);
+		cc.log('true result = ',this.effectType.origin == constant.EffectOrigin.onwer);
+			
+		if(this.effectType.origin == constant.EffectOrigin.target)
+		{
+			effectMgr.getMoveEffect(this.arrs.Path,this.owner.agent.go.position.add(new cc.Vec2(3,0)),new cc.Vec2(1010,310),5,effect,this.owner.teamid);
+			//effectMgr.getPosEffect(this.arrs.Path,this.curTarget.agent.go.position,effect,this.owner.teamid,()=>{
+			//	effectMgr.getMoveEffect(this.arrs.Path,this.owner.agent.go.position.add(new cc.Vec2(10,0)),new cc.Vec2(1100,310),5,'sword',this.owner.teamid);
+			//});
+		}
+		else if(this.effectType.origin == constant.EffectOrigin.onwer)
+		{
+			effectMgr.getMoveEffect(this.arrs.Path,this.owner.agent.go.position.add(new cc.Vec2(3,0)),new cc.Vec2(1010,310),5,effect,this.owner.teamid);
+			//effectMgr.getPosEffect(this.arrs.Path,this.owner.agent.go.position,effect,this.owner.teamid,()=>{
+			//	effectMgr.getMoveEffect(this.arrs.Path,this.owner.agent.go.position.add(new cc.Vec2(10,0)),new cc.Vec2(1100,310),5,'wsword',this.owner.teamid);
+			//});
+		}
+	}
+	else if(this.effectType.type == constant.EffectType.Point)
+	{
+		if(this.effectType.origin == constant.EffectOrigin.target)
+		{
+			effectMgr.getPosEffect(this.arrs.Path,this.curTarget.agent.go.position,effect,this.owner.teamid);
+		}
+		else if(this.effectType.origin == constant.EffectOrigin.onwer)
+		{
+			effectMgr.getPosEffect(this.arrs.Path,this.owner.agent.go.position,effect,this.owner.teamid);
+		}
+	}
+	else if(this.effectType.type == constant.EffectType.SwordWheel)
+	{
+		effectMgr.getSwordWheel(this.arrs.Path,this.owner.agent.go.position,effect,this.owner.teamid);
+	}
+}
+
 ///技能失效
 ability.prototype.Exit = function(){
 	this.owner.OnAbilityExit(this);
@@ -92,113 +132,69 @@ ability.prototype.onDamage = function(){
 
 }
 
+ability.prototype.SwordIndex = 0;
+
 ability.prototype.tick = function(dt){
 	
-	this.effectTime -= dt;
+	this.effectTime += dt;
 
-	if(this.effectTime <= 0)
+	if(this.delay > 0)
 	{
-		this.effectTime = 999999;
-	
-		//cc.log('arrs getEffect name = ',this.arrs.Path,' effect =',this.arrs.Effect);
-		effectMgr.getPosEffect(this.arrs.Path,this.owner.agent.go.position,this.arrs.Effect,this.owner.teamid);
-
-		if(this.hitEffectTime.length == 0)
+		if(this.effectTime >= this.delay)
 		{
-			this.Exit();
+			this.delay = 999999999;
+			for(var i =0;i<this.effects.length;i++)
+			{
+				this.ShowEffect(this.effects[i]);
+			}
 		}
 	}
 
-	/*
-	this.effectFrame --;
-
-	//cc.log('effectTime = ',this.effectTime);
-
-	if(this.effectFrame <= 0)
+	if(this.hurtEffectIndex < this.hitEffectTime.length)
 	{
-		this.effectFrame = 999999;
-	
-		//cc.log('arrs getEffect name = ',this.arrs.Path,' effect =',this.arrs.Effect);
-		effectMgr.getPosEffect(this.arrs.Path,this.owner.agent.go.position,this.arrs.Effect,this.owner.teamid);
-
-		if(this.hitEffectTime.length == 0)
+		if(this.hitEffectTime[this.hurtEffectIndex] <= this.effectTime)
 		{
-			this.Exit();
-		}
-	}*/
+			cc.log('cur frame =',this.effectTime);
 	
-	this.attackEffect -=dt;
+			var x = utility.RandomInt(0,50);
+			var y = utility.RandomInt(0,50);
+			effectMgr.getPosEffect(this.arrs.HitEffectPath,new cc.Vec2(1000+x,310+y),this.arrs.HitEffect,this.owner.teamid);
+			this.hurtEffectIndex++;
 
-	if(this.attackEffect <= 0)
-	{
-		this.attackEffect = 9999999999;
-
-		if(this.effectType.type == constant.EffectType.Bullt)
-		{
-			if(this.effectType.origin == constant.EffectOrigin.target)
+			
+			if(gamedata.fightDamage.hasOwnProperty(this.owner.uid))
 			{
-				effectMgr.getMoveEffect(this.arrs.Path,this.owner.agent.go.position.add(new cc.Vec2(10,0)),new cc.Vec2(1100,310),5,'wsword',this.owner.teamid);
-			}
-			else if(this.effectType.origin == constant.EffectOrigin.onwer)
-			{
-				if(this.ID == 1009)
+				if(gamedata.fightDamage[this.owner.uid].hasOwnProperty(this.ID))
 				{
-					
-				}
-
-				effectMgr.getMoveEffect(this.arrs.Path,this.owner.agent.go.position.add(new cc.Vec2(10,0)),new cc.Vec2(1100,310),5,'wsword',this.owner.teamid);
-			}
-		}
-		else if(this.effectType.type == constant.EffectType.Point)
-		{
-			if(this.effectType.origin == constant.EffectOrigin.target)
-			{
-				effectMgr.getPosEffect(this.arrs.Path,this.curTarget.agent.go.position,this.Effect,this.owner.teamid);
-			}
-			else if(this.effectType.origin == constant.EffectOrigin.onwer)
-			{
-				effectMgr.getPosEffect(this.arrs.Path,this.owner.agent.go.position,this.Effect,this.owner.teamid);
-			}
-		}
-		else if(this.effectType.type == constant.EffectType.SwordWheel)
-		{
-			effectMgr.getSwordWheel(this.arrs.Path,this.owner.agent.go.position,this.Effect,this.owner.teamid);
-		}
-	}
-
-	this.hitEffectFrame -=dt;
-
-	if(this.hitEffectFrame <= 0)
-	{
-		this.hitEffectFrame = 999999;
-
-		effectMgr.getPosEffect(this.arrs.HitEffectPath,new cc.Vec2(1100,310),this.arrs.HitEffect,this.owner.teamid);
-
-		this.Exit();
-	}
-/*
-	for(var i in this.hitEffectTime)
-	{
-		this.hitEffectTime[i] -= dt;
-
-		//cc.log('i =',i,'time = ',this.hitEffectTime[i]);
-
-		if(this.hitEffectTime[i] <= 0)
-		{
-			this.hitEffectTime[i] = 999999;
-
-			for(var j in this.targets)
-			{
-				if(this.targets[j] != null){
-					effectMgr.getPosEffect(this.arrs.HitEffectPath,this.targets[j].agent.go.position,this.arrs.HitEffect,this.owner.teamid);
+					var damagelist = gamedata.fightDamage[this.owner.uid][this.ID];
+					if(damagelist.length > 0)
+					{
+						this.owner.curCombat.UIMgr.loadDmg(this.curTarget,damagelist[0], true);
+						this.curTarget, gamedata.fightDamage[this.owner.uid][this.ID].splice(0,1);
+					}
 				}
 			}
-
-			if(i == this.hitEffectTime.length - 1)
-				this.Exit();
 		}
 	}
-	*/
+	
+	if(this.ID == 1010)
+	{
+		var frame = new Array(6,9,13,16,18,21,25);
+
+		if(this.effectFrame == frame[this.index])
+		{
+			this.index++;
+			this.owner.curCombat.summonedMgr.collectItem();
+		}
+		else if(this.effectFrame >frame[frame.length - 1])
+		{
+			this.owner.curCombat.summonedMgr.collectAll();
+			return;
+		}
+	}
+
+	///当前特效执行帧
+	this.effectFrame ++;
 }
 
 ability.prototype.getTarget = function(){

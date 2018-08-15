@@ -1,7 +1,7 @@
-
-
 var constant = require('constants')
 var loadRes = require('LoadRes')
+var Pool = require('Pool')
+var effectMgr = require('EffectMgr')
 
 cc.Class({
     extends: cc.Component,
@@ -26,12 +26,25 @@ cc.Class({
     },
 
     onLoad () {
-        this.dmgPool = new cc.NodePool();
-        let initCount = 5;
-        for(let i=0;i<initCount;i++){
-            var enemy = cc.instantiate(this.dmg);
-            this.dmgPool.put(enemy);
+        //this.dmgPool = new cc.NodePool();
+        //let initCount = 25;
+        //for(let i=0;i<initCount;i++){
+        //    var enemy = cc.instantiate(this.dmg);
+        //    this.dmgPool.put(enemy);
+        //}
+
+        Pool.init();
+        Pool.create(constant.dmg);
+        for(var z =0;z<80;z++)
+        {
+            var go = cc.instantiate(this.dmg);
+            go.parent = this.tips;
+            go.position = new cc.Vec2(0,-1000);
+            var src = go.getComponent('EffectListen')
+            src.init(constant.dmg);
+            Pool.put(constant.dmg,src);
         }
+        
     },
 
     start () {
@@ -128,6 +141,7 @@ cc.Class({
     },
     ///伤害跳转接口
     loadDmg(combatunit,dmg,dmgorheal){
+        /*
         let enemy = null;
         if (this.dmgPool.size() > 0) { // 通过 size 接口判断对象池中是否有空闲的对象
             enemy = this.dmgPool.get();
@@ -137,6 +151,10 @@ cc.Class({
         }
         enemy.parent = this.tips; // 将生成的敌人加入节点树
         enemy.getComponent('showDamge').init(combatunit,dmg,this,dmgorheal); //接下来就可以调用 enemy 身上的脚本进行初始化
+        */
+       
+       var go = effectMgr.getEffect(constant.dmg,new cc.v2(0,0),combatunit.teamid);
+       go.showDmg(combatunit,dmg,this,dmgorheal);
     },
     ///伤害对象池收回
     collectDmg(dmg){

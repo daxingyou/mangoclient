@@ -66,7 +66,7 @@ module.exports = {
     },
     EffectOrigin : {
         target:'target',
-        onwer:'onwer'
+        onwer:'owner'
     },
     mixTime : 0.1,
     FightCode : {
@@ -78,4 +78,5 @@ module.exports = {
         11 : '已经死亡',
         12 : '已经死亡',
     },
+    dmg : 'dmg',
 };

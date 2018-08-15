@@ -88,7 +88,7 @@ cc.Class({
 
         this.setProgram( this.sprite._sgNode,this.glProgram);
 
-        cc.log('left ... ',leftValue,' right =',rightValue);
+        //cc.log('left ... ',leftValue,' right =',rightValue);
     },
     setProgram:function(node,program){
         /*if(cc.sys.isNative){

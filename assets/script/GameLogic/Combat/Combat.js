@@ -23,6 +23,8 @@ Combat.prototype.curPlayerIndex = 0;
 /// 战斗持续时间
 Combat.prototype.time = 0;
 
+Combat.prototype.summonedMgr = null;
+
 Combat.prototype.enemy = [];
 
 Combat.prototype.own = [];
