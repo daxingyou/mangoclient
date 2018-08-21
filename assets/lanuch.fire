@@ -711,8 +711,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
+      "x": -667,
+      "y": -375
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -1104,8 +1104,14 @@
     "tips": {
       "__id__": 29
     },
-    "dmg": {
-      "__uuid__": "c4cbe7fb-0459-4e22-8c1c-03f7fa30601f"
+    "dmgGreen": {
+      "__uuid__": "63bb063d-5bb5-41b1-bbcd-b119e9bf0519"
+    },
+    "dmgRed": {
+      "__uuid__": "214605ef-b17a-46e7-b698-637d42a128c6"
+    },
+    "dmgWhite": {
+      "__uuid__": "e5d6be95-2e77-4669-8492-a062be5182ef"
     },
     "_beforeUI": null,
     "_curMainUI": null,

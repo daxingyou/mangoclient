@@ -69,12 +69,6 @@ module.exports = {
         INHERENT_CARD: 4,  // 固有
     },
 
-    // 数据更新原因
-    FightUpdateReason: {
-        skillEffective: "skillEffective",  // 技能生效
-        onDamage: "onDamage",  // 受伤
-    },
-
     // 技能常量
     Skill: {
         TYPE_All: "all",  // 全体目标

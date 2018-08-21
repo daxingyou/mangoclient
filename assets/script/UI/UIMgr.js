@@ -2,145 +2,144 @@ var constant = require('constants')
 var loadRes = require('LoadRes')
 var Pool = require('Pool')
 var effectMgr = require('EffectMgr')
+var combatMgr = require('CombatMgr');
 
 cc.Class({
     extends: cc.Component,
-    
+
     properties: {
-        uiRoot : cc.Node,
-        tips : cc.Node,
-        dmg : cc.Prefab,
+        uiRoot: cc.Node,
+        tips: cc.Node,
+        dmgGreen: cc.Prefab,
+        dmgRed: cc.Prefab,
+        dmgWhite: cc.Prefab,
 
         ///上级
-        _beforeUI : null,
+        _beforeUI: null,
 
-        _curMainUI : null,
-        _curSecondUI : null,
-        _curThirdUI : null,
+        _curMainUI: null,
+        _curSecondUI: null,
+        _curThirdUI: null,
         ///当前主 UI
-        _FirstMainUI : [],
+        _FirstMainUI: [],
         ///二级 UI 
-        _SecondUI :  [],
+        _SecondUI: [],
         /// tips 
-        _ThirdUI : []
+        _ThirdUI: []
     },
 
-    onLoad () {
+    onLoad() {
         //this.dmgPool = new cc.NodePool();
         //let initCount = 25;
         //for(let i=0;i<initCount;i++){
         //    var enemy = cc.instantiate(this.dmg);
         //    this.dmgPool.put(enemy);
         //}
-
-        Pool.init();
-        Pool.create(constant.dmg);
-        for(var z =0;z<80;z++)
-        {
-            var go = cc.instantiate(this.dmg);
-            go.parent = this.tips;
-            go.position = new cc.Vec2(0,-1000);
-            var src = go.getComponent('EffectListen')
-            src.init(constant.dmg);
-            Pool.put(constant.dmg,src);
-        }
-        
+        //initDmg();
     },
 
-    start () {
+    initDmg(){
+        Pool.init();
+        for (var k in constant.dmg) {
+            var name = constant.dmg[k];
+            Pool.create(name);
+            for (var z = 0; z < 80; z++) {
+                var go = cc.instantiate(this[k]);
+                go.parent = this.tips;
+                go.position = new cc.Vec2(0, -1000);
+                var src = go.getComponent('EffectListen')
+                src.init(name);
+                Pool.put(name, src);
+            }
+        }
+    },
+
+    start() {
 
     },
 
     // update (dt) {},
     ///UI 加载接口
-    loadUI(ui,callback){
-        if(ui.type == 1)        ///主界面
+    loadUI(ui, callback) {
+        if (ui.type == 1)        ///主界面
         {
-            if(this._FirstMainUI[ui.id] != null)
-            {
+            if (this._FirstMainUI[ui.id] != null) {
                 this._curMainUI.hide();
                 this._curMainUI = this._FirstMainUI[ui.id];
                 this._curMainUI.show();
 
-                if(callback != undefined)
+                if (callback != undefined)
                     callback(this._curSecondUI);
                 return this._curMainUI;
             }
         }
-        else if(ui.type == 2)       ///二级UI
+        else if (ui.type == 2)       ///二级UI
         {
-            if(this._SecondUI[ui.id] != null)
-            {
+            if (this._SecondUI[ui.id] != null) {
                 this._curSecondUI.hide();
                 this._curSecondUI = this._SecondUI[ui.id];
                 this._curSecondUI.show();
 
-                if(callback != undefined)
+                if (callback != undefined)
                     callback(this._curSecondUI);
                 return this._curSecondUI;
             }
         }
-        else if(ui.type == 3)       ///tips 
+        else if (ui.type == 3)       ///tips 
         {
-            if(this._ThirdUI[ui.id] != null)
-            {
+            if (this._ThirdUI[ui.id] != null) {
                 this._curThirdUI.hide();
                 this._curThirdUI = this._ThirdUI[ui.id];
                 this._curThirdUI.show();
 
-                if(callback != undefined)
+                if (callback != undefined)
                     callback(this._curThirdUI);
                 return this._curThirdUI;
             }
         }
 
-        loadRes.load(ui.path,true,(data)=>{
+        loadRes.load(ui.path, true, (data) => {
             var go = cc.instantiate(data);
 
-            if(ui.type == 3)
-            {
+            if (ui.type == 3) {
                 go.parent = this.tips;
             }
-            else
-            {
+            else {
                 go.parent = this.uiRoot;
             }
 
             var scr = go.getComponent(ui.script);
             scr.init(this);
 
-            if(ui.type == 1)
-            {
-                if(this._curMainUI != null)
+            if (ui.type == 1) {
+                if (this._curMainUI != null)
                     this._curMainUI.hide();
                 this._FirstMainUI[ui.id] = scr;
                 this._curMainUI = scr;
                 this._curMainUI.show();
 
             }
-            else if(ui.type == 2)
-            {
-                if(this._curSecondUI != null)
+            else if (ui.type == 2) {
+                if (this._curSecondUI != null)
                     this._curSecondUI.hide();
                 this._SecondUI[ui.id] = scr;
                 this._curSecondUI = scr;
                 this._curSecondUI.show();
             }
-            else if(ui.type == 3)
-            {
-                if(this._curThirdUI != null)
+            else if (ui.type == 3) {
+                if (this._curThirdUI != null)
                     this._curThirdUI.hide();
                 this._ThirdUI[ui.id] = scr;
                 this._curThirdUI = scr;
                 this._curThirdUI.show();
             }
 
-            if(callback != undefined)
+            if (callback != undefined)
                 callback(scr);
         })
     },
     ///伤害跳转接口
-    loadDmg(combatunit,dmg,dmgorheal){
+    loadDmg(combatunit, dmg, dmgorheal, casterID) {
         /*
         let enemy = null;
         if (this.dmgPool.size() > 0) { // 通过 size 接口判断对象池中是否有空闲的对象
@@ -152,26 +151,50 @@ cc.Class({
         enemy.parent = this.tips; // 将生成的敌人加入节点树
         enemy.getComponent('showDamge').init(combatunit,dmg,this,dmgorheal); //接下来就可以调用 enemy 身上的脚本进行初始化
         */
-       
-       var go = effectMgr.getEffect(constant.dmg,new cc.v2(0,0),combatunit.teamid);
-       go.showDmg(combatunit,dmg,this,dmgorheal);
+
+        var combatSelfID = combatMgr.curCombat.getSelf().uid;
+        // 不是自己造成或受到的治疗或伤害不显示
+        cc.log("xxxxxxxxxxxxx", combatunit.uid, combatSelfID, casterID, dmgorheal);
+        if (casterID !== combatSelfID && combatunit.uid !== combatSelfID) {
+            return;
+        }
+        let name, showType;
+        // 治疗
+        if (!dmgorheal) {
+            name = constant.dmg.dmgGreen;
+            if (combatunit.uid === combatSelfID) {
+                showType = constant.CombatWordType.CAUSE_HEAL;
+            }
+            else {
+                showType = constant.CombatWordType.GET_HEAL;
+            }
+        }
+        else if (combatunit.uid === combatSelfID){  // 自己受伤
+            name = constant.dmg.dmgRed;
+            showType = constant.CombatWordType.GET_DAMAGE;
+        }
+        else {
+            name = constant.dmg.dmgWhite;
+            showType = constant.CombatWordType.CAUSE_DAMAGE;
+        }
+        var go = effectMgr.getEffect(name, cc.v2(0, 0), combatunit.teamid);
+        go.showDmg(combatunit, dmg, dmgorheal, showType);
     },
     ///伤害对象池收回
-    collectDmg(dmg){
+    collectDmg(dmg) {
         this.dmgPool.put(dmg);
     },
     ///UI 资源释放
-    release(){
-        
-        for(var x in this._FirstMainUI)
-        {
+    release() {
+
+        for (var x in this._FirstMainUI) {
             this._FirstMainUI[x].node.destroy();
         }
 
-        this._FirstMainUI.splice(0,this._FirstMainUI.length); 
+        this._FirstMainUI.splice(0, this._FirstMainUI.length);
         this._curMainUI = null;
 
-        this._SecondUI.forEach(function(x, index, a){
+        this._SecondUI.forEach(function (x, index, a) {
             x.node.destroy();
         });
         /*
@@ -180,10 +203,10 @@ cc.Class({
             this._SecondUI[i].node.destroy();
         }*/
 
-        this._SecondUI.splice(0,this._SecondUI.length); 
+        this._SecondUI.splice(0, this._SecondUI.length);
         this._curSecondUI = null;
 
-        this._ThirdUI.forEach(function(x, index, a){
+        this._ThirdUI.forEach(function (x, index, a) {
             x.node.destroy();
         });
         /*
@@ -192,15 +215,15 @@ cc.Class({
             this._ThirdUI[i].node.destroy();
         }*/
 
-        this._ThirdUI.splice(0,this._ThirdUI.length); 
+        this._ThirdUI.splice(0, this._ThirdUI.length);
         this._curThirdUI = null;
     },  ///显示tips 
-    showTips :function(str){
-        this.loadUI(constant.UI.Tips,(data)=>{
+    showTips: function (str) {
+        this.loadUI(constant.UI.Tips, (data) => {
             data.showText(str);
         });
     },  ///获取当前主UI
-    getCurMainUI (){
+    getCurMainUI() {
         return this._curMainUI;
     }
 });

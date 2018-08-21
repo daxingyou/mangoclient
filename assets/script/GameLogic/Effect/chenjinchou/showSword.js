@@ -66,6 +66,8 @@ cc.Class({
         var temp = this._thisValue[left];
         var angle = temp[right];
         this.node.rotation = angle;
+
+        cc.log('showSword showSword');
     },
     showCollect(callback){
         this.callback = callback;
@@ -73,11 +75,15 @@ cc.Class({
         {
             this._SwordRatation.show();
         }
+
+        cc.log('showCollect');
     },
     onFinish(){
         this._super();
 
         if(this.callback != undefined)
             this.callback();
+
+        cc.log('showSword onFinish');
     }
 });

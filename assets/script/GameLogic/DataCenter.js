@@ -10,5 +10,9 @@ module.exports = {
     user_second:'',
     _first_uid:'',
     _second_uid:'',
-    fightDamage : [],
+    IsLayoutAction:'',
+    Cardpoints:'',//FightUI执行卡牌回去的动作
+    returnAniEnd:'',//动作执行完毕
+    ComfirmFirst:false,//只有第一个人准备时
+    ComfirmSecond:false,//
 }

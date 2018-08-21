@@ -66,7 +66,9 @@ module.exports = {
     },
     EffectOrigin : {
         target:'target',
-        onwer:'owner'
+        onwer:'owner',
+        onwerAll:'onwerAll',
+        enemyAll:'enemyAll'
     },
     mixTime : 0.1,
     FightCode : {
@@ -78,5 +80,16 @@ module.exports = {
         11 : '已经死亡',
         12 : '已经死亡',
     },
-    dmg : 'dmg',
+    dmg : {
+        dmgGreen: 'dmgGreen',
+        dmgRed: 'dmgRed',
+        dmgWhite: 'dmgWhite'
+    },
+    // 战斗飘字类型
+    CombatWordType: {
+        CAUSE_DAMAGE: 1,  // 造成伤害
+        GET_DAMAGE: 2,  // 受到伤害
+        CAUSE_HEAL: 3,  // 造成治疗
+        GET_HEAL: 4,  // 受到治疗
+    }
 };

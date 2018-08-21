@@ -11,15 +11,15 @@ var FSMEvent = require('FSMEvent');
 var efferMgr = require('EffectMgr')
 
 var fight = {
-    _uimgr : null,
+    _uimgr: null,
 
-    init : function(){
+    init: function () {
         this._uimgr = cc.find('Canvas').getComponent('UIMgr');
         var that = this;
-       
-        pomelo.on('onBeginSelect', function (data){//pomelo  全局发送和监听消息
+
+        pomelo.on('onBeginSelect', function (data) {//pomelo  全局发送和监听消息
             var ui = that._uimgr.getCurMainUI();
-            that._uimgr.showTips('匹配成功, 开始选英雄');
+            that._uimgr.showTips('匹配成功');
             cc.log('匹配成功, 开始选英雄', data.teamInfo);
             var teamInfo = data.teamInfo;
             var teamA = teamInfo.teamA;
@@ -27,71 +27,67 @@ var fight = {
             gameData.user_second = teamA[1].name;
             gameData._first_uid = teamA[0].uid;
             gameData._second_uid = teamA[1].uid;
-          
             ui.showSelect();//match.js
         });
-    
-        pomelo.on('onSelectHeroNotify', function (data){
-         
-           
-            cc.log(data.uid,'选择英雄:%s', data.heroid);
-    
-            // selectHero.showTeamSelect(data.heroid);
-            that._uimgr.showTips('确认英雄:'+""+data.heroid);
-            var ui = that._uimgr.getCurMainUI();
-           ui.selectScr.showTeamSelect(data.heroid);
-        //    that._uimgr.showTeamSelect();
-        });
-    
-        pomelo.on('onConfirmHeroNotify', function (data){
-            cc.log(data.uid, '%s确认英雄:%s', data.heroid);
 
-           // that._uimgr.showTips(data.uid,'%s确认英雄:%s',  data.heroid);
-            that._uimgr.showTips('确认英雄:'+""+data.heroid);
+        pomelo.on('onSelectHeroNotify', function (data) {
+
+
+            cc.log(data.uid, '选择英雄:%s', data.heroid);
+           // that._uimgr.showTips('确认英雄:' + "" + data.heroid);
             var ui = that._uimgr.getCurMainUI();
-             ui.selectScr.showTeamPrepare(data.heroid);
+            ui.selectScr.showTeamSelect(data.heroid);
+           
         });
-    
-        pomelo.on('onEnterLoadCD', function (data){
-            cc.log('加载前倒计时:',data);
-            that._uimgr.showTips('加载前倒计时:');
+
+        pomelo.on('onConfirmHeroNotify', function (data) {
+            cc.log(data.uid, '%s确认英雄:%s', data.heroid);
+           // that._uimgr.showTips('确认英雄:' + "" + data.heroid);
+            var ui = that._uimgr.getCurMainUI();
+            ui.selectScr.showTeamPrepare(data.heroid);
+        });
+
+        pomelo.on('onEnterLoadCD', function (data) {
+            cc.log('加载前倒计时:', data);
+           // that._uimgr.showTips('加载前倒计时:');
             var ui = that._uimgr.getCurMainUI();
             ui.selectScr.beginLoadCD();
         });
-    
-        pomelo.on('onStartLoad', function(data){
+
+        pomelo.on('onStartLoad', function (data) {
             cc.log(data);
             var myInfo = data.myInfo;
-            cc.log(myInfo + "myInfo");
-            cc.log(myInfo.mp,myInfo.discardsNum,myInfo.exhaustsNum,myInfo.thew);
+            //cc.log(myInfo.mp, myInfo.discardsNum, myInfo.exhaustsNum, myInfo.thew);
             gameData.mp = myInfo.mp;
             gameData.discardsNum = myInfo.discardsNum;
             gameData.exhaustsNum = myInfo.exhaustsNum;
             gameData.cardsNum = myInfo.cardsNum;
             gameData.thew = myInfo.thew;
+
             cc.log('开始加载战斗：', data.teamInfo, data.myInfo);
-            that._uimgr.showTips('开始加载战斗：');
+            that._uimgr.showTips('开始加载战斗');
             combatMgr.initCombat(data);
             that._uimgr.release();
-            that._uimgr.loadUI(constant.UI.Fight,function(data){
+            that._uimgr.loadUI(constant.UI.Fight, function (data) {
                 combatMgr.curCombat.UILoadOk = true;
             })
 
             combatMgr.curCombat.getSelf().Mp = myInfo.mp;
             combatMgr.curCombat.getSelf().Thew = myInfo.thew;
         });
-    
-        pomelo.on('onFightBegin', function(data){
-            cc.log('战斗开始 ',data);
-            that._uimgr.showTips('战斗开始 ',data);
+
+        pomelo.on('onFightBegin', function (data) {
+            cc.log('战斗开始 ', data);
+            that._uimgr.showTips('战斗开始 ');
+            gameData.IsLayoutAction = true;
             var ui = that._uimgr.getCurMainUI();
             ui.showNum(gameData);
-            ui.ShowHandCards();
+            ui.ShowHandCards();//第一次加载
             ui.onFreshMp(gameData.mp, true);
             gameLogic.init();
         });
-    
-        pomelo.on('onUseCard', function(data){
+
+        pomelo.on('onUseCard', function (data) {
             data.inHands = data.inHands || [];
             gameData.mp = data.mp;
             gameData.thew = data.thew;
@@ -100,7 +96,7 @@ var fight = {
             if ("discardsNum" in data)
                 gameData.discardsNum = data.discardsNum;
             cc.log('使用卡牌：', data);
-            that._uimgr.showTips('使用卡牌：', data);
+           // that._uimgr.showTips('使用卡牌：', data);
             var ui = that._uimgr.getCurMainUI();
             ui.showNum(gameData);
             //data.mp
@@ -108,155 +104,148 @@ var fight = {
             //data.discardsNum
             combatMgr.curCombat.getSelf().Mp = data.mp;
             combatMgr.curCombat.getSelf().Thew = data.thew;
-
             combatMgr.getSelf().onUsePile(data.inHands);
+            var num =  combatMgr.getSelf().handsPile.length;
+            gameData.IsLayoutAction = true;
             ui.ShowHandCards();
             //ui.UseCard(Card);
         });
 
-        pomelo.on('onUseCardNotify', function(data){
+        pomelo.on('onUseCardNotify', function (data) {
             cc.log('别人使用卡牌：', data);
-            var player = gameLogic.getCombatUnitForUid(data.uid);
-            player.useCard(data);
+
+            //暂时没有表现
+            //var player = gameLogic.getCombatUnitForUid(data.uid);
+            //player.useCard(data);
         });
-    
-        pomelo.on('onFightAttriUpdate', function(data){
-            for(var uid in data)
+
+        pomelo.on('onDamage', function (data) {
+            cc.log("伤害", data);
+            var player = gameLogic.getCombatUnitForUid(data.targetID);
+            var curdata = data;
+            player.onDamage(curdata.oriDamage, gameLogic.getCombatUnitForUid(curdata.attackerID), curdata);
+
+            var ui = that._uimgr.getCurMainUI();
+            ui.FreshHp();
+
+            var curskill = dataMgr.skill[curdata.sid][1];
+            if(curskill.HitTime.length > 0 && curskill.DmgFlag == 1)
             {
-                var player = gameLogic.getCombatUnitForUid(uid);
-                var curdata = data[uid];
-                cc.log('属性更新：',curdata.reason,'  data =',curdata);
-                switch(curdata.reason)
+                //存储技能伤害
+                if(gameData.fightDamage.hasOwnProperty(curdata.attackerID))
                 {
-                    case consts.FightUpdateReason.onDamage :
-                    player.onDamage(curdata.oriDamage,gameLogic.getCombatUnitForUid(curdata.attackID),curdata);
-                    
-                    var ui = that._uimgr.getCurMainUI();
-                    ui.FreshHp();
-
-
-                    var curskill = dataMgr.skill[curdata.sid][1];
-                    if(curskill.HitTime.length > 0 && curskill.DmgFlag == 1)
+                    if(gameData.fightDamage[curdata.attackerID].hasOwnProperty(curdata.sid))
                     {
-                        //存储技能伤害
-                        if(gameData.fightDamage.hasOwnProperty(curdata.attackID))
-                        {
-                            if(gameData.fightDamage[curdata.attackID].hasOwnProperty(curdata.sid))
-                            {
-                                gameData.fightDamage[curdata.attackID][curdata.sid].push(curdata.oriDamage);
-                            }
-                            else
-                            {
-                                gameData.fightDamage[curdata.attackID][curdata.sid] = new Array();
-                                gameData.fightDamage[curdata.attackID][curdata.sid].push(curdata.oriDamage);
-                            }
-                        }
-                        else{
-                            gameData.fightDamage[curdata.attackID] = new Array();
-                            gameData.fightDamage[curdata.attackID][curdata.sid] = new Array();
-                            gameData.fightDamage[curdata.attackID][curdata.sid].push(curdata.oriDamage);
-                        }
+                        gameData.fightDamage[curdata.attackerID][curdata.sid].push(curdata.oriDamage);
                     }
                     else
                     {
-                        if(curskill.HitEffect != '')
-                        {
-                            efferMgr.getPosEffect(curskill.HitEffectPath,new cc.v2(player.agent.go.position.x+player.table.HitPoint[0],player.agent.go.position.y +player.table.HitPoint[1]) ,curskill.HitEffect,player.teamid);
-                        }
+                        gameData.fightDamage[curdata.attackerID][curdata.sid] = new Array();
+                        gameData.fightDamage[curdata.attackerID][curdata.sid].push(curdata.oriDamage);
                     }
-                    
-                    //gameData.fightDamage[curdata.attackID] = 
-                    //var skillDamage = new Array();
-                    //skillDamage[]
-                    break;
-                    case consts.FightUpdateReason.skillEffective:
-                    player.skillEffective(curdata);
-                    break;
+                }
+                else{
+                    gameData.fightDamage[curdata.attackerID] = new Array();
+                    gameData.fightDamage[curdata.attackerID][curdata.sid] = new Array();
+                    gameData.fightDamage[curdata.attackerID][curdata.sid].push(curdata.oriDamage);
                 }
             }
+            else {
+                if (curskill.HitEffect != '') {
+                    efferMgr.getPosEffect(curskill.HitEffectPath, new cc.v2(player.agent.go.position.x + player.table.HitPoint[0], player.agent.go.position.y + player.table.HitPoint[1]), curskill.HitEffect, player.teamid);
+                }
+            }
+        })
+
+        pomelo.on('onSkillEffective', function (data) {
+            cc.log("技能生效", data);
+            var player = gameLogic.getCombatUnitForUid(data.casterID);
+            player.skillEffective(data);
         });
 
-        pomelo.on('onDrawCard', function(data){
-            cc.log('抽牌', data);
+        pomelo.on('onDrawCard', function (data) {
+            var num =   combatMgr.getSelf().handsPile.length;
             data.inHands = data.inHands || [];
             gameData.cardsNum = data.cardsNum;
             if ("discardsNum" in data)
                 gameData.discardsNum = data.discardsNum;
-          
+
             var ui = that._uimgr.getCurMainUI();
             ui.showNum(gameData);
+            gameData.IsLayoutAction = false;
             combatMgr.getSelf().onDrawPile(data.inHands);
             ui.ShowHandCards();
         });
 
-        pomelo.on('onDrawCardNotify', function(data){
+        pomelo.on('onDrawCardNotify', function (data) {
             cc.log('别人抽牌', data);
         });
-    
-        pomelo.on('onMpRecover', function(data){
-            cc.log('灵力恢复', data);
 
+        pomelo.on('onMpRecover', function (data) {
+            cc.log('灵力恢复', data);
             gameData.mp = data.mp;
             combatMgr.getSelf().Mp = data.mp;
             var ui = that._uimgr.getCurMainUI();
             ui.onFreshMp(data.mp, true);
         });
 
-        pomelo.on('onAddSpawnSummon', function(data){
+        pomelo.on('onAddSpawnSummon', function (data) {
             cc.log('增加召唤物', data);
-
             spawnSummoned.create(data);
 
         })
 
-        pomelo.on('onUseSkill', function(data){
-            cc.log('使用技能', data);
+        pomelo.on('onUseSkill', function (data) {
+           cc.log('使用技能', data);
 
             var player = gameLogic.getCombatUnitForUid(data.caster);
             var target = new Array();
 
-            for(var i in data.targets)
-            {
+            for (var i in data.targets) {
                 target.push(gameLogic.getCombatUnitForUid(data.targets[i]));
             }
 
-            player.useSkill(data,target);
+            player.useSkill(data, target);
         });
 
-        pomelo.on('onSpecificDrawCard', function(data){
-            cc.log('指定抽卡', data);
-
+        pomelo.on('onSpecificDrawCard', function (data) {
+            var num =   combatMgr.getSelf().handsPile.length;
+            cc.log('指定抽卡','指订抽卡后的牌的张数', data,num);
+            gameData.IsLayoutAction = false;
             var ui = that._uimgr.getCurMainUI();
             combatMgr.getSelf().onDrawPile(data.inHands);
             ui.ShowHandCards();
         });
 
         ///他人接收指定抽卡 更新手牌数
-        pomelo.on('onSpecificDrawCardNotify', function(data){
-            cc.log('别人指定抽卡', data);
-
-            //var ui = that._uimgr.getCurMainUI();
-            //combatMgr.getSelf().onDrawPile(data.inHands);
-            //ui.ShowHandCards();
+        pomelo.on('onSpecificDrawCardNotify', function (data) {
+        //    cc.log('别人指定抽卡', data);
+        //     var ui = that._uimgr.getCurMainUI();
+        //     combatMgr.getSelf().onDrawPile(data.inHands);
+        //     ui.ShowHandCards();
         });
 
-        pomelo.on('onCreateCard', function(data){
+        pomelo.on('onCreateCard', function (data) {
             cc.log('生成卡牌', data);
-
             var ui = that._uimgr.getCurMainUI();
             combatMgr.getSelf().onDrawPile(data.inHands);
+            var num =   combatMgr.getSelf().handsPile.length;
+            cc.log("生成卡牌时当前卡牌的张数",num);
+            gameData.IsLayoutAction = false;
             ui.ShowHandCards();
         });
 
-        pomelo.on('onCreateCardNotify', function(data){
-            cc.log('别人生成卡牌', data);
+        pomelo.on('onCreateCardNotify', function (data) {
+           cc.log('别人生成卡牌', data);
         });
 
-        pomelo.on('onReverse', function(data){
+        pomelo.on('onReverse', function (data) {
             cc.log('回收召唤物伤害', data);
 
             var damage = new Array();
 
+            damage['caster'] = data.caster;
+            
             for (var uid in data.damageInfo) {
                 damage[uid] = new Array();
 
@@ -270,19 +259,19 @@ var fight = {
                     damageInfo[index] = deltaHp + deltaArmor;
                     index++;
                     //if (deltaHp > 0) {
-                    //    this.uimgr.loadDmg(this, deltaHp, true);
+                    //    this.uimgr.loadDmg(this, deltaHp, true, data.caster);
                     //}
                 }
                 damage[uid] = damageInfo;
 
                 var unit = gameLogic.getCombatUnitForUid(uid);
-                unit.onSpawnSummonDamage(data.damageInfo[uid]);
+                unit.onSpawnSummonDamage(data.damageInfo[uid], data.caster);
             }
 
             spawnSummoned.collect(damage);
         });
 
-        pomelo.on('onSwordWheel', function(data){
+        pomelo.on('onSwordWheel', function (data) {
             cc.log('swordWheel伤害', data);
 
             //var player = gameLogic.getCombatUnitForUid(data.caster);
@@ -290,116 +279,124 @@ var fight = {
 
             for (var uid in data.damageInfo) {
                 var unit = gameLogic.getCombatUnitForUid(uid);
-                unit.onSpawnSummonDamage(data.damageInfo[uid]);
+                unit.onSpawnSummonDamage(data.damageInfo[uid], data.caster);
             }
 
             spawnSummoned.Reset(data.summons);
             // summons重新布局 看data.summons
         });
 
-        pomelo.on('onHeal', function(data){
+        pomelo.on('onHeal', function (data) {
             cc.log('治疗', data);
 
             var player = gameLogic.getCombatUnitForUid(data.targetID);
-            player.onHeal(data.toHP,data.toHP - data.fromHp);
+            player.onHeal(data.toHP, data.toHP - data.fromHp, data.casterID);
 
             var ui = that._uimgr.getCurMainUI();
             ui.FreshHp();
         });
 
-        pomelo.on('onRelive', function(data){
+        pomelo.on('onRelive', function (data) {
             cc.log('复活', data);
             /// 技能id data.sid  .casterHp 释放者的血量 .casterID 释放者 .hp 目标回复血量 .targetID 目标Id
-            
-            //var player = gameLogic.getCombatUnitForUid(data.casterID);
-            //player.onHeal(data.toHP,data.toHP - data.fromHp);
+
+            var player = gameLogic.getCombatUnitForUid(data.casterID);
+            player.freshAttri({Hp: data.casterHp});
 
             var target = gameLogic.getCombatUnitForUid(data.targetID);
-            // target.Relive(data.hp,data.hp);
             target.fsm.handleEvent(FSMEvent.RELIVE, data);
         });
 
         pomelo.on('onBuffUpdate', function (data) {
-            cc.log("Buff更新", data);
+          //  cc.log("Buff更新", data);
             var player = gameLogic.getCombatUnitForUid(data.targetID);
             if (player)
                 player.buffUpdate(data.realID, data.info);
         });
 
-        pomelo.on('onBuffModHp', function(data){
-            cc.log('onBuffModHp', data);
-            
+        pomelo.on('onBuffModHp', function (data) {
+           // cc.log('onBuffModHp', data);
+
             var player = gameLogic.getCombatUnitForUid(data.targetID);
-            player.onHeal(data.toHP,data.val);
+            player.onHeal(data.toHP, data.val, data.casterID);
 
             var ui = that._uimgr.getCurMainUI();
             ui.FreshHp();
         });
 
-        pomelo.on('onPropUpdate', function(data){
+        pomelo.on('onPropUpdate', function (data) {
             cc.log('onPropUpdate', data);
-            
+
             var player = gameLogic.getCombatUnitForUid(data.targetID);
-            if(player != null)
+            if (player != null)
                 player.porpUpdate(data);
         });
 
-        pomelo.on('onDropCard', function(data){
+        pomelo.on('onDropCard', function (data) {
             cc.log('弃牌', data);
             data.inHands = data.inHands || [];
             combatMgr.getSelf().onUsePile(data.inHands);
             for (var info of data.dropInfo) {
                 if (info.toPile === consts.PileType.CARDS) {
-                    gameData.cardsNum ++;
+                    gameData.cardsNum++;
                 }
                 else if (info.toPile === consts.PileType.DISCARDS) {
-                    gameData.discardsNum ++;
+                    gameData.discardsNum++;
                 }
                 else if (info.toPile === consts.PileType.EXHAUSTS) {
-                    gameData.exhaustsNum ++;
+                    gameData.exhaustsNum++;
                 }
             }
             var ui = that._uimgr.getCurMainUI();
             ui.showNum(gameData);
         });
 
-        pomelo.on('onDropCardNotify', function(data){
+        pomelo.on('onDropCardNotify', function (data) {
             cc.log('弃牌广播', data);
 
         });
 
-        pomelo.on('onFightEnd', function(data){
+        pomelo.on('onFightEnd', function (data) {
+
             cc.log('战斗结束', data);
+            var res = data.result;
+            that._uimgr.loadUI(constant.UI.FightOver,function(data){
+                combatMgr.curCombat.UILoadOk = true;
+                var ui = that._uimgr.getCurMainUI();
+                ui.reslut(res); 
+            })
 
             //that._uimgr.loadUI(constans.UI.FightOver,function(){});
         });
 
-        pomelo.on('onDie', function(data){
+        pomelo.on('onDie', function (data) {
             var player = gameLogic.getCombatUnitForUid(data.targetID);
             // player.onDie();
             player.fsm.handleEvent(FSMEvent.DIE);
         });
 
-        pomelo.on('onDungeonReconnect', function(data){
+        pomelo.on('onDungeonReconnect', function (data) {
             cc.log('副本顶号重连', data);
-
+            // net.Request(new unmatchProto(consts.MatchType.PVE_2,1),(data)=>{
+            //     cc.log("match "+data + "取消匹配");
+            // });
+           var  uimgr = cc.find('Canvas').getComponent('UIMgr');
+            uimgr.loadUI(constant.UI.Login);
 
         });
 
-        pomelo.on('onAddMonsterSummon', function(data){
-            cc.log('增加分身', data); 
-            
+        pomelo.on('onAddMonsterSummon', function (data) {
+            cc.log('增加分身', data);
+
             ///重置位置
             var player = gameLogic.getCombatUnitForUid(data.casterID);
 
             if (player.Pos !== data.casterPos) {
-                if(player.teamid == combatMgr.curCombat.getSelf().teamid)
-                {
+                if (player.teamid == combatMgr.curCombat.getSelf().teamid) {
                     combatMgr.curCombat.own[data.casterPos] = player;
                     delete combatMgr.curCombat.own[player.Pos];
                 }
-                else
-                {
+                else {
                     combatMgr.curCombat.enemy[data.casterPos] = player;
                     delete combatMgr.curCombat.enemy[player.Pos];
                 }
@@ -408,20 +405,18 @@ var fight = {
             player.onAddSummon(data.casterPos);
 
             ///初始化分身
-            for(var i in data.newEnts){
+            for (var i in data.newEnts) {
                 var uid = data.newEnts[i].uid;
-                if(data.newEnts[i].hasOwnProperty('monsterid'))
-                {
-                    combatMgr.curCombat.units[uid] = new monster(data.newEnts[i],dataMgr.monster[data.newEnts[i].monsterid],combatMgr.curCombat.monsterMatrix.MatrixPos[data.newEnts[i].pos],player.teamid,combatMgr.curCombat,uid);
-                    if(player.teamid == combatMgr.curCombat.getSelf().teamid)
+                if (data.newEnts[i].hasOwnProperty('monsterid')) {
+                    combatMgr.curCombat.units[uid] = new monster(data.newEnts[i], dataMgr.monster[data.newEnts[i].monsterid], combatMgr.curCombat.monsterMatrix.MatrixPos[data.newEnts[i].pos], player.teamid, combatMgr.curCombat, uid);
+                    if (player.teamid == combatMgr.curCombat.getSelf().teamid)
                         combatMgr.curCombat.own[data.newEnts[i].pos] = combatMgr.curCombat.units[uid];
                     else
                         combatMgr.curCombat.enemy[data.newEnts[i].pos] = combatMgr.curCombat.units[uid];
                 }
-                else
-                {
-                    combatMgr.curCombat.units[uid] = new hero(data.newEnts[i],dataMgr.heroAttributes[data.newEnts[i].heroid],combatMgr.curCombat.matrix.MatrixPos[data.newEnts[i].pos],player.teamid,combatMgr.curCombat,uid);
-                    if(player.teamid == combatMgr.curCombat.getSelf().teamid)
+                else {
+                    combatMgr.curCombat.units[uid] = new hero(data.newEnts[i], dataMgr.heroAttributes[data.newEnts[i].heroid], combatMgr.curCombat.matrix.MatrixPos[data.newEnts[i].pos], player.teamid, combatMgr.curCombat, uid);
+                    if (player.teamid == combatMgr.curCombat.getSelf().teamid)
                         combatMgr.curCombat.own[data.newEnts[i].pos] = combatMgr.curCombat.units[uid];
                     else
                         combatMgr.curCombat.enemy[data.newEnts[i].pos] = combatMgr.curCombat.units[uid];
@@ -429,38 +424,32 @@ var fight = {
             }
         });
 
-        pomelo.on('onRemoveMonsterSummon', function(data){
+        pomelo.on('onRemoveMonsterSummon', function (data) {
             cc.log('移除分身', data);
 
             combatMgr.curCombat.units[data.entID].release();
             combatMgr.curCombat.units[data.entID] = null;
-            delete(combatMgr.curCombat.units[data.entID]);
+            delete (combatMgr.curCombat.units[data.entID]);
 
             var index = 0;
-            for(var i in combatMgr.curCombat.own)
-            {
-                if(combatMgr.curCombat.own[i].uid == data.entID)
-                {
+            for (var i in combatMgr.curCombat.own) {
+                if (combatMgr.curCombat.own[i].uid == data.entID) {
                     index = i;
                 }
             }
 
-            if(index != 0)
-            {
+            if (index != 0) {
                 delete combatMgr.curCombat.own[index];
                 return;
             }
 
-            for(var i in combatMgr.curCombat.enemy)
-            {
-                if(combatMgr.curCombat.enemy[i].uid == data.entID)
-                {
+            for (var i in combatMgr.curCombat.enemy) {
+                if (combatMgr.curCombat.enemy[i].uid == data.entID) {
                     index = i;
                 }
             }
 
-            if(index != 0)
-            {
+            if (index != 0) {
                 delete combatMgr.curCombat.enemy[index];
                 return;
             }

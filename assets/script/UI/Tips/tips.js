@@ -18,6 +18,7 @@ cc.Class({
         speed : 100,
         _aphla : 0,
         text : cc.Label,
+        text_bg:cc.Node,
     },
 
     // LIFE-CYCLE CALLBACKS:

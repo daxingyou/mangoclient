@@ -40,9 +40,9 @@ module.exports = {
 	1005: {
 		ID: 1005,
 		BuffName: '横剑摆渡',
-		Description: '每使用4张攻击牌，则抽取1张牌',
+		Description: '每使用5张攻击牌，则抽取1张牌',
 		Type: 'useCardListener',
-		Logic: {"num":4,"cardType":1},
+		Logic: {"num":5,"cardType":1},
 		SkillID: 1105,
 		IsHide: 0,
 		Image: 'buff1',
@@ -51,9 +51,9 @@ module.exports = {
 	2004: {
 		ID: 2004,
 		BuffName: '万物复苏',
-		Description: '每秒恢复80点生命，持续4秒',
+		Description: '每秒恢复60点生命，持续4秒',
 		Type: 'heal',
-		Logic: {"heal":80,"count":4,"time":1},
+		Logic: {"heal":60,"count":4,"time":1},
 		SkillID: 0,
 		IsHide: 0,
 		Image: 'buff2',

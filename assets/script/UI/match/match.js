@@ -26,12 +26,16 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        //this.match.active = true;
-        //this.select.active = true;
-       // this._type = 0;
+       
     },
 
     start () {
+        this.match.active = true;
+        this.select.active = false;
+        this._type = 0;
+        this.selectScr.init(this._mgr);
+    },
+    initMatch(){
         this.match.active = true;
         this.select.active = false;
         this._type = 0;
@@ -42,26 +46,31 @@ cc.Class({
 
     },
     matchTeam(){//点击了开始匹配
+        // this.select.active = true;
         this.dot.getComponent(cc.Label).string = ".";
-        this.start_pipei.active = false;
+        // this.cancel = true;
+       // cc.log(this.cancel,"this.cancel");
         if(this.cancel){
+            
             this._type = 1;
             uimgr = cc.find('Canvas').getComponent('UIMgr');
+
             this.pipeiIng.active = true;
             this.dot.active = true;
             this.pipei_bg.active = true;
+
             var dot = this.dot.getComponent(cc.Label).string;
             this.schedule(function(){
-                this.dot.getComponent(cc.Label).string += dot;
+                    this.dot.getComponent(cc.Label).string += dot;
                 if(this.dot.getComponent(cc.Label).string == "...."){
                     this.dot.getComponent(cc.Label).string = ".";
                 }
-            },0.5);  
+            },0.7);  
+            
             this.btn_label.string = "取消匹配";
-            // this.cancel = false;
+            this.cancel = false;
             net.Request(new matchProto(consts.MatchType.PVE_2,1),(data)=>{
-                cc.log("match "+data);
-    
+                cc.log("开始匹配 ");
                 ///匹配成功
                 if(data.code == 1)
                 {
@@ -72,6 +81,7 @@ cc.Class({
                 }  ///队列中
                 else if(data.code == 2)
                 {
+                    cc.log(data.code,"data.code");
                     uimgr.showTips('队列中');
                 }
             });
@@ -86,10 +96,11 @@ cc.Class({
                     cc.log("match "+data + "取消匹配");
                 });
         }
-       
     }, 
     showSelect(){
+        cc.log("匹配成功");
         this.match.active = false;
         this.select.active = true;
+        //this.cancel = true;
     }
 });

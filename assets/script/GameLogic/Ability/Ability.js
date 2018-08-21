@@ -70,6 +70,7 @@ ability.prototype.ShowEffect = function(effect){
 		if(this.effectType.origin == constant.EffectOrigin.target)
 		{
 			effectMgr.getMoveEffect(this.arrs.Path,this.owner.agent.go.position.add(new cc.Vec2(3,0)),new cc.Vec2(1010,310),5,effect,this.owner.teamid);
+			
 			//effectMgr.getPosEffect(this.arrs.Path,this.curTarget.agent.go.position,effect,this.owner.teamid,()=>{
 			//	effectMgr.getMoveEffect(this.arrs.Path,this.owner.agent.go.position.add(new cc.Vec2(10,0)),new cc.Vec2(1100,310),5,'sword',this.owner.teamid);
 			//});
@@ -86,12 +87,52 @@ ability.prototype.ShowEffect = function(effect){
 	{
 		if(this.effectType.origin == constant.EffectOrigin.target)
 		{
-			effectMgr.getPosEffect(this.arrs.Path,this.curTarget.agent.go.position,effect,this.owner.teamid);
+			if(this.targets != null)
+			{
+				if(this.targets.length > 1)
+				{
+					for(var i in this.targets)
+					{
+						effectMgr.getPosEffect(this.arrs.Path,this.targets[i].agent.go.position,effect,this.owner.teamid);
+					}
+				}
+				else
+				{
+					effectMgr.getPosEffect(this.arrs.Path,this.curTarget.agent.go.position,effect,this.owner.teamid);
+				}
+			}
+			else
+			{
+				effectMgr.getPosEffect(this.arrs.Path,this.curTarget.agent.go.position,effect,this.owner.teamid);
+			}
+			
 		}
 		else if(this.effectType.origin == constant.EffectOrigin.onwer)
 		{
 			effectMgr.getPosEffect(this.arrs.Path,this.owner.agent.go.position,effect,this.owner.teamid);
 		}
+		else if(this.effectType.origin == constant.EffectOrigin.onwerAll)
+		{
+			for(var i in this.owner.curCombat.units)
+			{
+				if(this.owner.curCombat.units[i].teamid == this.owner.teamid)
+				{
+					effectMgr.getPosEffect(this.arrs.Path,this.owner.curCombat.units[i].agent.go.position,effect,this.owner.teamid);
+				}
+			}
+		}
+		else if(this.effectType.origin == constant.EffectOrigin.enemyAll)
+		{
+			for(var i in this.owner.curCombat.units)
+			{
+				if(this.owner.curCombat.units[i].teamid != this.owner.teamid)
+				{
+					effectMgr.getPosEffect(this.arrs.Path,this.owner.curCombat.units[i].agent.go.position,effect,this.owner.curCombat.units[i].teamid);
+				}
+			}
+			//effectMgr.getPosEffect(this.arrs.Path,this.owner.agent.go.position,effect,this.owner.teamid);
+		}
+
 	}
 	else if(this.effectType.type == constant.EffectType.SwordWheel)
 	{
@@ -147,6 +188,11 @@ ability.prototype.tick = function(dt){
 			{
 				this.ShowEffect(this.effects[i]);
 			}
+
+			if(this.hitEffectTime.length == 0)
+			{
+				this.Exit();
+			}
 		}
 	}
 
@@ -161,20 +207,27 @@ ability.prototype.tick = function(dt){
 			effectMgr.getPosEffect(this.arrs.HitEffectPath,new cc.Vec2(1000+x,310+y),this.arrs.HitEffect,this.owner.teamid);
 			this.hurtEffectIndex++;
 
-			
-			if(gamedata.fightDamage.hasOwnProperty(this.owner.uid))
+			if(gamedata.fightDamage != null)
 			{
-				if(gamedata.fightDamage[this.owner.uid].hasOwnProperty(this.ID))
+				if(gamedata.fightDamage.hasOwnProperty(this.owner.uid))
 				{
-					var damagelist = gamedata.fightDamage[this.owner.uid][this.ID];
-					if(damagelist.length > 0)
+					if(gamedata.fightDamage[this.owner.uid].hasOwnProperty(this.ID))
 					{
-						this.owner.curCombat.UIMgr.loadDmg(this.curTarget,damagelist[0], true);
-						this.curTarget, gamedata.fightDamage[this.owner.uid][this.ID].splice(0,1);
+						var damagelist = gamedata.fightDamage[this.owner.uid][this.ID];
+						if(damagelist.length > 0)
+						{
+							this.owner.curCombat.UIMgr.loadDmg(this.curTarget, damagelist[0], true, this.owner.uid);
+							this.curTarget, gamedata.fightDamage[this.owner.uid][this.ID].splice(0,1);
+						}
 					}
 				}
 			}
+
 		}
+	}
+	else
+	{
+		this.Exit();
 	}
 	
 	if(this.ID == 1010)
@@ -189,6 +242,7 @@ ability.prototype.tick = function(dt){
 		else if(this.effectFrame >frame[frame.length - 1])
 		{
 			this.owner.curCombat.summonedMgr.collectAll();
+			this.Exit();
 			return;
 		}
 	}

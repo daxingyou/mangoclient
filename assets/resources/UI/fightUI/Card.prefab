@@ -53,12 +53,12 @@
     },
     "_rotationX": 0,
     "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
+    "_scaleX": 0.88,
+    "_scaleY": 0.88,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 642,
-      "y": 467
+      "x": -2254,
+      "y": -1152
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -234,8 +234,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 233,
-      "height": 310
+      "width": 224,
+      "height": 298.7
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -243,8 +243,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 1
+      "x": -0.4,
+      "y": -0.7
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -429,6 +429,9 @@
     "cardDes": {
       "__id__": 25
     },
+    "cardAttr": {
+      "__id__": 31
+    },
     "cardType": {
       "__id__": 34
     },
@@ -441,7 +444,8 @@
     "_IsSelect": false,
     "x": 0,
     "y": 0,
-    "rotation": 0
+    "rotation": 0,
+    "CurCenterCard": false
   },
   {
     "__type__": "cc.Sprite",
@@ -881,10 +885,10 @@
         "__id__": 27
       },
       {
-        "__id__": 31
+        "__id__": 25
       },
       {
-        "__id__": 25
+        "__id__": 31
       },
       {
         "__id__": 34
@@ -1048,7 +1052,7 @@
     },
     "_children": [],
     "_tag": -1,
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 32
@@ -1069,12 +1073,12 @@
     "_cascadeOpacityEnabled": true,
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0.5,
+      "x": 0,
       "y": 0.5
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 0,
+      "width": 28,
       "height": 14
     },
     "_rotationX": 0,
@@ -1083,8 +1087,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 1.4,
-      "y": -81.4
+      "x": 41.3,
+      "y": -111.8
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -1109,8 +1113,8 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "",
-    "_N$horizontalAlign": 1,
+    "_N$string": "描叙",
+    "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 0
@@ -1225,26 +1229,21 @@
     "sync": false
   },
   {
-    "__type__": "cc.Label",
+    "__type__": "cc.RichText",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 25
     },
     "_enabled": true,
-    "_useOriginalSize": false,
-    "_actualFontSize": 14,
-    "_fontSize": 14,
-    "_lineHeight": 16,
-    "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
-    "_spacingX": 0,
-    "_N$string": "文字描述文字描述文字文\n文字描述文字描述文字文\n文字描述文字描述文字文\n文字描述文字描述文字文",
+    "_N$string": "文字描述文字描述文字文字\n文字描述文字描述文字文字\n文字描述文字描述文字文字\n文字描述文字描述文字文字",
     "_N$horizontalAlign": 1,
-    "_N$verticalAlign": 1,
-    "_N$fontFamily": "Arial",
-    "_N$overflow": 3
+    "_N$fontSize": 14,
+    "_N$font": null,
+    "_N$maxWidth": 168,
+    "_N$lineHeight": 16,
+    "_N$imageAtlas": null,
+    "_N$handleTouchEvent": true
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -1254,7 +1253,7 @@
     "asset": {
       "__uuid__": "214401b5-9f9e-4e80-8d4d-aa8c3324f0b3"
     },
-    "fileId": "f7lvBtuTFGjZ9yVYGjqzl0",
+    "fileId": "16+w1fyG5DZ4jXu4HdCcw4",
     "sync": false
   },
   {

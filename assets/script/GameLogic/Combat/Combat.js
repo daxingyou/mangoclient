@@ -70,7 +70,7 @@ Combat.prototype.Tick = function(){
 
 Combat.prototype.init = function(data){
     this.UIMgr = cc.find('Canvas').getComponent('UIMgr');
-    
+    this.UIMgr.initDmg();
     var dungeon = dataMgr.dungeon[data.dgId];
     var that = this;
 
@@ -126,6 +126,25 @@ Combat.prototype.init = function(data){
 
 Combat.prototype.getSelf = function(){
     return this.own[this.curPlayerIndex];
+}
+
+Combat.prototype.Release = function(){
+    for(var i in this.units)
+    {
+        this.units[i].release();
+        delete this.units[i];
+    }
+
+    for(var i in this.own)
+        delete this.own[i];
+
+    for(var i in this.enemy)
+        delete this.enemy[i];
+
+    Effectmgr.release();
+    this.summonedMgr.Release();
+    this.summonedMgr = null;
+    this.UIMgr = null;
 }
 
 module.exports = Combat;

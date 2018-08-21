@@ -11,6 +11,7 @@
   "excluded-modules": [
     "Mask",
     "CCSpriteDistortion",
+    "ParticleSystem",
     "TiledMap",
     "PageView",
     "PageViewIndicator",

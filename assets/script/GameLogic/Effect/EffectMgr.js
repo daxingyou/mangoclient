@@ -130,25 +130,19 @@ var mgr = {
         }
     },
     getSwordEffect : function(name,pos,teamID){
-        //if(Pool.hasOwnProperty(name))
+        var go = Pool.getPos(name,pos);
+        go.node.position = pos;
+
+        if(teamID == constant.Team.own)
         {
-            var go = Pool.getPos(name,pos);
-            go.node.position = pos;
-
-            if(teamID == constant.Team.own)
-            {
-                go.node.Scale = 1;
-            }
-            else
-            {
-                go.node.Scale = -1;
-            }
-
-            return go;
+            go.node.Scale = 1;
         }
-        //else{
-        //    cc.error('getEffect not found effect name = ',name);
-        //}
+        else
+        {
+            go.node.Scale = -1;
+        }
+
+        return go;
     },
                   //特效回收
     putEffect : function(name,node){

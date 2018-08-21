@@ -1,22 +1,21 @@
-
 cc.Class({
     extends: cc.Component,
 
     properties: {
-        direction : cc.Node
+        direction: cc.Node
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {},
 
-    start () {
+    start() {
 
     },
 
     // update (dt) {},
 
-    setDire(lastPoint,bPoint){
+    setDire(lastPoint, bPoint) {
         var v = bPoint.sub(lastPoint);
         var angle = cc.pToAngle(v) / Math.PI * 180;
         //cc.log(angle.toString());

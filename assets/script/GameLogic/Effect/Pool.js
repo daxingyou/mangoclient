@@ -81,7 +81,12 @@ var pool = {
     clear : function(){
         for(var i in this.pools)
         {
-
+            for(var z in this.pools[i])
+            {
+                this.pools[i][z].node.destroy();
+                delete this.pools[i][z];
+            }
+            delete this.pools[i];
         }
     }
 }

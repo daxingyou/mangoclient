@@ -73,6 +73,7 @@ var SpawnSummoned = {
             }
     
             var index = utility.RandomInt(0,area.length-1);
+
             //// 最大只填了3
             if(index > 3)
                 index = 3;
@@ -94,19 +95,21 @@ var SpawnSummoned = {
             }
     
             ///记录位置
-            var temp = new Array();
-            var index = 0;
+            //var temp = new Array();
+            //var index = 0;
 
             for(var z=0;z<data[i];z++)
             {
                 var x = utility.RandomInt(range.x1,range.x2);
                 var y = utility.RandomInt(range.y1,range.y2);
         
-                temp[z] = new cc.v2(x,y);
+                cc.log('cur num = ',data[i],' cur pos = x ',x,' y=',y);
 
-                effectMgr.geBezierEffect('chenjinchou',new cc.Vec2(1100,310),new cc.Vec2(x,y),5,'wsword_bounce',0,(pos)=>{
-                    this.summoneds.push(effectMgr.getWswordEffect('sword',pos),0);
-                    index ++;
+                effectMgr.geBezierEffect('chenjinchou',new cc.Vec2(1100,310),new cc.Vec2(x,y),5,'wsword_bounce',0,(curPos)=>{
+                    this.summoneds.push(effectMgr.getWswordEffect('sword',curPos,0));
+
+                    cc.log('cur EffectMgr pos = ',curPos);
+                    //index ++;
                 });
             }
         }
@@ -123,17 +126,40 @@ var SpawnSummoned = {
     },   
     collectItem(){
         if(this.summoneds[a].node.position.y >= 300)
-                {
-                    effectMgr.putEffect('swordf',this.summoneds[0]);
-                }
-                else{
-                    effectMgr.putEffect('swordb',this.summoneds[0]);
-                }
+        {
+            effectMgr.putEffect('swordf',this.summoneds[0]);
+        }
+        else{
+            effectMgr.putEffect('swordb',this.summoneds[0]);
+        }
         this.summoneds.splice(0,1);
         
         combatMgr.curCombat.summoneds = this.summoneds;
     },
     collectAll(){
+        this.Release();
+        combatMgr.curCombat.summoneds = this.summoneds;
+    },
+       //木刃回收跳伤害
+    ShowDamage(){
+        for(var i in this.damage) 
+        {
+            var target = combatMgr.curCombat.units[i];
+
+            for(var z in this.damage[i])
+            {
+                if(z == this.index)
+                {
+                    var value = this.damage[i];
+
+                    this.uimgr.loadDmg(target, value[z], true,this.damage['caster']);
+                }
+            }
+        }
+        
+        this.index++;
+    },
+    Release(){
         for(var a =0;a<this.summoneds.length;a++)
         {
             if(this.summoneds[a] instanceof cc.Component)
@@ -150,29 +176,6 @@ var SpawnSummoned = {
                 
         }
         this.summoneds.splice(0,this.summoneds.length);
-        
-        combatMgr.curCombat.summoneds = this.summoneds;
-    },
-       //木刃回收跳伤害
-    ShowDamage(){
-        for(var i in this.damage) 
-        {
-            var target = combatMgr.curCombat.units[uid];
-
-            for(var z in this.damage[i])
-            {
-                if(z == this.index)
-                {
-                    var value = this.damage[i];
-
-                    this.uimgr.loadDmg(target, value[z], true);
-                }
-            }
-            
-        }
-        
-        this.index++;
-    },
-
+    }
 }
 module.exports = SpawnSummoned;

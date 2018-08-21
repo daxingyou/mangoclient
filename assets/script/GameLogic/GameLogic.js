@@ -68,7 +68,8 @@ var GameLogic = {
             }
             
             //CombatUnit.onUsePile(Card,target,targets);
-            this.fightUI.UseCard(Card);
+            //this.fightUI.UseCard(Card);
+            cc.log('GameLogic里面的Card');
         }
     },
     getEnemys : function(CombatUnit){

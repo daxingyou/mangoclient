@@ -73,7 +73,7 @@ cc.Class({
         this.effect.setAnimation(0,name, false);
         this.callBack = callBack;
 
-        cc.log('wtf ??????? this = ',this.uuid, ' spine == ',this.effect,' name ==',name ,' active = ',this._active);
+        //cc.log('wtf ??????? this = ',this.uuid, ' spine == ',this.effect,' name ==',name ,' active = ',this._active);
     },
     showMove(name,end,frame){
         this._MoveAni = true;
@@ -133,8 +133,6 @@ cc.Class({
             
             if(this.frame == 0)
             {
-                //cc.log('why...');
-
                 this._MoveAni = false;
                 this._active = false;
 

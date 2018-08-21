@@ -22,6 +22,9 @@ cc.Class({
             uuid = '';
         this._userName = this.userName.string = uuid;
         dataCenter.userId = uuid;
+        if(this.userName.string == "undefine"){
+            this.userName.string = "";
+        }
      
        
     },

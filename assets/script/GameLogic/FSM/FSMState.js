@@ -2,7 +2,7 @@
  * @Author: liuguolai 
  * @Date: 2018-08-13 11:17:04 
  * @Last Modified by: liuguolai
- * @Last Modified time: 2018-08-13 20:53:14
+ * @Last Modified time: 2018-08-16 11:21:49
  */
 var FSMStateID = require('FSMStateID');
 
@@ -28,9 +28,9 @@ pro.handleEvent = function (event) {
 };
 
 pro.onEnter = function () {
-    cc.log("onEnter no implement");
+    cc.log("onEnter no implement", this.stateID);
 };
 
 pro.onExit = function () {
-    cc.log("onExit no implement");
+    cc.log("onExit no implement", this.stateID);
 };

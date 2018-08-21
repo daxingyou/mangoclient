@@ -115,7 +115,7 @@ CombatUnit.prototype.onDamage = function(dmg,from,data = null){
     this.basePhysical_arm = data.armor;
     this.agent.hpbar.freshen(this.Hp,this.MaxHp,this.basePhysical_arm);
 
-    this.uimgr.loadDmg(this,dmg,true);
+    this.uimgr.loadDmg(this, dmg, true, data.attackerID);
 
     if(this.Hp <= 0)
         // this.onDie();
@@ -132,7 +132,7 @@ CombatUnit.prototype.onDamage = function(dmg,from,data = null){
 };
 
 // spawnSummon伤害
-CombatUnit.prototype.onSpawnSummonDamage = function (damageData) {
+CombatUnit.prototype.onSpawnSummonDamage = function (damageData, casterID) {
     this.Hp = damageData.curHp;
     this.basePhysical_arm = damageData.curArmor;
     this.agent.hpbar.freshen(this.Hp, this.MaxHp, this.basePhysical_arm);
@@ -141,15 +141,31 @@ CombatUnit.prototype.onSpawnSummonDamage = function (damageData) {
         var deltaHp = damageItem[0] - damageItem[1];
         var deltaArmor = damageItem[2] - damageItem[3];
         if (deltaHp > 0) {
-            this.uimgr.loadDmg(this, deltaHp, true);
+            this.uimgr.loadDmg(this, deltaHp, true, casterID);
         }
     }
 };
 
-CombatUnit.prototype.onHeal = function(curhp,value){
+CombatUnit.prototype.freshAttri = function (data) {
+    if (data) {
+        for (var k in data) {
+            this[k] = data[k];
+        }
+    }
+    this.agent.hpbar.freshen(this.Hp, this.MaxHp, this.basePhysical_arm);
+
+    if(this.uid == this.curCombat.getSelf().uid)
+    {
+        if(this.ui == null  || this.ui == undefined)
+            this.ui = this.curCombat.UIMgr.getCurMainUI();
+        this.ui.updateBarLabel(this.Hp,this.MaxHp);
+    }
+};
+
+CombatUnit.prototype.onHeal = function(curhp, value, casterID){
     this.Hp = curhp;
     this.agent.hpbar.freshen(this.Hp,this.MaxHp,this.basePhysical_arm);
-    this.uimgr.loadDmg(this,value,false);
+    this.uimgr.loadDmg(this,value,false, casterID);
 
     if(this.uid == this.curCombat.getSelf().uid)
     {
@@ -159,10 +175,12 @@ CombatUnit.prototype.onHeal = function(curhp,value){
     }
 }
 
-CombatUnit.prototype.Relive = function(curhp,value){
+CombatUnit.prototype.Relive = function(curhp, value, casterID){
     this.Hp = curhp;
     this.agent.hpbar.freshen(this.Hp, this.MaxHp, this.basePhysical_arm);
-    this.uimgr.loadDmg(this,value,false);
+    this.uimgr.loadDmg(this,value,false, casterID);
+
+    this.fsm.handleEvent(FSMEvent.RELIVE);
 
     if(this.uid == this.curCombat.getSelf().uid)
     {
@@ -175,7 +193,7 @@ CombatUnit.prototype.Relive = function(curhp,value){
 ////抽牌       服务器会将所有手牌下发，这里需要做校验
 CombatUnit.prototype.onDrawPile = function(ids){
     ids = ids || [];
-    cc.log('服务器下发 手牌 = ',ids);
+   // cc.log('服务器下发 手牌 = ',ids);//更新牌的张数
     cc.log('当前 手牌 = ',this.handsPile);
 
     this.handsPile.length = 0;
@@ -294,8 +312,11 @@ CombatUnit.prototype.tick = function(dt){
 };
 
 CombatUnit.prototype.release = function(){
-    this.agent.Release();
-    this.agent = null;
+    if(this.agent != null)
+    {
+        this.agent.Release();
+        this.agent = null;
+    }
 }
 
 module.exports = CombatUnit;

@@ -32,8 +32,8 @@ cc.Class({
     on_click: function (data) {
         
        this._parent.serverName.string = this.serverName.string;
-    //    this._parent.status.string = this.status.string;
-       this._parent.status.string = "火爆";
+       this._parent.status.string = this.status.string;
+       this._parent.status.string = "新服";
        this._parent.id = this.id;
        this._parent.host = this.host;
        this._parent.port = this.port;

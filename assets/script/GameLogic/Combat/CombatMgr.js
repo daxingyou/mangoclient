@@ -105,6 +105,9 @@ var CombatMgr = {
                 this.curCombat.own[i].tick(dt);
             }
         }
+    },
+    Release : function(){
+        this.curCombat.Release();
     }
 }
 
