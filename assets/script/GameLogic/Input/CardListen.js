@@ -1,11 +1,13 @@
-//var GameLogic = require('GameLogic')
- var dataCenter = require('DataCenter')
+var GameLogic = require('GameLogic')
+var dataCenter = require('DataCenter')
+
 cc.Class({
     extends: cc.Component,
 
     properties: {
         _startPoint : null,
         cardItem : cc.Component,
+        _targets : null,
     },
     
     onLoad () {
@@ -24,12 +26,14 @@ cc.Class({
             {
                 this.node.on('touchstart', function ( event ) {
                     //cc.log('Hello! card listen');
-        
-                    mgr.curSelectCard(that.cardItem._index,event.currentTouch.__instanceId,event.touch._startPoint);//索引值，触摸位移，起始位置
+
+                    //this._targets =  GameLogic.player.handsPile[tthat.cardItem._index].ability.getTarget();
+                    //mgr.curSelectCard(that.cardItem._index,event.currentTouch.__instanceId,event.touch._startPoint);//索引值，触摸位移，起始位置
+                    mgr.curSelectCard(that.cardItem._index,event.currentTouch.__instanceId,that.node.convertToWorldSpaceAR(cc.v2(0,0)));//索引值，触摸位移，起始位置
                     //GameLogic.UsePile(GameLogic.player,0,GameLogic.getEnemys(GameLogic.player)[0]);
                 });
                 this.node.on('touchmove', function ( event ) {
-                    console.log('Hello! card listen touchmove');
+                    //console.log('Hello! card listen touchmove');
                     //var delta = event.touch.getLocation();
                     //var curwindow = event.touch.getLocationInView();
                     //var newVec2 = that.node.convertToWorldSpace(that.node.position);
@@ -44,8 +48,8 @@ cc.Class({
         
                     ///当拖拽距离大于5个像素就还原放大显示
                     if(cc.pDistance(event.currentTouch._startPoint,event.currentTouch._point) > 5 && dataCenter.returnAniEnd){
-                     //   cc.log(dataCenter.returnAniEnd,"dataCenter.returnAniEnd 要显示线了");
-                        mgr.touchMove(event.currentTouch.__instanceId,event.touch._point);
+                        //cc.log(dataCenter.returnAniEnd,"cur touch point",event.touch._point);
+                        mgr.touchMove(event.currentTouch.__instanceId,event.touch._point,that.node.convertToWorldSpaceAR(cc.v2(0,0)));
                     }
                     else{
                         
@@ -77,5 +81,5 @@ cc.Class({
 
     },
 
-    // update (dt) {},
+    //update (dt) {},
 });

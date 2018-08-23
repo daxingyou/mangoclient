@@ -37,6 +37,12 @@ cc.Class({
         pipeiIngBg:cc.Node,
         match:cc.Node,
         enter:cc.Node,
+        firstLoad:cc.Node,
+        secondLoad:cc.Node,
+        mosterLoad:cc.Node,
+        manComfirm:cc.Node,
+        womenComfirm:cc.Node,
+
     },
     onLoad () {
      this.init();
@@ -89,6 +95,20 @@ cc.Class({
             }
         }
     },
+
+
+    loadProjess(pro){
+       this.firstLoad.active = true;
+       this.secondLoad.active = true;
+       this.mosterLoad.active = true;
+   
+       this.firstLoad.getComponent(cc.Label).string = ""+pro+"%";
+       this.secondLoad.getComponent(cc.Label).string = ""+pro+"%";
+       this.mosterLoad.getComponent(cc.Label).string = ""+pro+"%";
+       
+   },
+   
+   
 
    
     manSelect(event){
@@ -212,9 +232,13 @@ cc.Class({
            
            that.firstComfirm = true;
            cc.log("1准备了");
-        //    if(that.firstComfirm && dataCenter.userName=="于小雪"){
-
-        //    }
+        
+           if(that.first_man.active == true &&  that.enter.active == false){
+               that.womenComfirm.active = false;
+           }
+           else{
+            that.manComfirm.active = false;
+           }
     }
 
     else{
@@ -231,6 +255,13 @@ cc.Class({
         }
         that.secondComfirm = true;
         cc.log("2准备了");
+
+        if(that.second_man.active == true &&  that.enter.active == false){
+            that.womenComfirm.active = false;
+        }
+        else{
+         that.manComfirm.active = false;
+        }
        
     }
         net.Request(new confirmHeroProto(),function(data){
@@ -238,7 +269,7 @@ cc.Class({
     },
     beginLoadCD(){
         this._CDState = true;
-        this.cdTime = 11;
+        this.cdTime = 5;
         if((this.first_man.active == false && this.first_women.active == false && this.second_man.active == false && this.second_women.active == false)||(this.firstComfirm==false && this.secondComfirm == false)){
             cc.log("两个人都没有选择或者某一个人选择了但是都没有准备");
             if(this.is_firstPostion){

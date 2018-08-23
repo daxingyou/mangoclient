@@ -146,7 +146,7 @@ cc.Class({
     },
     start () {
         //cc.view.enableAntiAlias
-        cc.log('is Anti Alias Enabled =',cc.view.isAntiAliasEnabled());
+        //cc.log('is Anti Alias Enabled =',cc.view.isAntiAliasEnabled());
 
             // this.node.on(cc.Node.EventType.TOUCH_START, function (event) {//节点区域时   
             //   //  event.stopPropagationImmeditate();

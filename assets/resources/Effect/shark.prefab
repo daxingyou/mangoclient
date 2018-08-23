@@ -74,10 +74,10 @@
     "_paused": false,
     "defaultSkin": "",
     "defaultAnimation": "",
-    "loop": false,
+    "loop": true,
     "_premultipliedAlpha": false,
     "_N$skeletonData": {
-      "__uuid__": "dbd3648e-2385-49cc-ae7e-ea1c40323557"
+      "__uuid__": "60b88ee6-5150-469a-813a-308d9c72c5e1"
     },
     "_N$timeScale": 1,
     "_N$debugSlots": false,
@@ -107,7 +107,7 @@
     "asset": {
       "__uuid__": "3fa8fd3b-dd33-4213-8187-b60c30bd531b"
     },
-    "fileId": "28ozl8cmFCK5ITd6qZ7UuE",
+    "fileId": "38sg7YvxRDRrHiPoNbSuoQ",
     "sync": false
   }
 ]

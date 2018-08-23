@@ -15,4 +15,6 @@ module.exports = {
     returnAniEnd:'',//动作执行完毕
     ComfirmFirst:false,//只有第一个人准备时
     ComfirmSecond:false,//
+    curLoadRes:0,
+    swordNum:0,
 }

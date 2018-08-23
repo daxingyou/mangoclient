@@ -4,7 +4,7 @@ cc.Class({
     extends: cc.Component,
     properties: {
        serverName:cc.Label,
-       status:cc.Label,
+       status:cc.Node,
        _parent:null,
        id:null,
        host:null,
@@ -20,11 +20,25 @@ cc.Class({
        
         
         self.serverName.string =data.name;
-        self.status.string = data.status; 
+        self.status.getComponent(cc.Label).string = data.status+" 级"; 
         self.id = data.id;
         self.host = data.ip;
         self.port = data.port;
         self._parent = parent;//slectServer
+
+       // cc.log(self._parent.showScore,"dlksfaaaaa");
+      
+        if(self._parent.showScore.length!=0){
+            for(var i=0;i<self._parent.showScore.length;i++){
+              
+                if(self.id==self._parent.showScore[i]){
+                self.status.active = true;
+            }
+
+        }
+        
+        }
+        
     },
     start(){
        

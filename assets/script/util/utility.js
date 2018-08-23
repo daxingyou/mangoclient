@@ -1,3 +1,5 @@
+var dataCenter = require('DataCenter')
+
 var utility ={
     uiMgr : null,
 
@@ -76,6 +78,32 @@ var utility ={
     RandomInt : function(n, m){
         var random = Math.floor(Math.random()*(m-n+1)+n);
         return random;
+    },
+    RandomSeedInt : function(n, m){
+        var value = this.randfloat(1);
+        //cc.log('cur value == ',value);
+        var random = Math.floor(value*(m-n+1)+n);
+        //cc.log('cur random == ',random);
+        return random;
+    },
+    rnd : function ( seed ){
+        seed = ( seed * 9301 + 49297 ) % 233280; //为何使用这三个数?
+        return seed / ( 233280.0 );
+    },
+    randint : function (number){
+        var today = new Date(); 
+        var seed = today.getTime()/10000;
+        seed =Math.floor(seed)+dataCenter.swordNum;
+        dataCenter.swordNum++;
+        return Math.ceil(this.rnd( seed ) * number );
+    },
+    randfloat : function (number){
+        var today = new Date(); 
+        var seed = today.getTime()/10000;
+        seed =Math.floor(seed)+dataCenter.swordNum;
+        dataCenter.swordNum++;
+        //cc.log('cur dataCenter.swordNum == ',dataCenter.swordNum);
+        return this.rnd( seed ) * number;
     }
 }
 

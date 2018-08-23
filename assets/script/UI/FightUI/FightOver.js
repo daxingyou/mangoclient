@@ -47,18 +47,18 @@ cc.Class({
         }
     },
 
-    // onEnable(){
-    //     this.tipCont = true;
-    // },//被激活时
+    onEnable(){
+        this.tipCont = true;
+    },//被激活时
 
     again(){
        
-        // if(this._CDState == false){
+         if(this._CDState == false){
             this._uimgr.loadUI(constant.UI.Match,function(data){
                 combatMgr.Release();
                 combatMgr.curCombat.UILoadOk = true; 
             });
-        // }
+         }
        
     },
 
@@ -77,12 +77,12 @@ cc.Class({
         }
         
 
-        // if(this._CDState)
-        // {
-        //     this.cdTime -= dt;
-        //     if(this.cdTime <= 0){
-        //         this._CDState = false; 
-        //     }
-        // }
+        if(this._CDState)
+        {
+            this.cdTime -= dt;
+            if(this.cdTime <= 0){
+                this._CDState = false; 
+            }
+        }
      },
 });

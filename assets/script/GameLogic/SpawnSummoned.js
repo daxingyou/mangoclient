@@ -23,7 +23,7 @@ var SpawnSummoned = {
             area = combatMgr.curCombat.monsterMatrix.Area3;
         }
 
-        var index = utility.RandomInt(0,area.length-1);
+        var index = utility.RandomSeedInt(0,area.length-1);
         //// 最大只填了3
         if(index > 3)
             index = 3;
@@ -44,8 +44,8 @@ var SpawnSummoned = {
             range = combatMgr.curCombat.monsterMatrix.Range3;
         }
 
-        var x = utility.RandomInt(range.x1,range.x2);
-        var y = utility.RandomInt(range.y1,range.y2);
+        var x = utility.RandomSeedInt(range.x1,range.x2);
+        var y = utility.RandomSeedInt(range.y1,range.y2);
 
         if(data.type == constant.SummonedType.wSword)
         {
@@ -72,7 +72,7 @@ var SpawnSummoned = {
                 area = combatMgr.curCombat.monsterMatrix.Area3;
             }
     
-            var index = utility.RandomInt(0,area.length-1);
+            var index = utility.RandomSeedInt(0,area.length-1);
 
             //// 最大只填了3
             if(index > 3)
@@ -100,8 +100,8 @@ var SpawnSummoned = {
 
             for(var z=0;z<data[i];z++)
             {
-                var x = utility.RandomInt(range.x1,range.x2);
-                var y = utility.RandomInt(range.y1,range.y2);
+                var x = utility.RandomSeedInt(range.x1,range.x2);
+                var y = utility.RandomSeedInt(range.y1,range.y2);
         
                 cc.log('cur num = ',data[i],' cur pos = x ',x,' y=',y);
 

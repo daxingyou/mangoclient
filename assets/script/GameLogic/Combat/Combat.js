@@ -13,11 +13,14 @@ var consts = require('consts')
 var Monster_ = require('Monster_')
 var net = require('NetPomelo')
 var loadFinishedProto = require('loadFinishedProto')
+var loadProgressProto = require('loadProgressProto')
 var Effectmgr = require('EffectMgr')
 
 var Combat = function(){
     
 }
+
+Combat.prototype.resNum = 0;
 
 Combat.prototype.curPlayerIndex = 0;
 /// 战斗持续时间
@@ -43,21 +46,22 @@ Combat.prototype.UILoadOk = false;
 Combat.prototype.Tick = function(){
     if(this.checkLoadRes)
     {
-        var result = true;
+        //var result = true;
 
-        for(var i in this.own)
-        {
-            if(!this.own[i].loadok)
-                result = false;
-        }
+        //for(var i in this.own)
+        //{
+        //   if(!this.own[i].loadok)
+        //        result = false;
+        //}
 
-        for(var i in this.enemy)
-        {
-            if(!this.enemy[i].loadok)
-                result = false;
-        }
+        //for(var i in this.enemy)
+        //{
+        //    if(!this.enemy[i].loadok)
+        //        result = false;
+        //}
 
-        if(this.sceneLoadOk && this.UILoadOk && result)
+        //if(this.sceneLoadOk && this.UILoadOk && result)
+        if(gameCenter.curLoadRes == this.resNum)
         {
             this.checkLoadRes = false;
             cc.log('加载完成！');
@@ -65,6 +69,10 @@ Combat.prototype.Tick = function(){
                 
             });
         }
+        
+        net.Request(new loadProgressProto(gameCenter.curLoadRes / this.resNum*100),function(){
+                
+        });
     }
 }
 
@@ -73,10 +81,12 @@ Combat.prototype.init = function(data){
     this.UIMgr.initDmg();
     var dungeon = dataMgr.dungeon[data.dgId];
     var that = this;
-
+    gameCenter.curLoadRes = 0;
+    this.resNum++;
     /// 加载场景
     sceneMgr.loadScene(dungeon.SceneID,function(){
         that.sceneLoadOk = true;
+        gameCenter.curLoadRes++;
     })
 
     this.time = dungeon.TimeLimit;
@@ -86,11 +96,15 @@ Combat.prototype.init = function(data){
 
     for(var entity of data.teamInfo.teamA)
     {
+        if(entity.heroid / 1000 == 1)
+            this.resNum +=Effectmgr.initSword();
+
+        this.resNum++;
         var uid = entity.uid, idx = entity.pos;
         var hero = new Hero_(entity,dataMgr.heroAttributes[entity.heroid],this.matrix.MatrixPos[idx],constant.Team.own,this,uid);
         this.own[idx] = hero;
 
-        Effectmgr.init(dataMgr.hero[entity.heroid].InitialDrawPile);
+        this.resNum +=Effectmgr.init(dataMgr.hero[entity.heroid].InitialDrawPile);
         if(uid == gameCenter.uuid)
         {
             hero.InitMyInfo(data.myInfo);
@@ -112,14 +126,16 @@ Combat.prototype.init = function(data){
 
         ////怪物数据 暂是本地数据
         for(var entity of data.teamInfo.teamB){
+            this.resNum++;
             var uid = entity.uid, idx = entity.pos;
             var monster = new Monster_(entity,dataMgr.monster[entity.monsterid],this.monsterMatrix.MatrixPos[idx],constant.Team.enemy,this,uid);
             this.enemy[idx] = monster;
 
-            Effectmgr.init(dataMgr.monster[entity.monsterid].InitialDrawPile);
+            this.resNum +=Effectmgr.init(dataMgr.monster[entity.monsterid].InitialDrawPile);
             this.units[uid] = monster;
         }
 
+        cc.log('cur res = ',this.resNum );
         this.checkLoadRes = true;
     }
 }

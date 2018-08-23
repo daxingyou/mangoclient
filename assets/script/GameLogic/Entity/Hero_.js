@@ -2,6 +2,8 @@ var CombatUnit = require('Combatunit')
 var Card = require('HandCard')
 var Agent = require('Agent')
 var DataMgr = require('DataMgr')
+var gameCenter = require('DataCenter')
+
 
 function Hero_(data,attributes,pos,teamid,combat,uid){
 
@@ -22,6 +24,7 @@ function Hero_(data,attributes,pos,teamid,combat,uid){
 
     this.agent = new Agent(this.table.HeroModel,pos,teamid,this.Hp,this.MaxHp,this.basePhysical_arm,uid,this.buffs,scale,function(){
         that.loadok = true;
+        gameCenter.curLoadRes++;
     });
 }
 

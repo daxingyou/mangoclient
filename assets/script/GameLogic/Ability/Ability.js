@@ -24,6 +24,7 @@ var ability = function(data,owner){
 	this.hitEffectTime = this.arrs.HitTime;
 }
 
+ability.prototype.swordShow = false;
 ability.prototype.owner = null;
 ///当前目标
 ability.prototype.curTarget = null;
@@ -58,6 +59,8 @@ ability.prototype.Active = function(Target,targets){
 			this.ShowEffect(this.effects[i]);
 		}
 	}
+
+	this.swordShow = true;
 }
 
 ability.prototype.ShowEffect = function(effect){
@@ -195,56 +198,59 @@ ability.prototype.tick = function(dt){
 			}
 		}
 	}
-
-	if(this.hurtEffectIndex < this.hitEffectTime.length)
+	else if(this.hitEffectTime.length)
 	{
-		if(this.hitEffectTime[this.hurtEffectIndex] <= this.effectTime)
+		if(this.ID == 1010 && this.swordShow)
 		{
-			cc.log('cur frame =',this.effectTime);
+			var frame = new Array(6,9,13,16,18,21,25);
 	
-			var x = utility.RandomInt(0,50);
-			var y = utility.RandomInt(0,50);
-			effectMgr.getPosEffect(this.arrs.HitEffectPath,new cc.Vec2(1000+x,310+y),this.arrs.HitEffect,this.owner.teamid);
-			this.hurtEffectIndex++;
-
-			if(gamedata.fightDamage != null)
+			if(this.effectFrame == frame[this.index])
 			{
-				if(gamedata.fightDamage.hasOwnProperty(this.owner.uid))
+				this.index++;
+				this.owner.curCombat.summonedMgr.collectItem();
+			}
+			else if(this.effectFrame >frame[frame.length - 1])
+			{
+				if(this.owner.curCombat.summonedMgr != null)
+					this.owner.curCombat.summonedMgr.collectAll();
+				this.swordShow = false;
+				//this.Exit();
+			}
+		}
+
+		if(this.hurtEffectIndex < this.hitEffectTime.length)
+		{
+			if(this.hitEffectTime[this.hurtEffectIndex] <= this.effectTime)
+			{
+				cc.log('cur frame =',this.effectTime);
+		
+				var x = utility.RandomInt(0,50);
+				var y = utility.RandomInt(0,50);
+				effectMgr.getPosEffect(this.arrs.HitEffectPath,new cc.Vec2(1000+x,310+y),this.arrs.HitEffect,this.owner.teamid);
+				this.hurtEffectIndex++;
+	
+				if(gamedata.fightDamage != null)
 				{
-					if(gamedata.fightDamage[this.owner.uid].hasOwnProperty(this.ID))
+					if(gamedata.fightDamage.hasOwnProperty(this.owner.uid))
 					{
-						var damagelist = gamedata.fightDamage[this.owner.uid][this.ID];
-						if(damagelist.length > 0)
+						if(gamedata.fightDamage[this.owner.uid].hasOwnProperty(this.ID))
 						{
-							this.owner.curCombat.UIMgr.loadDmg(this.curTarget, damagelist[0], true, this.owner.uid);
-							this.curTarget, gamedata.fightDamage[this.owner.uid][this.ID].splice(0,1);
+							var damagelist = gamedata.fightDamage[this.owner.uid][this.ID];
+							if(damagelist.length > 0)
+							{
+								this.owner.curCombat.UIMgr.loadDmg(this.curTarget, damagelist[0], true, this.owner.uid);
+								this.curTarget, gamedata.fightDamage[this.owner.uid][this.ID].splice(0,1);
+							}
 						}
 					}
 				}
+	
 			}
-
 		}
 	}
 	else
 	{
 		this.Exit();
-	}
-	
-	if(this.ID == 1010)
-	{
-		var frame = new Array(6,9,13,16,18,21,25);
-
-		if(this.effectFrame == frame[this.index])
-		{
-			this.index++;
-			this.owner.curCombat.summonedMgr.collectItem();
-		}
-		else if(this.effectFrame >frame[frame.length - 1])
-		{
-			this.owner.curCombat.summonedMgr.collectAll();
-			this.Exit();
-			return;
-		}
 	}
 
 	///当前特效执行帧

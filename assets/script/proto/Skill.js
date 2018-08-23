@@ -676,7 +676,7 @@ module.exports = {
 		1: {
 			ID: 2010,
 			Index: 1,
-			SkillName: '石破惊天',
+			SkillName: '石破天惊',
 			Target: {"type":"single","team":1,"singing":1.3},
 			Actions: {damage:{"dmg":100}},
 			Animation: 'attack_02',
@@ -693,7 +693,7 @@ module.exports = {
 		2: {
 			ID: 2010,
 			Index: 2,
-			SkillName: '石破惊天',
+			SkillName: '石破天惊',
 			Target: {"type":"single","team":1},
 			Actions: {damage:{"dmg":100}},
 			Animation: '',
@@ -809,7 +809,7 @@ module.exports = {
 			Animation: 'skill_03',
 			CriticalTime: 66,
 			Effect: 'wind',
-			EffectType: {"type":"point","origin":"owner"},
+			EffectType: {"type":"point","origin":"target"},
 			EffectiveTime: 0,
 			Path: 'shark',
 			HitEffect: 'hiteffect',

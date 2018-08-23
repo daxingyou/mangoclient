@@ -2,6 +2,7 @@ var datamgr = require('DataMgr')
 var LoadRes = require('LoadRes')
 var Pool = require('Pool')
 var constant = require('constants')
+var gameCenter = require('DataCenter')
 
 var mgr = {
     cardList : null,
@@ -9,7 +10,7 @@ var mgr = {
     init : function(list){
         var that = this;
         this.cardList = new Array();
-
+        var result = 0;
         for(var i =0;i<list.length;i++)
         {
             if(this.cardList.indexOf(list[i]) == -1)
@@ -22,6 +23,7 @@ var mgr = {
                 {
                     if(!Pool.hasOwnProperty(skilList[j].Path) && skilList[j].Path != '')
                     {
+                        result +=20;
                         Pool.create(skilList[j].Path);
                         //var path = constant.EffectPath.concat();
                         LoadRes.loadEffect(skilList[j].Path,true,function(data,effect){
@@ -33,13 +35,18 @@ var mgr = {
                                 var src = go.getComponent('EffectListen')
                                 src.init(effect);
                                 Pool.put(effect,src);
+                                gameCenter.curLoadRes++;
+                                //cc.log('gameCenter.curLoadRes = ',gameCenter.curLoadRes);
                             }
                         });
                     }
                 }
             }
         }
-
+        //cc.log('effect num',result);
+        return result;
+    },
+    initSword(){
         Pool.create('swordf');
         Pool.create('swordb');
         LoadRes.loadEffect('sword',true,function(data,effect){
@@ -52,6 +59,8 @@ var mgr = {
 
                 src.init(effect);
                 Pool.put(effect+'f',src);
+                gameCenter.curLoadRes++;
+                //cc.log('gameCenter.curLoadRes = ',gameCenter.curLoadRes);
             }
 
             for(var z =0;z<30;z++)
@@ -62,8 +71,12 @@ var mgr = {
                 var src = go.getComponent('EffectListen')
                 src.init(effect);
                 Pool.put(effect+'b',src);
+                gameCenter.curLoadRes++;
+                //cc.log('gameCenter.curLoadRes = ',gameCenter.curLoadRes);
             }
         });
+
+        return 60;
     },
     ///普通特效
     getPosEffect : function(name,pos,effect,teamID,callback){

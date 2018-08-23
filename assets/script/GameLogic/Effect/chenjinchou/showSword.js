@@ -6,6 +6,9 @@ cc.Class({
 
     properties: {
         _thisValue : [],
+        _thisZIndex: 0,
+        _left : 0,
+        _right : 0,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -58,8 +61,8 @@ cc.Class({
     showSword(){
         this._active = true;
 
-        var left = utility.RandomInt(4,8);
-        var right = utility.RandomInt(4,8);
+        var left = utility.RandomSeedInt(4,8);
+        var right = utility.RandomSeedInt(4,8);
 
         var src = this.getComponent('ShaderUtilsForWsword');
         src.setValue(left/10,right/10);
@@ -67,7 +70,9 @@ cc.Class({
         var angle = temp[right];
         this.node.rotation = angle;
 
-        cc.log('showSword showSword');
+        this._left = left;
+        this._right = right;
+        //cc.log('showSword showSword');
     },
     showCollect(callback){
         this.callback = callback;

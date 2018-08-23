@@ -1,6 +1,7 @@
 var CombatUnit = require('Combatunit')
 var Agent = require('Agent')
 var DataMgr = require('DataMgr')
+var gameCenter = require('DataCenter')
 
 function Monster_(data,attributes,pos,teamid,combat,uid){
     this.Hp = data.hp;
@@ -20,6 +21,7 @@ function Monster_(data,attributes,pos,teamid,combat,uid){
 
     this.agent = new Agent(this.table.Model,pos,teamid,this.Hp,this.MaxHp,this.basePhysical_arm,uid,this.buffs,scale,function(){
         that.loadok = true;
+        gameCenter.curLoadRes++;
     });
 }
 

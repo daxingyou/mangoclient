@@ -37,10 +37,13 @@ cc.Class({
     start () {
        
     },
-    touchMove(touchid,point)
+    touchMove(touchid,point,cardPoint)
     {
+        this._startPoint = cardPoint;
         var points = utility.ComputeBezier(this._startPoint,point);//路径点数组
-       
+
+        //cc.log('last point = ',points[points.length -1]);
+
         if(points.length > 3)
             this.fightUI.lineDotSrc.setDire(points[points.length-1],points[points.length-2]);
 

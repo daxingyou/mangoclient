@@ -121,7 +121,7 @@ module.exports = {
 		Type: 'modProp',
 		Logic: {vulnerable:4},
 		SkillID: 0,
-		IsHide: 0,
+		IsHide: 1,
 		Image: 'buff3',
 		Effect: ''
 	},

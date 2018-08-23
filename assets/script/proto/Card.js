@@ -328,7 +328,7 @@ module.exports = {
 	},
 	2010: {
 		ID: 2010,
-		CardName: '石破惊天',
+		CardName: '石破天惊',
 		CardDescription: '对目标造成2次100点的伤害，如果两次目标一致，则抽1张卡牌',
 		HeroID: 2000,
 		SkillID: 2010,
