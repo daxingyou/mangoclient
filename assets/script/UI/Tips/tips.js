@@ -60,17 +60,12 @@ cc.Class({
     onDisable(){
 
     },
-    showText(text,type,callback){
+    showText(text,pos){
         this.init();
         this.text.string = text;
-        /*
-        if(type == text)
-        {
-            1.show();
-        }
-        else if(type == button)
-        else if(type == button)
-        */
+        if(pos == undefined)
+            pos = cc.v2(0,0);
+        this.node.position = pos;
     },
     init(){
         this._aphla = 0;

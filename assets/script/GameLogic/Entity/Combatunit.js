@@ -6,6 +6,7 @@
  var buff = require('AbilityBuff')
  var ability = require('Ability') 
  var dataMgr = require('DataMgr') 
+ var gameCenter = require('DataCenter')
 
  var FSM = require('FSM');
  var FSMEvent = require('FSMEvent');
@@ -21,6 +22,7 @@ var CombatUnit = function(data,attrs,pos,teamid,combat,uid){
     this.teamid = teamid;
     this.curCombat = combat;
     this.uid = uid;
+    this.scale = data.scale;
 
     this.uimgr = cc.find('Canvas').getComponent('UIMgr');
 
@@ -86,6 +88,8 @@ CombatUnit.prototype.mpRecoverTime = 3000;
 CombatUnit.prototype.mpRecoverRate = 1;
 // MP恢复暂停
 CombatUnit.prototype.mpRecoverPause = false;
+// 模型缩放
+CombatUnit.prototype.scale = 1;
 
 //////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////// 
 
@@ -250,6 +254,9 @@ CombatUnit.prototype.porpUpdate = function(data){
     }
     else if(data.hasOwnProperty('scale'))
     {
+        this.scale = data.scale;
+        if (this.IsDie || gameCenter.fightEnd)
+            return;
         ///模型缩放
         this.agent.setScale(data.scale);
     }

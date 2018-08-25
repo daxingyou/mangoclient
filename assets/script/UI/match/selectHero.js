@@ -1,3 +1,6 @@
+
+
+
 var UIBase = require('UIBase')
 var ShaderUtils = require("ShaderUtils")
 var net = require("NetPomelo")
@@ -8,6 +11,8 @@ var confirmHeroProto = require("confirmHeroProto")
 var dataCenter = require('DataCenter')
 var heroData = require('Hero')
 var datamgr = require('DataMgr')
+var constant = require('constants')
+var combatMgr = require('CombatMgr')
 cc.Class({
     extends: UIBase,
 
@@ -42,6 +47,7 @@ cc.Class({
         mosterLoad:cc.Node,
         manComfirm:cc.Node,
         womenComfirm:cc.Node,
+        loadBegin:true,
 
     },
     onLoad () {
@@ -94,17 +100,49 @@ cc.Class({
                 this._CDState = false; 
             }
         }
+
+        if(this.loadBegin){
+            if((dataCenter.otherLoadRes!=0) || (dataCenter.curLoadRes!=0))
+            {
+                this.loadProjess();
+            }
+        }
+        cc.log(dataCenter.curLoadRes,dataCenter.resNum,"resNum","dataCenter.otherLoadRes");
+       
     },
 
 
-    loadProjess(pro){
+    loadProjess(){
+
+        
        this.firstLoad.active = true;
        this.secondLoad.active = true;
        this.mosterLoad.active = true;
+       var selfPro = parseInt(dataCenter.curLoadRes / dataCenter.resNum*100);
+       if(this.is_firstPostion)
+       {
+        this.firstLoad.getComponent(cc.Label).string = selfPro+"%";
+        this.secondLoad.getComponent(cc.Label).string = ""+dataCenter.otherLoadRes+"%";
+       }
+       else
+       {
+        this.firstLoad.getComponent(cc.Label).string = ""+dataCenter.otherLoadRes+"%";
+        this.secondLoad.getComponent(cc.Label).string = selfPro+"%";
+       }
+       this.mosterLoad.getComponent(cc.Label).string = ""+dataCenter.otherLoadRes+"%";
+    // cc.log(selfPro,dataCenter.curLoadRes,dataCenter.resNum,"自己的，别人的-----------------");
+       
    
-       this.firstLoad.getComponent(cc.Label).string = ""+pro+"%";
-       this.secondLoad.getComponent(cc.Label).string = ""+pro+"%";
-       this.mosterLoad.getComponent(cc.Label).string = ""+pro+"%";
+     //  cc.log(otherPro,"other");
+
+       if( (dataCenter.otherLoadRes == 100) && (dataCenter.otherLoadRes == 100) )
+       {
+           cc.log("加载完成----------------");
+           this._mgr.release();
+           this.loadBegin = false;
+        
+           
+       }
        
    },
    
@@ -117,16 +155,19 @@ cc.Class({
         net.Request(new selectHeroProto(1000),function(data){
             if(data.code == 1)
             {
-                if(that.woman != null){
+                if(that.woman != null)
+                {
                     ShaderUtils.setShader(that.woman, "gray");
                     that.selectMan_light.active = true;
                     that.selectWomen_light.active = false;
-                    if(that.is_firstPostion){
+                    if(that.is_firstPostion)
+                    {
                         ShaderUtils.setShader(that.first_man.getComponent(cc.Sprite),"gray");
                         that.first_man.active = true;
                         that.first_women.active = false;
                     }
-                    else{
+                    else
+                    {
                         
                         ShaderUtils.setShader(that.second_man.getComponent(cc.Sprite), "gray");
                         that.second_man.active = true;
@@ -134,27 +175,28 @@ cc.Class({
                         
                     }
                 }
-                else{
+                else
+                {
                     that.selectMan_light.active = false;
                     that.first_man.active = false;
                     that.second_man.active = false;
                 }
                    
-                if(that.man != null){
+                if (that.man != null)
+                {
                     ShaderUtils.setShader(that.man, "normal");
                 }  
             }
-            else if(data.code == 2)
+            else if (data.code == 2)
             {
-                
                 that._mgr.showTips('陈靖仇已经被选');
                 //""+dataCenter.userName+
             }
-            else if(data.code == 3)
+            else if (data.code == 3)
             {
                 that._mgr.showTips('没有改英雄');
             }
-            else if(data.code == 4)
+            else if (data.code == 4)
             {
                 that._mgr.showTips('已经确认了');
             }
@@ -168,18 +210,21 @@ cc.Class({
         net.Request(new selectHeroProto(2000),function(data){
             if(data.code == 1)
             {
-                if(that.woman != null){
+                if(that.woman != null)
+                {
                     ShaderUtils.setShader(that.woman, "normal");
                     that.selectWomen_light.active = true;
                     that.selectMan_light.active = false;
 
-                    if(that.is_firstPostion){
+                    if(that.is_firstPostion)
+                    {
 
                         ShaderUtils.setShader(that.first_women.getComponent(cc.Sprite),"gray");
                         that.first_women.active = true;
                         that.first_man.active = false;
                     }
-                    else{
+                    else
+                    {
                         
                         ShaderUtils.setShader(that.second_women.getComponent(cc.Sprite), "gray");
                         that.second_women.active = true;
@@ -187,13 +232,15 @@ cc.Class({
                         
                     }
                 }
-                else{
+                else
+                {
                     that.selectWomen_light.active = false;
                     that.first_women.active = false;
                     that.second_women.active = false;
                 }
                    
-                if(that.man != null){
+                if(that.man != null)
+                {
                     ShaderUtils.setShader(that.man, "gray");
                    
                 }   
@@ -236,7 +283,8 @@ cc.Class({
            if(that.first_man.active == true &&  that.enter.active == false){
                that.womenComfirm.active = false;
            }
-           else{
+
+           if(that.first_women.active == true && that.enter.active == false){
             that.manComfirm.active = false;
            }
     }
@@ -256,10 +304,10 @@ cc.Class({
         that.secondComfirm = true;
         cc.log("2准备了");
 
-        if(that.second_man.active == true &&  that.enter.active == false){
+        if(that.second_man.active == true && that.enter.active  == false){
             that.womenComfirm.active = false;
         }
-        else{
+        if(that.second_women.active == true && that.enter.active == false){
          that.manComfirm.active = false;
         }
        

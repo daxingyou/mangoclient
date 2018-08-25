@@ -17,7 +17,8 @@ var loadProgressProto = require('loadProgressProto')
 var Effectmgr = require('EffectMgr')
 
 var Combat = function(){
-    
+    this._loadProgress = 0;
+    this._loadProgressTickCnt = 0;
 }
 
 Combat.prototype.resNum = 0;
@@ -61,18 +62,27 @@ Combat.prototype.Tick = function(){
         //}
 
         //if(this.sceneLoadOk && this.UILoadOk && result)
-        if(gameCenter.curLoadRes == this.resNum)
+        if(gameCenter.curLoadRes >= this.resNum)
         {
             this.checkLoadRes = false;
             cc.log('加载完成！');
+            //this.UIMgr.getUI(constant.UI.Match).hide();
             net.Request(new loadFinishedProto(),function(){
                 
             });
+            return;
         }
-        
-        net.Request(new loadProgressProto(gameCenter.curLoadRes / this.resNum*100),function(){
-                
-        });
+        this._loadProgressTickCnt ++;
+        if (this._loadProgressTickCnt >= 20) {
+            this._loadProgressTickCnt = 0;
+            var progress = Math.floor(gameCenter.curLoadRes / this.resNum * 100);
+            if (progress != this._loadProgress) {
+                this._loadProgress = progress;
+                net.Request(new loadProgressProto(progress),function(){
+                    
+                });
+            }
+        }
     }
 }
 
@@ -136,7 +146,9 @@ Combat.prototype.init = function(data){
         }
 
         cc.log('cur res = ',this.resNum );
+        gameCenter.resNum = this.resNum;
         this.checkLoadRes = true;
+        this._loadProgress = 0;
     }
 }
 

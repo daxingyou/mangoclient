@@ -63,9 +63,10 @@ var fight = {
             gameData.exhaustsNum = myInfo.exhaustsNum;
             gameData.cardsNum = myInfo.cardsNum;
             gameData.thew = myInfo.thew;
+            gameData.fightEnd = false;
 
             cc.log('开始加载战斗：', data.teamInfo, data.myInfo);
-            that._uimgr.showTips('开始加载战斗');
+          //  that._uimgr.showTips('开始加载战斗');
             combatMgr.initCombat(data);
             that._uimgr.release();
             that._uimgr.loadUI(constant.UI.Fight, function (data) {
@@ -78,9 +79,9 @@ var fight = {
 
         pomelo.on('onFightBegin', function (data) {
             cc.log('战斗开始 ', data);
-            that._uimgr.showTips('战斗开始 ');
+         
             gameData.IsLayoutAction = true;
-            var ui = that._uimgr.getCurMainUI();
+            var ui = that._uimgr.getUI(constant.UI.Fight);
             ui.showNum(gameData);
             ui.ShowHandCards();//第一次加载
             ui.onFreshMp(gameData.mp, true);
@@ -357,9 +358,10 @@ var fight = {
         });
 
         pomelo.on('onFightEnd', function (data) {
-
             cc.log('战斗结束', data);
+            gameData.fightEnd = true;
             var res = data.result;
+            combatMgr.Release();
             that._uimgr.loadUI(constant.UI.FightOver,function(data){
                 combatMgr.curCombat.UILoadOk = true;
                 var ui = that._uimgr.getCurMainUI();

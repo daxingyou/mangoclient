@@ -48,7 +48,7 @@ module.exports = {
     UI : {
         DMG : {"id":3,"path":"UI/dmg/dmg","type":4,"script":"showDamge"},
         Login : {"id":1,"path":'UI/login/login',"type":1,"script":"loginUI"},
-        Match : {"id":2,"path":'UI/match/match',"type":1,"script":"match"},
+        Match : {"id":2,"path":'UI/match/match',"type":5,"script":"match"},
         Tips : {"id":4,"path":'UI/tips/Tips','type':3,"script":'tips'},
         Fight : {"id":5,"path":"UI/fightUI/FightUI",'type':1,'script':'FightUI'},
         FightCard : {"id":6,"path":'UI/fightUI/Card','type':2,'script':'CardItem'},

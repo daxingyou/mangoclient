@@ -25,13 +25,13 @@ HandCard.prototype.Enable = function(){
 
     if(this.data.CastMP > this.owner.Mp)
     {
-        this.owner.curCombat.UIMgr.showTips('灵力不足');
+        this.owner.curCombat.UIMgr.showTips('灵力不足',cc.v2(0,65));
         return false;
     }
 
     if(this.data.CastThew > this.owner.Thew)
     {
-        this.owner.curCombat.UIMgr.showTips('体力不足');
+        this.owner.curCombat.UIMgr.showTips('体力不足',cc.v2(0,65));
         return false;
     }
 

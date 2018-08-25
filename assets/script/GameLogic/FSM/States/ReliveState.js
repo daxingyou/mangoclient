@@ -2,7 +2,7 @@
  * @Author: liuguolai 
  * @Date: 2018-08-13 20:52:12 
  * @Last Modified by: liuguolai
- * @Last Modified time: 2018-08-15 17:10:39
+ * @Last Modified time: 2018-08-23 15:56:22
  */
 var FSMEvent = require('FSMEvent');
 var FSMState = require('FSMState');
@@ -31,6 +31,7 @@ pro.onEnter = function (unit, data) {
     var self = this;
     unit.Relive(data.hp, data.hp, data.casterID);
     if (unit.agent) {
+        unit.agent.setScale(unit.scale);
         var trackEntry = unit.agent.PlayAnimation('relive', false);
         // 没有动画, 回到待机状态
         if (!trackEntry) {

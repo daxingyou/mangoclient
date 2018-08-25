@@ -22,8 +22,6 @@ cc.Class({
 
     onLoad () {
         this._uimgr = cc.find('Canvas').getComponent('UIMgr');
-     
-       // this._uimgr.showTips('点击任意位置返回');
     },
 
     start () {

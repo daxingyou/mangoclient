@@ -9,6 +9,7 @@ cc.Class({
 
     properties: {
         uiRoot: cc.Node,
+        frontRoot : cc.Node,
         tips: cc.Node,
         dmgGreen: cc.Prefab,
         dmgRed: cc.Prefab,
@@ -16,7 +17,7 @@ cc.Class({
 
         ///上级
         _beforeUI: null,
-
+        _frontUI : null,
         _curMainUI: null,
         _curSecondUI: null,
         _curThirdUI: null,
@@ -25,7 +26,9 @@ cc.Class({
         ///二级 UI 
         _SecondUI: [],
         /// tips 
-        _ThirdUI: []
+        _ThirdUI: [],
+        /// frontUI 
+        _FrontUIs: []
     },
 
     onLoad() {
@@ -97,12 +100,30 @@ cc.Class({
                 return this._curThirdUI;
             }
         }
+        else if (ui.type == 5)       ///frontUI
+        {
+            if (this._frontUI  != null) {
+                if (this._curMainUI != null)
+                    this._curMainUI.hide();
+                this._frontUI.hide();
+                this._frontUI = this._FrontUIs[ui.id];
+                this._frontUI.show();
+
+                if (callback != undefined)
+                    callback(this._frontUI);
+                return this._frontUI;
+            }
+        }
+        
 
         loadRes.load(ui.path, true, (data) => {
             var go = cc.instantiate(data);
 
             if (ui.type == 3) {
                 go.parent = this.tips;
+            }
+            else if(ui.type == 5){
+                go.parent = this.frontRoot;
             }
             else {
                 go.parent = this.uiRoot;
@@ -133,6 +154,17 @@ cc.Class({
                 this._curThirdUI = scr;
                 this._curThirdUI.show();
             }
+            else if (ui.type == 5) {
+                if (this._curMainUI != null)
+                    this._curMainUI.hide();
+                if (this._frontUI != null)
+                    this._frontUI.hide();
+                this._FrontUIs[ui.id] = scr;
+                this._frontUI = scr;
+                this._frontUI.show();
+            }
+
+            
 
             if (callback != undefined)
                 callback(scr);
@@ -186,7 +218,6 @@ cc.Class({
     },
     ///UI 资源释放
     release() {
-
         for (var x in this._FirstMainUI) {
             this._FirstMainUI[x].node.destroy();
         }
@@ -217,13 +248,38 @@ cc.Class({
 
         this._ThirdUI.splice(0, this._ThirdUI.length);
         this._curThirdUI = null;
-    },  ///显示tips 
-    showTips: function (str) {
+
+        for(var i in this._FrontUIs)
+        {
+            this._FrontUIs[i].node.destroy();
+            delete this._FrontUIs[i];
+        }
+
+        this._frontUI = null;
+    },
+      ///显示tips 
+    showTips: function (str,pos) {
         this.loadUI(constant.UI.Tips, (data) => {
-            data.showText(str);
+            data.showText(str,pos);
         });
     },  ///获取当前主UI
     getCurMainUI() {
+        if(this._frontUI != null && this._frontUI.node.active)
+            return this._frontUI;
         return this._curMainUI;
+    },  ///获取UI 
+    getUI(ui){
+        if (ui.type == 1) {
+            return this._FirstMainUI[ui.id];
+        }
+        else if (ui.type == 2) {
+            return this._SecondUI[ui.id];
+        }
+        else if (ui.type == 3) {
+            return this._ThirdUI[ui.id];
+        }
+        else if (ui.type == 5) {
+            return this._FrontUIs[ui.id];
+        }
     }
 });

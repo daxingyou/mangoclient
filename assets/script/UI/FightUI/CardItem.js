@@ -25,6 +25,10 @@ cc.Class({
         y : 0,
         rotation : 0,
         CurCenterCard : false,
+        mp:null,
+
+        _canUse: false,
+        _willingUse: false,
     },
     onLoad () {
         this.cardDes.getComponent(cc.RichText).string = "";
@@ -42,6 +46,8 @@ cc.Class({
         var baowu =new cc.Color(255,244,44);//宝物
 
         this._index = index;
+        this.mp = mp;
+        this._canUse = canUse;
         this.cardName.getComponent(cc.Label).string = cardName;
        
         
@@ -78,15 +84,6 @@ cc.Class({
         else
         {
             this.mplabel.string = mp;
-           
-          if(canUse == 1)
-          {
-              this.select_card.active = true;
-          }
-          if(canUse == 0)
-          {
-            this.select_card.active = false;
-          }
         }
 
         if(cardAttr[0] == 1)
@@ -169,12 +166,41 @@ cc.Class({
     },
     temp : 0,
     update (dt) {
-       if(this.temp != this.node.scale)
-       {
+        if(this.temp != this.node.scale)
+        {
             this.temp = this.node.scale;
             //cc.log(this.node.scale);
-       }
+        }
+        if (this._canUse) {
+            this.select_card.active = true;
+            var sprite = this.select_card.getComponent(cc.Sprite);
+            if (this._willingUse) {
+                // 蓝色
+                sprite.spriteFrame = this.cardAtlas.getSpriteFrame("card_select_effect");
+            }
+            else {
+                // 绿色
+                sprite.spriteFrame = this.cardAtlas.getSpriteFrame("card_select_effect2");
+            }
+        }
+        else {
+            this.select_card.active = false;
+        }
+
+
+       if (this.mp!=null) {
+            var player = combatmgr.getSelf();
+            if (this.mp < player.Mp+1) {
+                this.select_card.active = true;
+            }
+        }
+        
     },
+
+    setWillingUse (bWilllingUse) {
+        this._willingUse = bWilllingUse;
+    },
+
     resetPos(){
         if(!this._IsSelect)//ture
         {

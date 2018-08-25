@@ -9,54 +9,62 @@ var GameLogic = require('GameLogic')
 var UIBase = require('UIBase')
 var CombatUtility = require('CombatUtility')
 var utility = require('utility');
-var dataCenter = require('DataCenter');
 
 cc.Class({
     extends: UIBase,
 
     properties: {
-        frame : [],
         dis : 50.0,
         _target : null,
         _touchid : null,
         _startPoint : null,
         _canUseSkill : false,
         fightUI : cc.Component,
-        
+        handsCards:cc.Node,
     },
 
     onLoad () {
+        this._targetTips = new Array();
+        for (var i = 0; i < this.node.children.length; ++i) {
+            this._targetTips.push(this.node.children[i].getComponent('targetTips'));
+        }
+
+        this.HideTips();
         this.itemChild = this.fightUI.lineDot.children;
-        
-        for(var i in this.node.children){
-            this.frame[i] = this.node.children[i];
-        }//四个框
-       
     },
 
     start () {
-       
     },
-    touchMove(touchid,point,cardPoint)
+    touchMove(point)
     {
-        this._startPoint = cardPoint;
+        if (!this._startPoint)
+            return;
+        // if (this.curObjective.type == constant.SkillTargetType.ALL)
+        // {
+        //     var cardItem = this.fightUI.CardChildrenCount[this._curCard];
+        //     cardItem.position = cardItem.parent.convertToNodeSpace(point);
+        //     cc.log(point,"point-------------", cardItem.parent.convertToNodeSpace(point))
+        // }
         var points = utility.ComputeBezier(this._startPoint,point);//路径点数组
 
-        //cc.log('last point = ',points[points.length -1]);
-
-        if(points.length > 3)
-            this.fightUI.lineDotSrc.setDire(points[points.length-1],points[points.length-2]);
+        if(points.length > 4)
+            this.fightUI.lineDotSrc.setTarget(this._target);
 
         for(let k = 0; k < this.itemChild.length; k++){
             if(k < points.length - 1)
             {
                 this.itemChild[k].x = points[k].x + 100;
                 this.itemChild[k].y = points[k].y;
+
+                var v = points[k].sub(points[k+1]);
+                var angle = cc.pToAngle(v) / Math.PI * 180;
+                //cc.log(angle.toString());
+                this.itemChild[k].rotation = -angle;
             }
             else if(k == points.length-1)
             {
-                this.itemChild[19].x = points[k].x + 100;
-                this.itemChild[19].y = points[k].y;
+                this.itemChild[35].x = points[k].x + 100;
+                this.itemChild[35].y = points[k].y;
 
                 this.itemChild[k].x = 0;
                 this.itemChild[k].y = -1000;
@@ -67,30 +75,25 @@ cc.Class({
                     this.itemChild[k].x = 0;
                     this.itemChild[k].y = -1000;
                 }
-            }
+            } 
         }
 
-        if(this._touchid == touchid)
+        if(this.curObjective.type != constant.SkillTargetType.SINGEL)
         {
-            if(this.curObjective.type != constant.SkillTargetType.SINGEL)
+            if(cc.pDistance(this._startPoint,point) > this.dis)
             {
-                if(cc.pDistance(this._startPoint,point) > this.dis)
-                {
-                  
-                    this._canUseSkill = true;
-                    this.showCanUseEffect();
-                }
-                else
-                {
-                    this._canUseSkill = true;
-                    this.hideCanUseSkillEffect();
-                }
+                this._canUseSkill = true;
+                this.showCanUseEffect();
+            }
+            else
+            {
+                this._canUseSkill = true;
+                this.hideCanUseSkillEffect();
             }
         }
     },
-    curSelectCard(index,touchid,startPoint){//当前卡牌的起点，触摸位移，起始位置
+    curSelectCard(index, startPoint){//当前卡牌的起点，触摸位移，起始位置
         this._curCard = index;
-        this._touchid = touchid;
         this._startPoint = startPoint;
         //cc.log('cur point = ',startPoint);
         ///显示可攻击目标
@@ -102,40 +105,30 @@ cc.Class({
 
         if(this.curObjective.type == constant.SkillTargetType.ALL)
         {
-            if(targets instanceof Array)
+            //if(targets instanceof Array)
             {
                 this.ShowALl();
             }
-            else{
-                this.ShowTips(targets,0);
-            }
+            //else{
+            //    this.ShowTips(targets);
+            //}
         }
         else
         {
-            if(targets instanceof Array)
-            {
-                for (const key in targets) {
-                    if (targets.hasOwnProperty(key)) {
-                        const element = targets[key];
-                        this.ShowTips(element,key);
-                    }
-                }
-            }
-            else
-            {
-                this.ShowTips(targets,0);
-            }
+            this.ShowTips(targets);
         }
         this._target = targets;
     },
-    CancleSelectCard(index,touchid,point,usrCard){
+    CancleSelectCard(point,usrCard){
+        if (!this._startPoint)
+            return;
        
         for(var i =0;i<this.itemChild.length;i++){
             this.itemChild[i].x = 0;
             this.itemChild[i].y = 0;
         }
        
-        if(this._touchid == touchid && this._curCard == index && usrCard)
+        if(usrCard)
         {
             if(this.curObjective.type != constant.SkillTargetType.SINGEL)
             {
@@ -155,7 +148,6 @@ cc.Class({
                 //判断当前选中目标是否可以释放技能
                 if(this._target != null)
                 {
-                    
                     if(target instanceof Array)
                     {
                         for(var key in target)
@@ -175,59 +167,88 @@ cc.Class({
                     }
                 }
             }
-
-            this._touchid = null;
-            this._canUseSkill = false;
-            this.CancleShowTargets();
-            this.hideCanUseSkillEffect();
         }
+
+        this._canUseSkill = false;
+        this.CancleShowTargets();
+        this.hideCanUseSkillEffect();
+        this.fightUI.lineDotSrc.Reset();
+        this._startPoint = null;
     },
     CancleShowTargets(){
-        this._touchid = null;
-        for(var i in this.node.children){
-            this.frame[i].active = false;
-        }
+        this.HideTips();
     },
-    ShowTips(target,index){
-        cc.log("target----,index",target,index);
-        if(target.teamid == constant.Team.enemy){
-            this.frame[0].position = cc.v2(target.agent.go.position.x,target.agent.go.position.y + 130.0);//110.0
-            this.frame[0].setContentSize(target.agent.contentSize.width,target.agent.contentSize.height);
-            this.frame[0].active = true;
+    ShowTips(target){
+        var index = 0;
+        if(target instanceof Array)
+        {
+            for(var i in target){
+                this._targetTips[index].show(target[i].agent.contentSize);
+                index++;
+            }
         }
         else{
-            this.frame[index].position = cc.v2(target.agent.go.position.x,target.agent.go.position.y + 80.0);//110.0
-            if(index <=1){
-                cc.log(index,"index0/1 原来的大小");
-                this.frame[3].position = cc.v2(target.agent.go.position.x,target.agent.go.position.y + 80.0);
-                this.frame[3].active = true;
-            }
-            else{
-                cc.log(index,"index0/1 / 0.78")
-                this.frame[index].setContentSize(target.agent.contentSize.width/0.85,target.agent.contentSize.height/0.78);
-                this.frame[index].active = true;
-            }
+            this._targetTips[0].show(target.agent.contentSize);
         }
     },
     ShowALl(){
+        if(this._targetTips == null)
+        {
+            this._targetTips = new Array();
+            for (var i = 0; i < this.node.children.length; ++i) {
+                this._targetTips.push(this.node.children[i].getComponent('targetTips'));
+            }
+        }
+
         if(this.curObjective.team == constant.Team.own)
         {
-           
-            this.frame[0].active = true;
-            this.frame[0].position = cc.v2(280,407);//280,407
-            this.frame[0].setContentSize(550,320);//550,320
+            this._targetTips[0].show(cc.rect(55,247,550,320));
         }
-        else{
-           
-            this.frame[0].active = true;
-            this.frame[0].position = cc.v2(1000,407);
-            this.frame[0].setContentSize(550,320);
+        else
+        {
+            this._targetTips[0].show(cc.rect(775,247,550,320));
         }
-    },  ///显示可以使用技能特效
+    },
+    HideTips(){
+        for(var i in this._targetTips)
+        {
+            this._targetTips[i].hide();
+        }
+    },
+      ///显示可以使用技能特效
     showCanUseEffect(){
 
     },  //隐藏可使用技能特效
     hideCanUseSkillEffect(){
 
-    },
+    },      ///判断当前是否选中目标
+    checkSelectedTarget(point){
+        ///获取可释放目标
+        var target =  GameLogic.player.handsPile[this._curCard].ability.getTarget();
+               
+        ///判断是否选中目标
+        this._target =  CombatUtility.getTargetForPoint(point,GameLogic.player.curCombat);
+
+        //判断当前选中目标是否可以释放技能
+        if(this._target != null)
+        {
+            if(target instanceof Array)
+            {
+                for(var key in target)
+                {
+                    if(target[key] == this._target)
+                    {
+                        GameLogic.UsePile(GameLogic.player,this._curCard,this._target,target,this.curCardId,this.curObjective.type);
+                    }
+                }
+            }
+            else
+            {
+                if(this._target == target);
+                {
+                    GameLogic.UsePile(GameLogic.player,this._curCard,this._target,this._target,this.curCardId,this.curObjective.type);
+                }
+            }
+        }
+    }
 });
