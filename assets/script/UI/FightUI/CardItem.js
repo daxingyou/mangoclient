@@ -29,11 +29,14 @@ cc.Class({
 
         _canUse: false,
         _willingUse: false,
+
+        cardMask:cc.Node,
     },
     onLoad () {
         this.cardDes.getComponent(cc.RichText).string = "";
+        this.cardMask.active = false;
     }, 
-    initData(index,cardName,CardQuality,cardImage,CardDescription,cardType,thew,mp,cardAttr,canUse){
+    initData(index,cardName,CardQuality,cardImage,CardDescription,cardType,thew,mp,cardAttr,canUse) {
 
         var wihte =new cc.Color(255,255,255);//1
         var bule =new cc.Color(47,203,242);//2
@@ -53,19 +56,19 @@ cc.Class({
         
         this.cardImage.spriteFrame = this.cardAtlas.getSpriteFrame(cardImage);
 
-        if(CardQuality==1)
+        if (CardQuality==1)
         {
             this.cardName.color = wihte;
         }
-        if(CardQuality==2)
+        if (CardQuality==2)
         {
             this.cardName.color = bule;
         }
-        if(CardQuality==3)
+        if (CardQuality==3)
         {
             this.cardName.color = zise;
         }
-        if(CardQuality==4)
+        if (CardQuality==4)
         {
             this.cardName.color = cese;
         }
@@ -77,7 +80,7 @@ cc.Class({
         {
             this.left.spriteFrame = this.cardAtlas.getSpriteFrame('mp2');
         }
-        if(thew!=0)
+        if (thew!=0)
         {
             this.mplabel.string = thew;
         }
@@ -86,61 +89,101 @@ cc.Class({
             this.mplabel.string = mp;
         }
 
-        if(cardAttr[0] == 1)
-        {
-      
-            this.cardDes.getComponent(cc.RichText).string = CardDescription;//非消耗
-        }
-        if(cardAttr[0] == 2)
-        {
-       
-            this.cardDes.getComponent(cc.RichText).string = CardDescription +"。" + '<color=#EFC851>消耗</color>';
-       
-        }
-        if(cardAttr[0] == 3)
-        {
-            this.cardDes.getComponent(cc.RichText).string = CardDescription + "。" + '<color=#EFC851>永久消耗</color>';
-        }
-        if(cardAttr[0] == 4)
-        {
-            this.cardDes.getComponent(cc.RichText).string = CardDescription + "。" + '<color=#EFC851>固有</color>';
-           
-        }
+        var cardDes1 = '';
+        var cardDes2 = '';
+        var cardDes3 = '';
+        var cardDes4 = '';
+        var des = '';
 
-        if(cardType==1)
+        for(let i = 0;i < cardAttr.length; i++) {
+          
+           
+
+           
+
+                if (cardAttr[i] == 1)
+                {
+                     cardDes1 = '';//非消耗
+                }
+                if (cardAttr[i] == 2)
+                {
+                     cardDes2 = "消耗";
+               
+                }
+                if (cardAttr[i] == 3)
+                {
+                    if (cardDes2!='') 
+                    {
+                        cardDes3 ="，永久消耗"; 
+                    }
+                    else 
+                    {
+                        cardDes3 ="永久消耗";
+                    }
+                    
+                   
+                }
+                if (cardAttr[i] == 4)
+                {
+                    if (cardDes2!='' || cardDes3!='') 
+                    {
+                        cardDes4 = "，固有";
+                    }
+                    else
+                    {
+                        cardDes4 = "固有";
+                    }
+                   
+                }
+
+                if (cardDes2!='' || cardDes3!='' || cardDes4) 
+                {
+                     des = '<color=#EFC851>'+cardDes2+cardDes3+cardDes4+"。"+'</color>';
+                }
+
+                this.cardDes.getComponent(cc.RichText).string = CardDescription +"。" + des;
+
+               
+               
+             
+
+        }
+       
+        if (cardType==1)
         {
            this.cardType.getComponent(cc.Label).string= "攻击";
            this.typeAttack.spriteFrame = this.cardAtlas.getSpriteFrame("type_attack");
             this.cardType.color = goji;
         }
 
-        if(cardType==2)
+        if (cardType==2)
         {
             this.cardType.getComponent(cc.Label).string = "奇术";
             this.typeAttack.spriteFrame = this.cardAtlas.getSpriteFrame("type_skill");
             this.cardType.color = qishu;
         }
 
-        if(cardType==3)
+        if (cardType==3)
         {
             this.cardType.getComponent(cc.Label).string = "天赋";
             this.typeAttack.spriteFrame = this.cardAtlas.getSpriteFrame("type_talent");
             this.cardType.color = tianfu;
         }
 
-        if(cardType==4)
+        if (cardType==4)
         {
            this.cardType.getComponent(cc.Label).string = "宝物";
            this.typeAttack.spriteFrame = this.cardAtlas.getSpriteFrame("type_artifact");
            this.cardType.color = baowu;
         }  
     },
-    change(x,y,rotation){
+    change(x,y,rotation) {
         this.rotation = rotation;
         this.y =  y;
         this.x = x;
         this.resetPos();
     },
+   
     start () {
         //cc.view.enableAntiAlias
         //cc.log('is Anti Alias Enabled =',cc.view.isAntiAliasEnabled());
@@ -187,12 +230,23 @@ cc.Class({
             this.select_card.active = false;
         }
 
-
        if (this.mp!=null) {
             var player = combatmgr.getSelf();
-            if (this.mp < player.Mp+1) {
+           
+            if (player == undefined) {
+                return;
+            }
+            if ((this.mp < player.Mp+1) && (player != undefined) ){
                 this.select_card.active = true;
             }
+        }
+
+        if (dataCenter.hp == 0) {
+            this.select_card.active = false;
+            this.cardMask.active = true;
+        }
+        else {
+            this.cardMask.active = false;
         }
         
     },

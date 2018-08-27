@@ -27,7 +27,13 @@ cc.Class({
     },
 
     // update (dt) {},
-    show(rect){
+    show(target){
+        this.bottomLeft.position = cc.v2(target.agent.go.position.x + target.table.TargetFrame.x1,target.agent.go.position.y + target.table.TargetFrame.y1);
+        this.bottomRight.position = cc.v2(target.agent.go.position.x + target.table.TargetFrame.x2,target.agent.go.position.y + target.table.TargetFrame.y2);
+        this.topLeft.position = cc.v2(target.agent.go.position.x + target.table.TargetFrame.x3,target.agent.go.position.y + target.table.TargetFrame.y3);
+        this.topRight.position = cc.v2(target.agent.go.position.x + target.table.TargetFrame.x4,target.agent.go.position.y + target.table.TargetFrame.y4);
+    },
+    showRect(rect){
         this.topLeft.position = cc.v2(rect.x,rect.y + rect.height);
         this.topRight.position = cc.v2(rect.x + rect.width,rect.y + rect.height);
         this.bottomLeft.position = cc.v2(rect.x ,rect.y);

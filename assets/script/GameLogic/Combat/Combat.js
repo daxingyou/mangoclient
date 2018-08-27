@@ -170,7 +170,10 @@ Combat.prototype.Release = function(){
         delete this.enemy[i];
 
     Effectmgr.release();
-    this.summonedMgr.Release();
+
+    if(this.summonedMgr != null)
+        this.summonedMgr.Release();
+        
     this.summonedMgr = null;
     this.UIMgr = null;
 }

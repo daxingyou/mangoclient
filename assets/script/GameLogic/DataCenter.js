@@ -6,10 +6,6 @@ module.exports = {
     exhaustsNum:0,
     thew:0,
     userName:'',
-    user_first:'',
-    user_second:'',
-    _first_uid:'',
-    _second_uid:'',
     IsLayoutAction:'',
     Cardpoints:'',//FightUI执行卡牌回去的动作
     returnAniEnd:'',//动作执行完毕
@@ -20,4 +16,5 @@ module.exports = {
     resNum:0,
     swordNum:0,
     fightEnd:false,
+    hp:null,
 }

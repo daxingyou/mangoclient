@@ -282,7 +282,9 @@
     "text": {
       "__id__": 6
     },
-    "text_bg": null
+    "text_bg": {
+      "__id__": 2
+    }
   },
   {
     "__type__": "cc.PrefabInfo",

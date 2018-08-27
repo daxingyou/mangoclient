@@ -44,10 +44,11 @@ var utility ={
     /* ComputeBezier 以控制点 cp 所产生的曲线点*/ 
     ComputeBezier : function(start,end)
     {
-        const width = 40;
+        //const width = 40;
         var dis = cc.pDistance(start,end);
-        var numberOfPoints = Math.ceil(dis / width);
-
+        //var numberOfPoints = Math.ceil(dis / width);
+        var numberOfPoints = 16;
+        
         var cp = new Array(cc.Vec2);
         cp[0] = start;
         cp[1] = new cc.Vec2(start.x,end.y);

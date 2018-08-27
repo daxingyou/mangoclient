@@ -841,7 +841,7 @@ module.exports = {
 			Index: 1,
 			SkillName: '幻象',
 			Target: {"type":"self","team":0},
-			Actions: {monsterSummoned:{"monsterID":"10002","num":2,"matrixType":"random","time":12}},
+			Actions: {monsterSummoned:{"monsterID":"10002","num":1,"matrixType":"random","time":12}},
 			Animation: 'skill_04',
 			CriticalTime: 0,
 			Effect: 'phantom',

@@ -57,6 +57,8 @@ var SpawnSummoned = {
         }
     },
     Reset(data){
+
+
         for(var i in data)
         {
             var area = null;
@@ -93,10 +95,6 @@ var SpawnSummoned = {
             {
                 range = combatMgr.curCombat.monsterMatrix.Range3;
             }
-    
-            ///记录位置
-            //var temp = new Array();
-            //var index = 0;
 
             for(var z=0;z<data[i];z++)
             {

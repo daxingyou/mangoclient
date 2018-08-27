@@ -113,7 +113,7 @@ module.exports = {
 		CastThew: 0,
 		CardType: 3,
 		CardQuality: 3,
-		CardAttributes: [2],
+		CardAttributes: [2,4],
 		CardImage: 'attack'
 	},
 	1005: {
@@ -254,7 +254,7 @@ module.exports = {
 		CardType: 2,
 		CardQuality: 4,
 		CardAttributes: [2],
-		CardImage: 'heal'
+		CardImage: 'wanwufusu'
 	},
 	2005: {
 		ID: 2005,
@@ -309,7 +309,7 @@ module.exports = {
 		CastThew: 0,
 		CardType: 3,
 		CardQuality: 3,
-		CardAttributes: [2],
+		CardAttributes: [2,4],
 		CardImage: 'defence'
 	},
 	2009: {

@@ -40,12 +40,13 @@ cc.Class({
             this._aphla = 255;
         else if(this._aphla == 255)
         {
-            this.time -= dt*10;
+            this.time -= dt * 10;
         }
             
         if(this.time <= 0)
         {
-            this._aphla += dt*this.speed;
+            this._aphla += dt * this.speed;
+          //  this.text_bg.active = false;
             if(this._aphla <= 0)
                 this.hide();
         }

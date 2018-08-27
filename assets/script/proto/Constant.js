@@ -5,7 +5,7 @@
 // Generate From Config.xlsx
 module.exports = {
 	ReadyTimer: 30,
-	ReadyStartTimer: 5,
+	ReadyStartTimer: 0,
 	BaseMpRecover: 3,
 	BaseCardGain: 7,
 };

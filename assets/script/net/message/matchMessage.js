@@ -23,10 +23,7 @@ var fight = {
             cc.log('匹配成功, 开始选英雄', data.teamInfo);
             var teamInfo = data.teamInfo;
             var teamA = teamInfo.teamA;
-            gameData.user_first = teamA[0].name;
-            gameData.user_second = teamA[1].name;
-            gameData._first_uid = teamA[0].uid;
-            gameData._second_uid = teamA[1].uid;
+            ui.selectScr.initData( teamA[0].name , teamA[1].name , teamA[0].uid);
             ui.showSelect();//match.js
         });
 

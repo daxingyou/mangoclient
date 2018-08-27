@@ -8,6 +8,9 @@ cc.Class({
         yellowdot : cc.SpriteFrame,
         blackArrow : cc.SpriteFrame,
         yellowArrow : cc.SpriteFrame,
+        _curState : false,          //true 可以释放技能
+        _dots : null,
+
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -15,11 +18,17 @@ cc.Class({
     // onLoad () {},
 
     start() {
-
+        this._dots = new Array();
+        for(var i = 0; i < this.node.children.length -1;i++)
+        {
+            this._dots.push(this.node.children[i].getComponent(cc.Sprite));
+        }
     },
 
     onEnable(){
+        this._curState = false;
         this.directionsprite.spriteFrame = this.blackArrow;
+
     },
 
     // update (dt) {},
@@ -44,5 +53,29 @@ cc.Class({
     },
     Reset(){
         this.direction.rotation = 90;
+    },
+    canUse(){
+        if(!this._curState)
+        {
+            this._curState = true;
+            this.directionsprite.spriteFrame = this.yellowArrow;
+
+            for(var i in this._dots)
+            {
+                this._dots[i].spriteFrame = this.yellowdot;
+            }
+        }
+    },
+    noCan(){
+        if(this._curState)
+        {
+            this._curState = false;
+            this.directionsprite.spriteFrame = this.blackArrow;
+
+            for(var i in this._dots)
+            {
+                this._dots[i].spriteFrame = this.blackdot;
+            }
+        }
     }
 });

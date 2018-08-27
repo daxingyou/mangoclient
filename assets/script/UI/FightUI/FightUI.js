@@ -101,6 +101,7 @@ cc.Class({
 
     updateBarLabel(HP, MaxHp) {
         this.barLabel.string = HP.toString() + '/' + MaxHp.toString();
+        dataCenter.hp = HP;
     },
 
     layout() {
@@ -287,7 +288,7 @@ cc.Class({
         this._curSelectedIdx = idx;
     },
 
-    update(dt) {//dt==0.054
+    update(dt) {
         if (this._bMpFull) {
             return;
         }
@@ -377,6 +378,9 @@ cc.Class({
 
     ShowHandCards: function () {
         var player = combatmgr.getSelf();
+        if (player.handsPile.length == 8) {
+            this._uimgr.showTips('手牌已满',cc.v2(0,65));
+        }
         for (var i = 0; i < 8; i++) {
 
             if (i < player.handsPile.length) {

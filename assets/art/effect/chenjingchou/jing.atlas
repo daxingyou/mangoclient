@@ -1,69 +1,104 @@
 
 jing.png
-size: 978,689
+size: 978,817
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 effect/beam12
   rotate: false
-  xy: 392, 11
+  xy: 2, 2
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
+effect/dr_quan
+  rotate: false
+  xy: 260, 9
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
 effect/jian_01
   rotate: false
-  xy: 2, 132
+  xy: 2, 260
   size: 190, 555
   orig: 190, 555
   offset: 0, 0
   index: -1
 effect/jian_02
   rotate: false
-  xy: 194, 132
+  xy: 194, 260
   size: 190, 555
   orig: 190, 555
   offset: 0, 0
   index: -1
 effect/jpg_a007
   rotate: false
-  xy: 2, 2
+  xy: 390, 9
   size: 128, 128
   orig: 128, 128
+  offset: 0, 0
+  index: -1
+effect/jpg_bjsd
+  rotate: false
+  xy: 260, 194
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
 effect/jpg_texiao001
   rotate: false
-  xy: 132, 2
+  xy: 520, 9
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
+effect/jpg_x_dhack_sys
+  rotate: false
+  xy: 386, 139
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
 effect/k
   rotate: false
-  xy: 386, 269
+  xy: 386, 397
   size: 294, 418
   orig: 294, 418
   offset: 0, 0
   index: -1
 effect/k_01
   rotate: false
-  xy: 682, 269
+  xy: 682, 397
   size: 294, 418
   orig: 294, 418
   offset: 0, 0
   index: -1
 effect/png_parti_b
   rotate: false
-  xy: 262, 2
+  xy: 650, 9
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 effect/png_ray012
   rotate: false
-  xy: 650, 11
+  xy: 644, 139
   size: 256, 256
   orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect/star
+  rotate: false
+  xy: 902, 339
+  size: 59, 56
+  orig: 59, 56
+  offset: 0, 0
+  index: -1
+effect/tga_ly_guangqiu2
+  rotate: false
+  xy: 780, 9
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
