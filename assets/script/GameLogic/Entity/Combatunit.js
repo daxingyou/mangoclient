@@ -143,7 +143,7 @@ CombatUnit.prototype.onSpawnSummonDamage = function (damageData, casterID) {
 
     for (var damageItem of damageData.damageList) {
         var deltaHp = damageItem[0] - damageItem[1];
-        var deltaArmor = damageItem[2] - damageItem[3];
+        //var deltaArmor = damageItem[2] - damageItem[3];
         if (deltaHp > 0) {
             this.uimgr.loadDmg(this, deltaHp, true, casterID);
         }
@@ -226,14 +226,6 @@ CombatUnit.prototype.useSkill = function(data,targets)
 {
     var skilldata = dataMgr.skill[data.sid];
     var ab = new ability(skilldata[1],this);
-
-    //var targets = new Array();
-
-    //for(var i in data.targets)
-    //{
-    //    if(this.curCombat.units.hasOwnProperty(data.targets[i]))
-    //        targets[i] = this.curCombat.units[data.targets[i]];
-    //}
 
     ab.Active(null,targets);
     this.abilitys.push(ab);
@@ -319,6 +311,9 @@ CombatUnit.prototype.tick = function(dt){
 };
 
 CombatUnit.prototype.release = function(){
+    this.handsPile.splice(0,this.handsPile.length);
+    this.abilitys.splice(0,this.abilitys.length);
+
     if(this.agent != null)
     {
         this.agent.Release();

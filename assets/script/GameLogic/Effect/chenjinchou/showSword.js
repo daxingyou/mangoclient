@@ -61,8 +61,10 @@ cc.Class({
     showSword(){
         this._active = true;
 
-        var left = utility.RandomSeedInt(4,8);
-        var right = utility.RandomSeedInt(4,8);
+        //var left = utility.RandomSeedInt(4,8);
+        //var right = utility.RandomSeedInt(4,8);
+        var left = utility.RandomSeedInt(6,8);
+        var right = utility.RandomSeedInt(6,8);
 
         var src = this.getComponent('ShaderUtilsForWsword');
         src.setValue(left/10,right/10);
@@ -72,6 +74,8 @@ cc.Class({
 
         this._left = left;
         this._right = right;
+        
+        cc.log('left ... ',this._left,' right =',this._right);
         //cc.log('showSword showSword');
     },
     showCollect(callback){

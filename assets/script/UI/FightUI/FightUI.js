@@ -3,8 +3,8 @@ var combatmgr = require('CombatMgr')
 var dataCenter = require('DataCenter')
 var datamgr = require('DataMgr')
 var consts = require('consts')
-
-
+var constants = require('constants')
+var GameLogic = require('GameLogic')
 
 cc.Class({
     extends: UIBase,
@@ -42,13 +42,18 @@ cc.Class({
         centerCard: cc.Node,
         CardChildrenCount: [],
         _curSelectedIdx: -1,
+        fightOverMask:cc.Node,
+        gameOver:false,
     },
 
     onLoad() {
-        this.initData();
+        
+    },
+    onEnable(){
+        //this.initData();
     },
 
-    initData() {
+    initData(callback) {
         this._uimgr = cc.find('Canvas').getComponent('UIMgr');
         this.userName.string = dataCenter.userName;
         this.schedule(this.callback, 1);
@@ -76,8 +81,8 @@ cc.Class({
         }
 
         var self = this;
-        for (var i = 0; i < 8; i++) {
-            cc.loader.loadRes('UI/fightUI/Card', function (errorMessage, loadedResource) {
+        cc.loader.loadRes('UI/fightUI/Card', function (errorMessage, loadedResource) {
+            for (var i = 0; i < 8; i++) {
                 if (errorMessage) {
                     cc.log('载入预制资源失败, 原因:' + errorMessage);
                     return;
@@ -94,9 +99,10 @@ cc.Class({
                 self._HandsCards.push(item.getComponent('CardItem'));
                 if (resIndex == 8) {
                     cc.loader.release('UI/fightUI/Card');
+                    callback();
                 }
-            });
-        }
+            }
+        });
     },
 
     updateBarLabel(HP, MaxHp) {
@@ -139,7 +145,7 @@ cc.Class({
         }
     },
 
-    cardReturnAni(noAni) {
+    cardReturnAni(noAni, resetOrigPos=true) {
         var self = this;
         var num = combatmgr.getSelf().handsPile.length;
         if (self.now_index != -1) {
@@ -149,12 +155,14 @@ cc.Class({
             cardItem.opacity = 255;
             if (noAni) {
                 cardItem.position = cc.v2(self._x[self.now_index], self._y[self.now_index]);
+                cardItem.rotation = self._rot[self.now_index];
             }
             else {
-                cardItem.rotation = 0;
-                cardItem.x = 0;
-                cardItem.y = 400;
-                //cardItem.active = true;
+                if (resetOrigPos) {
+                    cardItem.rotation = 0;
+                    cardItem.x = 0;
+                    cardItem.y = 400;
+                }
 
                 var mov_act = cc.moveTo(0.2, self._x[self.now_index], self._y[self.now_index]);
                 var rot_act = cc.rotateTo(0.2, self._rot[self.now_index]);
@@ -167,11 +175,34 @@ cc.Class({
         self.now_index = -1;
     },
 
+    _getNodeRectPoints (node) {
+        var centPos = node.position;
+        var rotation = node.rotation;
+        var contentSize = node.getContentSize();
+        var w = contentSize.width / 2 * node.scale, h = contentSize.height / 2 * node.scale;
+        var radian = rotation * Math.PI / 180;
+        var sint = Math.sin(radian);
+        var cost = Math.cos(radian);
+        var newPosFunc = function (x, y) {
+            var px = x * cost + y * sint + centPos.x;
+            var py = -x * sint + y * cost + centPos.y;
+            return cc.v2(px, py)
+        };
+        var rectPoints = [
+            newPosFunc(-w, -h),
+            newPosFunc(w, -h),
+            newPosFunc(w, h),
+            newPosFunc(-w, h)
+        ];
+        return rectPoints;
+    },
+
     start() {
         var self = this;
         var inputMgr = cc.find('Canvas/ui/FightUI/targetTips').getComponent('InputMgr');
         var ctx = cc.find('Canvas/tips').getComponent(cc.Graphics);  //获取组件
         self.CardChildrenCount = self.HandsCardRoot.children;
+      
         self.HandsCardRoot.on(cc.Node.EventType.TOUCH_START, function (e) {
             var j;
             var touch_point = self.HandsCardRoot.convertToNodeSpaceAR(e.getLocation());
@@ -179,8 +210,9 @@ cc.Class({
             var player = combatmgr.getSelf();
 
             for (j = player.handsPile.length - 1; j >= 0; j--) {
-                var node_box = self.CardChildrenCount[j].getBoundingBox();
-                is_contained = cc.rectContainsPoint(node_box, touch_point);
+                // var node_box = self.CardChildrenCount[j].getBoundingBox();
+                // is_contained = cc.rectContainsPoint(node_box, touch_point);
+                is_contained = cc.Intersection.pointInPolygon(touch_point, this._getNodeRectPoints(self.CardChildrenCount[j]));
                 if (is_contained) {
                     break;
                 }
@@ -205,7 +237,8 @@ cc.Class({
             var item = self.CardChildrenCount[self.now_index];
             item.opacity = 0;
             self._curSelectedIdx = item.getComponent('CardItem')._index;
-            inputMgr.curSelectCard(self._curSelectedIdx, item.convertToWorldSpaceAR(cc.v2(0,0)));
+           if (!this.gameOver) 
+           inputMgr.curSelectCard(self._curSelectedIdx, item.convertToWorldSpaceAR(cc.v2(0,0)));
         }, self);
 
         self.HandsCardRoot.on(cc.Node.EventType.TOUCH_MOVE, function (e) {
@@ -218,8 +251,9 @@ cc.Class({
                 dataCenter.returnAniEnd = false;
                 var is_contained = false;
                 for (j = player.handsPile.length - 1; j >= 0; j--) {
-                    var node_box = self.CardChildrenCount[j].getBoundingBox();
-                    is_contained = cc.rectContainsPoint(node_box, touch_point);
+                    // var node_box = self.CardChildrenCount[j].getBoundingBox();
+                    // is_contained = cc.rectContainsPoint(node_box, touch_point);
+                    is_contained = cc.Intersection.pointInPolygon(touch_point, this._getNodeRectPoints(self.CardChildrenCount[j]));
                     if (is_contained) {
                         break;
                     }
@@ -241,15 +275,19 @@ cc.Class({
                         self.now_index, data.CardName, data.CardQuality, data.CardImage, data.CardDescription, data.CardType, data.CastThew, data.CastMP, data.CardAttributes, isCanUse);
                     var item = self.CardChildrenCount[self.now_index];
                     item.opacity = 0;
-                    inputMgr.CancleSelectCard(e.touch._point, dataCenter.returnAniEnd);//获取可释放目标
-                    var idx = item.getComponent('CardItem')._index;
-                    self.setCurSelectedIdx(idx);
-                    inputMgr.curSelectCard(idx, item.convertToWorldSpaceAR(cc.v2(0,0)));
+                    if (!this.gameOver) {
+                        inputMgr.CancleSelectCard(e.touch._point, dataCenter.returnAniEnd);//获取可释放目标
+                        var idx = item.getComponent('CardItem')._index;
+                        self.setCurSelectedIdx(idx);//绿色
+                        inputMgr.curSelectCard(idx, item.convertToWorldSpaceAR(cc.v2(0,0)));//显示可攻击目标
+                    }
+                   
                 }
                 else {
                     self.setCurSelectedIdx(-1);
                     if (self.now_index != -1) {
                         self.cardReturnAni();
+                        if (!this.gameOver)
                         inputMgr.CancleSelectCard(e.touch._point, dataCenter.returnAniEnd);
                     }
                 }
@@ -261,6 +299,7 @@ cc.Class({
                 // 拖拽卡牌或者箭头
                 self.cardReturnAni();
                 dataCenter.returnAniEnd = true;
+                if (!this.gameOver)
                 inputMgr.touchMove(e.touch._point);
             }
         }, self);
@@ -282,7 +321,7 @@ cc.Class({
     },
 
     setCurSelectedIdx (idx) {
-        if (this._curSelectedIdx >= 0) {
+        if (this._curSelectedIdx >= 0 ) {
             this.CardChildrenCount[this._curSelectedIdx].getComponent('CardItem').setWillingUse(false);
         }
         this._curSelectedIdx = idx;
@@ -293,15 +332,30 @@ cc.Class({
             return;
         }
         var target = combatmgr.getSelf();
-        if (!target.mpRecoverPause) {
+
+        if(target == null)
+            return;
+
+        if (target && !target.mpRecoverPause && !this.gameOver ) {
             this.now_time += dt / target.mpRecoverRate;
             var per = Math.min(1, this.now_time * 1000 / target.mpRecoverTime);  //百分比
             this.mpSpire.fillRange = per;
-           
         }
-        if (target.mpRecoverPause == false) {
-            // this._uimgr.showTips('灵力暂停恢复');
+
+        //if (target.mpRecoverPause == false) {
+           // this._uimgr.showTips('灵力暂停恢复',cc.v2(0,65));
+        //}
+
+        if ((this.sec_time == 0 && this.min_time == 0) || dataCenter.hp == 0) {
+            this.fightOverMask.active = true;
+            this.gameOver = true;
         }
+        else {
+            this.gameOver = false;
+            this.fightOverMask.active = false;
+        }
+
+
     },
 
     callback() {
@@ -381,8 +435,9 @@ cc.Class({
         if (player.handsPile.length == 8) {
             this._uimgr.showTips('手牌已满',cc.v2(0,65));
         }
+        
         for (var i = 0; i < 8; i++) {
-
+            //cc.log('script debug ... =>>>>  i = ',i ,' player.handsPile.length = ',player.handsPile.length);
             if (i < player.handsPile.length) {
                 var pile = player.handsPile[i].id;
                 var data = datamgr.card[pile];
@@ -395,6 +450,7 @@ cc.Class({
                 this._HandsCards[i].show();
                 if (i == player.handsPile.length - 1) {
                     this.layout();
+                    //cc.log('script debug this.layout() ... =>>>>  i = ',i);
                 }
             }
             else {
@@ -409,5 +465,17 @@ cc.Class({
         var player = combatmgr.getSelf();
         this.playerHpBar.progress = player.Hp / player.MaxHp;
         this.updateBarLabel(player.Hp, player.MaxHp);
+    },
+    loadFightOver: function (res) {
+        var resss = res;
+        this.scheduleOnce(function () {
+            combatmgr.Release();
+            this._uimgr.loadUI(constants.UI.FightOver,function(data) {
+                //combatmgr.curCombat.UILoadOk = true;
+                //var uimgr = cc.find('Canvas').getComponent('UIMgr');
+                //var ui = uimgr.getCurMainUI();
+                data.reslut(resss); 
+            })
+        },2);
     }
 });

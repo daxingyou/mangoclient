@@ -22,6 +22,7 @@ cc.Class({
         _canUseSkill : false,
         fightUI : cc.Component,
         handsCards:cc.Node,
+        _dragCard: false,  // 拖动卡牌
     },
 
     onLoad () {
@@ -43,7 +44,7 @@ cc.Class({
             return;
 
         var cardItem = this.fightUI.CardChildrenCount[this._curCard];
-        this._startPoint = cardItem.convertToWorldSpaceAR(cc.v2(0,0));
+        var startPoint = cardItem.convertToWorldSpaceAR(cc.v2(0,0));
 
         if(this.checkSelectedTarget(point))
             this.showCanUseEffect();
@@ -53,14 +54,16 @@ cc.Class({
         if (this.curObjective.type == constant.SkillTargetType.ALL || this.curObjective.type == constant.SkillTargetType.SELF)
         {   
             cc.log("不需要选目标-----------------------------");
-            var cardItem = this.fightUI.CardChildrenCount[this._curCard];
+            this._dragCard = true;
+            cardItem.stopAllActions();
             cardItem.position = cardItem.parent.convertToNodeSpaceAR(point);
             cardItem.rotation = 0;
             cc.log(point,"point-------------", cardItem.parent.convertToNodeSpaceAR(point),"子节点的--------------");
         }
         else 
         {
-            var points = utility.ComputeBezier(this._startPoint,point);//路径点数组
+            this._dragCard = false;
+            var points = utility.ComputeBezier(startPoint,point);//路径点数组
             for(let k = 0; k < this.itemChild.length; k++){
                 if(k < points.length - 1)
                 {
@@ -140,7 +143,7 @@ cc.Class({
 
         if(this.curObjective.type != constant.SkillTargetType.SINGEL)
         {
-            if(cc.pDistance(this._startPoint,point) > this.dis)
+            if(cc.pDistance(startPoint,point) > this.dis)
             {
                 this._canUseSkill = true;
                 this.showCanUseEffect();
@@ -203,6 +206,11 @@ cc.Class({
         this.hideCanUseSkillEffect();
         this.fightUI.lineDotSrc.Reset();
         this._startPoint = null;
+        if (this._dragCard) {
+            this.fightUI.now_index = this._curCard;
+            this.fightUI.cardReturnAni(false, false);
+            this._dragCard = false;
+        }
     },
     CancleShowTargets(){
         this.HideTips();

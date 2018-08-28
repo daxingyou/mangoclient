@@ -106,20 +106,18 @@ cc.Class({
             }
         }
 
-        // if (this.loadBegin) {
-        //     if((dataCenter.otherLoadRes!=0) || (dataCenter.curLoadRes!=0))
-        //     {
-        //         this.loadProjess();
-        //     }
-        // }
-      //  cc.log(dataCenter.curLoadRes,dataCenter.resNum,"resNum","dataCenter.otherLoadRes");
+        if (this.loadBegin) {
+             if((dataCenter.otherLoadRes!=0) && (dataCenter.curLoadRes!=0))
+             {
+                 this.loadProjess();
+             }
+         }
+     //   cc.log(dataCenter.curLoadRes,dataCenter.resNum,"resNum","dataCenter.otherLoadRes");
        
     },
 
 
     loadProjess(){
-
-        
        this.firstLoad.active = true;
        this.secondLoad.active = true;
        this.mosterLoad.active = true;
@@ -135,18 +133,13 @@ cc.Class({
         this.secondLoad.getComponent(cc.Label).string = selfPro+"%";
        }
        this.mosterLoad.getComponent(cc.Label).string = ""+dataCenter.otherLoadRes+"%";
-    // cc.log(selfPro,dataCenter.curLoadRes,dataCenter.resNum,"自己的，别人的-----------------");
-       
    
-     //  cc.log(otherPro,"other");
-
+       
        if( (dataCenter.otherLoadRes == 100) && (dataCenter.otherLoadRes == 100) )
        {
            cc.log("加载完成----------------");
-          // this._mgr.release();
+           this._mgr.release();
            this.loadBegin = false;
-        
-           
        }
        
    },

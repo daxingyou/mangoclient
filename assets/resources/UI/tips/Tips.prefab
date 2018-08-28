@@ -19,17 +19,20 @@
       },
       {
         "__id__": 5
+      },
+      {
+        "__id__": 8
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 9
+        "__id__": 11
       }
     ],
     "_prefab": {
-      "__id__": 10
+      "__id__": 12
     },
     "_id": "",
     "_opacity": 255,
@@ -112,7 +115,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 670,
-      "y": 200
+      "y": 200.00000000000006
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -162,7 +165,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": " message",
+    "_name": "massage",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -173,16 +176,13 @@
     "_components": [
       {
         "__id__": 6
-      },
-      {
-        "__id__": 7
       }
     ],
     "_prefab": {
-      "__id__": 8
+      "__id__": 7
     },
     "_id": "",
-    "_opacity": 0,
+    "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
       "r": 249,
@@ -198,8 +198,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 336,
-      "height": 60
+      "width": 112,
+      "height": 33
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -228,33 +228,16 @@
     "_useOriginalSize": false,
     "_actualFontSize": 28,
     "_fontSize": 28,
-    "_lineHeight": 30,
+    "_lineHeight": 33,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "信息提示文字信息提示文字\n信息提示文字信息提示文字",
+    "_N$string": "灵力已满",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "黑体",
     "_N$overflow": 0
-  },
-  {
-    "__type__": "4295418f41J4LrxHglJIrUa",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 5
-    },
-    "_enabled": true,
-    "_mgr": null,
-    "time": 2,
-    "speed": 100,
-    "_aphla": 0,
-    "text": {
-      "__id__": 6
-    },
-    "text_bg": null
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -264,7 +247,94 @@
     "asset": {
       "__uuid__": "67742292-4e1b-4a48-ba3e-b186d573a17f"
     },
-    "fileId": "495bKw5yJPPY9Xt7TydN/f",
+    "fileId": "00jNV3SPpApo8bZzMfLAla",
+    "sync": false
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "pipei",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 1
+    },
+    "_children": [],
+    "_tag": -1,
+    "_active": false,
+    "_components": [
+      {
+        "__id__": 9
+      }
+    ],
+    "_prefab": {
+      "__id__": 10
+    },
+    "_id": "",
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 249,
+      "g": 205,
+      "b": 150,
+      "a": 255
+    },
+    "_cascadeOpacityEnabled": true,
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 112,
+      "height": 32
+    },
+    "_rotationX": 0,
+    "_rotationY": 0,
+    "_scaleX": 1,
+    "_scaleY": 1,
+    "_position": {
+      "__type__": "cc.Vec2",
+      "x": 671.6,
+      "y": 200
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_localZOrder": 0,
+    "_globalZOrder": 0,
+    "_opacityModifyRGB": false,
+    "groupIndex": 0
+  },
+  {
+    "__type__": "cc.Label",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 8
+    },
+    "_enabled": true,
+    "_useOriginalSize": false,
+    "_actualFontSize": 28,
+    "_fontSize": 28,
+    "_lineHeight": 32,
+    "_enableWrapText": true,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
+    "_spacingX": 0,
+    "_N$string": "正在匹配",
+    "_N$horizontalAlign": 1,
+    "_N$verticalAlign": 1,
+    "_N$fontFamily": "黑体",
+    "_N$overflow": 0
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 1
+    },
+    "asset": {
+      "__uuid__": "67742292-4e1b-4a48-ba3e-b186d573a17f"
+    },
+    "fileId": "e9pEBJTLVD65SKFnkzGLrt",
     "sync": false
   },
   {
@@ -284,7 +354,8 @@
     },
     "text_bg": {
       "__id__": 2
-    }
+    },
+    "tipCount": true
   },
   {
     "__type__": "cc.PrefabInfo",

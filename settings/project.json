@@ -28,7 +28,6 @@
     "RenderTexture",
     "Chipmunk",
     "Camera",
-    "Intersection",
     "Native NetWork"
   ],
   "fit-height": true,

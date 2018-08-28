@@ -57,7 +57,54 @@ var SpawnSummoned = {
         }
     },
     Reset(data){
+        var list = new Array();
 
+        var first = data[1];
+        var second = data[2];
+        var thrid = data[3];
+
+        var length = first + second + thrid;
+        var curIndex = 0;
+
+        var min = first;
+        var max = thrid;
+
+        while(length <= 0)
+        {
+            if(first == 0)
+            {
+                min = second;
+            }
+
+            if(thrid == 0)
+            {
+                max = second;
+            }
+
+            var index = 0;
+            if(min == max)
+                index = min;
+            else
+                index = utility.RandomSeedInt(min,max);
+
+            if(curIndex == 1)
+            {
+                first--;
+                list.push(1);
+            }
+            else if(curIndex == 2)
+            {
+                second--;
+                list.push(2);
+            }
+            else if(curIndex == 3)
+            {
+                thrid--;
+                list.push(3);
+            }
+
+            length = first + second + thrid;
+        }
 
         for(var i in data)
         {

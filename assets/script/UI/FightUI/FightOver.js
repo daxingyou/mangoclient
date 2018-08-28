@@ -9,6 +9,7 @@ cc.Class({
     properties: {
      win:cc.Node,
      lose:cc.Node,
+     mask:cc.Node,
      _CDState : true,
      cdTime : 1,
      tips:cc.Node,
@@ -27,25 +28,39 @@ cc.Class({
     start () {
        
     },
-    reslut(res){
-        if(res == 1){
-            cc.log("win");
-            this.win.active = true;
-            this.lose.active = false;
-        }
-        else if(res == 3){
-            cc.log("打平了----");
-            this.win.active = false;
-            this.lose.active = false;
-        }
-        else{
-            cc.log('lose');
-            this.lose.active = true;
-            this.win.active = false;
-        }
+    reslut(res) {
+            this.mask.opacity = 0;
+            var fin = cc.fadeTo(0.3,153);
+            this.mask.runAction(fin);
+            if (res == 1) {
+                cc.log("win");
+                this.win.active = true;
+                this.lose.active = false;
+               
+                this.win.scale = 0;
+                var s = cc.scaleTo(0.4, 1).easing(cc.easeBackOut());
+                this.win.runAction(s);
+            }
+            else if (res == 3) {
+                cc.log("打平了----");
+                this.win.active = false;
+                this.lose.active = false;
+            }
+            else {
+                cc.log('lose');
+               
+                this.lose.active = true;
+                this.win.active = false;
+                this.lose.scale = 0;
+                var s = cc.scaleTo(0.4, 1).easing(cc.easeBackOut());
+                this.lose.runAction(s);
+            }
+      
+
+       
     },
 
-    onEnable(){
+    onEnable() {
         this.tipCont = true;
     },//被激活时
 

@@ -1,12 +1,4 @@
-// Learn cc.Class:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
+
 
 var UIBase = require("UIBase")
 
@@ -19,12 +11,10 @@ cc.Class({
         _aphla : 0,
         text : cc.Label,
         text_bg:cc.Node,
+        tipCount:false,
     },
-
-    // LIFE-CYCLE CALLBACKS:
-
     onLoad () {
-        //cc.log("tip---x" +this.node.x + 'tip-----y'+ this.node.y);
+     
      
     },
 
@@ -34,28 +24,40 @@ cc.Class({
     },
 
     update (dt) {
-        if(this._aphla < 255)
-            this._aphla += dt*this.speed;
-        else if(this._aphla > 255)
+        if (this.tipCount) {
+            if (this._aphla < 255) {
+                this._aphla += Math.floor(dt * this.speed * 2);
+            }
+        else if (this._aphla > 255) {
             this._aphla = 255;
-        else if(this._aphla == 255)
-        {
+        }
+        else if (this._aphla == 255) {
             this.time -= dt * 10;
         }
+
+        this.node.opacity  = this._aphla;  
+      // cc.log("+到255------------------",this._aphla);  
+        }
+        
             
-        if(this.time <= 0)
+        if (this.time <= 0)
         {
-            this._aphla += dt * this.speed;
-          //  this.text_bg.active = false;
-            if(this._aphla <= 0)
+            this.tipCount = false;
+            this._aphla -= dt * this.speed * 10;
+            if (this._aphla <= 0)
                 this.hide();
+            else {
+                this.node.opacity  = this._aphla;    
+            }
+           // cc.log("-到255------------------",this._aphla);  
         }
 
-        this.node.opacity  = this._aphla;    
+        
     },
 
     onEnable(){
         this.time = 2;
+        this.tipCount = true;
     },//被激活时
 
     onDisable(){
@@ -69,8 +71,10 @@ cc.Class({
         this.node.position = pos;
     },
     init(){
+        
         this._aphla = 0;
         this.time = 2;
+        this.tipCount = true;
     }
   
 });

@@ -55,6 +55,7 @@ cc.Class({
         var uuid = dataCenter.uuid;
 
         var self = this;
+        cc.log("获取服务器列表");
         net.HttpRequest('http://203.195.206.97:3001/ServerList?code=' + uuid, (data) => {
             cc.log(data);
             var serverlist = data.serverlist;

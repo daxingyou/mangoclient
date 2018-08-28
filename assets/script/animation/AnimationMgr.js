@@ -34,6 +34,7 @@ cc.Class({
         this._completeCallback = {};
         var spine = this.spine = this.getComponent('sp.Skeleton');
 
+        //this.playAnimation('attack_03');
         //this._setMix(this._standS,this._attackS);
 
         spine.setStartListener(trackEntry => {
@@ -91,6 +92,7 @@ cc.Class({
         this.spine.setAnimation(1, this.attackS, false);
     },
     playAnimation(name,loop){
+        cc.log('agent play animation = ',name);
         return this.spine.setAnimation(0,name,loop);
     },
     setCompleteCallback(name, cb) {

@@ -248,7 +248,8 @@ cc.Class({
 
         this._ThirdUI.splice(0, this._ThirdUI.length);
         this._curThirdUI = null;
-
+    },
+    releaseLoading(){
         for(var i in this._FrontUIs)
         {
             this._FrontUIs[i].node.destroy();

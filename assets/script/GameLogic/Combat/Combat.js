@@ -61,8 +61,8 @@ Combat.prototype.Tick = function(){
         //        result = false;
         //}
 
-        //if(this.sceneLoadOk && this.UILoadOk && result)
-        if(gameCenter.curLoadRes >= this.resNum)
+        //if(this.sceneLoadOk && this.UILoadOk && result
+        if(gameCenter.curLoadRes >= this.resNum && this.UILoadOk)
         {
             this.checkLoadRes = false;
             cc.log('加载完成！');

@@ -12,6 +12,7 @@ var efferMgr = require('EffectMgr')
 
 var fight = {
     _uimgr: null,
+  
 
     init: function () {
         this._uimgr = cc.find('Canvas').getComponent('UIMgr');
@@ -28,8 +29,6 @@ var fight = {
         });
 
         pomelo.on('onSelectHeroNotify', function (data) {
-
-
             cc.log(data.uid, '选择英雄:%s', data.heroid);
            // that._uimgr.showTips('确认英雄:' + "" + data.heroid);
             var ui = that._uimgr.getCurMainUI();
@@ -50,24 +49,25 @@ var fight = {
             var ui = that._uimgr.getCurMainUI();
             ui.selectScr.beginLoadCD();
         });
-
+        //var i =0;
         pomelo.on('onStartLoad', function (data) {
             cc.log(data);
             var myInfo = data.myInfo;
-            //cc.log(myInfo.mp, myInfo.discardsNum, myInfo.exhaustsNum, myInfo.thew);
+
             gameData.mp = myInfo.mp;
             gameData.discardsNum = myInfo.discardsNum;
             gameData.exhaustsNum = myInfo.exhaustsNum;
             gameData.cardsNum = myInfo.cardsNum;
             gameData.thew = myInfo.thew;
             gameData.fightEnd = false;
+            //i++;
 
             cc.log('开始加载战斗：', data.teamInfo, data.myInfo);
-          //  that._uimgr.showTips('开始加载战斗');
+
             combatMgr.initCombat(data);
-            that._uimgr.release();
+          //  that._uimgr.release();
             that._uimgr.loadUI(constant.UI.Fight, function (data) {
-                combatMgr.curCombat.UILoadOk = true;
+                data.initData(()=>{combatMgr.curCombat.UILoadOk = true;});
             })
 
             combatMgr.curCombat.getSelf().Mp = myInfo.mp;
@@ -78,7 +78,9 @@ var fight = {
             cc.log('战斗开始 ', data);
          
             gameData.IsLayoutAction = true;
+            that._uimgr.releaseLoading();
             var ui = that._uimgr.getUI(constant.UI.Fight);
+            //ui.initData();
             ui.showNum(gameData);
             ui.ShowHandCards();//第一次加载
             ui.onFreshMp(gameData.mp, true);
@@ -89,24 +91,23 @@ var fight = {
             data.inHands = data.inHands || [];
             gameData.mp = data.mp;
             gameData.thew = data.thew;
+
             if ("exhaustsNum" in data)
                 gameData.exhaustsNum = data.exhaustsNum;
             if ("discardsNum" in data)
                 gameData.discardsNum = data.discardsNum;
+
             cc.log('使用卡牌：', data);
-           // that._uimgr.showTips('使用卡牌：', data);
+            
             var ui = that._uimgr.getCurMainUI();
             ui.showNum(gameData);
-            //data.mp
-            //data.inHands
-            //data.discardsNum
+
             combatMgr.curCombat.getSelf().Mp = data.mp;
             combatMgr.curCombat.getSelf().Thew = data.thew;
             combatMgr.getSelf().onUsePile(data.inHands);
             var num =  combatMgr.getSelf().handsPile.length;
             gameData.IsLayoutAction = true;
             ui.ShowHandCards();
-            //ui.UseCard(Card);
         });
 
         pomelo.on('onUseCardNotify', function (data) {
@@ -358,14 +359,8 @@ var fight = {
             cc.log('战斗结束', data);
             gameData.fightEnd = true;
             var res = data.result;
-            combatMgr.Release();
-            that._uimgr.loadUI(constant.UI.FightOver,function(data){
-                combatMgr.curCombat.UILoadOk = true;
-                var ui = that._uimgr.getCurMainUI();
-                ui.reslut(res); 
-            })
-
-            //that._uimgr.loadUI(constans.UI.FightOver,function(){});
+            var ui = that._uimgr.getCurMainUI();
+            ui.loadFightOver(res);
         });
 
         pomelo.on('onDie', function (data) {
