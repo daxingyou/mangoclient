@@ -109,6 +109,7 @@ cc.Class({
         this.dmg.string = str;
         var hitPoint = combatUnit.table.HitPoint;
         var entPos = combatUnit.agent.go.position;
+        entPos = this.node.parent.convertToNodeSpaceAR(entPos);
         var entScale = Math.abs(combatUnit.agent.go.scale);
         var originPos = cc.v2(
             entPos.x + hitPoint[0] * entScale + utility.RandomInt(0, 50), 

@@ -51,9 +51,9 @@ module.exports = {
 	2004: {
 		ID: 2004,
 		BuffName: '万物复苏',
-		Description: '每秒恢复60点生命，持续4秒',
+		Description: '每秒恢复80点生命，持续4秒',
 		Type: 'heal',
-		Logic: {"heal":60,"count":4,"time":1},
+		Logic: {"heal":80,"count":4,"time":1},
 		SkillID: 0,
 		IsHide: 0,
 		Image: 'buff2',
@@ -90,6 +90,17 @@ module.exports = {
 		SkillID: 2108,
 		IsHide: 0,
 		Image: 'buff2',
+		Effect: ''
+	},
+	2010: {
+		ID: 2010,
+		BuffName: '陨石',
+		Description: '增加50%受到的伤害',
+		Type: 'modProp',
+		Logic: {vulnerable:0.5},
+		SkillID: 0,
+		IsHide: 0,
+		Image: 'buff3',
 		Effect: ''
 	},
 	10002: {

@@ -1,6 +1,3 @@
-
-
-
 var UIBase = require('UIBase')
 var ShaderUtils = require("ShaderUtils")
 var net = require("NetPomelo")
@@ -18,431 +15,201 @@ cc.Class({
     extends: UIBase,
 
     properties: {
-        matchUI : cc.Node,
-        man : sp.Skeleton,
-        woman : sp.Skeleton,
-        cdTimeLable : cc.Label,
-        cdTime : 30,
-        _CDState : true,
-        pipei:cc.Node,
-        dot:cc.Node,
-        chen_name:cc.Label,
-        user_first:cc.Label,
-        user_second:cc.Label,
-        yu_name:cc.Label,
-        selectMan_light:cc.Node,
-        selectWomen_light:cc.Node,
-        first_man:cc.Node,
-        first_women:cc.Node,
-        second_man:cc.Node,
-        second_women:cc.Node,
-        is_firstPostion:false,
-        firstComfirm:false,
-        secondComfirm:false,
-        start_pipei:cc.Label,
-        pipeiIngBg:cc.Node,
-        match:cc.Node,
-        enter:cc.Node,
-        firstLoad:cc.Node,
-        secondLoad:cc.Node,
-        mosterLoad:cc.Node,
-        manComfirm:cc.Node,
-        womenComfirm:cc.Node,
-        loadBegin:true,
+        matchUI: cc.Node,
+        man: sp.Skeleton,
+        woman: sp.Skeleton,
+        cdTimeLable: cc.Label,
+        cdTime: 30,
+        _CDState: true,
+        pipei: cc.Node,
+        dot: cc.Node,
+        chen_name: cc.Label,
+        yu_name: cc.Label,
+        selectMan_light: cc.Node,
+        selectWomen_light: cc.Node,
+        start_pipei: cc.Label,
+        pipeiIngBg: cc.Node,
+        match: cc.Node,
+        enter: cc.Node,
+        loadBegin: false,
 
+        showNode0: cc.Node,
+        showNode1: cc.Node,
+        heroIcons: cc.SpriteAtlas,
     },
-    onLoad () {
-    // this.init();
-   
+    onLoad() {
+        this._heros = {
+            1000: {
+                sk: this.man,
+                light: this.selectMan_light,
+            },
+            2000: {
+                sk: this.woman,
+                light: this.selectWomen_light,
+            }
+        }
+        this._lastSelectedHeroid = 0;
     },
-    initData(firstName,secondName,uid) {
-        var chen =  datamgr.hero[1000];
-        var yu =  datamgr.hero[2000];
-        this.chen_name.string = chen.HeroName; 
-        this.yu_name.string = yu.HeroName; 
-        this.user_first.string = firstName;
-        this.user_second.string = secondName;  
+    initData(teamA) {
+        dataCenter.otherLoadRes = {};
+        if (!this._background) {
+            var bg = cc.find('Canvas/background');
+            this._background = cc.instantiate(bg);
+            this._background.parent = this.node;
+            this._background.setLocalZOrder(-2);
+            var fg = cc.find('Canvas/frontground');
+            this._foreground = cc.instantiate(fg);
+            this._foreground.parent = this.node;
+            this._foreground.setLocalZOrder(-1);
+        }
+        var chen = datamgr.hero[1000];
+        var yu = datamgr.hero[2000];
+        this.chen_name.string = chen.HeroName;
+        this.yu_name.string = yu.HeroName;
+        this._uid2ShowNode = {};
+        for (var i in teamA) {
+            var uid = teamA[i].uid;
+            this._uid2ShowNode[uid] = this["showNode" + i];
+            this._uid2ShowNode[uid].getChildByName("user_name").getComponent(cc.Label).string = teamA[i].name;
+            this._uid2ShowNode[uid].getChildByName("label").active = false;
+        }
 
         this.cdTime = constant.ReadyTimer;
-        
         this._mgr = cc.find('Canvas').getComponent('UIMgr');
-        if (dataCenter.uuid == uid)
-        {
-            cc.log("第一个位置是自己");
-            this.is_firstPostion = true;
-        }
-        else
-        {
-            cc.log("第二个位置是自己的");
-        }
     },
 
-    onEnable(){
+    onEnable() {
         this._CDState = true;
-        if (this.woman != null)
-            ShaderUtils.setShader(this.woman, "gray");
-        if (this.man != null)
-            ShaderUtils.setShader(this.man, "gray");
+        for (var heroid in this._heros) {
+            var sk = this._heros[heroid].sk;
+            sk.node.parent.active = true;
+            ShaderUtils.setShader(sk, "gray");
+        }
         //normal
     },
 
-    onDisable(){
+    onDisable() {
 
     },
 
-    start () {
-       
+    start() {
+
     },
 
-    update (dt) {
-        if (this._CDState)
-        {
+    update(dt) {
+        if (this._CDState) {
             this.cdTime -= dt;
             var temp = Math.floor(this.cdTime);
             this.cdTimeLable.string = temp.toString();
-            if(this.cdTime <= 0){
+            if (this.cdTime <= 0) {
                 this.cdTimeLable.string = '0';
-                this._CDState = false; 
+                this._CDState = false;
             }
         }
 
         if (this.loadBegin) {
-             if((dataCenter.otherLoadRes!=0) && (dataCenter.curLoadRes!=0))
-             {
-                 this.loadProjess();
-             }
-         }
-     //   cc.log(dataCenter.curLoadRes,dataCenter.resNum,"resNum","dataCenter.otherLoadRes");
-       
+            this.loadProjess();
+        }
     },
 
+    loadProjess() {
+        for (var uid in dataCenter.otherLoadRes) {
+            var showNode = this._uid2ShowNode[uid];
+            if (!showNode)
+                continue;
+            var label = showNode.getChildByName("label");
+            label.active = true;
+            label.getComponent(cc.Label).string = dataCenter.otherLoadRes[uid] + "%";
+        }
+    },
 
-    loadProjess(){
-       this.firstLoad.active = true;
-       this.secondLoad.active = true;
-       this.mosterLoad.active = true;
-       var selfPro = parseInt(dataCenter.curLoadRes / dataCenter.resNum*100);
-       if(this.is_firstPostion)
-       {
-        this.firstLoad.getComponent(cc.Label).string = selfPro+"%";
-        this.secondLoad.getComponent(cc.Label).string = ""+dataCenter.otherLoadRes+"%";
-       }
-       else
-       {
-        this.firstLoad.getComponent(cc.Label).string = ""+dataCenter.otherLoadRes+"%";
-        this.secondLoad.getComponent(cc.Label).string = selfPro+"%";
-       }
-       this.mosterLoad.getComponent(cc.Label).string = ""+dataCenter.otherLoadRes+"%";
-   
-       
-       if( (dataCenter.otherLoadRes == 100) && (dataCenter.otherLoadRes == 100) )
-       {
-           cc.log("加载完成----------------");
-           this._mgr.release();
-           this.loadBegin = false;
-       }
-       
-   },
-   
-   
-
-   
-    manSelect(event){
+    selectHero(event, heroid) {
+        if (this._lastSelectedHeroid === heroid)
+            return;
         var that = this;
-        dataCenter.userName = '陈靖仇';
-        net.Request(new selectHeroProto(1000),function(data){
-            if (data.code == 1)
-            {
-                if (that.woman != null)
-                {
-                    ShaderUtils.setShader(that.woman, "gray");
-                    that.selectMan_light.active = true;
-                    that.selectWomen_light.active = false;
-                    if(that.is_firstPostion)
-                    {
-                        ShaderUtils.setShader(that.first_man.getComponent(cc.Sprite),"gray");
-                        that.first_man.active = true;
-                        that.first_women.active = false;
-                    }
-                    else
-                    {
-                        
-                        ShaderUtils.setShader(that.second_man.getComponent(cc.Sprite), "gray");
-                        that.second_man.active = true;
-                        that.second_women.active = false;
-                        
-                    }
+        var heroData = datamgr.hero[heroid];
+        dataCenter.userName = heroData.HeroName;
+        net.Request(new selectHeroProto(heroid), function (data) {
+            if (data.code == consts.SelectHeroCode.OK) {
+                if (that._lastSelectedHeroid) {
+                    var lastInfo = that._heros[that._lastSelectedHeroid];
+                    ShaderUtils.setShader(lastInfo.sk, "gray");
+                    lastInfo.light.active = false;
                 }
-                else
-                {
-                    that.selectMan_light.active = false;
-                    that.first_man.active = false;
-                    that.second_man.active = false;
-                }
-                   
-                if (that.man != null)
-                {
-                    ShaderUtils.setShader(that.man, "normal");
-                }  
+                that._lastSelectedHeroid = heroid;
+                var showNode = that._uid2ShowNode[dataCenter.uuid];
+                var icon = showNode.getChildByName("icon");
+                icon.active = true;
+                icon.getComponent(cc.Sprite).spriteFrame = that.heroIcons.getSpriteFrame(heroData.HeroIcon);
+                ShaderUtils.setShader(icon.getComponent(cc.Sprite), "gray");
+                var curInfo = that._heros[heroid];
+                ShaderUtils.setShader(curInfo.sk, "normal");
+                curInfo.light.active = true;
             }
-            else if (data.code == 2)
-            {
-                if ((that.is_firstPostion && that.first_man.active == true) || (!that.is_firstPostion && that.second_man.active == true))
-                {
-                    that._mgr.showTips('您已选择陈靖仇');
-                }
-                else 
-                {
-                    that._mgr.showTips('陈靖仇已经被选');
-                }
+            else if (data.code == consts.SelectHeroCode.BE_SELECEED) {
+                that._mgr.showTips(heroData.HeroName + '已经被选');
             }
-            else if (data.code == 3)
-            {
+            else if (data.code == consts.SelectHeroCode.NOT_EXIST) {
                 that._mgr.showTips('没有改英雄');
             }
-            else if (data.code == 4)
-            {
+            else if (data.code == consts.SelectHeroCode.ALREADY_CONFIRMED) {
                 that._mgr.showTips('已经确认了');
             }
         });
-
-        cc.log('manSelect');
     },
-    womanSelect(event){
-        var that = this;
-        dataCenter.userName = '于小雪';
-        net.Request(new selectHeroProto(2000),function(data){
-            if (data.code == 1)
-            {
-                if (that.woman != null)
-                {
-                    ShaderUtils.setShader(that.woman, "normal");
-                    that.selectWomen_light.active = true;
-                    that.selectMan_light.active = false;
-
-                    if (that.is_firstPostion)
-                    {
-
-                        ShaderUtils.setShader(that.first_women.getComponent(cc.Sprite),"gray");
-                        that.first_women.active = true;
-                        that.first_man.active = false;
-                    }
-                    else
-                    {
-                        
-                        ShaderUtils.setShader(that.second_women.getComponent(cc.Sprite), "gray");
-                        that.second_women.active = true;
-                        that.second_man.active = false;
-                        
-                    }
-                }
-                else
-                {
-                    that.selectWomen_light.active = false;
-                    that.first_women.active = false;
-                    that.second_women.active = false;
-                }
-                   
-                if (that.man != null)
-                {
-                    ShaderUtils.setShader(that.man, "gray");
-                   
-                }   
-            }
-            else if (data.code == 2)
-            {
-                if ((that.is_firstPostion && that.first_women.active == true) || (!that.is_firstPostion && that.second_women.active == true)) 
-                {
-                    that._mgr.showTips('您已选择于小雪');
-                }
-                else
-                {
-                    that._mgr.showTips('于小雪已经被选');
-                }
-            }
-            else if (data.code == 3)
-            {
-                that._mgr.showTips('没有改英雄');
-            }
-            else if (data.code == 4)
-            {
-                that._mgr.showTips('已经确认了');
-            }
-        });
-
-        cc.log('womanSelect',"女的");
-    },
-    beginFight(){
-        var that = this;
-        if(that.is_firstPostion)
-        {
-            if(that.first_man.active == false && that.first_women.active == false)
-            {
-                that._mgr.showTips('请选择一个角色!');
-                cc.log("你还没有选角色");
-            }
-
-           else if (that.first_women.active == true)
-           {
-            ShaderUtils.setShader(that.first_women.getComponent(cc.Sprite),"normal");
-            that.enter.active = false; 
-           }
-           else
-           {
-            ShaderUtils.setShader(that.first_man.getComponent(cc.Sprite),"normal"); 
-            that.enter.active = false; 
-           }
-           
-           that.firstComfirm = true;
-           cc.log("1准备了");
-        
-           if (that.first_man.active == true &&  that.enter.active == false)
-           {
-               that.womenComfirm.active = false;
-           }
-
-           if (that.first_women.active == true && that.enter.active == false) 
-           {
-            that.manComfirm.active = false;
-           }
-    }
-
-    else
-    {
-        if (that.second_man.active == false && that.second_women.active == false) {
-            cc.log("你还没有选角色");
+    beginFight() {
+        if (!this._lastSelectedHeroid) {
             that._mgr.showTips('请选择一个角色!');
+            return;
         }
-        else if (that.second_women.active == true)
-        {
-            ShaderUtils.setShader(that.second_women.getComponent(cc.Sprite),"normal");
-            that.enter.active = false;
-        }
-        else
-        {
-        ShaderUtils.setShader(that.second_man.getComponent(cc.Sprite),"normal"); 
-        that.enter.active = false;
-        }
-        that.secondComfirm = true;
-        cc.log("2准备了");
-
-        if (that.second_man.active == true && that.enter.active  == false)
-        {
-            that.womenComfirm.active = false;
-        }
-        if (that.second_women.active == true && that.enter.active == false)
-        {
-         that.manComfirm.active = false;
-        }
-       
-    }
-        net.Request(new confirmHeroProto(),function(data){
+        var that = this;
+        net.Request(new confirmHeroProto(), function (data) {
+            if (data.code == consts.Code.OK) {
+                var showNode = that._uid2ShowNode[dataCenter.uuid];
+                var icon = showNode.getChildByName("icon");
+                ShaderUtils.setShader(icon.getComponent(cc.Sprite), "normal");
+                that.enter.active = false;
+            }
         });//点击准备执行
     },
-    beginLoadCD(){
+    beginLoadCD(data) {
         this._CDState = true;
         this.cdTime = constant.ReadyStartTimer;
-        if ((this.first_man.active == false && this.first_women.active == false && this.second_man.active == false && this.second_women.active == false)||(this.firstComfirm==false && this.secondComfirm == false))
-        {
-            cc.log("两个人都没有选择或者某一个人选择了但是都没有准备");
-            if (this.is_firstPostion)
-            {
-                dataCenter.userName = "陈靖仇";
-            }
-            else
-            {
-                dataCenter.userName = "于小雪";
-            }
-        }
-        if ((this.firstComfirm == true && this.secondComfirm == false))
-        {
-            cc.log("有一个人准备了第二个人默认-----");
-            if (this.first_man.active == true)
-            {
-                dataCenter.ComfirmFirst = true;
-            }
-            else
-            {
-                dataCenter.ComfirmFirst = false;
-            }
-        }
+        var heroid = data[dataCenter.uuid];
+        dataCenter.userName = datamgr.hero[heroid].HeroName;
+    },
+    showTeamSelect(data) {
+        var uid = data.uid, heroid = data.heroid;
+        var showNode = this._uid2ShowNode[uid];
+        var icon = showNode.getChildByName("icon");
+        icon.active = true;
+        icon.getComponent(cc.Sprite).spriteFrame = this.heroIcons.getSpriteFrame(datamgr.hero[heroid].HeroIcon);
+        ShaderUtils.setShader(icon.getComponent(cc.Sprite), "gray");
+    },
 
-        if (this.firstComfirm == false && this.secondComfirm == true)
-        {
-            if (this.second_man.active == true)
-            {
-                dataCenter.ComfirmSecond = true;
-            }
-            else
-            {
-                dataCenter.ComfirmSecond = false;
+    showTeamPrepare(data) {
+        var uid = data.uid, heroid = data.heroid;
+        var showNode = this._uid2ShowNode[uid];
+        var icon = showNode.getChildByName("icon");
+        ShaderUtils.setShader(icon.getComponent(cc.Sprite), "normal");
+    },
+
+    startLoad(data) {
+        this.loadBegin = true;
+        var teams = [data.teamInfo.teamA, data.teamInfo.teamB];
+        for (var team of teams) {
+            for (var i in team) {
+                if (team[i].uid === dataCenter.uuid)
+                    continue
+                var heroid = team[i].heroid;
+                if (!heroid)
+                    continue;
+                this._heros[heroid].sk.node.parent.active = false;
             }
         }
     },
-    showTeamSelect(heroId){
-        if (this.is_firstPostion)
-        {
-            if (heroId == 1000)
-            {
-                cc.log("第2个队友----1");
-                ShaderUtils.setShader(this.second_man.getComponent(cc.Sprite), "gray");
-                this.second_man.active = true;
-                this.second_women.active = false;
-            }
-            else
-            {
-         
-                ShaderUtils.setShader(this.second_women.getComponent(cc.Sprite), "gray");
-                this.second_man.active = false;
-                this.second_women.active = true;
-               
-            }
-        }
-        else
-        {
-            if (heroId == 1000)
-            {
-                ShaderUtils.setShader(this.first_man.getComponent(cc.Sprite), "gray");
-                 this.first_man.active = true;
-                 this.first_women.active = false;
-             }
-             else
-             {
-                ShaderUtils.setShader(this.first_women.getComponent(cc.Sprite), "gray");
-                this.first_man.active = false;
-                this.first_women.active = true;
-              
-             }
-        }
-      },
 
-      showTeamPrepare(heroId){
-        if (this.is_firstPostion)
-        {
-            if (heroId == 1000)
-            {
-               ShaderUtils.setShader(this.second_man.getComponent(cc.Sprite), "normal");
-            }
-            else
-            {
-               ShaderUtils.setShader(this.second_women.getComponent(cc.Sprite), "normal");
-            }
-            this.secondComfirm = true;
-            cc.log("队友2准备了");
-        }
-        else
-        {
-            if (heroId == 1000)
-            {
-               ShaderUtils.setShader(this.first_man.getComponent(cc.Sprite), "normal");
-            }
-            else
-            {
-               ShaderUtils.setShader(this.first_women.getComponent(cc.Sprite), "normal");
-            }
-            this.firstComfirm = true;
-            cc.log("队友1准备了");
-        }
-      },
-
+    fightBegin() {
+        this.loadBegin = false;
+    }
 });

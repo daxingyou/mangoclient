@@ -19,11 +19,11 @@ cc.Class({
 
         if(that.param == 'man')
         {
-            ui.manSelect(event);
+            ui.selectHero(event, 1000);
         }
         else if(that.param == 'woman')
         {
-            ui.womanSelect(event);
+            ui.selectHero(event, 2000);
         }
     }
 

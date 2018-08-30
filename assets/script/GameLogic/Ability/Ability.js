@@ -45,7 +45,6 @@ ability.prototype.Active = function(Target,targets){
 
 	if(this.arrs.Animation != '')
 		this.owner.fsm.handleEvent(FSMEvent.SING, this.arrs.Animation);
-		// this.owner.agent.PlayAnimation(this.arrs.Animation,false);
 
 	this.delay = 0;
 	if(this.arrs.EffectType.hasOwnProperty('delay'))
@@ -56,14 +55,27 @@ ability.prototype.Active = function(Target,targets){
 	{
 		for(var i =0;i<this.effects.length;i++)
 		{
-			this.ShowEffect(this.effects[i]);
+			this.ShowEffect(this.effects[i],(this.effectType.hasOwnProperty('type2') && i > 0 ));
 		}
 	}
 
 	this.swordShow = true;
 }
 
-ability.prototype.ShowEffect = function(effect){
+ability.prototype.ShowEffect = function(effect,type2){
+
+	if(type2)
+	{
+		if(this.effectType.type2 == constant.EffectType.Point)
+		{
+			if(this.effectType.origin2 == constant.EffectOrigin.onwer)
+			{
+				var go = effectMgr.getPosEffect(this.arrs.Path,this.owner.agent.go.position,effect,this.owner.teamid);
+				go.node.scale = Math.abs(this.owner.agent.go.scale);
+			}
+		}
+	}
+
 	///特效播放
 	if(this.effectType.type == constant.EffectType.Bullt)
 	{
@@ -73,17 +85,10 @@ ability.prototype.ShowEffect = function(effect){
 		if(this.effectType.origin == constant.EffectOrigin.target)
 		{
 			effectMgr.getMoveEffect(this.arrs.Path,this.owner.agent.go.position.add(new cc.Vec2(3,0)),new cc.Vec2(1010,310),5,effect,this.owner.teamid);
-			
-			//effectMgr.getPosEffect(this.arrs.Path,this.curTarget.agent.go.position,effect,this.owner.teamid,()=>{
-			//	effectMgr.getMoveEffect(this.arrs.Path,this.owner.agent.go.position.add(new cc.Vec2(10,0)),new cc.Vec2(1100,310),5,'sword',this.owner.teamid);
-			//});
 		}
 		else if(this.effectType.origin == constant.EffectOrigin.onwer)
 		{
 			effectMgr.getMoveEffect(this.arrs.Path,this.owner.agent.go.position.add(new cc.Vec2(3,0)),new cc.Vec2(1010,310),5,effect,this.owner.teamid);
-			//effectMgr.getPosEffect(this.arrs.Path,this.owner.agent.go.position,effect,this.owner.teamid,()=>{
-			//	effectMgr.getMoveEffect(this.arrs.Path,this.owner.agent.go.position.add(new cc.Vec2(10,0)),new cc.Vec2(1100,310),5,'wsword',this.owner.teamid);
-			//});
 		}
 	}
 	else if(this.effectType.type == constant.EffectType.Point)
@@ -112,7 +117,8 @@ ability.prototype.ShowEffect = function(effect){
 		}
 		else if(this.effectType.origin == constant.EffectOrigin.onwer)
 		{
-			effectMgr.getPosEffect(this.arrs.Path,this.owner.agent.go.position,effect,this.owner.teamid);
+			var go = effectMgr.getPosEffect(this.arrs.Path,this.owner.agent.go.position,effect,this.owner.teamid);
+			go.node.scale = Math.abs(this.owner.agent.go.scale);
 		}
 		else if(this.effectType.origin == constant.EffectOrigin.onwerAll)
 		{
@@ -133,9 +139,31 @@ ability.prototype.ShowEffect = function(effect){
 					effectMgr.getPosEffect(this.arrs.Path,this.owner.curCombat.units[i].agent.go.position,effect,this.owner.curCombat.units[i].teamid);
 				}
 			}
-			//effectMgr.getPosEffect(this.arrs.Path,this.owner.agent.go.position,effect,this.owner.teamid);
 		}
+		else if(this.effectType.origin == constant.EffectOrigin.ownerCenter)
+		{
+			var length = 0;
+			for(var i in this.owner.curCombat.own)
+			{
+				length++;
+			}
 
+			if(length == 1)
+			{
+				effectMgr.getPosEffect(this.arrs.Path,this.owner.curCombat.own[1].agent.go.position,effect,0);
+			}
+			else if(length == 2)
+			{
+				effectMgr.getPosEffect(this.arrs.Path,cc.v2((this.owner.curCombat.own[1].agent.go.position.x + this.owner.curCombat.own[2].agent.go.position.x)/2,
+				(this.owner.curCombat.own[1].agent.go.position.y + this.owner.curCombat.own[2].agent.go.position.y)/2),effect,0);
+			}
+			else if(length == 3)
+			{
+				effectMgr.getPosEffect(this.arrs.Path,this.owner.curCombat.own[2].agent.go.position,effect,0);
+			}
+
+		}
+		
 	}
 	else if(this.effectType.type == constant.EffectType.SwordWheel)
 	{

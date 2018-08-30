@@ -1,6 +1,9 @@
 var UIBase = require('UIBase');
 var dataCenter = require('DataCenter')
 var combatmgr = require('CombatMgr')
+var spawnSummoned = require('SpawnSummoned');
+const constant = require('constants');
+var datamgr = require('DataMgr');
 
 cc.Class({
     extends: UIBase,
@@ -18,7 +21,7 @@ cc.Class({
         cardAttr:cc.Node,
         cardType:cc.Node,
         typeAttack:cc.Sprite,
-        select_card:cc.Node,
+        canUseCard:cc.Node,
 
         _IsSelect : false,  ///当前卡牌是否被选中放大
         x : 0,
@@ -29,14 +32,44 @@ cc.Class({
 
         _canUse: false,
         _willingUse: false,
-
         cardMask:cc.Node,
+
+        buleFrame:cc.Node,
+
     },
     onLoad () {
         this.cardDes.getComponent(cc.RichText).string = "";
         this.cardMask.active = false;
+        this.sprite = this.canUseCard.getComponent(cc.Sprite);
     }, 
-    initData(index,cardName,CardQuality,cardImage,CardDescription,cardType,thew,mp,cardAttr,canUse) {
+    onSpawnSummonChange () {
+        this.cardDes.getComponent(cc.RichText).string = this._desc.format({
+            SwordNum: spawnSummoned.getSummonNum(constant.SummonedType.wSword)});
+    },
+    _addEventListener (eventName) {
+        if (eventName === "spawnSummonChange") {
+            var func = this.onSpawnSummonChange.bind(this);
+            spawnSummoned.event.on(eventName, func);
+            this._listeners[eventName] = func;
+        }
+    },
+    _removeEventListener (eventName) {
+        if (eventName === "spawnSummonChange") {
+            spawnSummoned.event.removeListener(eventName, this._listeners[eventName]);
+        }
+    },
+    initData(index,cardName,CardQuality,cardImage,CardDescription,cardType,thew,mp,cardAttr,canUse, cid) {
+        if (this._listeners) {
+            for (var eventName in this._listeners) {
+                this._removeEventListener(eventName);
+            }
+            this._listeners = null;
+        }
+        var event = datamgr.card[cid].Event;
+        if (event) {
+            this._listeners = {};
+            this._addEventListener(event);
+        }
 
         var wihte =new cc.Color(255,255,255);//1
         var bule =new cc.Color(47,203,242);//2
@@ -135,8 +168,10 @@ cc.Class({
                 {
                      des = '<color=#EFC851>'+cardDes2+cardDes3+cardDes4+"。"+'</color>';
                 }
+                this._desc = CardDescription + des;
 
-                this.cardDes.getComponent(cc.RichText).string = CardDescription +"。" + des;
+                this.cardDes.getComponent(cc.RichText).string = this._desc.format({
+                    SwordNum: spawnSummoned.getSummonNum(constant.SummonedType.wSword)});
 
         }
        
@@ -183,7 +218,7 @@ cc.Class({
             // this.node.on(cc.Node.EventType.TOUCH_START, function (event) {//节点区域时   
             //   //  event.stopPropagationImmeditate();
             //     this.node.rotation = 0;
-            //     this.select_card.active = true;
+            //     this.canUseCard.active = true;
             //     this.node.y +=  400;
             //     this.node.x = 0;
             //     var s = cc.scaleTo(0.001,1.25).easing(cc.easeBackOut());
@@ -210,19 +245,27 @@ cc.Class({
        
 
         if (this._canUse) {
-            this.select_card.active = true;
-            var sprite = this.select_card.getComponent(cc.Sprite);
+         //   this.canUseCard.active = true;
+            var sprite = this.canUseCard.getComponent(cc.Sprite);
             if (this._willingUse) {
                 // 蓝色
-                sprite.spriteFrame = this.cardAtlas.getSpriteFrame("card_select_effect");
+              //  sprite.spriteFrame = this.cardAtlas.getSpriteFrame("card_select_effect");
+                this.buleFrame.active = true;
+                this.canUseCard.active = false;
             }
             else {
                 // 绿色
-                sprite.spriteFrame = this.cardAtlas.getSpriteFrame("card_select_effect2");
+               // sprite.spriteFrame = this.cardAtlas.getSpriteFrame("card_select_effect2");
+
+               this.buleFrame.active = false;
+               this.canUseCard.active = true;
             }
         }
         else {
-            this.select_card.active = false;
+         
+           // this.sprite.spriteFrame = this.cardAtlas.getSpriteFrame("card_select_effect2");
+            this.canUseCard.active = false;
+            this.buleFrame.active = false;
         }
 
 
@@ -232,15 +275,15 @@ cc.Class({
             if (player == undefined) {
                 return;
             }
-            if ((this.mp < player.Mp+1)){
-                this.select_card.active = true;
+            if ((this.mp < player.Mp+1)) {
+                this.canUseCard.active = true;
             }
         }
 
        
 
         if (dataCenter.hp == 0) {
-            this.select_card.active = false;
+            this.canUseCard.active = false;
             this.cardMask.active = true;
         }
         else {
@@ -284,7 +327,7 @@ cc.Class({
             this.node.x = this.x;
             this.node.y = this.y;
             this.node.rotation = this.rotation;
-            this.select_card.active = false;
+            this.canUseCard.active = false;
             var s = cc.scaleTo(0.001,0.88).easing(cc.easeBackOut());
             this.node.runAction(s);
         }

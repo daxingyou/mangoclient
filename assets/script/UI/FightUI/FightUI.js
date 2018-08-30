@@ -42,7 +42,6 @@ cc.Class({
         centerCard: cc.Node,
         CardChildrenCount: [],
         _curSelectedIdx: -1,
-        fightOverMask:cc.Node,
         gameOver:false,
     },
 
@@ -60,6 +59,10 @@ cc.Class({
         this.mp_fill.active = false;
         this.thew_fill.active = false;
         var resIndex = 0;
+        this.min_time = 2;
+        this.sec_time = 60;
+        this.gameOver = false;
+
         this.barLabel.string = combatmgr.getSelf().Hp + '/' + combatmgr.getSelf().MaxHp;
 
         if (dataCenter.userName === "于小雪") {
@@ -67,17 +70,6 @@ cc.Class({
         }
         else {
             this.headImg.getComponent(cc.Sprite).spriteFrame = this.heroIcon.getSpriteFrame('chenjingchou');
-        }
-
-        if (dataCenter.userName == "") {
-            if (dataCenter.ComfirmFirst == true || dataCenter.ComfirmSecond == true) {
-                this.userName.string = "于小雪";
-                this.headImg.getComponent(cc.Sprite).spriteFrame = this.heroIcon.getSpriteFrame('yuxiaoxue');
-            }
-            else {
-                this.userName.string = "陈靖仇";
-                this.headImg.getComponent(cc.Sprite).spriteFrame = this.heroIcon.getSpriteFrame('chenjingchou');
-            }
         }
 
         var self = this;
@@ -233,12 +225,14 @@ cc.Class({
             var isCanUse = 0;
 
             self.centerCard.getComponent('CardItem').initData(
-                self.now_index, data.CardName, data.CardQuality, data.CardImage, data.CardDescription, data.CardType, data.CastThew, data.CastMP, data.CardAttributes, isCanUse);
+                self.now_index, data.CardName, data.CardQuality, data.CardImage, data.CardDescription, data.CardType, data.CastThew, data.CastMP, data.CardAttributes, isCanUse, pile);
             var item = self.CardChildrenCount[self.now_index];
             item.opacity = 0;
             self._curSelectedIdx = item.getComponent('CardItem')._index;
-           if (!this.gameOver) 
-           inputMgr.curSelectCard(self._curSelectedIdx, item.convertToWorldSpaceAR(cc.v2(0,0)));
+           if (!this.gameOver) {
+            inputMgr.curSelectCard(self._curSelectedIdx, item.convertToWorldSpaceAR(cc.v2(0,0)));
+           }
+          
         }, self);
 
         self.HandsCardRoot.on(cc.Node.EventType.TOUCH_MOVE, function (e) {
@@ -272,7 +266,7 @@ cc.Class({
                     var data = datamgr.card[pile];
                     var isCanUse = 0;
                     self.centerCard.getComponent('CardItem').initData(
-                        self.now_index, data.CardName, data.CardQuality, data.CardImage, data.CardDescription, data.CardType, data.CastThew, data.CastMP, data.CardAttributes, isCanUse);
+                        self.now_index, data.CardName, data.CardQuality, data.CardImage, data.CardDescription, data.CardType, data.CastThew, data.CastMP, data.CardAttributes, isCanUse, pile);
                     var item = self.CardChildrenCount[self.now_index];
                     item.opacity = 0;
                     if (!this.gameOver) {
@@ -287,8 +281,10 @@ cc.Class({
                     self.setCurSelectedIdx(-1);
                     if (self.now_index != -1) {
                         self.cardReturnAni();
-                        if (!this.gameOver)
-                        inputMgr.CancleSelectCard(e.touch._point, dataCenter.returnAniEnd);
+                        if (!this.gameOver) {
+                            inputMgr.CancleSelectCard(e.touch._point, dataCenter.returnAniEnd);
+                        }
+                       
                     }
                 }
             }
@@ -299,8 +295,10 @@ cc.Class({
                 // 拖拽卡牌或者箭头
                 self.cardReturnAni();
                 dataCenter.returnAniEnd = true;
-                if (!this.gameOver)
-                inputMgr.touchMove(e.touch._point);
+                if (!this.gameOver) {
+                    inputMgr.touchMove(e.touch._point);
+                }
+                
             }
         }, self);
 
@@ -336,26 +334,11 @@ cc.Class({
         if(target == null)
             return;
 
-        if (target && !target.mpRecoverPause && !this.gameOver ) {
+        if (target && !target.mpRecoverPause && (dataCenter.hp!= 0) ) {
             this.now_time += dt / target.mpRecoverRate;
             var per = Math.min(1, this.now_time * 1000 / target.mpRecoverTime);  //百分比
             this.mpSpire.fillRange = per;
         }
-
-        //if (target.mpRecoverPause == false) {
-           // this._uimgr.showTips('灵力暂停恢复',cc.v2(0,65));
-        //}
-
-        if ((this.sec_time == 0 && this.min_time == 0) || dataCenter.hp == 0) {
-            this.fightOverMask.active = true;
-            this.gameOver = true;
-        }
-        else {
-            this.gameOver = false;
-            this.fightOverMask.active = false;
-        }
-
-
     },
 
     callback() {
@@ -371,13 +354,25 @@ cc.Class({
             else {
                 this.time.string = "" + this.min_time + ":" + "" + this.sec_time;
             }
+
+            if (dataCenter.hp == 0) {
+                this.gameOver = true;
+            }
+            else {
+                this.gameOver = false; 
+            }
         }
         if (this.min_time < 0) {
             this.unschedule(this.callback);
+            this.gameOver = true;
+            dataCenter.hp = 0;
             this.min_time = 0;
             this.sec_time = 0;
             this.time.string = "" + this.min_time + ":0" + "" + this.sec_time;
         }
+
+       
+       
 
     },//定时器
     OnFresh: function (data) {
@@ -406,7 +401,7 @@ cc.Class({
             this.mp.string = mp + "/10";
             this.mpSpire.fillRange = 1;
             this.mp_fill.active = true;
-            this._uimgr.showTips('灵力已满',cc.v2(0,65));
+            this._uimgr.showTips('灵力已满');
         }
     },
     onFreshThew(thew) {
@@ -433,7 +428,7 @@ cc.Class({
     ShowHandCards: function () {
         var player = combatmgr.getSelf();
         if (player.handsPile.length == 8) {
-            this._uimgr.showTips('手牌已满',cc.v2(0,65));
+            this._uimgr.showTips('手牌已满');
         }
         
         for (var i = 0; i < 8; i++) {
@@ -446,7 +441,7 @@ cc.Class({
                 if (data.CastMP <= player.Mp) {
                     isCanUse = 1;
                 }
-                this._HandsCards[i].initData(i, data.CardName, data.CardQuality, data.CardImage, data.CardDescription, data.CardType, data.CastThew, data.CastMP, data.CardAttributes, isCanUse);
+                this._HandsCards[i].initData(i, data.CardName, data.CardQuality, data.CardImage, data.CardDescription, data.CardType, data.CastThew, data.CastMP, data.CardAttributes, isCanUse, pile);
                 this._HandsCards[i].show();
                 if (i == player.handsPile.length - 1) {
                     this.layout();

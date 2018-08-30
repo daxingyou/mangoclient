@@ -58,7 +58,6 @@ cc.Class({
             cardItem.stopAllActions();
             cardItem.position = cardItem.parent.convertToNodeSpaceAR(point);
             cardItem.rotation = 0;
-            cc.log(point,"point-------------", cardItem.parent.convertToNodeSpaceAR(point),"子节点的--------------");
         }
         else 
         {

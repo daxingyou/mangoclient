@@ -12,7 +12,7 @@ module.exports = {
     ComfirmFirst:false,//只有第一个人准备时
     ComfirmSecond:false,//
     curLoadRes:0,
-    otherLoadRes:0,
+    otherLoadRes:{},
     resNum:0,
     swordNum:0,
     fightEnd:false,

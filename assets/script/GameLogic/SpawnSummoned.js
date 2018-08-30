@@ -2,33 +2,42 @@ const constant = require('constants')
 var combatMgr = require('CombatMgr')
 var utility = require('utility')
 var effectMgr = require('EffectMgr')
+var EventEmitter = require('events').EventEmitter;
 
 var SpawnSummoned = {
     summoneds : [],
     index : 0,
+    type2Nums: {},
+    event: new EventEmitter(),
     create : function(data){
+        if (!this.type2Nums[data.type]) {
+            this.type2Nums[data.type] = {};
+        }
+        this.type2Nums[data.type][data.area] = (this.type2Nums[data.type][data.area] || 0) + data.num;
+        this.event.emit("spawnSummonChange");
+
         if(combatMgr.curCombat.summonedMgr == null)
             combatMgr.curCombat.summonedMgr = this;
 
-        var area = null;
+        //var area = null;
 
-        if(data.area == 1)
-        {
-            area = combatMgr.curCombat.monsterMatrix.Area1;
-        }else if(data.area == 2)
-        {
-            area = combatMgr.curCombat.monsterMatrix.Area2;
-        }else if(data.area == 3)
-        {
-            area = combatMgr.curCombat.monsterMatrix.Area3;
-        }
+        //if(data.area == 1)
+        //{
+        //    area = combatMgr.curCombat.monsterMatrix.Area1;
+        //}else if(data.area == 2)
+        //{
+        //    area = combatMgr.curCombat.monsterMatrix.Area2;
+        //}else if(data.area == 3)
+        //{
+        //    area = combatMgr.curCombat.monsterMatrix.Area3;
+        //}
 
-        var index = utility.RandomSeedInt(0,area.length-1);
+        //var index = utility.RandomSeedInt(0,area.length-1);
         //// 最大只填了3
-        if(index > 3)
-            index = 3;
+        //if(index > 3)
+        //   index = 3;
 
-        var pos =  area[index];
+        var pos =  data.area;
         var range = null;
 
         if(pos == 1)
@@ -57,6 +66,10 @@ var SpawnSummoned = {
         }
     },
     Reset(data){
+        this.type2Nums[constant.SummonedType.wSword] = data;
+        this.event.emit("spawnSummonChange");
+        //cc.log('script debug data = ',data);
+
         var list = new Array();
 
         var first = data[1];
@@ -64,40 +77,57 @@ var SpawnSummoned = {
         var thrid = data[3];
 
         var length = first + second + thrid;
-        var curIndex = 0;
+        var min = 1;
+        var max = 3;
 
-        var min = first;
-        var max = thrid;
 
-        while(length <= 0)
+        while(length > 0)
         {
             if(first == 0)
             {
-                min = second;
+                if(second == 0)
+                {
+                    min = 3;
+                }
+                else
+                {
+                    min = 2;
+                }
             }
 
             if(thrid == 0)
             {
-                max = second;
+                if(second == 0)
+                {
+                    max = 1;
+                }
+                else
+                {
+                    max = 2;
+                }
             }
 
             var index = 0;
             if(min == max)
                 index = min;
             else
-                index = utility.RandomSeedInt(min,max);
+            {
+                index = utility.RandomSeedInt((min-1)*100,(max)*100);
+                //cc.log('script debug RandomSeedInt  min = ',min,' max = ',max,' index = ',index);
+                index = index%3+1;
+            }
 
-            if(curIndex == 1)
+            if(index == 1)
             {
                 first--;
                 list.push(1);
             }
-            else if(curIndex == 2)
+            else if(index == 2)
             {
                 second--;
                 list.push(2);
             }
-            else if(curIndex == 3)
+            else if(index == 3)
             {
                 thrid--;
                 list.push(3);
@@ -106,60 +136,40 @@ var SpawnSummoned = {
             length = first + second + thrid;
         }
 
-        for(var i in data)
+        //cc.log('script debug list = ',list);
+
+        for(var i in list)
         {
-            var area = null;
-
-            if(i == 1)
-            {
-                area = combatMgr.curCombat.monsterMatrix.Area1;
-            }else if(i == 2)
-            {
-                area = combatMgr.curCombat.monsterMatrix.Area2;
-            }else if(i == 3)
-            {
-                area = combatMgr.curCombat.monsterMatrix.Area3;
-            }
-    
-            var index = utility.RandomSeedInt(0,area.length-1);
-
-            //// 最大只填了3
-            if(index > 3)
-                index = 3;
-    
-            var pos =  area[index];
             var range = null;
-    
-            if(pos == 1)
+            if(list[i] == 1)
             {
                 range = combatMgr.curCombat.monsterMatrix.Range1;
             }
-            else if(pos == 2)
+            else if(list[i] == 2)
             {
                 range = combatMgr.curCombat.monsterMatrix.Range2;
             }
-            else if(pos == 3)
+            else if(list[i] == 3)
             {
                 range = combatMgr.curCombat.monsterMatrix.Range3;
             }
 
-            for(var z=0;z<data[i];z++)
-            {
-                var x = utility.RandomSeedInt(range.x1,range.x2);
-                var y = utility.RandomSeedInt(range.y1,range.y2);
-        
-                cc.log('cur num = ',data[i],' cur pos = x ',x,' y=',y);
+            var x = utility.RandomSeedInt(range.x1,range.x2);
+            var y = utility.RandomSeedInt(range.y1,range.y2);
+    
+           //cc.log('script debug cur num = ',list[i],' cur pos = x ',x,' y=',y,' range.x1 =',range.x1,' range.x2 =',range.x2,' range.y1 =',range.y1,' range.y2 =',range.y2);
 
-                effectMgr.geBezierEffect('chenjinchou',new cc.Vec2(1100,310),new cc.Vec2(x,y),5,'wsword_bounce',0,(curPos)=>{
-                    this.summoneds.push(effectMgr.getWswordEffect('sword',curPos,0));
+            effectMgr.geBezierEffect('chenjinchou',new cc.Vec2(1100,310),new cc.Vec2(x,y),5,'wsword_bounce',0,(curPos)=>{
+                this.summoneds.push(effectMgr.getWswordEffect('sword',curPos,0));
 
-                    cc.log('cur EffectMgr pos = ',curPos);
-                    //index ++;
-                });
-            }
+                //cc.log('script debug cur EffectMgr pos = ',curPos);
+            });
         }
     },      //回收召唤物
     collect(damage){
+        this.type2Nums[constant.SummonedType.wSword] = {};
+        this.event.emit("spawnSummonChange");
+
         this.index = 0;
         ///当前一轮的伤害
         this.damage = damage;
@@ -221,6 +231,16 @@ var SpawnSummoned = {
                 
         }
         this.summoneds.splice(0,this.summoneds.length);
+    },
+    getSummonNum (type) {
+        var summons = this.type2Nums[type];
+        if (!summons)
+            return 0;
+        var total = 0;
+        for (var area in summons) {
+            total += summons[area];
+        }
+        return total;
     }
 }
 module.exports = SpawnSummoned;

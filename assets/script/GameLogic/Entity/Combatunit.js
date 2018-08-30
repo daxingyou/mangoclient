@@ -227,7 +227,7 @@ CombatUnit.prototype.useSkill = function(data,targets)
     var skilldata = dataMgr.skill[data.sid];
     var ab = new ability(skilldata[1],this);
 
-    ab.Active(null,targets);
+    ab.Active(null,targets[1]);
     this.abilitys.push(ab);
 }
 

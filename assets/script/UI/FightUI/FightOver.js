@@ -66,7 +66,7 @@ cc.Class({
 
     again(){
        
-         if(this._CDState == false){
+         if (this._CDState == false) {
             this._uimgr.loadUI(constant.UI.Match,function(data){
                 combatMgr.Release();
                 combatMgr.curCombat.UILoadOk = true; 
@@ -78,8 +78,8 @@ cc.Class({
      update (dt) {
 
        
-        if(this.tipCont){
-            if(this._aphla < 255)
+        if (this.tipCont) {
+            if (this._aphla < 255)
             {
                 this._aphla += dt * this.speed;
                 this.tips.opacity  = this._aphla;

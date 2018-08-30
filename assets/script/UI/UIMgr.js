@@ -72,7 +72,7 @@ cc.Class({
                 this._curMainUI.show();
 
                 if (callback != undefined)
-                    callback(this._curSecondUI);
+                    callback(this._curMainUI);
                 return this._curMainUI;
             }
         }

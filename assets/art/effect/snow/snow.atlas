@@ -1,271 +1,271 @@
 
 snow.png
-size: 957,584
+size: 989,518
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 arms
   rotate: false
-  xy: 260, 105
+  xy: 260, 297
   size: 231, 219
   orig: 231, 219
   offset: 0, 0
   index: -1
 effect/Moon_bw002_001
-  rotate: false
-  xy: 2, 326
-  size: 256, 256
-  orig: 256, 256
+  rotate: true
+  xy: 493, 266
+  size: 120, 127
+  orig: 120, 127
   offset: 0, 0
   index: -1
 effect/bmp_lxuanw
   rotate: false
-  xy: 609, 454
+  xy: 493, 388
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 effect/boom/jpg_huo_0
   rotate: false
-  xy: 132, 2
+  xy: 260, 15
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 effect/boom/jpg_huo_1
   rotate: false
-  xy: 198, 2
+  xy: 438, 25
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 effect/boom/jpg_huo_2
   rotate: false
-  xy: 794, 258
+  xy: 504, 25
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 effect/boom/jpg_huo_3
   rotate: false
-  xy: 699, 84
+  xy: 570, 25
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 effect/boom/jpg_huo_4
   rotate: false
-  xy: 765, 84
+  xy: 636, 25
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 effect/boom/jpg_huo_5
   rotate: false
-  xy: 699, 18
+  xy: 917, 276
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 effect/boom/jpg_huo_6
   rotate: false
-  xy: 765, 18
+  xy: 917, 210
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 effect/boom/jpg_huo_7
   rotate: false
-  xy: 831, 81
+  xy: 916, 144
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 effect/fx_flare_trees
   rotate: false
-  xy: 2, 68
+  xy: 2, 260
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 effect/grass_01
   rotate: false
-  xy: 518, 368
+  xy: 260, 81
   size: 89, 214
   orig: 89, 214
   offset: 0, 0
   index: -1
 effect/grass_02
   rotate: true
-  xy: 606, 290
+  xy: 622, 266
   size: 32, 99
   orig: 32, 99
   offset: 0, 0
   index: -1
 effect/jpg_0011
   rotate: false
-  xy: 260, 326
+  xy: 2, 2
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 effect/jpg_010915
   rotate: false
-  xy: 739, 454
+  xy: 351, 167
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 effect/jpg_10218yun
   rotate: false
-  xy: 612, 2
+  xy: 971, 500
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 effect/jpg_jet_as1
   rotate: true
-  xy: 2, 2
+  xy: 351, 101
   size: 64, 128
   orig: 64, 128
   offset: 0, 0
   index: -1
 effect/jpg_li04
   rotate: false
-  xy: 609, 324
+  xy: 623, 388
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 effect/jpg_{69932210-912B-4775-820E-90A68A440431}
   rotate: false
-  xy: 739, 324
+  xy: 753, 388
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 effect/smoke_07/smoke_07_00000_01
   rotate: false
-  xy: 707, 237
+  xy: 798, 301
   size: 85, 85
   orig: 85, 85
   offset: 0, 0
   index: -1
 effect/smoke_07/smoke_07_00000_03
   rotate: false
-  xy: 860, 234
+  xy: 481, 91
   size: 85, 85
   orig: 85, 85
   offset: 0, 0
   index: -1
 effect/smoke_07/smoke_07_00000_05
   rotate: false
-  xy: 869, 321
+  xy: 710, 301
   size: 86, 85
   orig: 86, 85
   offset: 0, 0
   index: -1
 effect/smoke_07/smoke_07_00000_07
   rotate: false
-  xy: 264, 17
+  xy: 481, 178
   size: 85, 86
   orig: 85, 86
   offset: 0, 0
   index: -1
 effect/smoke_07/smoke_07_00000_09
   rotate: false
-  xy: 351, 17
+  xy: 568, 178
   size: 85, 86
   orig: 85, 86
   offset: 0, 0
   index: -1
 effect/smoke_07/smoke_07_00000_11
   rotate: false
-  xy: 869, 496
+  xy: 883, 430
   size: 86, 86
   orig: 86, 86
   offset: 0, 0
   index: -1
 effect/smoke_07/smoke_07_00000_13
   rotate: false
-  xy: 580, 194
+  xy: 568, 91
   size: 85, 85
   orig: 85, 85
   offset: 0, 0
   index: -1
 effect/smoke_07/smoke_07_00000_15
   rotate: false
-  xy: 580, 107
+  xy: 655, 91
   size: 85, 85
   orig: 85, 85
   offset: 0, 0
   index: -1
 effect/smoke_07/smoke_07_00000_17
   rotate: true
-  xy: 438, 17
+  xy: 655, 178
   size: 86, 85
   orig: 86, 85
   offset: 0, 0
   index: -1
 effect/smoke_07/smoke_07_00000_19
   rotate: false
-  xy: 612, 20
+  xy: 830, 214
   size: 85, 85
   orig: 85, 85
   offset: 0, 0
   index: -1
 effect/smoke_07/smoke_07_00000_21
   rotate: false
-  xy: 667, 150
+  xy: 742, 39
   size: 85, 85
   orig: 85, 85
   offset: 0, 0
   index: -1
 effect/smoke_07/smoke_07_00000_23
   rotate: false
-  xy: 518, 281
+  xy: 742, 214
   size: 86, 85
   orig: 86, 85
   offset: 0, 0
   index: -1
 effect/smoke_07/smoke_07_00000_25
   rotate: false
-  xy: 493, 193
+  xy: 742, 126
   size: 85, 86
   orig: 85, 86
   offset: 0, 0
   index: -1
 effect/smoke_07/smoke_07_00000_27
   rotate: false
-  xy: 493, 105
+  xy: 829, 126
   size: 85, 86
   orig: 85, 86
   offset: 0, 0
   index: -1
 effect/smoke_07/smoke_07_00000_29
   rotate: false
-  xy: 869, 408
+  xy: 622, 300
   size: 86, 86
   orig: 86, 86
   offset: 0, 0
   index: -1
 effect/smoke_07/smoke_07_00000_31
   rotate: false
-  xy: 754, 150
+  xy: 829, 39
   size: 85, 85
   orig: 85, 85
   offset: 0, 0
   index: -1
 effect/smoke_07/smoke_07_00000_33
   rotate: false
-  xy: 841, 147
+  xy: 351, 14
   size: 85, 85
   orig: 85, 85
   offset: 0, 0
   index: -1
 effect/smoke_07/smoke_07_00000_35
   rotate: true
-  xy: 525, 17
+  xy: 885, 342
   size: 86, 85
   orig: 86, 85
   offset: 0, 0

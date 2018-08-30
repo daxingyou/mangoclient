@@ -47,21 +47,6 @@ Combat.prototype.UILoadOk = false;
 Combat.prototype.Tick = function(){
     if(this.checkLoadRes)
     {
-        //var result = true;
-
-        //for(var i in this.own)
-        //{
-        //   if(!this.own[i].loadok)
-        //        result = false;
-        //}
-
-        //for(var i in this.enemy)
-        //{
-        //    if(!this.enemy[i].loadok)
-        //        result = false;
-        //}
-
-        //if(this.sceneLoadOk && this.UILoadOk && result
         if(gameCenter.curLoadRes >= this.resNum && this.UILoadOk)
         {
             this.checkLoadRes = false;

@@ -83,6 +83,8 @@ var mgr = {
         var go = this.getEffect(name,pos,teamID);
         if(go != null)
             go.show(effect,callback);
+        else
+            cc.log('not found effect ',effect);
         return go;
        
     },                  //子弹特效

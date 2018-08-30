@@ -63,8 +63,8 @@ cc.Class({
 
         //var left = utility.RandomSeedInt(4,8);
         //var right = utility.RandomSeedInt(4,8);
-        var left = utility.RandomSeedInt(6,8);
-        var right = utility.RandomSeedInt(6,8);
+        var left = utility.RandomSeedInt(5,8);
+        var right = utility.RandomSeedInt(5,8);
 
         var src = this.getComponent('ShaderUtilsForWsword');
         src.setValue(left/10,right/10);

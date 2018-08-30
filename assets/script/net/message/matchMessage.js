@@ -24,7 +24,7 @@ var fight = {
             cc.log('匹配成功, 开始选英雄', data.teamInfo);
             var teamInfo = data.teamInfo;
             var teamA = teamInfo.teamA;
-            ui.selectScr.initData( teamA[0].name , teamA[1].name , teamA[0].uid);
+            ui.selectScr.initData(teamA);
             ui.showSelect();//match.js
         });
 
@@ -32,7 +32,7 @@ var fight = {
             cc.log(data.uid, '选择英雄:%s', data.heroid);
            // that._uimgr.showTips('确认英雄:' + "" + data.heroid);
             var ui = that._uimgr.getCurMainUI();
-            ui.selectScr.showTeamSelect(data.heroid);
+            ui.selectScr.showTeamSelect(data);
            
         });
 
@@ -40,14 +40,14 @@ var fight = {
             cc.log(data.uid, '%s确认英雄:%s', data.heroid);
            // that._uimgr.showTips('确认英雄:' + "" + data.heroid);
             var ui = that._uimgr.getCurMainUI();
-            ui.selectScr.showTeamPrepare(data.heroid);
+            ui.selectScr.showTeamPrepare(data);
         });
 
         pomelo.on('onEnterLoadCD', function (data) {
             cc.log('加载前倒计时:', data);
            // that._uimgr.showTips('加载前倒计时:');
             var ui = that._uimgr.getCurMainUI();
-            ui.selectScr.beginLoadCD();
+            ui.selectScr.beginLoadCD(data);
         });
         //var i =0;
         pomelo.on('onStartLoad', function (data) {
@@ -72,10 +72,15 @@ var fight = {
 
             combatMgr.curCombat.getSelf().Mp = myInfo.mp;
             combatMgr.curCombat.getSelf().Thew = myInfo.thew;
+
+            var ui = that._uimgr.getCurMainUI();
+            ui.selectScr.startLoad(data);
         });
 
         pomelo.on('onFightBegin', function (data) {
             cc.log('战斗开始 ', data);
+            var ui = that._uimgr.getCurMainUI();
+            ui.selectScr.fightBegin();
          
             gameData.IsLayoutAction = true;
             that._uimgr.releaseLoading();
@@ -201,7 +206,11 @@ var fight = {
             var target = new Array();
 
             for (var i in data.targets) {
-                target.push(gameLogic.getCombatUnitForUid(data.targets[i]));
+                target[i] = new Array();
+                for(var z in data.targets[i])
+                {
+                    target[i].push(gameLogic.getCombatUnitForUid(data.targets[i][z]));
+                }
             }
 
             player.useSkill(data, target);
