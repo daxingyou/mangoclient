@@ -94,6 +94,7 @@
     "effect": {
       "__id__": 2
     },
+    "iseffect": true,
     "_path": "",
     "_active": false,
     "_curAni": "",
@@ -105,7 +106,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "e35ee07a-58e3-49d3-920c-31b4894030bd"
     },
     "fileId": "95KJxRwsFORqp9zfc7YA8K",
     "sync": false

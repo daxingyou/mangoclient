@@ -5,10 +5,12 @@ cc.Class({
 
     properties: {
         effect : sp.Skeleton,
+        iseffect : false,
         _path : '',
         _active : false,
         _curAni : '',
         _MoveAni : false,
+        _duration : 0,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -16,11 +18,13 @@ cc.Class({
     onLoad () {
         var spine = this.effect = this.getComponent('sp.Skeleton');
 
-
         if(spine == null)
             return;
 
-        var track = spine.getCurrent(1);
+        //var track = spine.getCurrent(0);
+        //if(track != null)
+        //    cc.log('animation.name = ',track.animation.name,' animation.duration =',track.animation.duration);
+
         var that = this;
 
         spine.setCompleteListener((trackEntry, loopCount) => {
@@ -37,11 +41,15 @@ cc.Class({
                 that._active = false;
                 that.node.position = new cc.v2(0,-1000);
             }
-            //cc.log('wtf ??????? this = ',this.uuid, ' spine == ',this.effect,' name ==',name ,' active = ',this._active);
         });
         spine.setStartListener(trackEntry => {
             var animationName = trackEntry.animation ? trackEntry.animation.name : "";
             cc.log("[track %s][animation %s] start.", trackEntry.trackIndex, animationName);
+
+            if(this.iseffect)
+            {
+                this._duration = trackEntry.animation.duration;
+            }
         });
         spine.setInterruptListener(trackEntry => {
             var animationName = trackEntry.animation ? trackEntry.animation.name : "";
@@ -50,12 +58,6 @@ cc.Class({
         spine.setEndListener(trackEntry => {
             var animationName = trackEntry.animation ? trackEntry.animation.name : "";
             cc.log("[track %s][animation %s] end.", trackEntry.trackIndex, animationName);
-            //if(animationName == this._curAni)
-            //{
-            //    that._active = false;
-            //    cc.log('wtf ??????? this = ',this.uuid, ' spine == ',this.effect,' name ==',name ,' active = ',this._active);
-            //}   
-            
         });
     },
 
@@ -72,8 +74,6 @@ cc.Class({
         this.effect.clearTrack();
         this.effect.setAnimation(0,name, false);
         this.callBack = callBack;
-
-        //cc.log('wtf ??????? this = ',this.uuid, ' spine == ',this.effect,' name ==',name ,' active = ',this._active);
     },
     showMove(name,end,frame){
         this._MoveAni = true;
@@ -81,9 +81,7 @@ cc.Class({
         this.points = undefined;
 
         this.effect.clearTrack();
-        this.effect.setAnimation(0,name, false);
-        //var track = this.effect.getCurrent(0);
-        //cc.log('track = ',track);
+        this.effect.setAnimation(0,name, true);
 
         var dir = end.sub(this.node.position);
         this.step = dir.div(frame);
@@ -144,8 +142,19 @@ cc.Class({
                 this.node.position = new cc.v2(0,-1000);
             }
         }
+
+        if(this.iseffect && this._active)
+        {
+            this._duration -= dt;
+
+            if(this._duration <= 0)
+            {
+                this._active = false;
+                this.node.position = cc.v2(0,-1000);
+            }
+        }
     },
     onFinish(){
-
+        //this.effect.setAnimation(0,name, true);
     }
 });

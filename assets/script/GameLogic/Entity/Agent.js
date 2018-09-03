@@ -37,7 +37,8 @@ var Agent = function (path, pos, teamid, hp, maxHp, armo, uid, buffs, scale, loa
             var spData = that.go.getChildByName('body').getComponent(sp.Skeleton);
             that.height = Math.ceil(spData.skeletonData.skeletonJson.skeleton.height);
             that.width = Math.ceil(spData.skeletonData.skeletonJson.skeleton.width);
-            that.contentSize = new cc.Rect(pos.x - that.width / 2, pos.y, that.width, that.height);
+            var worldPos = that.go.parent.convertToWorldSpaceAR(pos);
+            that.contentSize = new cc.Rect(worldPos.x - that.width / 2, worldPos.y, that.width, that.height);
             that.aniMgr = that.go.getChildByName('body').getComponent('AnimationMgr');
 
             that.hpbar.node.position = cc.v2(pos.x - 667, pos.y + that.height + 20 - 375);
@@ -62,6 +63,9 @@ Agent.prototype.getContentSize = function () {
 Agent.prototype.setPos = function (pos) {
     this.go.position = cc.v2(pos.x, pos.y);
     this.hpbar.node.position = cc.v2(pos.x - 667, pos.y + this.height + 20 - 375);
+
+    pos = this.go.parent.convertToWorldSpaceAR(pos);
+    this.contentSize = new cc.Rect(pos.x - this.width / 2, pos.y, this.width, this.height);
 }
 
 Agent.prototype.setScale = function (scale) {
@@ -70,6 +74,8 @@ Agent.prototype.setScale = function (scale) {
     else
         this.go.scaleX = -scale;
     this.go.scaleY = scale;
+    
+    this.contentSize = new cc.Rect(this.go.position.x - this.width / 2, this.go.position.y, this.width * scale, this.height * scale);
 }
 
 Agent.prototype.Release = function () {

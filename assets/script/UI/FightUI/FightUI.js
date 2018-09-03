@@ -43,6 +43,8 @@ cc.Class({
         CardChildrenCount: [],
         _curSelectedIdx: -1,
         gameOver:false,
+        mpRecoverPauseEnd:true,
+
     },
 
     onLoad() {
@@ -65,10 +67,12 @@ cc.Class({
 
         this.barLabel.string = combatmgr.getSelf().Hp + '/' + combatmgr.getSelf().MaxHp;
 
-        if (dataCenter.userName === "于小雪") {
+        if (dataCenter.userName === "于小雪") 
+        {
             this.headImg.getComponent(cc.Sprite).spriteFrame = this.heroIcon.getSpriteFrame('yuxiaoxue');
         }
-        else {
+        else 
+        {
             this.headImg.getComponent(cc.Sprite).spriteFrame = this.heroIcon.getSpriteFrame('chenjingchou');
         }
 
@@ -201,14 +205,14 @@ cc.Class({
             var is_contained = false;
             var player = combatmgr.getSelf();
 
-            for (j = player.handsPile.length - 1; j >= 0; j--) {
-                // var node_box = self.CardChildrenCount[j].getBoundingBox();
-                // is_contained = cc.rectContainsPoint(node_box, touch_point);
+            for (j = player.handsPile.length - 1; j >= 0; j--)
+            {
                 is_contained = cc.Intersection.pointInPolygon(touch_point, this._getNodeRectPoints(self.CardChildrenCount[j]));
                 if (is_contained) {
                     break;
                 }
             }
+
             if (!is_contained || j == self.now_index) {
                 return;
             }
@@ -338,6 +342,12 @@ cc.Class({
             this.now_time += dt / target.mpRecoverRate;
             var per = Math.min(1, this.now_time * 1000 / target.mpRecoverTime);  //百分比
             this.mpSpire.fillRange = per;
+            this.mpRecoverPauseEnd = true;
+        }
+
+        if(this.mpRecoverPauseEnd && !target.mpRecoverPause == false && (dataCenter.hp!= 0)) {
+            this._uimgr.showTips('灵力暂停');
+            this.mpRecoverPauseEnd = false;
         }
     },
 
@@ -361,22 +371,36 @@ cc.Class({
             else {
                 this.gameOver = false; 
             }
+
+            if (this.min_time == 0) {
+                if (this.sec_time == 59) {
+                    this._uimgr.showTips('60秒后战斗结束');
+                }
+
+                if (this.sec_time == 30) {
+                    this._uimgr.showTips('30秒后战斗结束');
+                }
+
+                if (this.sec_time == 10) {
+                    this._uimgr.showTips('10秒后战斗结束');
+                }
+
+                if (this.sec_time == 5) {
+                    this._uimgr.showTips('5秒后战斗结束');
+                }
+
+             
+            }
         }
         if (this.min_time < 0) {
             this.unschedule(this.callback);
-            this.gameOver = true;
-            dataCenter.hp = 0;
+         
             this.min_time = 0;
             this.sec_time = 0;
             this.time.string = "" + this.min_time + ":0" + "" + this.sec_time;
         }
-
-       
-       
-
-    },//定时器
+    },      //定时器
     OnFresh: function (data) {
-        //.mp data.inHands
         this.ShowHandCards();
         this.DiscardPile.string = data.discardsNum.toString();
     },
@@ -405,7 +429,6 @@ cc.Class({
         }
     },
     onFreshThew(thew) {
-
         this.thew.string = thew + "/10";
         this.thewSpire.fillRange = thew / 10;
 
@@ -416,7 +439,6 @@ cc.Class({
             this.thew_fill.active = false;
         }
     },
-
     showNum(data) {
         this.onFreshMp(data.mp);
         this.DiscardPile.string = data.discardsNum;
@@ -424,7 +446,6 @@ cc.Class({
         this.ExhaustedPile.string = data.exhaustsNum;
         this.cards.string = data.cardsNum;
     },
-
     ShowHandCards: function () {
         var player = combatmgr.getSelf();
         if (player.handsPile.length == 8) {
@@ -432,7 +453,6 @@ cc.Class({
         }
         
         for (var i = 0; i < 8; i++) {
-            //cc.log('script debug ... =>>>>  i = ',i ,' player.handsPile.length = ',player.handsPile.length);
             if (i < player.handsPile.length) {
                 var pile = player.handsPile[i].id;
                 var data = datamgr.card[pile];
@@ -445,7 +465,6 @@ cc.Class({
                 this._HandsCards[i].show();
                 if (i == player.handsPile.length - 1) {
                     this.layout();
-                    //cc.log('script debug this.layout() ... =>>>>  i = ',i);
                 }
             }
             else {
@@ -466,9 +485,6 @@ cc.Class({
         this.scheduleOnce(function () {
             combatmgr.Release();
             this._uimgr.loadUI(constants.UI.FightOver,function(data) {
-                //combatmgr.curCombat.UILoadOk = true;
-                //var uimgr = cc.find('Canvas').getComponent('UIMgr');
-                //var ui = uimgr.getCurMainUI();
                 data.reslut(resss); 
             })
         },2);

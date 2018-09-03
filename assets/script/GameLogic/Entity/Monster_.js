@@ -13,6 +13,9 @@ function Monster_(data,attributes,pos,teamid,combat,uid){
     var that = this;
 
     this.table = DataMgr.monster[data.monsterid];
+    ///蛟精分身
+    this.summoned = DataMgr.monster[10002];
+
     CombatUnit.call(this,data,attributes,pos,teamid,combat,uid);
     
     var scale = 1;

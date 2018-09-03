@@ -1,7 +1,9 @@
 var pool = {
     pools : null,
+    swordlist : null,
     init(){
         this.pools = new Array();
+        this.swordlist = new Array();
     },
     create : function(name){
         if(!this.pools.hasOwnProperty(name))
@@ -13,11 +15,6 @@ var pool = {
     get : function(name){
         if(this.pools.hasOwnProperty(name))
         {
-            if(name == '')
-            {
-                cc.log('asdasdad');
-            }
-
             for(var i =0;i<this.pools[name].length;i++)
             {
                 var pool = this.pools[name][i];
@@ -50,20 +47,7 @@ var pool = {
 
         if(this.pools.hasOwnProperty(name))
         {
-            var zindex = this.sortSword(this.pools[name],pos);
-            for(var i =0;i<this.pools[name].length;i++)
-            {
-                var pool = this.pools[name][i];
-                
-                if(!pool._active)
-                {
-                    pool._active = true;
-                    pool.zIndex = zindex;
-                    return pool;
-                }
-            }
-
-            return null;
+            return this.sortSword(name,pos);
         }
         else
         {
@@ -90,61 +74,62 @@ var pool = {
             }
             delete this.pools[i];
         }
+        this.swordlist.splice(0,this.swordlist.length);
     },
-    sortSword(noods,pos){
-        ///收集被激活
-        var list = new Array();
-        for(var i =0;i<noods.length;i++)
-        {
-            if(noods[i]._active)
-            {
-                list.push(i);
-            }
-        }
-
+    sortSword(name,pos){
+        var index = 0;
         ///排序
-        for(var i =0;i<list.length;i++)
+        for(var i =0;i<this.swordlist.length;i++)
         {
-            for(var z =1;z<list.length;z++)
-            {
-                if(this.caputeCurPos(noods[list[i]]) < this.caputeCurPos(noods[list[z]]))
-                {
-                    var temp = list[i];
-                    list[i] = list[z];
-                    list[z] = temp;
-                }
-            }
-        }
-
-        var index = -1;
-        //拆入位置
-        for(var i =0;i<list.length;i++)
-        {
-            noods[list[i]].node.zIndex = i;
-            if(this.caputeCurPos(noods[list[i]]) > pos.y && index == -1)
+            this.caputeCurPos(this.swordlist[i]);
+            if(this.swordlist[i].node.y > pos.y)
             {
                 index = i;
             }
-
-            if(index > -1)
-            {
-                noods[list[i]].node.zIndex = i + 1;
+            else{
+                index = i;
+                break;
             }
         }
 
-        return i;
+        for(var i =0;i<this.pools[name].length;i++)
+        {
+            var pool = this.pools[name][i];
+            
+            if(!pool._active)
+            {
+                pool._active = true;
+                pool.node.zIndex = index;
+                
+                cc.log('script debug for index = ',index);
+
+                this.swordlist.splice(index,0,pool);
+
+                for(var i =0;i<this.swordlist.length;i++)
+                {
+                    cc.log('script debug cur noodes i = ',i,' pos =',this.swordlist[i].node.y);
+                }
+
+                return pool;
+            }
+        }
+
+        for(var i =0;i<this.swordlist.length;i++)
+        {
+            this.swordlist[i].node.zIndex = i;
+        }
     },
     caputeCurPos(Sword){
         var result = Sword.node.y;
         var value = Sword._left - Sword._right;
 
-        if(Sword._left + Sword._right > 1)
+        if(Sword._left + Sword._right > 10)
         {
-            result += Math.abs(value) / 2 * 110;
+            result += Math.abs(value) * 74 / 10;
         }
-        else if(Sword._left + Sword._right < 1)
+        else if(Sword._left + Sword._right < 10)
         {
-            result -= Math.abs(value) / 2 * 110;
+            result -= Math.abs(value)  * 74 / 10;
         }
 
         return result;

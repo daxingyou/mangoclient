@@ -1,13 +1,13 @@
 
 moon.png
-size: 1142,292
+size: 1286,432
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 aaa
   rotate: false
   xy: 2, 2
-  size: 1138, 288
-  orig: 1138, 288
+  size: 1282, 428
+  orig: 1282, 428
   offset: 0, 0
   index: -1

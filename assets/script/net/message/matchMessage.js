@@ -65,7 +65,7 @@ var fight = {
             cc.log('开始加载战斗：', data.teamInfo, data.myInfo);
 
             combatMgr.initCombat(data);
-          //  that._uimgr.release();
+            //  that._uimgr.release();
             that._uimgr.loadUI(constant.UI.Fight, function (data) {
                 data.initData(()=>{combatMgr.curCombat.UILoadOk = true;});
             })
@@ -75,12 +75,14 @@ var fight = {
 
             var ui = that._uimgr.getCurMainUI();
             ui.selectScr.startLoad(data);
+            spawnSummoned.seed = data.spawnSummons.seed % 233280;
         });
 
         pomelo.on('onFightBegin', function (data) {
             cc.log('战斗开始 ', data);
             var ui = that._uimgr.getCurMainUI();
             ui.selectScr.fightBegin();
+            spawnSummoned.reset();
          
             gameData.IsLayoutAction = true;
             that._uimgr.releaseLoading();
@@ -110,7 +112,7 @@ var fight = {
             combatMgr.curCombat.getSelf().Mp = data.mp;
             combatMgr.curCombat.getSelf().Thew = data.thew;
             combatMgr.getSelf().onUsePile(data.inHands);
-            var num =  combatMgr.getSelf().handsPile.length;
+            //var num =  combatMgr.getSelf().handsPile.length;
             gameData.IsLayoutAction = true;
             ui.ShowHandCards();
         });
@@ -213,7 +215,8 @@ var fight = {
                 }
             }
 
-            player.useSkill(data, target);
+            if(player != null)
+                player.useSkill(data, target);
         });
 
         pomelo.on('onSpecificDrawCard', function (data) {
@@ -266,9 +269,6 @@ var fight = {
 
                     damageInfo[index] = deltaHp + deltaArmor;
                     index++;
-                    //if (deltaHp > 0) {
-                    //    this.uimgr.loadDmg(this, deltaHp, true, data.caster);
-                    //}
                 }
                 damage[uid] = damageInfo;
 
@@ -380,10 +380,28 @@ var fight = {
 
         pomelo.on('onDungeonReconnect', function (data) {
             cc.log('副本顶号重连', data);
-            // net.Request(new unmatchProto(consts.MatchType.PVE_2,1),(data)=>{
-            //     cc.log("match "+data + "取消匹配");
-            // });
-           var  uimgr = cc.find('Canvas').getComponent('UIMgr');
+            var that = this;
+            switch(data.status)
+            {
+                case consts.DungeonStatus.END:  // 已经完结
+                break;
+                case consts.DungeonStatus.IN_SELECT_HERO:   // 选角中
+                break;
+                case consts.DungeonStatus.IN_BEFORE_LOAD_CD:    // 加载前倒计时
+                break;
+                case consts.DungeonStatus.IN_LOAD:    // 加载中
+                break;
+                case consts.DungeonStatus.IN_FIGHT:    // 战斗中
+                combatMgr.initCombat(data);
+                that._uimgr.loadUI(constant.UI.Match, function (data) {
+                    that._uimgr.loadUI(constant.UI.Fight, function (data) {
+                        data.initData(()=>{combatMgr.curCombat.UILoadOk = true;});
+                    })
+                })
+                break;
+            }
+
+            var  uimgr = cc.find('Canvas').getComponent('UIMgr');
             uimgr.loadUI(constant.UI.Login);
 
         });

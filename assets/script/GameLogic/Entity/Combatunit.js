@@ -244,6 +244,12 @@ CombatUnit.prototype.porpUpdate = function(data){
         this.basePhysical_arm = data.armor;
         this.agent.hpbar.freshen(this.Hp,this.MaxHp,this.basePhysical_arm);
     }
+    else if(data.hasOwnProperty('hp'))
+    {
+        ///护甲
+        this.Hp = data.hp;
+        this.agent.hpbar.freshen(this.Hp,this.MaxHp,this.basePhysical_arm);
+    }
     else if(data.hasOwnProperty('scale'))
     {
         this.scale = data.scale;

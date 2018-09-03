@@ -53,8 +53,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 768,
-      "y": 242
+      "x": 0,
+      "y": 0
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -77,7 +77,7 @@
     "loop": false,
     "_premultipliedAlpha": false,
     "_N$skeletonData": {
-      "__uuid__": "a765045a-6c62-4316-a2d6-9b0144223169"
+      "__uuid__": "0bee3a97-0032-436f-aebb-d1578bf20733"
     },
     "_N$timeScale": 1,
     "_N$debugSlots": false,
@@ -94,6 +94,7 @@
     "effect": {
       "__id__": 2
     },
+    "iseffect": true,
     "_path": "",
     "_active": false,
     "_curAni": "",
@@ -107,7 +108,7 @@
     "asset": {
       "__uuid__": "d8a97430-469c-428c-83fa-73c0be59d6c6"
     },
-    "fileId": "aequKJ205JLZltndXpFy1w",
+    "fileId": "8alCHjZqVPiovpu8m0fETD",
     "sync": false
   }
 ]

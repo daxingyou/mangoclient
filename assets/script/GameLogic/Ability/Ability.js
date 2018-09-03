@@ -73,22 +73,32 @@ ability.prototype.ShowEffect = function(effect,type2){
 				var go = effectMgr.getPosEffect(this.arrs.Path,this.owner.agent.go.position,effect,this.owner.teamid);
 				go.node.scale = Math.abs(this.owner.agent.go.scale);
 			}
+			else if(this.effectType.origin2 == constant.EffectOrigin.target)
+			{
+				var go = effectMgr.getPosEffect(this.arrs.Path,this.curTarget.agent.go.position,effect,this.owner.teamid);
+				go.node.scale = Math.abs(this.owner.agent.go.scale);
+			}
+			return;
 		}
 	}
 
 	///特效播放
 	if(this.effectType.type == constant.EffectType.Bullt)
 	{
-		cc.log('origin = ',this.effectType.origin ,',  onwer = ',constant.EffectOrigin.onwer);
-		cc.log('true result = ',this.effectType.origin == constant.EffectOrigin.onwer);
-			
 		if(this.effectType.origin == constant.EffectOrigin.target)
 		{
-			effectMgr.getMoveEffect(this.arrs.Path,this.owner.agent.go.position.add(new cc.Vec2(3,0)),new cc.Vec2(1010,310),5,effect,this.owner.teamid);
+			effectMgr.getMoveEffect(this.arrs.Path,this.owner.agent.go.position.add(new cc.Vec2(3,0)),new cc.Vec2(1010,310),8,effect,this.owner.teamid);
 		}
 		else if(this.effectType.origin == constant.EffectOrigin.onwer)
 		{
-			effectMgr.getMoveEffect(this.arrs.Path,this.owner.agent.go.position.add(new cc.Vec2(3,0)),new cc.Vec2(1010,310),5,effect,this.owner.teamid);
+			if(this.ID == 2105 || this.ID == 2107)
+			{
+				effectMgr.getMoveEffect(this.arrs.Path,this.owner.agent.go.position.add(new cc.v2(-50,0)),this.curTarget.agent.go.position.add(new cc.Vec2(-30,-30)),100,effect,this.owner.teamid);
+			}
+			else
+			{
+				effectMgr.getMoveEffect(this.arrs.Path,this.owner.agent.go.position.add(new cc.Vec2(3,0)),new cc.Vec2(1010,310),8,effect,this.owner.teamid);
+			}
 		}
 	}
 	else if(this.effectType.type == constant.EffectType.Point)
@@ -161,9 +171,29 @@ ability.prototype.ShowEffect = function(effect,type2){
 			{
 				effectMgr.getPosEffect(this.arrs.Path,this.owner.curCombat.own[2].agent.go.position,effect,0);
 			}
-
 		}
-		
+		else if(this.effectType.origin == constant.EffectOrigin.targetCenter)
+		{
+			var length = 0;
+			for(var i in this.owner.curCombat.own)
+			{
+				length++;
+			}
+
+			if(length == 1)
+			{
+				effectMgr.getPosEffect(this.arrs.Path,this.owner.curCombat.own[1].agent.go.position,effect,0);
+			}
+			else if(length == 2)
+			{
+				effectMgr.getPosEffect(this.arrs.Path,cc.v2((this.owner.curCombat.own[1].agent.go.position.x + this.owner.curCombat.own[2].agent.go.position.x)/2,
+				(this.owner.curCombat.own[1].agent.go.position.y + this.owner.curCombat.own[2].agent.go.position.y)/2),effect,0);
+			}
+			else if(length == 3)
+			{
+				effectMgr.getPosEffect(this.arrs.Path,this.owner.curCombat.own[2].agent.go.position,effect,0);
+			}
+		}
 	}
 	else if(this.effectType.type == constant.EffectType.SwordWheel)
 	{

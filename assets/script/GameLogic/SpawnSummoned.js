@@ -8,6 +8,7 @@ var SpawnSummoned = {
     summoneds : [],
     index : 0,
     type2Nums: {},
+    seed: 0,
     event: new EventEmitter(),
     create : function(data){
         if (!this.type2Nums[data.type]) {
@@ -53,8 +54,11 @@ var SpawnSummoned = {
             range = combatMgr.curCombat.monsterMatrix.Range3;
         }
 
-        var x = utility.RandomSeedInt(range.x1,range.x2);
-        var y = utility.RandomSeedInt(range.y1,range.y2);
+        // var x = utility.RandomSeedInt(range.x1,range.x2);
+        // var y = utility.RandomSeedInt(range.y1,range.y1);
+        Math.seed = this.seed - this.getSummonNum(data.type) * 7;
+        var x = Math.seededRandomInt(range.x1, range.x2);
+        var y = Math.seededRandomInt(range.y1, range.y2);
 
         if(data.type == constant.SummonedType.wSword)
         {
@@ -154,8 +158,11 @@ var SpawnSummoned = {
                 range = combatMgr.curCombat.monsterMatrix.Range3;
             }
 
-            var x = utility.RandomSeedInt(range.x1,range.x2);
-            var y = utility.RandomSeedInt(range.y1,range.y2);
+            Math.seed = this.seed - i * 7;
+            // var x = utility.RandomSeedInt(range.x1,range.x2);
+            // var y = utility.RandomSeedInt(range.y1,range.y2);
+            var x = Math.seededRandomInt(range.x1, range.x2);
+            var y = Math.seededRandomInt(range.y1, range.y2);
     
            //cc.log('script debug cur num = ',list[i],' cur pos = x ',x,' y=',y,' range.x1 =',range.x1,' range.x2 =',range.x2,' range.y1 =',range.y1,' range.y2 =',range.y2);
 
@@ -241,6 +248,9 @@ var SpawnSummoned = {
             total += summons[area];
         }
         return total;
+    },
+    reset () {
+        this.type2Nums = {};
     }
 }
 module.exports = SpawnSummoned;

@@ -69,7 +69,8 @@ module.exports = {
         onwer:'owner',
         onwerAll:'onwerAll',
         enemyAll:'enemyAll',
-        ownerCenter:'ownerCenter'
+        ownerCenter:'ownerCenter',
+        targetCenter:'targetCenter',
     },
     mixTime : 0.1,
     FightCode : {

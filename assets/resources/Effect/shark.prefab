@@ -74,7 +74,7 @@
     "_paused": false,
     "defaultSkin": "",
     "defaultAnimation": "",
-    "loop": true,
+    "loop": false,
     "_premultipliedAlpha": false,
     "_N$skeletonData": {
       "__uuid__": "60b88ee6-5150-469a-813a-308d9c72c5e1"
@@ -94,10 +94,12 @@
     "effect": {
       "__id__": 2
     },
+    "iseffect": true,
     "_path": "",
     "_active": false,
     "_curAni": "",
-    "_MoveAni": false
+    "_MoveAni": false,
+    "_duration": 0
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -105,9 +107,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "3fa8fd3b-dd33-4213-8187-b60c30bd531b"
+      "__id__": 0
     },
-    "fileId": "38sg7YvxRDRrHiPoNbSuoQ",
+    "fileId": "5f3LsK61xDYIm9QN1jo1ZF",
     "sync": false
   }
 ]

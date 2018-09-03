@@ -186,7 +186,6 @@ cc.Class({
 
         var combatSelfID = combatMgr.curCombat.getSelf().uid;
         // 不是自己造成或受到的治疗或伤害不显示
-        cc.log("xxxxxxxxxxxxx", combatunit.uid, combatSelfID, casterID, dmgorheal);
         if (casterID !== combatSelfID && combatunit.uid !== combatSelfID) {
             return;
         }

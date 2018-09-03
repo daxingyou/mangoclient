@@ -7,7 +7,7 @@
   "subMetas": {
     "shark_effect2": {
       "ver": "1.0.3",
-      "uuid": "e4e90746-2438-4b8f-9d93-634ac4d4151b",
+      "uuid": "27f18fec-448d-40e6-9da3-51f7b3b403e8",
       "rawTextureUuid": "3e63784d-7f36-4fb2-9cc9-3f53969c41a0",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -16,10 +16,10 @@
       "offsetY": 0,
       "trimX": 0,
       "trimY": 0,
-      "width": 1830,
-      "height": 1054,
-      "rawWidth": 1830,
-      "rawHeight": 1054,
+      "width": 2000,
+      "height": 1005,
+      "rawWidth": 2000,
+      "rawHeight": 1005,
       "borderTop": 0,
       "borderBottom": 0,
       "borderLeft": 0,

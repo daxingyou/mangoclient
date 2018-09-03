@@ -1,6 +1,6 @@
 
 shark_effect.png
-size: 2046,2046
+size: 2045,2046
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -25,12 +25,19 @@ effect/billow_C/billow_C_00004
   orig: 250, 125
   offset: 39, 12
   index: -1
-effect/billow_C/billow_C_00016
-  rotate: true
-  xy: 740, 506
-  size: 140, 79
+effect/billow_C/billow_C_00020
+  rotate: false
+  xy: 1193, 1598
+  size: 100, 73
   orig: 250, 125
-  offset: 72, 13
+  offset: 104, 14
+  index: -1
+effect/billow_C/billow_C_00022
+  rotate: false
+  xy: 1193, 1598
+  size: 100, 73
+  orig: 250, 125
+  offset: 104, 14
   index: -1
 effect/billow_C/billow_C_00026
   rotate: true
@@ -41,7 +48,7 @@ effect/billow_C/billow_C_00026
   index: -1
 effect/billow_C/billow_C_00028
   rotate: true
-  xy: 1112, 1075
+  xy: 1996, 1573
   size: 57, 49
   orig: 250, 125
   offset: 112, 15
@@ -69,10 +76,17 @@ effect/ground/common_land_snow_00008
   index: -1
 effect/hit/hit_00002
   rotate: false
-  xy: 1193, 1572
-  size: 101, 99
+  xy: 1774, 1283
+  size: 250, 250
   orig: 250, 250
-  offset: 76, 79
+  offset: 0, 0
+  index: -1
+effect/hit/hit_00006
+  rotate: false
+  xy: 1774, 1031
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
   index: -1
 effect/leaf
   rotate: true
@@ -96,22 +110,22 @@ effect/mouth_splash2/mouth_splash_00000
   offset: 11, 42
   index: -1
 effect/mouth_splash2/mouth_splash_00014
-  rotate: false
-  xy: 1732, 0
+  rotate: true
+  xy: 740, 515
   size: 218, 73
   orig: 250, 125
   offset: 17, 17
   index: -1
 effect/mouth_splash2/mouth_splash_00016
   rotate: true
-  xy: 1728, 955
+  xy: 1112, 1058
   size: 74, 44
   orig: 250, 125
   offset: 100, 45
   index: -1
 effect/mouth_splash2/mouth_splash_00018
   rotate: false
-  xy: 740, 461
+  xy: 1170, 1553
   size: 40, 43
   orig: 250, 125
   offset: 103, 46
@@ -122,13 +136,6 @@ effect/ring16
   size: 307, 302
   orig: 307, 302
   offset: 0, 0
-  index: -1
-effect/splash/splash_00000
-  rotate: true
-  xy: 740, 648
-  size: 85, 80
-  orig: 500, 500
-  offset: 208, 73
   index: -1
 effect/splash/splash_00005
   rotate: true
@@ -202,7 +209,7 @@ effect/splash/splash_00028
   index: -1
 effect/splash_out/splash_out_00000
   rotate: false
-  xy: 1984, 58
+  xy: 778, 11
   size: 62, 48
   orig: 250, 125
   offset: 96, 0
@@ -216,14 +223,14 @@ effect/splash_out/splash_out_00003
   index: -1
 effect/splash_out/splash_out_00023
   rotate: true
-  xy: 1984, 108
+  xy: 1996, 1632
   size: 112, 39
   orig: 250, 125
   offset: 74, 2
   index: -1
 effect/splash_out/splash_out_00025
   rotate: true
-  xy: 1996, 1651
+  xy: 816, 1157
   size: 93, 13
   orig: 250, 125
   offset: 74, 4
@@ -264,127 +271,120 @@ effect/tornado/tornado_00004
   offset: 0, 0
   index: -1
 effect/tornado/tornado_00005
-  rotate: true
-  xy: 1774, 1233
-  size: 300, 250
-  orig: 300, 250
-  offset: 0, 0
-  index: -1
-effect/tornado/tornado_00006
   rotate: false
   xy: 1170, 1031
   size: 300, 250
   orig: 300, 250
   offset: 0, 0
   index: -1
-effect/tornado/tornado_00007
+effect/tornado/tornado_00006
   rotate: false
   xy: 1472, 1031
   size: 300, 250
   orig: 300, 250
   offset: 0, 0
   index: -1
-effect/tornado/tornado_00008
-  rotate: true
-  xy: 1774, 931
-  size: 300, 250
-  orig: 300, 250
-  offset: 0, 0
-  index: -1
-effect/tornado/tornado_00009
+effect/tornado/tornado_00007
   rotate: false
   xy: 822, 773
   size: 300, 250
   orig: 300, 250
   offset: 0, 0
   index: -1
-effect/tornado/tornado_00010
+effect/tornado/tornado_00008
   rotate: false
   xy: 1124, 779
   size: 300, 250
   orig: 300, 250
   offset: 0, 0
   index: -1
-effect/tornado/tornado_00011
+effect/tornado/tornado_00009
   rotate: false
   xy: 1426, 779
   size: 300, 250
   orig: 300, 250
   offset: 0, 0
   index: -1
-effect/tornado/tornado_00012
+effect/tornado/tornado_00010
   rotate: false
-  xy: 1728, 679
+  xy: 1728, 779
   size: 300, 250
   orig: 300, 250
   offset: 0, 0
   index: -1
-effect/tornado/tornado_00013
+effect/tornado/tornado_00011
   rotate: false
   xy: 822, 521
   size: 300, 250
   orig: 300, 250
   offset: 0, 0
   index: -1
-effect/tornado/tornado_00014
+effect/tornado/tornado_00012
   rotate: false
   xy: 1124, 527
   size: 300, 250
   orig: 300, 250
   offset: 0, 0
   index: -1
-effect/tornado/tornado_00015
+effect/tornado/tornado_00013
   rotate: false
   xy: 1426, 527
   size: 300, 250
   orig: 300, 250
   offset: 0, 0
   index: -1
-effect/tornado/tornado_00016
+effect/tornado/tornado_00014
+  rotate: false
+  xy: 1728, 527
+  size: 300, 250
+  orig: 300, 250
+  offset: 0, 0
+  index: -1
+effect/tornado/tornado_00015
   rotate: true
   xy: 876, 219
   size: 300, 250
   orig: 300, 250
   offset: 0, 0
   index: -1
-effect/tornado_end/tornado_end_00000
+effect/tornado/tornado_00016
   rotate: false
   xy: 1128, 275
   size: 300, 250
   orig: 300, 250
   offset: 0, 0
   index: -1
-effect/tornado_end/tornado_end_00001
+effect/tornado_end/tornado_end_00000
   rotate: false
   xy: 1430, 275
   size: 300, 250
   orig: 300, 250
   offset: 0, 0
   index: -1
-effect/tornado_end/tornado_end_00002
-  rotate: true
-  xy: 1732, 377
+effect/tornado_end/tornado_end_00001
+  rotate: false
+  xy: 1732, 275
   size: 300, 250
   orig: 300, 250
   offset: 0, 0
   index: -1
-effect/tornado_end/tornado_end_00003
+effect/tornado_end/tornado_end_00002
   rotate: false
   xy: 1128, 23
   size: 300, 250
   orig: 300, 250
   offset: 0, 0
   index: -1
-effect/tornado_end/tornado_end_00004
+effect/tornado_end/tornado_end_00003
   rotate: false
   xy: 1430, 23
   size: 300, 250
   orig: 300, 250
   offset: 0, 0
   index: -1
-effect/tornado_end/tornado_end_00005
-  rotate: true
-  xy: 1732, 75
+effect/tornado_end/tornado_end_00004
+  rotate: false
+  xy: 1732, 23
   size: 300, 250
   orig: 300, 250
   offset: 0, 0
@@ -395,20 +395,6 @@ effect/water_bubble/water_bubble_00000
   size: 69, 24
   orig: 500, 250
   offset: 10, 91
-  index: -1
-effect/water_bubble/water_bubble_00002
-  rotate: true
-  xy: 1984, 222
-  size: 211, 35
-  orig: 500, 250
-  offset: 20, 88
-  index: -1
-effect/water_bubble/water_bubble_00003
-  rotate: true
-  xy: 1984, 222
-  size: 211, 35
-  orig: 500, 250
-  offset: 20, 88
   index: -1
 effect/water_bubble/water_bubble_00004
   rotate: false
@@ -451,13 +437,6 @@ effect/water_bubble/water_bubble_00011
   size: 348, 34
   orig: 500, 250
   offset: 80, 90
-  index: -1
-effect/water_bubble/water_bubble_00013
-  rotate: true
-  xy: 1984, 435
-  size: 242, 31
-  orig: 500, 250
-  offset: 192, 91
   index: -1
 effect/water_bubble/water_bubble_00014
   rotate: false
@@ -510,447 +489,475 @@ effect/wind/wind0048
   index: -1
 
 shark_effect2.png
-size: 1830,1054
+size: 2000,1005
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-effect/billow_C/billow_C_00006
+effect/attack
   rotate: true
-  xy: 0, 0
+  xy: 353, 2
+  size: 97, 104
+  orig: 102, 104
+  offset: 3, 0
+  index: -1
+effect/billow_C/billow_C_00006
+  rotate: false
+  xy: 1547, 21
   size: 148, 83
   orig: 250, 125
   offset: 45, 12
   index: -1
 effect/billow_C/billow_C_00008
-  rotate: false
-  xy: 1626, 45
+  rotate: true
+  xy: 1454, 195
   size: 153, 89
   orig: 250, 125
   offset: 48, 12
   index: -1
 effect/billow_C/billow_C_00010
-  rotate: true
-  xy: 235, 11
+  rotate: false
+  xy: 1454, 106
   size: 137, 87
   orig: 250, 125
   offset: 63, 12
   index: -1
 effect/billow_C/billow_C_00012
-  rotate: true
-  xy: 235, 11
+  rotate: false
+  xy: 1454, 106
   size: 137, 87
   orig: 250, 125
   offset: 63, 12
   index: -1
 effect/billow_C/billow_C_00014
   rotate: true
-  xy: 150, 10
+  xy: 1610, 260
   size: 138, 83
   orig: 250, 125
   offset: 67, 12
   index: -1
+effect/billow_C/billow_C_00016
+  rotate: true
+  xy: 1593, 110
+  size: 140, 79
+  orig: 250, 125
+  offset: 72, 13
+  index: -1
 effect/billow_C/billow_C_00018
   rotate: true
-  xy: 563, 22
+  xy: 1695, 272
   size: 126, 76
   orig: 250, 125
   offset: 95, 14
   index: -1
-effect/billow_C/billow_C_00020
-  rotate: false
-  xy: 1101, 458
-  size: 100, 73
-  orig: 250, 125
-  offset: 104, 14
-  index: -1
-effect/billow_C/billow_C_00022
-  rotate: false
-  xy: 1101, 458
-  size: 100, 73
-  orig: 250, 125
-  offset: 104, 14
-  index: -1
 effect/billow_C/billow_C_00024
   rotate: false
-  xy: 1008, 452
+  xy: 1482, 443
   size: 66, 65
   orig: 250, 125
   offset: 105, 14
   index: -1
 effect/billow_under/billow_under0003
-  rotate: true
-  xy: 1197, 585
+  rotate: false
+  xy: 1008, 895
   size: 230, 110
   orig: 230, 110
   offset: 0, 0
   index: -1
 effect/billow_under/billow_under0005
-  rotate: true
-  xy: 1203, 824
+  rotate: false
+  xy: 1008, 783
   size: 230, 110
   orig: 230, 110
   offset: 0, 0
   index: -1
 effect/billow_under/billow_under0007
-  rotate: true
-  xy: 1309, 592
+  rotate: false
+  xy: 1008, 671
   size: 230, 110
   orig: 230, 110
   offset: 0, 0
   index: -1
 effect/billow_under/billow_under0011
-  rotate: true
-  xy: 1315, 824
+  rotate: false
+  xy: 1250, 667
   size: 230, 110
   orig: 230, 110
   offset: 0, 0
   index: -1
 effect/billow_under/billow_under0015
-  rotate: true
-  xy: 1231, 234
+  rotate: false
+  xy: 1008, 559
   size: 230, 110
   orig: 230, 110
   offset: 0, 0
   index: -1
 effect/billow_under/billow_under0019
-  rotate: true
-  xy: 1290, 2
+  rotate: false
+  xy: 1250, 555
   size: 230, 110
   orig: 230, 110
   offset: 0, 0
   index: -1
 effect/billow_under/billow_under0023
-  rotate: true
-  xy: 1421, 592
+  rotate: false
+  xy: 1008, 447
   size: 230, 110
   orig: 230, 110
   offset: 0, 0
   index: -1
 effect/billow_under/billow_under0027
-  rotate: true
-  xy: 1427, 824
+  rotate: false
+  xy: 1531, 622
   size: 230, 110
   orig: 230, 110
   offset: 0, 0
   index: -1
 effect/billow_under/billow_under0031
-  rotate: true
-  xy: 1343, 244
+  rotate: false
+  xy: 1763, 572
   size: 230, 110
   orig: 230, 110
   offset: 0, 0
   index: -1
 effect/billow_under/billow_under0033
-  rotate: true
-  xy: 1533, 592
+  rotate: false
+  xy: 1531, 510
   size: 230, 110
   orig: 230, 110
   offset: 0, 0
   index: -1
 effect/billow_under/billow_under0037
-  rotate: true
-  xy: 1539, 824
+  rotate: false
+  xy: 1763, 460
   size: 230, 110
   orig: 230, 110
   offset: 0, 0
   index: -1
 effect/billow_under/billow_under0041
-  rotate: true
-  xy: 1651, 824
+  rotate: false
+  xy: 1250, 443
   size: 230, 110
   orig: 230, 110
   offset: 0, 0
   index: -1
 effect/billow_under/billow_under0045
-  rotate: true
-  xy: 1402, 12
+  rotate: false
+  xy: 1008, 335
   size: 230, 110
   orig: 230, 110
   offset: 0, 0
   index: -1
 effect/billow_under/billow_under0049
   rotate: true
-  xy: 1455, 244
+  xy: 1008, 103
   size: 230, 110
   orig: 230, 110
   offset: 0, 0
   index: -1
 effect/billow_under/billow_under0051
   rotate: true
-  xy: 1514, 12
+  xy: 1120, 103
   size: 230, 110
   orig: 230, 110
   offset: 0, 0
   index: -1
 effect/billow_under/billow_under0053
   rotate: true
-  xy: 1567, 246
+  xy: 1232, 103
   size: 230, 110
   orig: 230, 110
   offset: 0, 0
   index: -1
 effect/ground/common_land_snow_00000
   rotate: true
-  xy: 85, 2
+  xy: 1545, 252
   size: 146, 63
   orig: 291, 99
   offset: 71, 1
   index: -1
 effect/ground/common_land_snow_00001
-  rotate: true
-  xy: 1008, 519
+  rotate: false
+  xy: 1532, 819
   size: 266, 91
   orig: 291, 99
   offset: 11, 0
   index: -1
 effect/ground/common_land_snow_00002
-  rotate: true
-  xy: 756, 159
+  rotate: false
+  xy: 703, 4
   size: 291, 95
   orig: 291, 99
   offset: 0, 1
   index: -1
 effect/ground/common_land_snow_00003
-  rotate: true
-  xy: 1103, 817
+  rotate: false
+  xy: 0, 1
   size: 237, 98
   orig: 291, 99
   offset: 25, 1
   index: -1
 effect/ground/common_land_snow_00005
-  rotate: true
-  xy: 1133, 214
+  rotate: false
+  xy: 459, 3
   size: 242, 96
   orig: 291, 99
   offset: 24, 3
   index: -1
 effect/ground/common_land_snow_00007
-  rotate: true
-  xy: 1101, 533
+  rotate: false
+  xy: 996, 5
   size: 252, 94
   orig: 291, 99
   offset: 19, 5
   index: -1
 effect/ground/common_land_snow_00009
-  rotate: true
-  xy: 1048, 193
+  rotate: false
+  xy: 1532, 734
   size: 257, 83
   orig: 291, 99
   offset: 17, 7
   index: -1
-effect/hit/hit_00006
-  rotate: true
-  xy: 923, 1
-  size: 167, 152
-  orig: 250, 250
-  offset: 45, 47
-  index: -1
 effect/light
   rotate: false
-  xy: 1645, 604
+  xy: 1550, 400
   size: 176, 108
   orig: 250, 250
   offset: 36, 20
   index: -1
 effect/mouth_splash2/mouth_splash_00002
-  rotate: true
-  xy: 1186, 8
+  rotate: false
+  xy: 1791, 684
   size: 204, 102
   orig: 250, 125
   offset: 11, 3
   index: -1
 effect/mouth_splash2/mouth_splash_00004
-  rotate: true
-  xy: 818, 0
+  rotate: false
+  xy: 1240, 338
   size: 157, 103
   orig: 250, 125
   offset: 11, 7
   index: -1
 effect/mouth_splash2/mouth_splash_00006
-  rotate: true
-  xy: 1077, 4
+  rotate: false
+  xy: 1801, 898
   size: 187, 107
   orig: 250, 125
   offset: 11, 5
   index: -1
 effect/mouth_splash2/mouth_splash_00008
   rotate: false
-  xy: 1645, 714
+  xy: 1800, 788
   size: 185, 108
   orig: 250, 125
   offset: 13, 4
   index: -1
 effect/mouth_splash2/mouth_splash_00010
-  rotate: false
-  xy: 1626, 136
+  rotate: true
+  xy: 1344, 134
   size: 202, 108
   orig: 250, 125
   offset: 13, 4
   index: -1
 effect/mouth_splash2/mouth_splash_00012
-  rotate: true
-  xy: 1679, 275
+  rotate: false
+  xy: 1250, 0
   size: 213, 101
   orig: 250, 125
   offset: 15, 6
   index: -1
+effect/splash/splash_00000
+  rotate: true
+  xy: 1465, 19
+  size: 85, 80
+  orig: 500, 500
+  offset: 208, 73
+  index: -1
 effect/splash/splash_00003
-  rotate: false
-  xy: 853, 170
+  rotate: true
+  xy: 1250, 812
   size: 193, 280
   orig: 500, 500
   offset: 143, 53
   index: -1
 effect/splash/splash_00030
-  rotate: true
-  xy: 1008, 787
+  rotate: false
+  xy: 1532, 912
   size: 267, 93
   orig: 500, 500
   offset: 117, 32
   index: -1
 effect/splash/splash_00032
-  rotate: true
-  xy: 1008, 787
+  rotate: false
+  xy: 1532, 912
   size: 267, 93
   orig: 500, 500
   offset: 117, 32
   index: -1
 effect/splash_out/splash_out_00005
   rotate: false
-  xy: 1203, 466
+  xy: 1888, 144
   size: 110, 117
   orig: 250, 125
   offset: 74, 0
   index: -1
 effect/splash_out/splash_out_00008
   rotate: false
-  xy: 1430, 476
+  xy: 1806, 28
   size: 109, 114
   orig: 250, 125
   offset: 73, 0
   index: -1
 effect/splash_out/splash_out_00010
-  rotate: false
-  xy: 1541, 478
+  rotate: true
+  xy: 1888, 263
   size: 111, 112
   orig: 250, 125
   offset: 71, 0
   index: -1
 effect/splash_out/splash_out_00013
   rotate: false
-  xy: 1315, 476
+  xy: 1773, 260
   size: 113, 114
   orig: 250, 125
   offset: 71, 0
   index: -1
 effect/splash_out/splash_out_00015
   rotate: true
-  xy: 454, 21
+  xy: 1697, 1
   size: 127, 107
   orig: 250, 125
   offset: 60, 0
   index: -1
 effect/splash_out/splash_out_00018
-  rotate: true
-  xy: 641, 23
+  rotate: false
+  xy: 1399, 350
   size: 125, 91
   orig: 250, 125
   offset: 61, 0
   index: -1
 effect/splash_out/splash_out_00020
-  rotate: true
-  xy: 734, 23
+  rotate: false
+  xy: 1806, 376
   size: 125, 82
   orig: 250, 125
   offset: 61, 0
   index: -1
 effect/tga_ly_waikuozaozao
   rotate: false
-  xy: 324, 20
+  xy: 1674, 130
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
+effect/tornado_end/tornado_end_00005
+  rotate: true
+  xy: 0, 705
+  size: 300, 250
+  orig: 300, 250
+  offset: 0, 0
+  index: -1
 effect/tornado_end/tornado_end_00006
   rotate: true
-  xy: 0, 754
+  xy: 0, 403
   size: 300, 250
   orig: 300, 250
   offset: 0, 0
   index: -1
 effect/tornado_end/tornado_end_00007
   rotate: true
-  xy: 0, 452
+  xy: 0, 101
   size: 300, 250
   orig: 300, 250
   offset: 0, 0
   index: -1
 effect/tornado_end/tornado_end_00008
   rotate: true
-  xy: 0, 150
+  xy: 252, 705
   size: 300, 250
   orig: 300, 250
   offset: 0, 0
   index: -1
 effect/tornado_end/tornado_end_00009
   rotate: true
-  xy: 252, 754
+  xy: 252, 403
   size: 300, 250
   orig: 300, 250
   offset: 0, 0
   index: -1
 effect/tornado_end/tornado_end_00010
   rotate: true
-  xy: 252, 452
+  xy: 252, 101
   size: 300, 250
   orig: 300, 250
   offset: 0, 0
   index: -1
 effect/tornado_end/tornado_end_00011
   rotate: true
-  xy: 252, 150
+  xy: 504, 705
   size: 300, 250
   orig: 300, 250
   offset: 0, 0
   index: -1
 effect/tornado_end/tornado_end_00012
   rotate: true
-  xy: 504, 754
+  xy: 504, 403
   size: 300, 250
   orig: 300, 250
   offset: 0, 0
   index: -1
 effect/tornado_end/tornado_end_00013
   rotate: true
-  xy: 504, 452
+  xy: 504, 101
   size: 300, 250
   orig: 300, 250
   offset: 0, 0
   index: -1
 effect/tornado_end/tornado_end_00014
   rotate: true
-  xy: 504, 150
+  xy: 756, 705
   size: 300, 250
   orig: 300, 250
   offset: 0, 0
   index: -1
 effect/tornado_end/tornado_end_00015
   rotate: true
-  xy: 756, 754
+  xy: 756, 403
   size: 300, 250
   orig: 300, 250
   offset: 0, 0
   index: -1
 effect/tornado_end/tornado_end_00016
   rotate: true
-  xy: 756, 452
+  xy: 756, 101
   size: 300, 250
   orig: 300, 250
   offset: 0, 0
   index: -1
-mh
+effect/water_bubble/water_bubble_00002
   rotate: true
-  xy: 1654, 490
+  xy: 1494, 599
+  size: 211, 35
+  orig: 500, 250
+  offset: 20, 88
+  index: -1
+effect/water_bubble/water_bubble_00003
+  rotate: true
+  xy: 1494, 599
+  size: 211, 35
+  orig: 500, 250
+  offset: 20, 88
+  index: -1
+effect/water_bubble/water_bubble_00013
+  rotate: false
+  xy: 1250, 779
+  size: 242, 31
+  orig: 500, 250
+  offset: 192, 91
+  index: -1
+mh
+  rotate: false
+  xy: 239, 2
   size: 112, 97
   orig: 136, 115
   offset: 8, 6

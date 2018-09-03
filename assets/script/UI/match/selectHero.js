@@ -1,16 +1,13 @@
 var UIBase = require('UIBase')
 var ShaderUtils = require("ShaderUtils")
 var net = require("NetPomelo")
-var unmatchProto = require('unmatchProto')
 var consts = require('consts')
 var selectHeroProto = require("selectHeroProto")
 var confirmHeroProto = require("confirmHeroProto")
 var dataCenter = require('DataCenter')
-var heroData = require('Hero')
 var datamgr = require('DataMgr')
-//var constant = require('constants')
-var combatMgr = require('CombatMgr')
 var constant = require('Constant')
+
 cc.Class({
     extends: UIBase,
 
@@ -123,12 +120,14 @@ cc.Class({
         }
     },
 
-    selectHero(event, heroid) {
-        if (this._lastSelectedHeroid === heroid)
-            return;
+    selectHero(event, heroid) {   
         var that = this;
         var heroData = datamgr.hero[heroid];
         dataCenter.userName = heroData.HeroName;
+        if (this._lastSelectedHeroid === heroid) {
+            that._mgr.showTips('你已选择'+heroData.HeroName);
+            return;
+        }
         net.Request(new selectHeroProto(heroid), function (data) {
             if (data.code == consts.SelectHeroCode.OK) {
                 if (that._lastSelectedHeroid) {

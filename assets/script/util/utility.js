@@ -23,6 +23,18 @@ String.prototype.format = function(args) {
     return result;
 };
 
+Math.seed = 0;
+Math.seededRandom = function(min, max) { 
+    max = max || 1; 
+    min = min || 0; 
+    Math.seed = (Math.seed * 9301 + 49297) % 233280; 
+    var rnd = Math.seed / 233280.0; 
+    return min + rnd * (max - min); 
+};
+Math.seededRandomInt = function(min, max) { 
+    return Math.floor(Math.seededRandom(min, max + 1));
+}
+
 var utility ={
     uiMgr : null,
 
@@ -116,14 +128,14 @@ var utility ={
     },
     randint : function (number){
         var today = new Date(); 
-        var seed = today.getTime()/10000;
+        var seed = today.getTime()/100;
         seed =Math.floor(seed)+dataCenter.swordNum;
         dataCenter.swordNum++;
         return Math.ceil(this.rnd( seed ) * number );
     },
     randfloat : function (number){
         var today = new Date(); 
-        var seed = today.getTime()/10000;
+        var seed = today.getTime()/100;
         seed =Math.floor(seed)+dataCenter.swordNum;
         dataCenter.swordNum++;
         //cc.log('cur dataCenter.swordNum == ',dataCenter.swordNum);

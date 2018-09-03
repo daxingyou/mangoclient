@@ -1,19 +1,17 @@
 var effectListen = require('EffectListen')
 var utility = require('utility')
+var spawnSummoned = require('SpawnSummoned')
+const constant = require('constants')
 
 cc.Class({
     extends: effectListen,
 
     properties: {
+        thisZIndex: 0,
         _thisValue : [],
-        _thisZIndex: 0,
         _left : 0,
         _right : 0,
     },
-
-    // LIFE-CYCLE CALLBACKS:
-
-    // onLoad () {},
 
     start () {
         var temp = new Array();
@@ -53,6 +51,9 @@ cc.Class({
         this._thisValue[8] = temp;
         
         this._SwordRatation = this.getComponent('SwordRatation');
+
+        //this.node.zIndex = this.thisZIndex;
+        //cc.log('showSword showSword');
     },
 
     update (dt) {
@@ -61,10 +62,13 @@ cc.Class({
     showSword(){
         this._active = true;
 
-        //var left = utility.RandomSeedInt(4,8);
-        //var right = utility.RandomSeedInt(4,8);
-        var left = utility.RandomSeedInt(5,8);
-        var right = utility.RandomSeedInt(5,8);
+        var seed = Math.seed;
+        Math.seed = seed - 7;
+        var left = Math.seededRandomInt(4, 8);
+        Math.seed = seed - 13;
+        var right = Math.seededRandomInt(4, 8);
+        //var left = utility.RandomSeedInt(5,8);
+        //var right = utility.RandomSeedInt(5,8);
 
         var src = this.getComponent('ShaderUtilsForWsword');
         src.setValue(left/10,right/10);
@@ -75,8 +79,7 @@ cc.Class({
         this._left = left;
         this._right = right;
         
-        cc.log('left ... ',this._left,' right =',this._right);
-        //cc.log('showSword showSword');
+        //cc.log('left ... ',this._left,' right =',this._right);
     },
     showCollect(callback){
         this.callback = callback;
@@ -85,7 +88,7 @@ cc.Class({
             this._SwordRatation.show();
         }
 
-        cc.log('showCollect');
+        //cc.log('showCollect');
     },
     onFinish(){
         this._super();
@@ -93,6 +96,6 @@ cc.Class({
         if(this.callback != undefined)
             this.callback();
 
-        cc.log('showSword onFinish');
+        //cc.log('showSword onFinish');
     }
 });
