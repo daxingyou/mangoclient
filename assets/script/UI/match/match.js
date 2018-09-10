@@ -26,14 +26,10 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
-
+        this.initMatch();
     },
 
     start() {
-        this.match.active = true;
-        this.select.active = false;
-        this._type = 0;
-        this.selectScr.init(this._mgr);
     },
     initMatch() {
         this.match.active = true;
@@ -53,7 +49,7 @@ cc.Class({
         if (this.cancel) {
             this._type = 1;
             uimgr = cc.find('Canvas').getComponent('UIMgr');
-            net.Request(new matchProto(consts.MatchType.PVE_2, 1), (data) => {
+            net.Request(new matchProto(consts.MatchType.PVE, 2, 1), (data) => {
                 cc.log("开始匹配 ");
                 ///匹配成功
                 if (data.code == 1) {
@@ -86,7 +82,7 @@ cc.Class({
             });
         }
         else {
-            net.Request(new unmatchProto(consts.MatchType.PVE_2, 1), (data) => {
+            net.Request(new unmatchProto(), (data) => {
                 cc.log("match " + data + "取消匹配");
                 this.cancel = true;
                 this.btn_label.string = "开始匹配";
@@ -97,9 +93,8 @@ cc.Class({
         }
     },
     showSelect() {
-        cc.log("匹配成功");
+        cc.log("进入选角界面");
         this.match.active = false;
         this.select.active = true;
-        //this.cancel = true;
     }
 });

@@ -56,7 +56,7 @@ cc.Class({
 
         var self = this;
         cc.log("获取服务器列表");
-        net.HttpRequest('http://203.195.206.97:3001/ServerList?code=' + uuid, (data) => {
+        net.HttpRequest('http://203.195.206.97:3003/ServerList?code=' + uuid, (data) => {
             cc.log(data);
             var serverlist = data.serverlist;
             var serverLast = data.lastLoginSid;
@@ -301,7 +301,7 @@ cc.Class({
                     cc.log("连接逻辑服 成功 info: ", data.info);
                     dataCenter.uuid = data.info.id;
                     that._mgr.release();
-                    that._mgr.loadUI(constant.UI.Match);
+                    that._mgr.loadUI(constant.UI.Main);
                 }
                 else {
 

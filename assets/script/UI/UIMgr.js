@@ -43,7 +43,7 @@ cc.Class({
 
     initDmg(){
         Pool.init();
-        for (var k in constant.dmg) {
+        for (var k in constant.dmg) {//战斗飘字类型
             var name = constant.dmg[k];
             Pool.create(name);
             for (var z = 0; z < 80; z++) {
@@ -102,7 +102,7 @@ cc.Class({
         }
         else if (ui.type == 5)       ///frontUI
         {
-            if (this._frontUI  != null) {
+            if (this._FrontUIs[ui.id] != null) {
                 if (this._curMainUI != null)
                     this._curMainUI.hide();
                 this._frontUI.hide();
@@ -163,27 +163,13 @@ cc.Class({
                 this._frontUI = scr;
                 this._frontUI.show();
             }
-
             
-
             if (callback != undefined)
                 callback(scr);
         })
     },
     ///伤害跳转接口
     loadDmg(combatunit, dmg, dmgorheal, casterID) {
-        /*
-        let enemy = null;
-        if (this.dmgPool.size() > 0) { // 通过 size 接口判断对象池中是否有空闲的对象
-            enemy = this.dmgPool.get();
-        } else { // 如果没有空闲对象，也就是对象池中备用对象不够时，我们就用 cc.instantiate 重新创建
-            enemy = cc.instantiate(this.dmg);
-            this.dmgPool.put(enemy);
-        }
-        enemy.parent = this.tips; // 将生成的敌人加入节点树
-        enemy.getComponent('showDamge').init(combatunit,dmg,this,dmgorheal); //接下来就可以调用 enemy 身上的脚本进行初始化
-        */
-
         var combatSelfID = combatMgr.curCombat.getSelf().uid;
         // 不是自己造成或受到的治疗或伤害不显示
         if (casterID !== combatSelfID && combatunit.uid !== combatSelfID) {

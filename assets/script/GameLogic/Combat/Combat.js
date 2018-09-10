@@ -87,22 +87,25 @@ Combat.prototype.init = function(data){
     this.time = dungeon.TimeLimit;
 
     ///test demo 默认 为 PVE_2
-    this.matrix = dataMgr.matrix[4];
+    this.matrix = dataMgr.matrix[5];
 
-    for(var entity of data.teamInfo.teamA)
+    //cc.log('script debug data.teamInfo.teamA = ',data.teamInfo.teamA);
+    for(var i in data.teamInfo.teamA)
     {
+        var entity = data.teamInfo.teamA[i];
         if(entity.heroid / 1000 == 1)
             this.resNum +=Effectmgr.initSword();
 
         this.resNum++;
-        var uid = entity.uid, idx = entity.pos;
+        var uid = entity.uid , idx = entity.pos;
         var hero = new Hero_(entity,dataMgr.heroAttributes[entity.heroid],this.matrix.MatrixPos[idx],constant.Team.own,this,uid);
         this.own[idx] = hero;
 
         this.resNum +=Effectmgr.init(dataMgr.hero[entity.heroid].InitialDrawPile);
         if(uid == gameCenter.uuid)
         {
-            hero.InitMyInfo(data.myInfo);
+            if(data.hasOwnProperty('myInfo'))
+                hero.InitMyInfo(data.myInfo);
             this.curPlayerIndex = idx;
         }
         
@@ -120,7 +123,8 @@ Combat.prototype.init = function(data){
         this.monsterMatrix = dataMgr.matrix[group_Data.Matrix];
 
         ////怪物数据 暂是本地数据
-        for(var entity of data.teamInfo.teamB){
+        for(var i in data.teamInfo.teamB){
+            var entity = data.teamInfo.teamB[i];
             this.resNum++;
             var uid = entity.uid, idx = entity.pos;
             var monster = new Monster_(entity,dataMgr.monster[entity.monsterid],this.monsterMatrix.MatrixPos[idx],constant.Team.enemy,this,uid);

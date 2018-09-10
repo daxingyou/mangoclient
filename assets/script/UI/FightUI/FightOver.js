@@ -79,12 +79,11 @@ cc.Class({
 
        
         if (this.tipCont) {
-            if (this._aphla < 255)
-            {
+            if (this._aphla < 255) {
                 this._aphla += dt * this.speed;
                 this.tips.opacity  = this._aphla;
             }
-            else{
+            else {
                 this.tipCont = false;
             }
         }
@@ -93,7 +92,7 @@ cc.Class({
         if(this._CDState)
         {
             this.cdTime -= dt;
-            if(this.cdTime <= 0){
+            if (this.cdTime <= 0) {
                 this._CDState = false; 
             }
         }

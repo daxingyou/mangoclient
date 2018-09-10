@@ -23,7 +23,7 @@ var ability = function(data,owner){
 	this.effectTime = 0;
 	this.hitEffectTime = this.arrs.HitTime;
 }
-
+ability.prototype.isDelay = false;
 ability.prototype.swordShow = false;
 ability.prototype.owner = null;
 ///当前目标
@@ -46,50 +46,41 @@ ability.prototype.Active = function(Target,targets){
 	if(this.arrs.Animation != '')
 		this.owner.fsm.handleEvent(FSMEvent.SING, this.arrs.Animation);
 
-	this.delay = 0;
-	if(this.arrs.EffectType.hasOwnProperty('delay'))
+	this.delay = new Array();
+
+	for(var i =0;i<this.effects.length;i++)
 	{
-		this.delay = this.arrs.EffectType.delay;
-	}
-	else
-	{
-		for(var i =0;i<this.effects.length;i++)
+		this.delay.push(0);
+		if(this.effectType.length > 0)
 		{
-			this.ShowEffect(this.effects[i],(this.effectType.hasOwnProperty('type2') && i > 0 ));
+			if(this.effectType[i].hasOwnProperty('delay'))
+			{
+				this.isDelay = true;
+				this.delay[i] = this.effectType[i].delay;
+			}
+			else
+			{
+				this.ShowEffect(this.effects[i],this.effectType[i]);
+			}
+		}
+		else
+		{
+			this.Exit();
 		}
 	}
 
 	this.swordShow = true;
 }
 
-ability.prototype.ShowEffect = function(effect,type2){
-
-	if(type2)
-	{
-		if(this.effectType.type2 == constant.EffectType.Point)
-		{
-			if(this.effectType.origin2 == constant.EffectOrigin.onwer)
-			{
-				var go = effectMgr.getPosEffect(this.arrs.Path,this.owner.agent.go.position,effect,this.owner.teamid);
-				go.node.scale = Math.abs(this.owner.agent.go.scale);
-			}
-			else if(this.effectType.origin2 == constant.EffectOrigin.target)
-			{
-				var go = effectMgr.getPosEffect(this.arrs.Path,this.curTarget.agent.go.position,effect,this.owner.teamid);
-				go.node.scale = Math.abs(this.owner.agent.go.scale);
-			}
-			return;
-		}
-	}
-
+ability.prototype.ShowEffect = function(effect,effectType){
 	///特效播放
-	if(this.effectType.type == constant.EffectType.Bullt)
+	if(effectType.type == constant.EffectType.Bullt)
 	{
-		if(this.effectType.origin == constant.EffectOrigin.target)
+		if(effectType.origin == constant.EffectOrigin.target)
 		{
 			effectMgr.getMoveEffect(this.arrs.Path,this.owner.agent.go.position.add(new cc.Vec2(3,0)),new cc.Vec2(1010,310),8,effect,this.owner.teamid);
 		}
-		else if(this.effectType.origin == constant.EffectOrigin.onwer)
+		else if(effectType.origin == constant.EffectOrigin.onwer)
 		{
 			if(this.ID == 2105 || this.ID == 2107)
 			{
@@ -101,9 +92,9 @@ ability.prototype.ShowEffect = function(effect,type2){
 			}
 		}
 	}
-	else if(this.effectType.type == constant.EffectType.Point)
+	else if(effectType.type == constant.EffectType.Point)
 	{
-		if(this.effectType.origin == constant.EffectOrigin.target)
+		if(effectType.origin == constant.EffectOrigin.target)
 		{
 			if(this.targets != null)
 			{
@@ -125,12 +116,12 @@ ability.prototype.ShowEffect = function(effect,type2){
 			}
 			
 		}
-		else if(this.effectType.origin == constant.EffectOrigin.onwer)
+		else if(effectType.origin == constant.EffectOrigin.onwer)
 		{
 			var go = effectMgr.getPosEffect(this.arrs.Path,this.owner.agent.go.position,effect,this.owner.teamid);
 			go.node.scale = Math.abs(this.owner.agent.go.scale);
 		}
-		else if(this.effectType.origin == constant.EffectOrigin.onwerAll)
+		else if(effectType.origin == constant.EffectOrigin.onwerAll)
 		{
 			for(var i in this.owner.curCombat.units)
 			{
@@ -140,7 +131,7 @@ ability.prototype.ShowEffect = function(effect,type2){
 				}
 			}
 		}
-		else if(this.effectType.origin == constant.EffectOrigin.enemyAll)
+		else if(effectType.origin == constant.EffectOrigin.enemyAll)
 		{
 			for(var i in this.owner.curCombat.units)
 			{
@@ -150,7 +141,7 @@ ability.prototype.ShowEffect = function(effect,type2){
 				}
 			}
 		}
-		else if(this.effectType.origin == constant.EffectOrigin.ownerCenter)
+		else if(effectType.origin == constant.EffectOrigin.ownerCenter)
 		{
 			var length = 0;
 			for(var i in this.owner.curCombat.own)
@@ -172,7 +163,7 @@ ability.prototype.ShowEffect = function(effect,type2){
 				effectMgr.getPosEffect(this.arrs.Path,this.owner.curCombat.own[2].agent.go.position,effect,0);
 			}
 		}
-		else if(this.effectType.origin == constant.EffectOrigin.targetCenter)
+		else if(effectType.origin == constant.EffectOrigin.targetCenter)
 		{
 			var length = 0;
 			for(var i in this.owner.curCombat.own)
@@ -195,7 +186,7 @@ ability.prototype.ShowEffect = function(effect,type2){
 			}
 		}
 	}
-	else if(this.effectType.type == constant.EffectType.SwordWheel)
+	else if(effectType.type == constant.EffectType.SwordWheel)
 	{
 		effectMgr.getSwordWheel(this.arrs.Path,this.owner.agent.go.position,effect,this.owner.teamid);
 	}
@@ -211,10 +202,7 @@ ability.prototype.Enable = function(target){
 } 
 
 ability.prototype.ActionExit = function(index){
-	//this.actions.slice(index,1);
-
-	//if(this.actions.length == 0)
-	//	this.Exit();
+	
 }
 
 //////////////////////// event ////////////////////////
@@ -240,23 +228,27 @@ ability.prototype.tick = function(dt){
 	
 	this.effectTime += dt;
 
-	if(this.delay > 0)
+	if(this.isDelay)
 	{
-		if(this.effectTime >= this.delay)
+		for(var i =0;i<this.effects.length;i++)
 		{
-			this.delay = 999999999;
-			for(var i =0;i<this.effects.length;i++)
+			if(this.delay[i] > 0)
 			{
-				this.ShowEffect(this.effects[i]);
-			}
-
-			if(this.hitEffectTime.length == 0)
-			{
-				this.Exit();
+				if(this.effectTime >= this.delay[i])
+				{
+					this.delay[i] = 999999999;
+					
+					this.ShowEffect(this.effects[i],this.effectType[i]);
+	
+					if(this.hitEffectTime.length == 0)
+					{
+						this.Exit();
+					}
+				}
 			}
 		}
 	}
-	else if(this.hitEffectTime.length)
+	else if(this.hitEffectTime.length > 0)
 	{
 		if(this.ID == 1010 && this.swordShow)
 		{

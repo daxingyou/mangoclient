@@ -7,7 +7,7 @@ var uimgr = require('UIMgr')
 var scenemgr = require('SceneMgr')
 //var actionfactory = require('./GameLogic/Action/ActionFactory')
 //var Pool = require('Pool')
-var utility = require('utility')
+//var utility = require('utility')
 
 cc.Class({
     extends: cc.Component,
@@ -17,9 +17,8 @@ cc.Class({
     },
 
     onLoad () {
-        //Pool.init();
         scenemgr.init();
-        //actionfactory.init();
+
         ////数据加载
         dataMgr.init(()=>{});
         uimgr = cc.find('Canvas').getComponent('UIMgr');
@@ -62,9 +61,24 @@ cc.Class({
         bg.scale = scale;
         fg.scale = scale;
         cc.log("bgScale: ", scale, "designSize", designSize, designSize.width / designSize.height, frameSize, frameSize.width / frameSize.height);
+
+
     },
     
     start () {
+        //require("SpriteHook").init();
+        //this.initShaders();
+
+        var host = '127.0.0.1'
+        var port = 50007
+        pomelo.init({host:host,port:port,log:true},function(data){})
+    },
+
+    initShaders() {
+        var ShaderLib = require("ShaderLib");
+        ShaderLib.addShader(require("gray"));
+        ShaderLib.addShader(require("normal"));
+        ShaderLib.addShader(require("wsword"));
     },
 
     update (dt) {

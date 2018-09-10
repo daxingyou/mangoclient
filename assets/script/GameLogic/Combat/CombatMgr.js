@@ -12,15 +12,16 @@ var CombatMgr = {
     curCombat : null,
     curIndex : 0,
     initCombat : function(data){
-        if(data.matchType == consts.MatchType.PVE_1)
+        if(data.matchType == consts.MatchType.PVE && data.matchNum === 1)
         {
             //this.curCombat = new PVECombat();
         }
-        else if(data.matchType == consts.MatchType.PVE_2)
+        else if(data.matchType == consts.MatchType.PVE && data.matchNum === 2)
         {
             this.curCombat = new PVECombat();
+            //cc.log(this.curCombat,"-------------this.curCombat");
         }
-        else if(data.matchType == consts.MatchType.PVE_3)
+        else if(data.matchType == consts.MatchType.PVE && data.matchNum === 3)
         {
             //this.curCombat = new PVECombat();
         }
@@ -28,7 +29,7 @@ var CombatMgr = {
         {
             //this.curCombat = new PVECombat();
         }
-
+      //  cc.log(data,"---------------data in CombatMgr");
         this.curCombat.init(data);
     },
     setMatrix : function (group){

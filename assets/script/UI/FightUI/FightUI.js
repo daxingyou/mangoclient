@@ -4,7 +4,7 @@ var dataCenter = require('DataCenter')
 var datamgr = require('DataMgr')
 var consts = require('consts')
 var constants = require('constants')
-var GameLogic = require('GameLogic')
+//var GameLogic = require('GameLogic')
 
 cc.Class({
     extends: UIBase,
@@ -44,14 +44,15 @@ cc.Class({
         _curSelectedIdx: -1,
         gameOver:false,
         mpRecoverPauseEnd:true,
+        is_chongLian:false
 
     },
 
     onLoad() {
-        
+        // this.schedule(this.callback, 1);
+        // this.initData();
     },
     onEnable(){
-        //this.initData();
     },
 
     initData(callback) {
@@ -61,9 +62,13 @@ cc.Class({
         this.mp_fill.active = false;
         this.thew_fill.active = false;
         var resIndex = 0;
-        this.min_time = 2;
-        this.sec_time = 60;
         this.gameOver = false;
+        this.is_chongLian = false;
+
+        if (!this.is_chongLian) {
+            this.min_time = 2;
+            this.sec_time = 60;
+        }
 
         this.barLabel.string = combatmgr.getSelf().Hp + '/' + combatmgr.getSelf().MaxHp;
 
@@ -96,10 +101,12 @@ cc.Class({
                 if (resIndex == 8) {
                     cc.loader.release('UI/fightUI/Card');
                     callback();
+                    self.ShowHandCards();
                 }
             }
         });
     },
+
 
     updateBarLabel(HP, MaxHp) {
         this.barLabel.string = HP.toString() + '/' + MaxHp.toString();
@@ -118,7 +125,7 @@ cc.Class({
         var b = 1.01;//y方向偏心率
         var R = 1245;//半径  425/sin20 
 
-        var angle = 2 * (5 * count) * Math.PI / 180;//总夹角对应的弧度
+        var angle = 2 * (5 * count) * Math.PI / 180;
         var delta_x = 0;
         var delta_y = 40 - count * 8;
 
@@ -143,7 +150,7 @@ cc.Class({
 
     cardReturnAni(noAni, resetOrigPos=true) {
         var self = this;
-        var num = combatmgr.getSelf().handsPile.length;
+        //var num = combatmgr.getSelf().handsPile.length;
         if (self.now_index != -1) {
             let cardItem = self.CardChildrenCount[self.now_index];
             cardItem.stopAllActions();
@@ -352,7 +359,17 @@ cc.Class({
     },
 
     callback() {
-        this.sec_time--;
+        if(dataCenter.curFightTime > 0)
+        {
+            var curTime = dataCenter.curFightTime - new Date().getTime();
+            this.min_time = parseInt(curTime/60000);
+            this.sec_time = parseInt(curTime /1000)%60;
+        }
+        else
+        {
+            this.sec_time--;
+        }
+
         if (this.sec_time == 0) {
             this.min_time -= 1;
             this.sec_time = 59;
@@ -388,17 +405,21 @@ cc.Class({
                 if (this.sec_time == 5) {
                     this._uimgr.showTips('5秒后战斗结束');
                 }
-
-             
             }
         }
         if (this.min_time < 0) {
+            cc.log("定时器结束");
             this.unschedule(this.callback);
-         
             this.min_time = 0;
             this.sec_time = 0;
+            if (this.min_time== 0) {
+               if (this.sec_time < 0) {
+                this.sec_time = 0;
+                }
+            }
             this.time.string = "" + this.min_time + ":0" + "" + this.sec_time;
         }
+       
     },      //定时器
     OnFresh: function (data) {
         this.ShowHandCards();
@@ -488,5 +509,21 @@ cc.Class({
                 data.reslut(resss); 
             })
         },2);
+    },
+    chongLian : function (data) {
+        for (let i in data) { 
+            var player = combatmgr.getSelf();
+            this.playerHpBar.progress = player.Hp / player.MaxHp;
+            if (dataCenter.uuid == data[i].uid) {     
+                if (data[i].heroid == 2000) {
+                    this.userName.string = "余小雪";
+                    this.headImg.getComponent(cc.Sprite).spriteFrame = this.heroIcon.getSpriteFrame('yuxiaoxue');
+                }
+                else {
+                    this.userName.string = "陈靖仇";
+                    this.headImg.getComponent(cc.Sprite).spriteFrame = this.heroIcon.getSpriteFrame('chenjingchou');
+                }
+            }
+        }
     }
 });

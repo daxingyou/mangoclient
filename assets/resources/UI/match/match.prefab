@@ -3778,7 +3778,6 @@
     "selectWomen_light": {
       "__id__": 69
     },
-    "is_firstPostion": false,
     "start_pipei": {
       "__id__": 124
     },
@@ -3790,21 +3789,6 @@
     },
     "enter": {
       "__id__": 60
-    },
-    "firstLoad": {
-      "__id__": 16
-    },
-    "secondLoad": {
-      "__id__": 34
-    },
-    "mosterLoad": {
-      "__id__": 103
-    },
-    "manComfirm": {
-      "__id__": 39
-    },
-    "womenComfirm": {
-      "__id__": 68
     },
     "loadBegin": true,
     "showNode0": {

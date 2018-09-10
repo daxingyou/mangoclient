@@ -72,7 +72,11 @@ cc.Class({
 
         var src = this.getComponent('ShaderUtilsForWsword');
         src.setValue(left/10,right/10);
+        if(left < 4)
+        left = 4;
         var temp = this._thisValue[left];
+        if(right < 4)
+            right = 4;
         var angle = temp[right];
         this.node.rotation = angle;
 

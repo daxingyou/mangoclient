@@ -1,14 +1,15 @@
 var Combat = require('Combat')
 
 var PVECombat = function(){
-    Combat.call(this);
+    Combat.call(this);//调用一个对象的方法，用另外一个对象去替换它
 } 
 
 PVECombat.prototype = new Combat();
 
 ////初始化怪物
 PVECombat.prototype.init = function(data){
-    Combat.prototype.init.call(this,data);
+ //  cc.log(data,"------------------data,初始化怪物");
+    Combat.prototype.init.call(this,data);//PVECombat脚本
 
     //var matrix = dataMgr.matrix[data.Matrix];
     

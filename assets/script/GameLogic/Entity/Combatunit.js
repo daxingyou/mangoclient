@@ -16,6 +16,8 @@
  var SingState = require('SingState');
  var SwoonState = require('SwoonState');
  var ReliveState = require('ReliveState');
+ 
+ var constant = require('constants');
 
 var CombatUnit = function(data,attrs,pos,teamid,combat,uid){
     this.Pos = data.pos;
@@ -131,6 +133,7 @@ CombatUnit.prototype.onDamage = function(dmg,from,data = null){
     {
         if(this.ui == null  || this.ui == undefined)
             this.ui = this.curCombat.UIMgr.getCurMainUI();
+          // this.ui = this.uimgr.getUI(constant.UI.Fight) 
         this.ui.updateBarLabel(this.Hp,this.MaxHp);
     }
 };

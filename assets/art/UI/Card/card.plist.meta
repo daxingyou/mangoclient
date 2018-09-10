@@ -98,7 +98,7 @@
     },
     "card_select_effect.png": {
       "ver": "1.0.3",
-      "uuid": "e78528e4-1eb9-4450-8fee-70aa6dd40d04",
+      "uuid": "9403c302-0261-4a8f-a3ce-736c8b85dcef",
       "rawTextureUuid": "ef500c18-9715-4011-a2af-c9715fa5f47c",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -230,7 +230,7 @@
     },
     "type_artifact.png": {
       "ver": "1.0.3",
-      "uuid": "ffaccbc2-9cec-45eb-afbb-374f5bbeccc7",
+      "uuid": "56f2cea2-469e-4563-862e-5c28f3540859",
       "rawTextureUuid": "ef500c18-9715-4011-a2af-c9715fa5f47c",
       "trimType": "auto",
       "trimThreshold": 1,

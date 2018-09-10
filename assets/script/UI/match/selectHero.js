@@ -1,13 +1,17 @@
 var UIBase = require('UIBase')
 var ShaderUtils = require("ShaderUtils")
 var net = require("NetPomelo")
+//var unmatchProto = require('unmatchProto')
 var consts = require('consts')
 var selectHeroProto = require("selectHeroProto")
 var confirmHeroProto = require("confirmHeroProto")
 var dataCenter = require('DataCenter')
+//var heroData = require('Hero')
 var datamgr = require('DataMgr')
+//var constant = require('constants')
+//var combatMgr = require('CombatMgr')
 var constant = require('Constant')
-
+//var constants = require('constants')
 cc.Class({
     extends: UIBase,
 
@@ -46,37 +50,90 @@ cc.Class({
             }
         }
         this._lastSelectedHeroid = 0;
+         this._mgr = cc.find('Canvas').getComponent('UIMgr');
     },
-    initData(teamA) {
+    initData(teamA,unComFirm,leftTime) {
         dataCenter.otherLoadRes = {};
         if (!this._background) {
             var bg = cc.find('Canvas/background');
             this._background = cc.instantiate(bg);
             this._background.parent = this.node;
-            this._background.setLocalZOrder(-2);
+            this._background.zIndex = -2;
             var fg = cc.find('Canvas/frontground');
             this._foreground = cc.instantiate(fg);
             this._foreground.parent = this.node;
-            this._foreground.setLocalZOrder(-1);
+            this._foreground.zIndex = -1;
         }
+        this._uimgr = cc.find('Canvas').getComponent('UIMgr');
         var chen = datamgr.hero[1000];
         var yu = datamgr.hero[2000];
         this.chen_name.string = chen.HeroName;
         this.yu_name.string = yu.HeroName;
         this._uid2ShowNode = {};
+        let checkComFirm = [];
+        this.enter.active = true;
+
+        if (unComFirm!=null) {
+            for (var i in unComFirm) {
+                checkComFirm.push(unComFirm[i]);
+            }
+        } //未点准备
         for (var i in teamA) {
             var uid = teamA[i].uid;
             this._uid2ShowNode[uid] = this["showNode" + i];
             this._uid2ShowNode[uid].getChildByName("user_name").getComponent(cc.Label).string = teamA[i].name;
-            this._uid2ShowNode[uid].getChildByName("label").active = false;
+            this._uid2ShowNode[uid].getChildByName("label").active = false;//初次登录
+            
+            if (teamA[i].heroid !=undefined) {
+                if (teamA[i].heroid!=0) {
+                    var showNode = this._uid2ShowNode[teamA[i].uid];
+                    var heroData = datamgr.hero[teamA[i].heroid];
+                    dataCenter.userName = heroData.HeroName;
+                    var icon = showNode.getChildByName("icon");
+                    icon.active = true;
+                    icon.getComponent(cc.Sprite).spriteFrame = this.heroIcons.getSpriteFrame(heroData.HeroIcon);
+                    this.enter.active = false;
+
+                    if (dataCenter.uuid == uid) {
+                        var curInfo = this._heros[teamA[i].heroid];
+                        ShaderUtils.setShader(curInfo.sk, "normal");
+                        curInfo.light.active = true;
+                        this._lastSelectedHeroid = teamA[i].heroid;
+                    }//自己看的
+
+                    for (let j = 0 ;j< checkComFirm.length;j++) {
+
+                       var showNoneColor = this._uid2ShowNode[checkComFirm[j]];
+                       if (showNoneColor!=undefined) {
+                        var iconColor = showNoneColor.getChildByName("icon");
+                        ShaderUtils.setShader(iconColor.getComponent(cc.Sprite), "gray"); 
+                       }
+                        
+                       if (dataCenter.uuid == checkComFirm[j]) {
+                       // cc.log("没有点准备 a");
+                        this.enter.active = true;
+                       }
+                    }
+                }//选了
+        }
+        }
+        if (leftTime!=null) {
+          var num = parseInt(leftTime /1000);
+          cc.log(num);
+          this.cdTime = num;
+        }//重连时间
+        else {
+            this.cdTime = constant.ReadyTimer;
         }
 
-        this.cdTime = constant.ReadyTimer;
-        this._mgr = cc.find('Canvas').getComponent('UIMgr');
+        dataCenter.teamA = teamA;
+        cc.log(teamA,"teamA");
+        
     },
 
     onEnable() {
         this._CDState = true;
+        this.loadBegin = false;
         for (var heroid in this._heros) {
             var sk = this._heros[heroid].sk;
             sk.node.parent.active = true;
@@ -104,20 +161,21 @@ cc.Class({
             }
         }
 
-        if (this.loadBegin) {
-            this.loadProjess();
-        }
+        // if (this.loadBegin) {
+        //     this.loadProjess();
+        // }
     },
 
+
     loadProjess() {
-        for (var uid in dataCenter.otherLoadRes) {
-            var showNode = this._uid2ShowNode[uid];
-            if (!showNode)
-                continue;
-            var label = showNode.getChildByName("label");
-            label.active = true;
-            label.getComponent(cc.Label).string = dataCenter.otherLoadRes[uid] + "%";
-        }
+        // for (var uid in dataCenter.otherLoadRes) {
+        //     var showNode = this._uid2ShowNode[uid];
+        //     if (!showNode)
+        //         continue;
+        //     var label = showNode.getChildByName("label");
+        //     label.active = true;
+        //     label.getComponent(cc.Label).string = dataCenter.otherLoadRes[uid] + "%";
+        // }
     },
 
     selectHero(event, heroid) {   
@@ -158,7 +216,7 @@ cc.Class({
     },
     beginFight() {
         if (!this._lastSelectedHeroid) {
-            that._mgr.showTips('请选择一个角色!');
+            this._mgr.showTips('请选择一个角色!');
             return;
         }
         var that = this;
@@ -173,9 +231,11 @@ cc.Class({
     },
     beginLoadCD(data) {
         this._CDState = true;
+        cc.log(data,"加载前倒计时");
         this.cdTime = constant.ReadyStartTimer;
         var heroid = data[dataCenter.uuid];
         dataCenter.userName = datamgr.hero[heroid].HeroName;
+        dataCenter.loadProjess = data;
     },
     showTeamSelect(data) {
         var uid = data.uid, heroid = data.heroid;
@@ -193,20 +253,20 @@ cc.Class({
         ShaderUtils.setShader(icon.getComponent(cc.Sprite), "normal");
     },
 
-    startLoad(data) {
-        this.loadBegin = true;
-        var teams = [data.teamInfo.teamA, data.teamInfo.teamB];
-        for (var team of teams) {
-            for (var i in team) {
-                if (team[i].uid === dataCenter.uuid)
-                    continue
-                var heroid = team[i].heroid;
-                if (!heroid)
-                    continue;
-                this._heros[heroid].sk.node.parent.active = false;
-            }
-        }
-    },
+    // startLoad(data) {
+    //     this.loadBegin = true;
+    //     var teams = [data.teamInfo.teamA, data.teamInfo.teamB];
+    //     for (var team of teams) {
+    //         for (var i in team) {
+    //             if (team[i].uid === dataCenter.uuid)
+    //                 continue
+    //             var heroid = team[i].heroid;
+    //             if (!heroid)
+    //                 continue;
+    //             this._heros[heroid].sk.node.parent.active = false;
+    //         }
+    //     }
+    // },
 
     fightBegin() {
         this.loadBegin = false;
