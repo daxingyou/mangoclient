@@ -522,13 +522,6 @@
   }
 })(typeof(window)=="undefined" ? module.exports : ({}),typeof(window)=="undefined"  ? Buffer : Uint8Array, this);
 
-/* ProtocolBuffer client 0.1.0*/
-
-/**
- * pomelo-protobuf
- * @author <zhang0935@gmail.com>
- */
-
 /**
  * Protocol buffer root
  * In browser, it will be window.protbuf
@@ -1618,6 +1611,7 @@ cc.Pomelo = function() {
     // module.exports = pomelo;
   };
  window.pomelo=new cc.Pomelo();
+
 
 
 

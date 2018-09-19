@@ -33,7 +33,6 @@ cc.Class({
         match: cc.Node,
         enter: cc.Node,
         loadBegin: false,
-
         showNode0: cc.Node,
         showNode1: cc.Node,
         heroIcons: cc.SpriteAtlas,
@@ -160,23 +159,8 @@ cc.Class({
                 this._CDState = false;
             }
         }
-
-        // if (this.loadBegin) {
-        //     this.loadProjess();
-        // }
     },
 
-
-    loadProjess() {
-        // for (var uid in dataCenter.otherLoadRes) {
-        //     var showNode = this._uid2ShowNode[uid];
-        //     if (!showNode)
-        //         continue;
-        //     var label = showNode.getChildByName("label");
-        //     label.active = true;
-        //     label.getComponent(cc.Label).string = dataCenter.otherLoadRes[uid] + "%";
-        // }
-    },
 
     selectHero(event, heroid) {   
         var that = this;

@@ -62,7 +62,7 @@ var fight = {
             combatMgr.initCombat(data);
             that._uimgr.getUI(constant.UI.Match).hide();
             that._uimgr.loadUI(constant.UI.loadProjess, function (data) {
-                //combatMgr.curCombat.UILoadOk = true;
+                
                 that._uimgr.loadUI(constant.UI.Fight, function (data) {
                     data.initData(()=>{
                         combatMgr.curCombat.UILoadOk = true;
@@ -92,9 +92,11 @@ var fight = {
             that._uimgr.releaseLoading();
             that._uimgr.getUI(constant.UI.Fight).show();
             var ui = that._uimgr.getUI(constant.UI.Fight);
-            //ui.initData();
-            ui.showNum(gameData);
+          
+           
             ui.ShowHandCards();//第一次加载
+            ui.schedule(ui.callback,1);
+            ui.showNum(gameData);
             ui.onFreshMp(gameData.mp, true);
             gameLogic.init();
         });
@@ -214,6 +216,29 @@ var fight = {
 
         pomelo.on('onAddSpawnSummon', function (data) {
             cc.log('增加召唤物', data);
+
+            /*
+                "onAddSpawnSummon": {
+                "required string groupId": 1,
+                "required string type": 2,
+                "message AreaInfo": {
+                "required uInt32 area": 1,
+                "required uInt32 num": 2
+                },
+                "repeated AreaInfo addList": 3
+            },
+
+            "onRemoveSpawnSummon": {
+                "required string groupId": 1,
+                "required string type": 2,
+                "message AreaInfo": {
+                "required uInt32 area": 1,
+                "required uInt32 num": 2
+                },
+                "repeated AreaInfo removeList": 3
+            },
+
+            */
             spawnSummoned.create(data);
         })
 
@@ -433,7 +458,7 @@ var fight = {
                 break;
 
                 case consts.DungeonStatus.IN_BEFORE_LOAD_CD:    // 加载前倒计时
-                var  uimgr = cc.find('Canvas').getComponent('UIMgr');
+               // var  uimgr = cc.find('Canvas').getComponent('UIMgr');
                 uimgr.loadUI(constant.UI.Login);
                 break;
 
@@ -443,13 +468,27 @@ var fight = {
                 var projess = data.loadMemProgress;
                 for (let i in projess) {
                     gameData.otherLoadRes[i] = projess[i];
-                }                
-                uimgr.loadUI(constant.UI.loadProjess,function(res){
-                    combatMgr.initCombat(data);
+                }   
+                
+                for (let j in teamA) {
+                if (teamA[j].uid == gameData.uuid) {
+                    var heroData = dataMgr.hero[teamA[j].heroid];
+                    gameData.userName = heroData.HeroName;
+                }
+                }              
+                that._uimgr.loadUI(constant.UI.loadProjess,function(res){
                     that._uimgr.loadUI(constant.UI.Fight,function(res){
                         combatMgr.curCombat.UILoadOk = true;
                         gameData.IsReconnect = false;
                     })
+                });
+                that._uimgr.loadUI(constant.UI.loadProjess,function(res){
+                    combatMgr.initCombat(data);
+                    that._uimgr.loadUI(constant.UI.Fight,function(res){
+                    res.initData(()=>{
+                        combatMgr.curCombat.UILoadOk = true;
+                        gameData.IsReconnect = false;});
+                    }); 
                 });
                 break;
 
@@ -470,14 +509,11 @@ var fight = {
                             res.playerHpBar.progress = player.Hp / player.MaxHp;
                             for (let i in teamA) { 
                                 if (gameData.uuid == teamA[i].uid) {   
-                                    cc.log("是我本人了---------------");
-                                    cc.log(gameData.uuid,teamA[i].uid,teamA[i].heroid);
                                     var heroData = dataMgr.hero[teamA[i].heroid];
                                     res.userName.string = heroData.HeroName;
                                     res.headImg.getComponent(cc.Sprite).spriteFrame = res.heroIcon.getSpriteFrame(heroData.HeroIcon);
                                 }
                             }
-                        
                         combatMgr.curCombat.UILoadOk = true;
                         gameData.IsReconnect = false;});
                     }); 
@@ -503,6 +539,8 @@ var fight = {
             var ent = new monster(info, dataMgr.monster[info.monsterid], pos, teamid, combatMgr.curCombat, uid);
             combatMgr.curCombat.units[uid] = ent;
             array[info.pos] = ent;
+
+            efferMgr.init(dataMgr.monster[info.monsterid].InitialDrawPile);
         });
 
         pomelo.on('onAddMonsterSummon', function (data) {
@@ -579,12 +617,13 @@ var fight = {
             cc.log("获取mp", data);
             if(gameData.IsReconnect)
                 return;
+
             gameData.mp = data.mp;
             var player = combatMgr.getSelf();
             if(player != null)
                 player.Mp = data.mp;
-            var ui = that._uimgr.getCurMainUI();
-            if(ui.hasOwnProperty('onFreshMp'))
+            var ui = that._uimgr.getUI(constant.UI.Fight);
+            if(ui != null)
                 ui.onFreshMp(data.mp);
         });
 
@@ -597,6 +636,34 @@ var fight = {
             player.SetMpRecoverRate(data.mpRecoverRate, data.stopMpRecoverBuffCnt);
         });
 
+        pomelo.on('onBounce', function (data) {
+            /*
+            "onBounce": {
+                "required uInt32 sid": 1,
+                "required string casterID": 2,
+                "message DamageInfo": {
+                  "required string targetID": 1,
+                  "required uInt32 fromHp": 2,
+                  "required uInt32 fromArmor": 3,
+                  "required uInt32 toHp": 4,
+                  "required uInt32 toArmor": 5
+                },
+                "repeated DamageInfo damageLine": 3
+              }
+            */
+        });
+
+        /*清除召唤物
+        "onClearSpawnSummon": {
+            "required string groupId": 1,
+            "required string type": 2
+          },
+
+          */
+        pomelo.on('onClearSpawnSummon', function (data) {
+
+        });
+        
     }
 }
 

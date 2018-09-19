@@ -1,0 +1,90 @@
+
+crocodile_effect.png
+size: 584,267
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+blood
+  rotate: false
+  xy: 0, 57
+  size: 195, 210
+  orig: 202, 216
+  offset: 4, 3
+  index: -1
+blood01
+  rotate: false
+  xy: 120, 8
+  size: 117, 47
+  orig: 117, 47
+  offset: 0, 0
+  index: -1
+blood02
+  rotate: false
+  xy: 332, 15
+  size: 56, 40
+  orig: 56, 40
+  offset: 0, 0
+  index: -1
+blood03
+  rotate: false
+  xy: 394, 41
+  size: 76, 23
+  orig: 77, 23
+  offset: 0, 0
+  index: -1
+blood04
+  rotate: false
+  xy: 472, 34
+  size: 69, 30
+  orig: 69, 30
+  offset: 0, 0
+  index: -1
+blood05
+  rotate: false
+  xy: 390, 4
+  size: 61, 35
+  orig: 62, 35
+  offset: 0, 0
+  index: -1
+blood_light
+  rotate: false
+  xy: 197, 57
+  size: 195, 210
+  orig: 202, 216
+  offset: 4, 3
+  index: -1
+blooddust
+  rotate: true
+  xy: 394, 66
+  size: 201, 190
+  orig: 201, 192
+  offset: 0, 1
+  index: -1
+bloodparticle01
+  rotate: true
+  xy: 332, 0
+  size: 13, 17
+  orig: 14, 18
+  offset: 0, 1
+  index: -1
+bloodparticle02
+  rotate: false
+  xy: 543, 50
+  size: 27, 14
+  orig: 28, 14
+  offset: 0, 0
+  index: -1
+teeth_under
+  rotate: false
+  xy: 239, 5
+  size: 91, 50
+  orig: 93, 52
+  offset: 1, 1
+  index: -1
+teeth_up
+  rotate: false
+  xy: 0, 4
+  size: 118, 51
+  orig: 120, 53
+  offset: 1, 1
+  index: -1

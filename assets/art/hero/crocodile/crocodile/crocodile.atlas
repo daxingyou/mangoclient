@@ -1,0 +1,125 @@
+
+crocodile.png
+size: 1993,491
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+body
+  rotate: false
+  xy: 0, 159
+  size: 1436, 332
+  orig: 1438, 334
+  offset: 1, 1
+  index: -1
+eye_ball
+  rotate: false
+  xy: 1083, 39
+  size: 45, 41
+  orig: 47, 43
+  offset: 1, 1
+  index: -1
+eye_lid
+  rotate: false
+  xy: 907, 18
+  size: 86, 61
+  orig: 88, 63
+  offset: 1, 1
+  index: -1
+eye_white
+  rotate: false
+  xy: 995, 19
+  size: 86, 60
+  orig: 88, 62
+  offset: 1, 1
+  index: -1
+eyes_close
+  rotate: false
+  xy: 995, 0
+  size: 61, 17
+  orig: 63, 19
+  offset: 1, 1
+  index: -1
+frontarm_L
+  rotate: false
+  xy: 0, 12
+  size: 161, 145
+  orig: 163, 147
+  offset: 1, 1
+  index: -1
+frontarm_under_L
+  rotate: false
+  xy: 1215, 55
+  size: 123, 102
+  orig: 125, 104
+  offset: 1, 1
+  index: -1
+frontarm_under_L_die
+  rotate: false
+  xy: 782, 41
+  size: 123, 116
+  orig: 125, 118
+  offset: 1, 1
+  index: -1
+frontarm_under_R
+  rotate: false
+  xy: 650, 39
+  size: 130, 118
+  orig: 132, 120
+  offset: 1, 1
+  index: -1
+frontcarm_R
+  rotate: true
+  xy: 1340, 58
+  size: 99, 92
+  orig: 101, 94
+  offset: 1, 1
+  index: -1
+frontclaw_L
+  rotate: false
+  xy: 907, 81
+  size: 158, 76
+  orig: 160, 78
+  offset: 1, 1
+  index: -1
+frontclaw_R
+  rotate: false
+  xy: 1067, 82
+  size: 146, 75
+  orig: 148, 77
+  offset: 1, 1
+  index: -1
+hindarm_under_L
+  rotate: false
+  xy: 490, 46
+  size: 158, 111
+  orig: 160, 113
+  offset: 1, 1
+  index: -1
+hindcarm_L
+  rotate: false
+  xy: 163, 14
+  size: 155, 143
+  orig: 157, 145
+  offset: 1, 1
+  index: -1
+hindclaw_L
+  rotate: false
+  xy: 320, 38
+  size: 168, 119
+  orig: 170, 121
+  offset: 1, 1
+  index: -1
+mouth_under
+  rotate: false
+  xy: 1438, 98
+  size: 517, 175
+  orig: 519, 177
+  offset: 1, 1
+  index: -1
+mouth_up
+  rotate: false
+  xy: 1438, 275
+  size: 555, 216
+  orig: 557, 218
+  offset: 1, 1
+  index: -1

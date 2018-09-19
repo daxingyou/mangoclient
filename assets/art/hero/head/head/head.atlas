@@ -1,0 +1,174 @@
+
+head.png
+size: 1982,1506
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+closeeyes
+  rotate: true
+  xy: 1341, 49
+  size: 113, 49
+  orig: 115, 51
+  offset: 1, 1
+  index: -1
+earrings_1
+  rotate: false
+  xy: 1260, 66
+  size: 79, 96
+  orig: 81, 98
+  offset: 1, 1
+  index: -1
+earrings_2
+  rotate: false
+  xy: 1853, 1
+  size: 106, 175
+  orig: 108, 177
+  offset: 1, 1
+  index: -1
+esrs
+  rotate: true
+  xy: 702, 14
+  size: 421, 232
+  orig: 423, 234
+  offset: 1, 1
+  index: -1
+eyeball
+  rotate: true
+  xy: 1705, 2
+  size: 34, 44
+  orig: 36, 46
+  offset: 1, 1
+  index: -1
+eyebrow _1
+  rotate: false
+  xy: 1055, 65
+  size: 203, 97
+  orig: 205, 99
+  offset: 1, 1
+  index: -1
+eyebrow _2
+  rotate: true
+  xy: 1260, 0
+  size: 64, 68
+  orig: 66, 70
+  offset: 1, 1
+  index: -1
+eyelid
+  rotate: true
+  xy: 1705, 38
+  size: 138, 146
+  orig: 140, 148
+  offset: 1, 1
+  index: -1
+hair_1_1
+  rotate: true
+  xy: 702, 437
+  size: 358, 240
+  orig: 360, 242
+  offset: 1, 1
+  index: -1
+hair_1_2
+  rotate: true
+  xy: 1682, 178
+  size: 385, 261
+  orig: 387, 263
+  offset: 1, 1
+  index: -1
+hair_1_3
+  rotate: true
+  xy: 1456, 861
+  size: 645, 292
+  orig: 647, 294
+  offset: 1, 1
+  index: -1
+hair_1_4
+  rotate: false
+  xy: 0, 385
+  size: 700, 410
+  orig: 702, 412
+  offset: 1, 1
+  index: -1
+hair_1_5
+  rotate: false
+  xy: 945, 569
+  size: 767, 283
+  orig: 769, 285
+  offset: 1, 1
+  index: -1
+hair_1_6
+  rotate: false
+  xy: 0, 19
+  size: 513, 133
+  orig: 514, 135
+  offset: 1, 1
+  index: -1
+hair_1_7
+  rotate: false
+  xy: 1392, 7
+  size: 311, 169
+  orig: 312, 171
+  offset: 0, 1
+  index: -1
+hair_2_1
+  rotate: true
+  xy: 1392, 182
+  size: 385, 288
+  orig: 387, 290
+  offset: 1, 1
+  index: -1
+hair_2_2
+  rotate: false
+  xy: 291, 174
+  size: 406, 209
+  orig: 408, 211
+  offset: 1, 1
+  index: -1
+hair_2_3
+  rotate: false
+  xy: 0, 154
+  size: 289, 229
+  orig: 291, 231
+  offset: 1, 1
+  index: -1
+hair_2_4
+  rotate: false
+  xy: 1714, 565
+  size: 268, 294
+  orig: 270, 296
+  offset: 1, 1
+  index: -1
+mouth_1
+  rotate: false
+  xy: 0, 797
+  size: 943, 709
+  orig: 945, 711
+  offset: 1, 1
+  index: -1
+mouth_2
+  rotate: false
+  xy: 945, 854
+  size: 509, 652
+  orig: 511, 654
+  offset: 1, 1
+  index: -1
+mouth_3
+  rotate: true
+  xy: 944, 164
+  size: 403, 446
+  orig: 405, 448
+  offset: 1, 1
+  index: -1
+tongue
+  rotate: true
+  xy: 1750, 862
+  size: 644, 226
+  orig: 646, 228
+  offset: 1, 1
+  index: -1
+whiteeye
+  rotate: true
+  xy: 936, 63
+  size: 99, 117
+  orig: 101, 119
+  offset: 1, 1
+  index: -1

@@ -44,13 +44,10 @@ cc.Class({
         _curSelectedIdx: -1,
         gameOver:false,
         mpRecoverPauseEnd:true,
-        is_chongLian:false
-
+        is_chongLian:false,
     },
 
     onLoad() {
-        // this.schedule(this.callback, 1);
-        // this.initData();
     },
     onEnable(){
     },
@@ -58,18 +55,13 @@ cc.Class({
     initData(callback) {
         this._uimgr = cc.find('Canvas').getComponent('UIMgr');
         this.userName.string = dataCenter.userName;
-        this.schedule(this.callback, 1);
         this.mp_fill.active = false;
         this.thew_fill.active = false;
         var resIndex = 0;
         this.gameOver = false;
         this.is_chongLian = false;
 
-        if (!this.is_chongLian) {
-            this.min_time = 2;
-            this.sec_time = 60;
-        }
-
+        
         this.barLabel.string = combatmgr.getSelf().Hp + '/' + combatmgr.getSelf().MaxHp;
 
         if (dataCenter.userName === "于小雪") 
@@ -101,7 +93,11 @@ cc.Class({
                 if (resIndex == 8) {
                     cc.loader.release('UI/fightUI/Card');
                     callback();
-                    self.ShowHandCards();
+                    if (self.is_chongLian) {
+                        self.ShowHandCards();
+                        self.schedule(self.callback,1);
+                    }
+                   
                 }
             }
         });
@@ -412,7 +408,7 @@ cc.Class({
             this.unschedule(this.callback);
             this.min_time = 0;
             this.sec_time = 0;
-            if (this.min_time== 0) {
+            if (this.min_time == 0) {
                if (this.sec_time < 0) {
                 this.sec_time = 0;
                 }
@@ -510,20 +506,5 @@ cc.Class({
             })
         },2);
     },
-    chongLian : function (data) {
-        for (let i in data) { 
-            var player = combatmgr.getSelf();
-            this.playerHpBar.progress = player.Hp / player.MaxHp;
-            if (dataCenter.uuid == data[i].uid) {     
-                if (data[i].heroid == 2000) {
-                    this.userName.string = "余小雪";
-                    this.headImg.getComponent(cc.Sprite).spriteFrame = this.heroIcon.getSpriteFrame('yuxiaoxue');
-                }
-                else {
-                    this.userName.string = "陈靖仇";
-                    this.headImg.getComponent(cc.Sprite).spriteFrame = this.heroIcon.getSpriteFrame('chenjingchou');
-                }
-            }
-        }
-    }
+    
 });

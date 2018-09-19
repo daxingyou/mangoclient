@@ -28,6 +28,9 @@ cc.Class({
 
     // update (dt) {},
     show(target){
+        if(target != null)
+
+
         if(target.table.ID == 10001 && target.agent.go.scale > -1 && target.agent.go.scale < 1)
         {
             this.bottomLeft.position = cc.v2(target.agent.go.position.x + target.summoned.TargetFrame.x1,target.agent.go.position.y + target.summoned.TargetFrame.y1);
@@ -35,7 +38,8 @@ cc.Class({
             this.topLeft.position = cc.v2(target.agent.go.position.x + target.summoned.TargetFrame.x3,target.agent.go.position.y + target.summoned.TargetFrame.y3);
             this.topRight.position = cc.v2(target.agent.go.position.x + target.summoned.TargetFrame.x4,target.agent.go.position.y + target.summoned.TargetFrame.y4);
         }
-        else{
+        else
+        {
             this.bottomLeft.position = cc.v2(target.agent.go.position.x + target.table.TargetFrame.x1,target.agent.go.position.y + target.table.TargetFrame.y1);
             this.bottomRight.position = cc.v2(target.agent.go.position.x + target.table.TargetFrame.x2,target.agent.go.position.y + target.table.TargetFrame.y2);
             this.topLeft.position = cc.v2(target.agent.go.position.x + target.table.TargetFrame.x3,target.agent.go.position.y + target.table.TargetFrame.y3);

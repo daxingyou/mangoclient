@@ -5,15 +5,11 @@ var loadingMessage = require('LoadingMessage')
 var constant = require('constants')
 var uimgr = require('UIMgr')
 var scenemgr = require('SceneMgr')
-//var actionfactory = require('./GameLogic/Action/ActionFactory')
-//var Pool = require('Pool')
-//var utility = require('utility')
 
 cc.Class({
     extends: cc.Component,
 
     properties: {
-      
     },
 
     onLoad () {
@@ -72,17 +68,27 @@ cc.Class({
         var host = '127.0.0.1'
         var port = 50007
         pomelo.init({host:host,port:port,log:true},function(data){})
+
+        if(cc.sys.platform == cc.sys.WECHAT_GAME)
+        {
+            wxAPI.SetStartTime();
+        }
+
+        cc.game.on(cc.game.EVENT_HIDE,function(){
+            wxAPI.SetQuitTime();
+        });
     },
 
     initShaders() {
-        var ShaderLib = require("ShaderLib");
-        ShaderLib.addShader(require("gray"));
-        ShaderLib.addShader(require("normal"));
-        ShaderLib.addShader(require("wsword"));
+        //var ShaderLib = require("ShaderLib");
+        //ShaderLib.addShader(require("gray"));
+        //ShaderLib.addShader(require("normal"));
+        //ShaderLib.addShader(require("wsword"));
     },
+
 
     update (dt) {
        //cc.log('random = ',utility.rand(10));
         gameLogic.Tick(dt);
-    },
+    }
 });
