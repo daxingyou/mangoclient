@@ -20,4 +20,14 @@ module.exports = {
     loadBegin:true,
     IsReconnect: false,
     curFightTime:0,     ///当前战斗结束时间
+
+    massageList:{},//好友全量消息
+    receivedReply:false,
+    friendDispose:{},//好友同意请求
+
+    friendDelete:false,//双方删好友
+    deleteEid:null,
+
+    onlineCtr:false,
+    onlineMsg:{},
 }

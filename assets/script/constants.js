@@ -64,8 +64,11 @@ module.exports = {
         PickHero: {"id":16,"path":'UI/fightPav/pickHero','type':1,'script':'pickHero'},
         Load: {"id":17,"path":'UI/fightPav/load','type':1,'script':'load'},
         PileKu: {"id":18,"path":'UI/fightPav/pileKu','type':1,'script':'pileKu'},
-        Store:{"id":19,"path":'UI/fightPav/store','type':1,'script':'store'},
-        Treasure:{"id":20,"path":'UI/fightPav/treasure','type':1,'script':'treasure'},
+        Store: {"id":19,"path":'UI/fightPav/store','type':1,'script':'store'},
+        Treasure: {"id":20,"path":'UI/fightPav/treasure','type':1,'script':'treasure'},
+        ComfirmCard: {"id":21,"path":'UI/fightPav/comfirmCard','type':1,'script':'comfirmCard'},
+
+        PopupTips: {"id":22,"path":'UI/tips/popupTips','type':3,"script":'popupTips'},
     },
     SummonedType : {
         wSword : 'wSword',
@@ -105,5 +108,12 @@ module.exports = {
         GET_DAMAGE: 2,  // 受到伤害
         CAUSE_HEAL: 3,  // 造成治疗
         GET_HEAL: 4,  // 受到治疗
+    },
+    MessageType : {
+        Show : 'Show',
+        Hide : 'Hide',
+        Clear : 'Clear',
+        GetIcon : 'GetIcon',
+        GetName : 'GetName'
     }
 };

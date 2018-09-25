@@ -2,9 +2,10 @@
  * @Author: liuguolai 
  * @Date: 2018-08-31 15:41:47 
  * @Last Modified by: liuguolai
- * @Last Modified time: 2018-08-31 17:20:23
+ * @Last Modified time: 2018-09-19 15:50:34
  */
 var consts = require('consts');
+var net = require("NetPomelo");
 
 cc.Class({
     extends: cc.Component,
@@ -43,13 +44,33 @@ cc.Class({
 
     _handle: function () {
         var text = this.editBox.string;
-        this._handleGmCommand(text);
+        if (text.length === 0)
+            return;
+        if (text[0] === '$') {
+            this._handleLocalCommand(text.substring(1));
+        }
+        else {
+            this._handleGmCommand(text);
+        }
         this.editBox.string = "";
     },
 
+    _handleLocalCommand: function (text) {
+        var list = text.split(" ");
+        var cmd = list[0];
+        switch (cmd) {
+            case 'request':
+                var protoName = list[1];
+                var proto = require(protoName + 'Proto');
+                list.splice(0, 2);
+                net.Request(new proto(...list), function (data) {
+                    cc.log("%s gm request back ", protoName, data);
+                });
+                break;
+        }
+    },
+
     _handleGmCommand: function (text) {
-        if (text.length === 0)
-            return;
         var list = text.split(" ");
         var cmd = list[0];
         list.splice(0, 1);

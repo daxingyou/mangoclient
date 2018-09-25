@@ -2,6 +2,7 @@ var dataMgr = require("DataMgr")
 var gameLogic = require("GameLogic")
 var matchMessage = require("matchMessage")
 var loadingMessage = require('LoadingMessage')
+var friendMessage = require('FriendMessage')
 var constant = require('constants')
 var uimgr = require('UIMgr')
 var scenemgr = require('SceneMgr')
@@ -23,6 +24,7 @@ cc.Class({
         ///消息协议注册
         matchMessage.init();
         loadingMessage.init();
+        friendMessage.init();
 
         // 适配
         //设计分辨率
@@ -57,14 +59,9 @@ cc.Class({
         bg.scale = scale;
         fg.scale = scale;
         cc.log("bgScale: ", scale, "designSize", designSize, designSize.width / designSize.height, frameSize, frameSize.width / frameSize.height);
-
-
     },
     
     start () {
-        //require("SpriteHook").init();
-        //this.initShaders();
-
         var host = '127.0.0.1'
         var port = 50007
         pomelo.init({host:host,port:port,log:true},function(data){})

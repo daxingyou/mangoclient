@@ -4,7 +4,6 @@ var Agent = require('Agent')
 var DataMgr = require('DataMgr')
 var gameCenter = require('DataCenter')
 
-
 function Hero_(data,attributes,pos,teamid,combat,uid){
 
     this.Hp = data.hp;

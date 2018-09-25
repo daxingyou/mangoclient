@@ -230,6 +230,7 @@ cc.Class({
             var pile = player.handsPile[self.now_index].id;
             var data = datamgr.card[pile];
             var isCanUse = 0;
+           // cc.log( self.now_index, data.CardName, data.CardQuality, data.CardImage, data.CardDescription, data.CardType, data.CastThew, data.CastMP, data.CardAttributes, isCanUse, pile);
 
             self.centerCard.getComponent('CardItem').initData(
                 self.now_index, data.CardName, data.CardQuality, data.CardImage, data.CardDescription, data.CardType, data.CastThew, data.CastMP, data.CardAttributes, isCanUse, pile);

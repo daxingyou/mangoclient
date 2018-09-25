@@ -1,8 +1,8 @@
 {
-"skeleton": { "hash": "MrXQgZ4KF24N9kZ8x0Mquo176mY", "spine": "3.5.51", "width": 132.03, "height": 139.67, "images": "./part/effect/bloody/" },
+"skeleton": { "hash": "ISGUemBlSPKqk5jOfF9a1wCV0iA", "spine": "3.5.51", "width": 132.03, "height": 139.67, "images": "./part/effect/bloody/" },
 "bones": [
 	{ "name": "effect_main", "scaleX": 0.2, "scaleY": 0.2 },
-	{ "name": "bloody_main", "parent": "effect_main", "rotation": 5, "scaleX": 3, "scaleY": 3 },
+	{ "name": "bloody_main", "parent": "effect_main", "rotation": 5, "y": 325.16, "scaleX": 3, "scaleY": 3 },
 	{ "name": "blood", "parent": "bloody_main" },
 	{ "name": "blood_main1", "parent": "bloody_main", "scaleX": 0.7, "scaleY": 0.7 },
 	{ "name": "blood01", "parent": "blood_main1", "length": 115.65, "rotation": -159.75, "x": 17.92, "y": 5.69, "scaleX": 0.186 },
@@ -52,8 +52,8 @@
 		"scaleX": 0.238,
 		"scaleY": 0.238
 	},
-	{ "name": "teeth_under", "parent": "effect_main", "length": 100, "rotation": 90, "y": -45.38, "scaleX": 2, "scaleY": 2 },
-	{ "name": "teeth_up", "parent": "effect_main", "length": 100, "rotation": -90, "y": 119.22, "scaleX": 2, "scaleY": 2 }
+	{ "name": "teeth_under", "parent": "effect_main", "length": 100, "rotation": 90, "y": 279.78, "scaleX": 2, "scaleY": 2 },
+	{ "name": "teeth_up", "parent": "effect_main", "length": 100, "rotation": -90, "y": 444.38, "scaleX": 2, "scaleY": 2 }
 ],
 "slots": [
 	{ "name": "blood", "bone": "blood", "color": "ffffff00", "attachment": "blood" },

@@ -35,6 +35,8 @@ cc.Class({
         cardMask:cc.Node,
 
         buleFrame:cc.Node,
+        _parents:null,
+        moveCard:null,
 
     },
     onLoad () {
@@ -58,7 +60,7 @@ cc.Class({
             spawnSummoned.event.removeListener(eventName, this._listeners[eventName]);
         }
     },
-    initData(index,cardName,CardQuality,cardImage,CardDescription,cardType,thew,mp,cardAttr,canUse, cid) {
+    initData(index,cardName,CardQuality,cardImage,CardDescription,cardType,thew,mp,cardAttr,canUse, cid,parents) {
         if (this._listeners) {
             for (var eventName in this._listeners) {
                 this._removeEventListener(eventName);
@@ -202,7 +204,12 @@ cc.Class({
            this.typeAttack.spriteFrame = this.cardAtlas.getSpriteFrame("type_artifact");
            this.cardType.color = baowu;
         }  
-       
+       this._parents = parents;
+    //    cc.log(this._parents,"this._parents");
+    //    cc.log(this._parents.moveCard,"this._parents.moveCard")
+       if (this._parents!=null || this._parents!=undefined)
+       this.moveCard = this._parents.moveCard;
+
     },
     change(x,y,rotation) {
         this.rotation = rotation;
@@ -212,27 +219,93 @@ cc.Class({
     },
    
     start () {
-        //cc.view.enableAntiAlias
-        //cc.log('is Anti Alias Enabled =',cc.view.isAntiAliasEnabled());
+        cc.view.enableAntiAlias
+     //   cc.log('is Anti Alias Enabled =',cc.view.isAntiAliasEnabled());
+      
+        
+            // let item = this.moveCard;
+            // cc.log(item,"item");
+      
+        //let item = this._parents.moveCard;
+        
+      
+        var showSelectCard = new cc.Rect(545, 0, 400, 750);//右边展示的矩阵400 750
+        let bule =new cc.Color(0,0,0);
+        showSelectCard.color = bule;
+       // showSelectCard.zIndex = 8888;
+       // cc.log(showSelectCard,"距正");
+        if (this._parents!= null || this._parents!=undefined) {
+             let item = this.moveCard;
+            this.node.on(cc.Node.EventType.TOUCH_START, function (event) {//节点区域时   
+                cc.log("暂时无操作");
+            }, this);
 
-            // this.node.on(cc.Node.EventType.TOUCH_START, function (event) {//节点区域时   
-            //   //  event.stopPropagationImmeditate();
-            //     this.node.rotation = 0;
-            //     this.canUseCard.active = true;
-            //     this.node.y +=  400;
-            //     this.node.x = 0;
-            //     var s = cc.scaleTo(0.001,1.25).easing(cc.easeBackOut());
-            //     this.node.runAction(s);
-            //     this._IsSelect = true;
-            // }, this);
+           
+            this.node.on(cc.Node.EventType.TOUCH_MOVE, function (event) {//节点区域时  
+               // cc.log("物体的拖动"); 
+              
+                var delta = event.touch.getDelta();
+                this.node.x += delta.x;
+                this.node.y += delta.y;
+                item.parent.convertToNodeSpaceAR(this.node);
+                item.active = true;
+                item.parent = this.node;
+               
+                // var pos = event.getLocation();
+                // var touch_point = this.node.convertToNodeSpaceAR(pos);
+                // this.node.convertToWorldSpaceAR(cc.v2(0,0));
+                // item.parent.convertToNodeSpaceAR(ent.touch_pointev);
+                item.x = this.node.x;
+                item.y = this.node.y;
+               // cc.log(item.x,item.y,"item.x,item.y",this.node.x,this.node.y,"this.node.x,this.node.y");
+                
+            }, this);
             
     
-            // this.node.on(cc.Node.EventType.TOUCH_END, function (event) {//节点区域时   
-            //     this.cardReturnAni();
-            // }, this);
-            // this.node.on(cc.Node.EventType.TOUCH_CANCEL, function (event) {//节点区域时   
-            //     this.cardReturnAni();
-            // }, this);
+            this.node.on(cc.Node.EventType.TOUCH_END, function (event) {//节点区域时   
+                if (cc.rectContainsPoint(showSelectCard, event.getLocation())) {
+                    cc.log("包含");
+                    item.active = false;
+                 }
+                else {
+                    cc.log("不包含");
+                }
+               
+            }, this);
+            this.node.on(cc.Node.EventType.TOUCH_CANCEL, function (event) {//节点区域时   
+                var self = this;
+                if (cc.rectContainsPoint(showSelectCard, event.getLocation())) {
+                    cc.log("包含");
+
+                    // var uiMgr = cc.find('Canvas').getComponent('UIMgr');
+                    // var item = uiMgr.loadUI(constant.UI.ComfirmCard,function(data){
+
+                    // });
+                    cc.loader.loadRes('UI/fightPav/comfirmCard', function (errorMessage, loadedResource) {
+                       
+                        if (errorMessage) {
+                            cc.log('载入预制资源失败, 原因:' + errorMessage);
+                            return;
+                        }
+                        if (!(loadedResource instanceof cc.Prefab)) {
+                            cc.log('你载入的不是预制资源!');
+                            return;
+                        }
+                      
+                        let showItem = cc.instantiate(loadedResource);
+                        self._parents.showSelectCard.addChild(showItem);
+                        item.active = false;
+                    });
+                 }
+                else {
+                    cc.log("不包含");
+                }
+            }, this);
+        }
+              
+    },
+    addItem () {
+        
     },
     temp : 0,
     update (dt) {
@@ -269,7 +342,7 @@ cc.Class({
         }
 
 
-        if (this.mp!=null) {
+        if (this.mp!=null && this._parents==null) {
             var player = combatmgr.getSelf();
            
             if (player == undefined) {
@@ -332,4 +405,5 @@ cc.Class({
             this.node.runAction(s);
         }
     }
+
 });

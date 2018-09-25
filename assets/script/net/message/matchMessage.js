@@ -20,6 +20,7 @@ var fight = {
 
         pomelo.on('onBeginSelect', function (data) {
             var ui = that._uimgr.getCurMainUI();
+            cc.log("当前ui",ui);
             that._uimgr.showTips('匹配成功');
             cc.log('匹配成功, 开始选英雄', data.teamInfo);
             var teamInfo = data.teamInfo;

@@ -249,6 +249,11 @@ cc.Class({
             data.showText(str,pos);
         });
     },  ///获取当前主UI
+    popupTips: function (str,callback) {
+        this.loadUI(constant.UI.PopupTips,(data) => {
+            data.showText(str,callback);
+        });
+    },
     getCurMainUI() {
         if(this._frontUI != null && this._frontUI.node.active)
             return this._frontUI;

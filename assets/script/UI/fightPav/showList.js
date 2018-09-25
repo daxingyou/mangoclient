@@ -111,7 +111,8 @@ cc.Class({
     enterStore() {
         cc.log("进入商店");
         var uimgr = cc.find('Canvas').getComponent('UIMgr');
-        uimgr.loadUI(constant.UI.Store,function(data){});
+        //uimgr.loadUI(constant.UI.Store,function(data){});
+        uimgr.loadUI(constant.UI.PileKu,function(data){});
         var ui = uimgr.getUI(constant.UI.FightPavTop);
         if(ui != null) {
             ui.changeTitle(3);
