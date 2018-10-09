@@ -3,10 +3,12 @@
     "__type__": "cc.Prefab",
     "_name": "",
     "_objFlags": 0,
-    "_rawFiles": null,
+    "_native": "",
     "data": {
       "__id__": 1
-    }
+    },
+    "optimizationPolicy": 0,
+    "asyncLoadAssets": false
   },
   {
     "__type__": "cc.Node",
@@ -53,8 +55,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
+      "x": 561,
+      "y": 287
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -73,9 +75,9 @@
     "_enabled": true,
     "_paused": false,
     "defaultSkin": "",
-    "defaultAnimation": "",
+    "defaultAnimation": "healrain",
     "loop": false,
-    "_premultipliedAlpha": false,
+    "_premultipliedAlpha": true,
     "_N$skeletonData": {
       "__uuid__": "0bee3a97-0032-436f-aebb-d1578bf20733"
     },
@@ -98,7 +100,8 @@
     "_path": "",
     "_active": false,
     "_curAni": "",
-    "_MoveAni": false
+    "_MoveAni": false,
+    "_duration": 0
   },
   {
     "__type__": "cc.PrefabInfo",

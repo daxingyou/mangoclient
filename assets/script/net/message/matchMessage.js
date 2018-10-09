@@ -18,6 +18,109 @@ var fight = {
         this._uimgr = cc.find('Canvas').getComponent('UIMgr');
         var that = this;
 
+        pomelo.on('onRefreshTeam', function (data) {
+            cc.log("队伍信息刷新", data);
+
+            /*
+              "onRefreshTeam": {
+                "required string teamType": 1,
+                "message MemberInfo": {
+                "required string id": 1,
+                "required string openid": 2,
+                "required uInt32 pos": 3,
+                "required uInt32 ready": 4,
+                "required uInt32 punishBeginTime": 5
+                },
+                "repeated MemberInfo members": 2
+            },
+            */
+        });
+
+        pomelo.on('onTeamInvited', function (data) {
+            cc.log("收到组队邀请", data);
+
+            /*  "onTeamInvited": {
+                "required string id": 1,
+                "required string openid": 2,
+                "required string teamType": 3,
+                "required uInt32 rank": 4
+            },
+            */
+        });
+
+        pomelo.on('onTeamApplyed', function (data) {
+            cc.log("收到求邀申请", data);
+
+            /*
+              "onTeamApplyed": {
+                "required string id": 1,
+                "required string openid": 2,
+                "required uInt32 rank": 3
+            },
+            */
+
+        });
+
+        pomelo.on('onTeamBeRefused', function (data) {
+            cc.log("组队邀请被拒", data);
+
+            /* "onTeamBeRefused": {
+                "required string name": 1
+            },*/
+
+        });
+
+        pomelo.on('onTeamBeKicked', function (data) {
+            cc.log("被提出队伍", data);
+        });
+
+        pomelo.on('onTeamReadyStateChange', function (data) {
+            cc.log("队员准备状态变更", data);
+
+            /*"onTeamReadyStateChange": {
+                "required string id": 1,
+                "required uInt32 ready": 2
+            },
+
+            */
+        });
+
+        pomelo.on('onBeginMatch', function (data) {
+            cc.log("匹配开始", data);
+
+            /*  "onBeginMatch": {
+                "required uInt32 predictTime": 1
+            },
+            */
+        });
+
+        pomelo.on('onUnmatch', function (data) {
+            cc.log("匹配取消", data);
+        });
+
+        pomelo.on('onEnterMatchConfirm', function (data) {
+            cc.log("进入匹配成功确认", data);
+        });
+
+        pomelo.on('onMatchConfirm', function (data) {
+            cc.log("匹配确认", data);
+        });
+
+        pomelo.on('onMatchNoConfirm', function (data) {
+            cc.log("匹配未确认，回组队", data);
+        });
+
+        pomelo.on('onPunishBeginTimeUpdate', function (data) {
+            cc.log("超时惩罚开始时间更新", data);
+
+            /*
+             "onPunishBeginTimeUpdate": {
+                "required uInt32 punishBeginTime": 1
+            }
+            */
+        });
+
+        
         pomelo.on('onBeginSelect', function (data) {
             var ui = that._uimgr.getCurMainUI();
             cc.log("当前ui",ui);

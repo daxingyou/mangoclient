@@ -1,264 +1,264 @@
 
 head_effect.png
-size: 648,521
+size: 1061,267
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 part/effect/equake
   rotate: false
-  xy: 0, 265
+  xy: 0, 11
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 part/effect/fragment1
-  rotate: true
-  xy: 133, 1
+  rotate: false
+  xy: 442, 0
   size: 26, 30
   orig: 26, 30
   offset: 0, 0
   index: -1
 part/effect/fragment2
   rotate: false
-  xy: 624, 403
+  xy: 776, 235
   size: 13, 13
   orig: 13, 13
   offset: 0, 0
   index: -1
 part/effect/ground_flash/ground_flash_00000
   rotate: false
-  xy: 0, 198
-  size: 235, 65
+  xy: 715, 40
+  size: 74, 48
   orig: 235, 65
-  offset: 0, 0
+  offset: 81, 3
   index: -1
 part/effect/ground_flash/ground_flash_00001
   rotate: false
-  xy: 258, 456
-  size: 235, 65
+  xy: 791, 174
+  size: 108, 64
   orig: 235, 65
-  offset: 0, 0
+  offset: 65, 1
   index: -1
 part/effect/ground_flash/ground_flash_00002
-  rotate: false
-  xy: 0, 131
-  size: 235, 65
+  rotate: true
+  xy: 691, 90
+  size: 177, 65
   orig: 235, 65
-  offset: 0, 0
+  offset: 33, 0
   index: -1
 part/effect/ground_flash/ground_flash_00003
-  rotate: false
-  xy: 258, 389
+  rotate: true
+  xy: 258, 32
   size: 235, 65
   orig: 235, 65
   offset: 0, 0
   index: -1
 part/effect/ground_flash/ground_flash_00004
-  rotate: false
-  xy: 0, 64
-  size: 235, 65
+  rotate: true
+  xy: 325, 32
+  size: 235, 28
   orig: 235, 65
   offset: 0, 0
   index: -1
 part/effect/ground_flash/ground_flash_00005
-  rotate: false
-  xy: 258, 322
-  size: 235, 65
+  rotate: true
+  xy: 355, 32
+  size: 235, 27
   orig: 235, 65
   offset: 0, 0
   index: -1
 part/effect/ground_flash/ground_flash_00006
-  rotate: false
-  xy: 258, 255
-  size: 235, 65
+  rotate: true
+  xy: 384, 32
+  size: 235, 21
   orig: 235, 65
-  offset: 0, 0
+  offset: 0, 1
   index: -1
 part/effect/ground_smk1/ground_smk_1_00000
-  rotate: true
-  xy: 628, 184
+  rotate: false
+  xy: 1006, 186
   size: 48, 11
   orig: 155, 40
   offset: 52, 0
   index: -1
 part/effect/ground_smk1/ground_smk_1_00001
   rotate: false
-  xy: 0, 0
+  xy: 791, 240
   size: 112, 27
   orig: 155, 40
   offset: 24, 0
   index: -1
 part/effect/ground_smk1/ground_smk_1_00002
   rotate: false
-  xy: 426, 57
+  xy: 619, 4
   size: 134, 31
   orig: 155, 40
   offset: 11, 0
   index: -1
 part/effect/ground_smk1/ground_smk_1_00003
-  rotate: true
-  xy: 558, 92
+  rotate: false
+  xy: 755, 0
   size: 148, 38
   orig: 155, 40
   offset: 1, 0
   index: -1
 part/effect/ground_smk1/ground_smk_1_00004
-  rotate: true
-  xy: 495, 244
+  rotate: false
+  xy: 905, 3
   size: 150, 40
   orig: 155, 40
   offset: 0, 0
   index: -1
 part/effect/ground_smk1/ground_smk_1_00005
   rotate: true
-  xy: 432, 104
+  xy: 964, 48
   size: 149, 40
   orig: 155, 40
   offset: 0, 0
   index: -1
 part/effect/ground_smk1/ground_smk_1_00006
   rotate: true
-  xy: 537, 244
+  xy: 922, 47
   size: 150, 40
   orig: 155, 40
   offset: 0, 0
   index: -1
 part/effect/ground_smk1/ground_smk_1_00007
-  rotate: true
-  xy: 579, 242
+  rotate: false
+  xy: 407, 32
   size: 152, 40
   orig: 155, 40
   offset: 0, 0
   index: -1
 part/effect/ground_smk1/ground_smk_1_00008
-  rotate: true
-  xy: 474, 90
+  rotate: false
+  xy: 561, 37
   size: 152, 40
   orig: 155, 40
   offset: 0, 0
   index: -1
 part/effect/ground_smk1/ground_smk_1_00009
-  rotate: true
-  xy: 516, 90
+  rotate: false
+  xy: 905, 227
   size: 152, 40
   orig: 155, 40
   offset: 0, 0
   index: -1
 part/effect/ground_smk1/ground_smk_1_00010
-  rotate: true
-  xy: 598, 85
+  rotate: false
+  xy: 470, 2
   size: 147, 28
   orig: 155, 40
   offset: 0, 0
   index: -1
 part/effect/ground_smk1/ground_smk_1_00011
-  rotate: true
-  xy: 114, 0
+  rotate: false
+  xy: 758, 250
   size: 27, 17
   orig: 155, 40
   offset: 0, 0
   index: -1
 part/effect/ground_smk1/ground_smk_1_00012
   rotate: true
-  xy: 641, 223
+  xy: 0, 0
   size: 9, 7
   orig: 155, 40
   offset: 0, 3
   index: -1
 part/effect/ground_smk2/ground_smk2_00001
   rotate: true
-  xy: 624, 418
+  xy: 758, 145
   size: 103, 16
   orig: 200, 35
   offset: 47, 5
   index: -1
 part/effect/ground_smk2/ground_smk2_00002
-  rotate: true
-  xy: 621, 234
+  rotate: false
+  xy: 901, 199
   size: 160, 26
   orig: 200, 35
   offset: 18, 2
   index: -1
 part/effect/ground_smk2/ground_smk2_00003
   rotate: false
-  xy: 193, 2
+  xy: 258, 0
   size: 182, 30
   orig: 200, 35
   offset: 7, 0
   index: -1
 part/effect/ground_smk2/ground_smk2_00004
-  rotate: false
-  xy: 237, 90
+  rotate: true
+  xy: 630, 81
   size: 186, 31
   orig: 200, 35
   offset: 5, 0
   index: -1
 part/effect/ground_smk2/ground_smk2_00005
-  rotate: false
-  xy: 237, 123
+  rotate: true
+  xy: 541, 79
   size: 188, 31
   orig: 200, 35
   offset: 4, 0
   index: -1
 part/effect/ground_smk2/ground_smk2_00006
-  rotate: false
-  xy: 0, 29
+  rotate: true
+  xy: 506, 76
   size: 191, 33
   orig: 200, 35
   offset: 2, 0
   index: -1
 part/effect/ground_smk2/ground_smk2_00007
-  rotate: false
-  xy: 237, 222
+  rotate: true
+  xy: 407, 74
   size: 193, 31
   orig: 200, 35
   offset: 1, 0
   index: -1
 part/effect/ground_smk2/ground_smk2_00008
-  rotate: false
-  xy: 237, 189
+  rotate: true
+  xy: 440, 74
   size: 193, 31
   orig: 200, 35
   offset: 0, 0
   index: -1
 part/effect/ground_smk2/ground_smk2_00009
-  rotate: false
-  xy: 237, 156
+  rotate: true
+  xy: 473, 75
   size: 192, 31
   orig: 200, 35
   offset: 0, 0
   index: -1
 part/effect/ground_smk2/ground_smk2_00010
-  rotate: false
-  xy: 237, 62
+  rotate: true
+  xy: 574, 80
   size: 187, 26
   orig: 200, 35
   offset: 0, 1
   index: -1
 part/effect/ground_smk2/ground_smk2_00011
-  rotate: false
-  xy: 193, 34
+  rotate: true
+  xy: 602, 80
   size: 187, 26
   orig: 200, 35
   offset: 0, 1
   index: -1
 part/effect/ground_smk2/ground_smk2_00012
-  rotate: false
-  xy: 382, 29
+  rotate: true
+  xy: 663, 85
   size: 182, 26
   orig: 200, 35
   offset: 5, 2
   index: -1
 part/effect/ground_smk2/ground_smk2_00013
   rotate: false
-  xy: 165, 4
+  xy: 901, 174
   size: 19, 23
   orig: 200, 35
   offset: 9, 5
   index: -1
 part/effect/speed
-  rotate: false
-  xy: 495, 396
+  rotate: true
+  xy: 791, 45
   size: 127, 125
   orig: 128, 128
   offset: 0, 3

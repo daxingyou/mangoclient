@@ -35,6 +35,7 @@ cc.Class({
      accepetMassage() {
         var self = this;
         var resIndex = 0;
+        var applyIndex = 0;
          for (let i in dataCenter.massageList) {
             cc.log(dataCenter.massageList[i],"obj[i]",i,"i");
             if (i == "friends") {//好友列表
@@ -46,27 +47,21 @@ cc.Class({
                             cc.log('载入预制资源失败, 原因:' + errorMessage);
                             return;
                         }
-                        if (!(loadedResource instanceof cc.Prefab)) {
-                            cc.log('你载入的不是预制资源!');
-                            return;
-                        }
                         let item = cc.instantiate(loadedResource);
                         resIndex++;
                         self.showGameFriend.addChild(item);
                         self._showGameFriend.push(item.getComponent('gameFriendItem'));
                         self._showGameFriend[i].initData(i,itemData.eid,itemData.openid,itemData.relation,self);
-                        self._eidBar.push(itemData.eid);
-                        cc.log(self._eidBar,"self._eidBar in begin");
+                        self._eidBar.push(itemData.eid);//方便删除查找
                         if (resIndex == friends.length) {
                             cc.loader.release('UI/Friend/gameFriendItem');
-                            self.checkMassage = false;
+                            self.showGameFriend.height = friends.length * 140;
                         }
                     }
             });
             }
             else if (i == "invitedList") {//申请列表
                 cc.log("有好友申请");
-                resIndex = 0;
                 self.applyTips.active = true;
                 var invitedList = dataCenter.massageList[i];
                 cc.loader.loadRes('UI/Friend/applyItem', function (errorMessage, loadedResource) {
@@ -81,12 +76,13 @@ cc.Class({
                             return;
                         }
                         let item = cc.instantiate(loadedResource);
-                        resIndex++;
+                        applyIndex++;
                         self.showApplyBar.addChild(item);
                         self._showApplyList.push(item.getComponent('applyItem'));
                         self._showApplyList[i].initData(i,itemData.eid,itemData.openid,self);
-                        if (resIndex == invitedList.length) {
+                        if (applyIndex == invitedList.length) {
                             cc.loader.release('UI/Friend/applyItem');
+                            self.showApplyBar.height = invitedList.length * 60;
                         }
                     }
             })
@@ -103,8 +99,8 @@ cc.Class({
                 self.showGameFriend.addChild(item);
                 self._showGameFriend.push(item.getComponent('gameFriendItem'));
                 self._showGameFriend[lastIndex].initData(lastIndex,eid,openid,1,self);
-                self._eidBar.push(eid);
-                cc.log(self._eidBar,"self._eidBar in add");
+                self._eidBar.push(eid);//删除查找索引
+                self.showGameFriend.height += 140;
                 cc.loader.release('UI/Friend/gameFriendItem');
             });
     },
@@ -114,17 +110,21 @@ cc.Class({
           var self = this;
           for (let i = 0;i<self._eidBar.length;i++) {
               if (self._eidBar[i] == eid) {
+                  cc.log("查找到对方");
                 let allGameFriend = self.showGameFriend.children;
                 allGameFriend[i].removeFromParent();
+                 self._eidBar.splice(i,1);
+                 self.showGameFriend.height -= 140;
               }
           }
     },
-    
+
     //更新申请列表
     _updateApplyList (curIndex) {
         var self = this;
         var allChildren = self.showApplyBar.children;
         allChildren[curIndex].removeFromParent();
+        self.showApplyBar.height -=60;
         let itemCom;
         for(let i=0;i< allChildren.length;i++) {
             itemCom = allChildren[i].getComponent('applyItem');
@@ -142,17 +142,14 @@ cc.Class({
                     cc.log('载入预制资源失败, 原因:' + errorMessage);
                     return;
                 }
-                if (!(loadedResource instanceof cc.Prefab)) {
-                    cc.log('你载入的不是预制资源!');
-                    return;
-                }
                 let item = cc.instantiate(loadedResource);
                 self.showApplyBar.addChild(item);
-                self._showApplyList.push(item.getComponent('applyItem'));
-                self._showApplyList[lastIndex].initData(lastIndex,data.eid,data.openid,self);
-            })
+                self.showApplyBar.height += 60;
+                var itemCom = item.getComponent('applyItem');
+                itemCom.initData(lastIndex,data.eid,data.openid,self);
+            });
     },
-
+    
     onEnable(){
         this._curState = true;
         wxAPI.Show();

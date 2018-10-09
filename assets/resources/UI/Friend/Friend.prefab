@@ -3586,7 +3586,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 0
+      "y": -38
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -4632,7 +4632,8 @@
     "showGameFriend": {
       "__id__": 57
     },
-    "_showGameFriend": []
+    "_showGameFriend": [],
+    "_eidBar": []
   },
   {
     "__type__": "cc.PrefabInfo",

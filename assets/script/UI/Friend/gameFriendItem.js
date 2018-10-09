@@ -67,8 +67,6 @@ cc.Class({
                 self._uiMgr.showTips("不是好友");
             }
         });
-       
-       // self._parents.deleteGameFriend(self._curIndex);
     },
 
     // update (dt) {},

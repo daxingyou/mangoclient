@@ -6,14 +6,14 @@ filter: Linear,Linear
 repeat: none
 arms
   rotate: false
-  xy: 0, 261
-  size: 229, 217
+  xy: 0, 259
+  size: 231, 219
   orig: 231, 219
-  offset: 1, 1
+  offset: 0, 0
   index: -1
 effect/Moon_bw002_001
   rotate: false
-  xy: 482, 639
+  xy: 478, 639
   size: 117, 125
   orig: 120, 127
   offset: 1, 1
@@ -26,108 +26,143 @@ effect/SMK_D
   offset: 1, 3
   index: -1
 effect/blow/blow_00002
-  rotate: true
-  xy: 737, 531
+  rotate: false
+  xy: 83, 34
   size: 130, 93
   orig: 150, 98
   offset: 10, 5
   index: -1
 effect/blow/blow_00004
-  rotate: true
-  xy: 583, 210
+  rotate: false
+  xy: 749, 570
   size: 145, 94
   orig: 150, 98
   offset: 0, 4
   index: -1
 effect/blow/blow_00006
-  rotate: true
-  xy: 208, 110
+  rotate: false
+  xy: 593, 475
   size: 149, 94
   orig: 150, 98
   offset: 0, 4
   index: -1
 effect/blow/blow_00008
   rotate: false
-  xy: 801, 784
+  xy: 326, 669
   size: 150, 95
   orig: 150, 98
   offset: 0, 3
   index: -1
 effect/blow/blow_00010
-  rotate: true
-  xy: 832, 533
+  rotate: false
+  xy: 441, 541
   size: 150, 96
   orig: 150, 98
   offset: 0, 2
   index: -1
 effect/blow/blow_00011
-  rotate: false
-  xy: 797, 685
+  rotate: true
+  xy: 233, 328
   size: 150, 97
   orig: 150, 98
   offset: 0, 1
   index: -1
 effect/blow/blow_00012
-  rotate: true
-  xy: 231, 328
+  rotate: false
+  xy: 724, 666
   size: 150, 96
   orig: 150, 98
   offset: 0, 2
   index: -1
 effect/blow/blow_00013
-  rotate: false
-  xy: 0, 18
+  rotate: true
+  xy: 332, 390
   size: 150, 98
   orig: 150, 98
   offset: 0, 0
   index: -1
 effect/blow/blow_00014
   rotate: false
-  xy: 558, 114
+  xy: 709, 377
   size: 144, 94
   orig: 150, 98
   offset: 3, 4
   index: -1
 effect/blow/blow_00015
   rotate: false
-  xy: 208, 14
+  xy: 876, 668
   size: 146, 94
   orig: 150, 98
   offset: 2, 4
   index: -1
 effect/blow/blow_00016
-  rotate: true
-  xy: 704, 127
+  rotate: false
+  xy: 744, 473
   size: 148, 95
   orig: 150, 98
   offset: 1, 3
   index: -1
 effect/blow/blow_00017
-  rotate: true
-  xy: 801, 127
+  rotate: false
+  xy: 559, 379
   size: 148, 94
   orig: 150, 98
   offset: 1, 3
   index: -1
 effect/blow/blow_00018
-  rotate: true
-  xy: 583, 357
+  rotate: false
+  xy: 597, 571
   size: 150, 93
   orig: 150, 98
   offset: 0, 3
   index: -1
+effect/blow/blow_00020
+  rotate: false
+  xy: 850, 82
+  size: 86, 81
+  orig: 150, 98
+  offset: 35, 11
+  index: -1
+effect/blow/blow_00022
+  rotate: true
+  xy: 940, 327
+  size: 85, 82
+  orig: 150, 98
+  offset: 35, 11
+  index: -1
+effect/blow/blow_00026
+  rotate: true
+  xy: 940, 240
+  size: 85, 82
+  orig: 150, 98
+  offset: 35, 11
+  index: -1
+effect/blow/blow_00030
+  rotate: false
+  xy: 445, 202
+  size: 86, 83
+  orig: 150, 98
+  offset: 35, 11
+  index: -1
+effect/blow/blow_00034
+  rotate: false
+  xy: 850, 165
+  size: 86, 83
+  orig: 150, 98
+  offset: 35, 11
+  index: -1
+effect/blow/blow_00040
+  rotate: false
+  xy: 360, 201
+  size: 83, 84
+  orig: 150, 98
+  offset: 35, 11
+  index: -1
 effect/bmp_lxuanw
   rotate: false
-  xy: 477, 509
+  xy: 801, 894
   size: 128, 128
   orig: 128, 128
-  offset: 0, 0
-  index: -1
-effect/boom/jpg_huo_0
-  rotate: false
-  xy: 958, 13
-  size: 64, 64
-  orig: 64, 64
   offset: 0, 0
   index: -1
 effect/boom01
@@ -139,7 +174,7 @@ effect/boom01
   index: -1
 effect/earth_crack3
   rotate: true
-  xy: 152, 43
+  xy: 258, 520
   size: 216, 54
   orig: 225, 54
   offset: 3, 0
@@ -153,105 +188,119 @@ effect/fx_flare_trees
   index: -1
 effect/grass_01
   rotate: false
-  xy: 258, 527
+  xy: 0, 48
   size: 81, 209
   orig: 89, 214
   offset: 4, 4
   index: -1
+effect/grass_02
+  rotate: false
+  xy: 855, 377
+  size: 26, 94
+  orig: 32, 99
+  offset: 4, 3
+  index: -1
 effect/heallight/heallight_00003
   rotate: false
-  xy: 329, 387
+  xy: 314, 542
   size: 125, 125
   orig: 125, 125
   offset: 0, 0
   index: -1
 effect/heallight/heallight_00005
   rotate: false
-  xy: 456, 382
+  xy: 597, 666
   size: 125, 125
   orig: 125, 125
   offset: 0, 0
   index: -1
 effect/heallight/heallight_00006
   rotate: false
-  xy: 329, 260
+  xy: 432, 414
   size: 125, 125
   orig: 125, 125
   offset: 0, 0
   index: -1
 effect/heallight/heallight_00007
   rotate: false
-  xy: 456, 255
+  xy: 896, 541
   size: 125, 125
   orig: 125, 125
   offset: 0, 0
   index: -1
 effect/heallight/heallight_00009
   rotate: false
-  xy: 304, 133
+  xy: 894, 414
   size: 125, 125
   orig: 125, 125
   offset: 0, 0
   index: -1
 effect/heallight/heallight_00010
   rotate: false
-  xy: 431, 128
+  xy: 432, 287
   size: 125, 125
   orig: 125, 125
   offset: 0, 0
   index: -1
 effect/heallight/heallight_00011
   rotate: false
-  xy: 678, 404
+  xy: 559, 252
   size: 125, 125
   orig: 125, 125
   offset: 0, 0
   index: -1
 effect/heallight/heallight_00012
   rotate: false
-  xy: 679, 277
+  xy: 686, 250
   size: 125, 125
   orig: 125, 125
   offset: 0, 0
   index: -1
 effect/heallight/heallight_00013
   rotate: false
-  xy: 704, 0
+  xy: 813, 250
   size: 125, 125
   orig: 125, 125
   offset: 0, 0
   index: -1
 effect/heallight/heallight_00014
   rotate: false
-  xy: 831, 0
+  xy: 233, 201
   size: 125, 125
   orig: 125, 125
   offset: 0, 0
   index: -1
 effect/heallight/heallight_00015
   rotate: false
-  xy: 897, 406
+  xy: 215, 74
   size: 125, 125
   orig: 125, 125
   offset: 0, 0
   index: -1
 effect/heallight/heallight_00016
   rotate: false
-  xy: 897, 279
+  xy: 342, 74
   size: 125, 125
   orig: 125, 125
   offset: 0, 0
   index: -1
 effect/heallight/heallight_00017
   rotate: false
-  xy: 897, 152
+  xy: 469, 75
   size: 125, 125
   orig: 125, 125
   offset: 0, 0
   index: -1
 effect/heallight/heallight_00018
   rotate: false
-  xy: 356, 1
+  xy: 596, 93
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect/heallight/heallight_00019
+  rotate: false
+  xy: 723, 123
   size: 125, 125
   orig: 125, 125
   offset: 0, 0
@@ -265,665 +314,616 @@ effect/jpg_0011
   index: -1
 effect/jpg_10218yun
   rotate: false
-  xy: 0, 0
+  xy: 314, 524
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 effect/jpg_jet_as1
   rotate: false
-  xy: 731, 663
+  xy: 931, 894
   size: 64, 128
   orig: 64, 128
   offset: 0, 0
   index: -1
 effect/jpg_li04
   rotate: false
-  xy: 601, 663
+  xy: 83, 129
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 effect/jpg_{69932210-912B-4775-820E-90A68A440431}
   rotate: false
-  xy: 607, 533
+  xy: 801, 764
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 effect/jpg_{69932210-912B-4775-820E-90A68A440432}
   rotate: false
-  xy: 607, 533
+  xy: 801, 764
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 effect/light_circle/light_circle_00027
   rotate: true
-  xy: 805, 404
+  xy: 931, 767
   size: 125, 30
   orig: 125, 30
   offset: 0, 0
   index: -1
 effect/light_circle/light_circle_00028
-  rotate: true
-  xy: 806, 277
+  rotate: false
+  xy: 533, 220
   size: 125, 30
   orig: 125, 30
   offset: 0, 0
   index: -1
 effect/light_circle/light_circle_00029
-  rotate: true
-  xy: 483, 1
+  rotate: false
+  xy: 723, 91
   size: 125, 30
   orig: 125, 30
   offset: 0, 0
   index: -1
 effect/light_circle/light_circle_00030
   rotate: true
-  xy: 930, 558
+  xy: 938, 113
   size: 125, 30
   orig: 125, 30
   offset: 0, 0
   index: -1
-effect/meteor_flame/meteor_flame_00000
-  rotate: false
-  xy: 0, 118
-  size: 150, 141
-  orig: 150, 150
-  offset: 0, 0
-  index: -1
-effect/meteor_flame/meteor_flame_00001
-  rotate: false
-  xy: 801, 881
-  size: 150, 141
-  orig: 150, 150
-  offset: 0, 0
-  index: -1
-effect/meteor_flame/meteor_flame_00002
-  rotate: false
-  xy: 341, 640
-  size: 139, 124
-  orig: 150, 150
-  offset: 7, 0
-  index: -1
-effect/meteor_flame/meteor_flame_00003
-  rotate: false
-  xy: 515, 2
-  size: 111, 110
-  orig: 150, 150
-  offset: 23, 0
-  index: -1
-effect/meteor_flame/meteor_flame_00004
-  rotate: false
-  xy: 341, 514
-  size: 134, 124
-  orig: 150, 150
-  offset: 12, 0
-  index: -1
-effect/smoke_07/smoke_07_00000_01
-  rotate: false
-  xy: 838, 352
-  size: 57, 59
-  orig: 85, 85
-  offset: 17, 11
-  index: -1
-effect/smoke_07/smoke_07_00000_03
-  rotate: true
-  xy: 962, 585
-  size: 57, 60
-  orig: 85, 85
-  offset: 16, 10
-  index: -1
-effect/smoke_07/smoke_07_00000_05
-  rotate: false
-  xy: 837, 413
-  size: 56, 61
-  orig: 86, 85
-  offset: 18, 9
-  index: -1
-effect/smoke_07/smoke_07_00000_11
-  rotate: true
-  xy: 231, 261
-  size: 65, 68
-  orig: 86, 86
-  offset: 14, 5
-  index: -1
-effect/smoke_07/smoke_07_00000_15
-  rotate: false
-  xy: 953, 948
-  size: 69, 74
-  orig: 85, 85
-  offset: 13, 2
-  index: -1
-effect/smoke_07/smoke_07_00000_17
-  rotate: false
-  xy: 628, 40
-  size: 70, 72
-  orig: 86, 85
-  offset: 14, 5
-  index: -1
-effect/smoke_07/smoke_07_00000_19
-  rotate: true
-  xy: 953, 800
-  size: 72, 68
-  orig: 85, 85
-  offset: 12, 10
-  index: -1
-effect/smoke_07/smoke_07_00000_21
-  rotate: true
-  xy: 958, 79
-  size: 71, 64
-  orig: 85, 85
-  offset: 9, 15
-  index: -1
-effect/smoke_07/smoke_07_00000_25
-  rotate: true
-  xy: 953, 874
-  size: 72, 69
-  orig: 85, 86
-  offset: 8, 12
-  index: -1
-effect/smoke_07/smoke_07_00000_27
-  rotate: false
-  xy: 949, 709
-  size: 73, 73
-  orig: 85, 86
-  offset: 9, 10
-  index: -1
-effect/smoke_07/smoke_07_00000_29
-  rotate: true
-  xy: 962, 644
-  size: 63, 60
-  orig: 86, 86
-  offset: 21, 24
-  index: -1
-effect/smoke_07/smoke_07_00000_31
-  rotate: true
-  xy: 837, 476
-  size: 55, 58
-  orig: 85, 85
-  offset: 20, 23
-  index: -1
-effect/smoke_07/smoke_07_00000_33
-  rotate: false
-  xy: 838, 297
-  size: 51, 53
-  orig: 85, 85
-  offset: 24, 28
-  index: -1
-effect/smoke_07/smoke_07_00000_35
-  rotate: true
-  xy: 258, 496
-  size: 29, 51
-  orig: 86, 85
-  offset: 23, 30
-  index: -1
-
-snow2.png
-size: 991,729
-format: RGBA8888
-filter: Linear,Linear
-repeat: none
-effect/blow/blow_00020
-  rotate: false
-  xy: 762, 140
-  size: 86, 81
-  orig: 150, 98
-  offset: 35, 11
-  index: -1
-effect/blow/blow_00022
-  rotate: false
-  xy: 88, 12
-  size: 85, 82
-  orig: 150, 98
-  offset: 35, 11
-  index: -1
-effect/blow/blow_00026
-  rotate: false
-  xy: 889, 562
-  size: 85, 82
-  orig: 150, 98
-  offset: 35, 11
-  index: -1
-effect/blow/blow_00030
-  rotate: false
-  xy: 0, 11
-  size: 86, 83
-  orig: 150, 98
-  offset: 35, 11
-  index: -1
-effect/blow/blow_00034
-  rotate: false
-  xy: 889, 646
-  size: 86, 83
-  orig: 150, 98
-  offset: 35, 11
-  index: -1
-effect/blow/blow_00040
-  rotate: false
-  xy: 889, 476
-  size: 83, 84
-  orig: 150, 98
-  offset: 35, 11
-  index: -1
-effect/boom/jpg_huo_1
-  rotate: false
-  xy: 921, 215
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-effect/boom/jpg_huo_2
-  rotate: false
-  xy: 756, 9
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-effect/boom/jpg_huo_3
-  rotate: false
-  xy: 850, 156
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-effect/boom/jpg_huo_4
-  rotate: false
-  xy: 916, 149
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-effect/boom/jpg_huo_5
-  rotate: false
-  xy: 850, 90
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-effect/boom/jpg_huo_6
-  rotate: false
-  xy: 916, 83
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-effect/boom/jpg_huo_7
-  rotate: false
-  xy: 822, 9
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-effect/grass_02
-  rotate: true
-  xy: 429, 4
-  size: 26, 94
-  orig: 32, 99
-  offset: 4, 3
-  index: -1
-effect/heallight/heallight_00019
-  rotate: false
-  xy: 0, 604
-  size: 125, 125
-  orig: 125, 125
-  offset: 0, 0
-  index: -1
-effect/heallight/heallight_00020
-  rotate: false
-  xy: 0, 477
-  size: 125, 125
-  orig: 125, 125
-  offset: 0, 0
-  index: -1
-effect/heallight/heallight_00021
-  rotate: false
-  xy: 127, 604
-  size: 125, 125
-  orig: 125, 125
-  offset: 0, 0
-  index: -1
-effect/heallight/heallight_00022
-  rotate: false
-  xy: 0, 350
-  size: 125, 125
-  orig: 125, 125
-  offset: 0, 0
-  index: -1
-effect/heallight/heallight_00023
-  rotate: false
-  xy: 127, 477
-  size: 125, 125
-  orig: 125, 125
-  offset: 0, 0
-  index: -1
-effect/heallight/heallight_00024
-  rotate: false
-  xy: 254, 604
-  size: 125, 125
-  orig: 125, 125
-  offset: 0, 0
-  index: -1
-effect/heallight/heallight_00025
-  rotate: false
-  xy: 0, 223
-  size: 125, 125
-  orig: 125, 125
-  offset: 0, 0
-  index: -1
-effect/heallight/heallight_00026
-  rotate: false
-  xy: 127, 350
-  size: 125, 125
-  orig: 125, 125
-  offset: 0, 0
-  index: -1
-effect/heallight/heallight_00027
-  rotate: false
-  xy: 254, 477
-  size: 125, 125
-  orig: 125, 125
-  offset: 0, 0
-  index: -1
-effect/heallight/heallight_00028
-  rotate: false
-  xy: 381, 604
-  size: 125, 125
-  orig: 125, 125
-  offset: 0, 0
-  index: -1
-effect/heallight/heallight_00029
-  rotate: false
-  xy: 0, 96
-  size: 125, 125
-  orig: 125, 125
-  offset: 0, 0
-  index: -1
-effect/heallight/heallight_00030
-  rotate: false
-  xy: 127, 223
-  size: 125, 125
-  orig: 125, 125
-  offset: 0, 0
-  index: -1
-effect/heallight/heallight_00031
-  rotate: false
-  xy: 254, 350
-  size: 125, 125
-  orig: 125, 125
-  offset: 0, 0
-  index: -1
-effect/heallight/heallight_00032
-  rotate: false
-  xy: 381, 477
-  size: 125, 125
-  orig: 125, 125
-  offset: 0, 0
-  index: -1
-effect/heallight/heallight_00033
-  rotate: false
-  xy: 508, 604
-  size: 125, 125
-  orig: 125, 125
-  offset: 0, 0
-  index: -1
-effect/heallight/heallight_00034
-  rotate: false
-  xy: 127, 96
-  size: 125, 125
-  orig: 125, 125
-  offset: 0, 0
-  index: -1
-effect/heallight/heallight_00035
-  rotate: false
-  xy: 254, 223
-  size: 125, 125
-  orig: 125, 125
-  offset: 0, 0
-  index: -1
-effect/heallight/heallight_00036
-  rotate: false
-  xy: 381, 350
-  size: 125, 125
-  orig: 125, 125
-  offset: 0, 0
-  index: -1
-effect/heallight/heallight_00037
-  rotate: false
-  xy: 508, 477
-  size: 125, 125
-  orig: 125, 125
-  offset: 0, 0
-  index: -1
-effect/heallight/heallight_00038
-  rotate: false
-  xy: 635, 604
-  size: 125, 125
-  orig: 125, 125
-  offset: 0, 0
-  index: -1
-effect/heallight/heallight_00039
-  rotate: false
-  xy: 254, 96
-  size: 125, 125
-  orig: 125, 125
-  offset: 0, 0
-  index: -1
-effect/heallight/heallight_00040
-  rotate: false
-  xy: 381, 223
-  size: 125, 125
-  orig: 125, 125
-  offset: 0, 0
-  index: -1
-effect/heallight/heallight_00041
-  rotate: false
-  xy: 508, 350
-  size: 125, 125
-  orig: 125, 125
-  offset: 0, 0
-  index: -1
-effect/heallight/heallight_00042
-  rotate: false
-  xy: 635, 477
-  size: 125, 125
-  orig: 125, 125
-  offset: 0, 0
-  index: -1
-effect/heallight/heallight_00043
-  rotate: false
-  xy: 762, 604
-  size: 125, 125
-  orig: 125, 125
-  offset: 0, 0
-  index: -1
-effect/heallight/heallight_00044
-  rotate: false
-  xy: 381, 96
-  size: 125, 125
-  orig: 125, 125
-  offset: 0, 0
-  index: -1
-effect/heallight/heallight_00045
-  rotate: false
-  xy: 508, 223
-  size: 125, 125
-  orig: 125, 125
-  offset: 0, 0
-  index: -1
-effect/heallight/heallight_00046
-  rotate: false
-  xy: 635, 350
-  size: 125, 125
-  orig: 125, 125
-  offset: 0, 0
-  index: -1
-effect/heallight/heallight_00047
-  rotate: false
-  xy: 762, 477
-  size: 125, 125
-  orig: 125, 125
-  offset: 0, 0
-  index: -1
-effect/heallight/heallight_00048
-  rotate: false
-  xy: 508, 96
-  size: 125, 125
-  orig: 125, 125
-  offset: 0, 0
-  index: -1
-effect/heallight/heallight_00049
-  rotate: false
-  xy: 635, 223
-  size: 125, 125
-  orig: 125, 125
-  offset: 0, 0
-  index: -1
-effect/heallight/heallight_00050
-  rotate: false
-  xy: 762, 350
-  size: 125, 125
-  orig: 125, 125
-  offset: 0, 0
-  index: -1
-effect/heallight/heallight_00051
-  rotate: false
-  xy: 635, 96
-  size: 125, 125
-  orig: 125, 125
-  offset: 0, 0
-  index: -1
-effect/heallight/heallight_00052
-  rotate: false
-  xy: 762, 223
-  size: 125, 125
-  orig: 125, 125
-  offset: 0, 0
-  index: -1
 effect/light_circle/light_circle_00031
-  rotate: false
-  xy: 175, 64
+  rotate: true
+  xy: 970, 113
   size: 125, 30
   orig: 125, 30
   offset: 0, 0
   index: -1
 effect/light_circle/light_circle_00032
-  rotate: true
-  xy: 889, 349
+  rotate: false
+  xy: 596, 61
   size: 125, 30
   orig: 125, 30
   offset: 0, 0
   index: -1
 effect/light_circle/light_circle_00033
   rotate: false
-  xy: 175, 32
+  xy: 723, 59
   size: 125, 30
   orig: 125, 30
   offset: 0, 0
   index: -1
 effect/light_circle/light_circle_00034
   rotate: false
-  xy: 302, 64
+  xy: 850, 50
   size: 125, 30
   orig: 125, 30
   offset: 0, 0
   index: -1
 effect/light_circle/light_circle_00035
   rotate: false
-  xy: 302, 32
+  xy: 722, 27
   size: 125, 30
   orig: 125, 30
   offset: 0, 0
   index: -1
 effect/light_circle/light_circle_00036
   rotate: false
-  xy: 429, 64
+  xy: 849, 18
   size: 125, 30
   orig: 125, 30
   offset: 0, 0
   index: -1
 effect/light_circle/light_circle_00037
   rotate: false
-  xy: 429, 32
+  xy: 46, 2
   size: 125, 30
   orig: 125, 30
   offset: 0, 0
   index: -1
+effect/meteor_flame/meteor_flame_00003
+  rotate: false
+  xy: 0, 3
+  size: 44, 43
+  orig: 50, 50
+  offset: 5, 0
+  index: -1
+effect/smoke_07/smoke_07_00000_01
+  rotate: true
+  xy: 963, 771
+  size: 57, 59
+  orig: 85, 85
+  offset: 17, 11
+  index: -1
+effect/smoke_07/smoke_07_00000_03
+  rotate: true
+  xy: 544, 0
+  size: 57, 60
+  orig: 85, 85
+  offset: 16, 10
+  index: -1
+effect/smoke_07/smoke_07_00000_05
+  rotate: true
+  xy: 606, 3
+  size: 56, 61
+  orig: 86, 85
+  offset: 18, 9
+  index: -1
+effect/smoke_07/smoke_07_00000_07
+  rotate: false
+  xy: 963, 830
+  size: 59, 62
+  orig: 85, 86
+  offset: 17, 9
+  index: -1
+effect/smoke_07/smoke_07_00000_17
+  rotate: false
+  xy: 215, 0
+  size: 70, 72
+  orig: 86, 85
+  offset: 14, 5
+  index: -1
+effect/smoke_07/smoke_07_00000_19
+  rotate: true
+  xy: 358, 0
+  size: 72, 68
+  orig: 85, 85
+  offset: 12, 10
+  index: -1
+effect/smoke_07/smoke_07_00000_25
+  rotate: true
+  xy: 287, 0
+  size: 72, 69
+  orig: 85, 86
+  offset: 8, 12
+  index: -1
+effect/smoke_07/smoke_07_00000_27
+  rotate: false
+  xy: 469, 0
+  size: 73, 73
+  orig: 85, 86
+  offset: 9, 10
+  index: -1
+effect/smoke_07/smoke_07_00000_29
+  rotate: false
+  xy: 332, 328
+  size: 63, 60
+  orig: 86, 86
+  offset: 21, 24
+  index: -1
+effect/smoke_07/smoke_07_00000_33
+  rotate: false
+  xy: 669, 6
+  size: 51, 53
+  orig: 85, 85
+  offset: 24, 28
+  index: -1
+effect/smoke_07/smoke_07_00000_35
+  rotate: true
+  xy: 938, 82
+  size: 29, 51
+  orig: 86, 85
+  offset: 23, 30
+  index: -1
+
+snow2.png
+size: 992,665
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect/boom/jpg_huo_0
+  rotate: false
+  xy: 762, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+effect/boom/jpg_huo_1
+  rotate: false
+  xy: 889, 466
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+effect/boom/jpg_huo_2
+  rotate: false
+  xy: 889, 400
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+effect/boom/jpg_huo_3
+  rotate: false
+  xy: 889, 334
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+effect/boom/jpg_huo_4
+  rotate: false
+  xy: 898, 268
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+effect/boom/jpg_huo_5
+  rotate: false
+  xy: 898, 202
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+effect/boom/jpg_huo_6
+  rotate: false
+  xy: 830, 144
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+effect/boom/jpg_huo_7
+  rotate: false
+  xy: 896, 136
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+effect/heallight/heallight_00020
+  rotate: false
+  xy: 0, 540
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect/heallight/heallight_00021
+  rotate: false
+  xy: 0, 413
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect/heallight/heallight_00022
+  rotate: false
+  xy: 127, 540
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect/heallight/heallight_00023
+  rotate: false
+  xy: 0, 286
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect/heallight/heallight_00024
+  rotate: false
+  xy: 127, 413
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect/heallight/heallight_00025
+  rotate: false
+  xy: 254, 540
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect/heallight/heallight_00026
+  rotate: false
+  xy: 0, 159
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect/heallight/heallight_00027
+  rotate: false
+  xy: 127, 286
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect/heallight/heallight_00028
+  rotate: false
+  xy: 254, 413
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect/heallight/heallight_00029
+  rotate: false
+  xy: 381, 540
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect/heallight/heallight_00030
+  rotate: false
+  xy: 0, 32
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect/heallight/heallight_00031
+  rotate: false
+  xy: 127, 159
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect/heallight/heallight_00032
+  rotate: false
+  xy: 254, 286
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect/heallight/heallight_00033
+  rotate: false
+  xy: 381, 413
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect/heallight/heallight_00034
+  rotate: false
+  xy: 508, 540
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect/heallight/heallight_00035
+  rotate: false
+  xy: 127, 32
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect/heallight/heallight_00036
+  rotate: false
+  xy: 254, 159
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect/heallight/heallight_00037
+  rotate: false
+  xy: 381, 286
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect/heallight/heallight_00038
+  rotate: false
+  xy: 508, 413
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect/heallight/heallight_00039
+  rotate: false
+  xy: 635, 540
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect/heallight/heallight_00040
+  rotate: false
+  xy: 254, 32
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect/heallight/heallight_00041
+  rotate: false
+  xy: 381, 159
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect/heallight/heallight_00042
+  rotate: false
+  xy: 508, 286
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect/heallight/heallight_00043
+  rotate: false
+  xy: 635, 413
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect/heallight/heallight_00044
+  rotate: false
+  xy: 762, 540
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect/heallight/heallight_00045
+  rotate: false
+  xy: 381, 32
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect/heallight/heallight_00046
+  rotate: false
+  xy: 508, 159
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect/heallight/heallight_00047
+  rotate: false
+  xy: 635, 286
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect/heallight/heallight_00048
+  rotate: false
+  xy: 762, 413
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect/heallight/heallight_00049
+  rotate: false
+  xy: 508, 32
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect/heallight/heallight_00050
+  rotate: false
+  xy: 635, 159
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect/heallight/heallight_00051
+  rotate: false
+  xy: 762, 286
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+effect/heallight/heallight_00052
+  rotate: false
+  xy: 635, 32
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
 effect/light_circle/light_circle_00038
   rotate: false
-  xy: 556, 64
+  xy: 0, 0
   size: 125, 30
   orig: 125, 30
   offset: 0, 0
   index: -1
 effect/light_circle/light_circle_00039
   rotate: false
-  xy: 556, 32
+  xy: 127, 0
   size: 125, 30
   orig: 125, 30
   offset: 0, 0
   index: -1
 effect/light_circle/light_circle_00040
-  rotate: true
-  xy: 889, 222
+  rotate: false
+  xy: 254, 0
   size: 125, 30
   orig: 125, 30
   offset: 0, 0
   index: -1
 effect/light_circle/light_circle_00041
-  rotate: true
-  xy: 921, 281
+  rotate: false
+  xy: 381, 0
   size: 125, 30
   orig: 125, 30
   offset: 0, 0
   index: -1
 effect/light_circle/light_circle_00042
-  rotate: true
-  xy: 953, 281
+  rotate: false
+  xy: 508, 0
   size: 125, 30
   orig: 125, 30
   offset: 0, 0
   index: -1
 effect/light_circle/light_circle_00043
   rotate: false
-  xy: 175, 0
+  xy: 635, 0
   size: 125, 30
   orig: 125, 30
   offset: 0, 0
   index: -1
 effect/light_circle/light_circle_00044
-  rotate: false
-  xy: 302, 0
+  rotate: true
+  xy: 889, 540
   size: 125, 30
   orig: 125, 30
   offset: 0, 0
   index: -1
-effect/smoke_07/smoke_07_00000_07
+effect/meteor_flame/meteor_flame_00000
   rotate: false
-  xy: 888, 19
-  size: 59, 62
-  orig: 85, 86
-  offset: 17, 9
+  xy: 890, 84
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+effect/meteor_flame/meteor_flame_00001
+  rotate: false
+  xy: 942, 84
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+effect/meteor_flame/meteor_flame_00002
+  rotate: false
+  xy: 829, 36
+  size: 50, 49
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+effect/meteor_flame/meteor_flame_00004
+  rotate: false
+  xy: 881, 33
+  size: 50, 49
+  orig: 50, 50
+  offset: 0, 0
   index: -1
 effect/smoke_07/smoke_07_00000_09
-  rotate: true
-  xy: 762, 75
+  rotate: false
+  xy: 833, 219
   size: 63, 65
   orig: 85, 86
   offset: 15, 7
   index: -1
+effect/smoke_07/smoke_07_00000_11
+  rotate: false
+  xy: 762, 68
+  size: 65, 68
+  orig: 86, 86
+  offset: 14, 5
+  index: -1
 effect/smoke_07/smoke_07_00000_13
   rotate: true
-  xy: 683, 27
+  xy: 921, 598
   size: 67, 71
   orig: 85, 85
   offset: 13, 3
   index: -1
-effect/smoke_07/smoke_07_00000_23
+effect/smoke_07/smoke_07_00000_15
   rotate: false
-  xy: 921, 408
+  xy: 762, 210
+  size: 69, 74
+  orig: 85, 85
+  offset: 13, 2
+  index: -1
+effect/smoke_07/smoke_07_00000_21
+  rotate: false
+  xy: 921, 532
+  size: 71, 64
+  orig: 85, 85
+  offset: 9, 15
+  index: -1
+effect/smoke_07/smoke_07_00000_23
+  rotate: true
+  xy: 762, 138
   size: 70, 66
   orig: 86, 85
   offset: 9, 13
+  index: -1
+effect/smoke_07/smoke_07_00000_31
+  rotate: true
+  xy: 830, 87
+  size: 55, 58
+  orig: 85, 85
+  offset: 20, 23
   index: -1
