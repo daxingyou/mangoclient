@@ -3,6 +3,7 @@ var gameLogic = require("GameLogic")
 var matchMessage = require("matchMessage")
 var loadingMessage = require('LoadingMessage')
 var friendMessage = require('FriendMessage')
+var ladderMessage = require('LadderMessage')
 var constant = require('constants')
 var uimgr = require('UIMgr')
 var scenemgr = require('SceneMgr')
@@ -25,6 +26,7 @@ cc.Class({
         matchMessage.init();
         loadingMessage.init();
         friendMessage.init();
+        ladderMessage.init();
 
         // 适配
         //设计分辨率

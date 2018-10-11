@@ -77,7 +77,7 @@
     "defaultSkin": "",
     "defaultAnimation": "healrain",
     "loop": false,
-    "_premultipliedAlpha": true,
+    "_premultipliedAlpha": false,
     "_N$skeletonData": {
       "__uuid__": "0bee3a97-0032-436f-aebb-d1578bf20733"
     },
