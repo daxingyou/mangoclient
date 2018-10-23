@@ -17,7 +17,7 @@ cc.Class({
         var self = this;
         let resIndex = 0;
         self._CDState = false;
-        cc.loader.loadRes('UI/fightPav/role', function (errorMessage, loadedResource) {
+        cc.loader.loadRes('UI/matchTeam/role', function (errorMessage, loadedResource) {
             for (var i = 0; i < 8; i++) {
                 if (errorMessage) {
                     cc.log('载入预制资源失败, 原因:' + errorMessage);
@@ -34,7 +34,7 @@ cc.Class({
                 item.getComponent('role').initData(i,"余小雪","余小雪",100,"yuxiaoxue");
                // self._showRoles.push(item.getComponent('role'));
                 if (resIndex == 8) {
-                    cc.loader.release('UI/fightPav/role');
+                    cc.loader.release('UI/matchTeam/role');
                   //  callback();
                 } 
                 // cc.log(resIndex,"resIndex"); 

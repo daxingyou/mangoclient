@@ -55,7 +55,7 @@ cc.Class({
         }
         else {
           //  that._uimgr.release();
-            net.Request(new leaveTeamProto(gameData.uuid), (data) => {
+            net.Request(new leaveTeamProto(dataCenter.uuid), (data) => {
                 cc.log("离开队伍",data);
             })
             that._uimgr.loadUI(constant.UI.ShowList,data =>{data.init();});   

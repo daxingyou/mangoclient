@@ -281,7 +281,7 @@ cc.Class({
                     // var item = uiMgr.loadUI(constant.UI.ComfirmCard,function(data){
 
                     // });
-                    cc.loader.loadRes('UI/fightPav/comfirmCard', function (errorMessage, loadedResource) {
+                    cc.loader.loadRes('UI/matchTeam/comfirmCard', function (errorMessage, loadedResource) {
                        
                         if (errorMessage) {
                             cc.log('载入预制资源失败, 原因:' + errorMessage);

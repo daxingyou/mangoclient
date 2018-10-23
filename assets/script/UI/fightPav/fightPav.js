@@ -80,7 +80,7 @@ cc.Class({
         }   
         
         var self = this;
-        cc.loader.loadRes('UI/fightPav/wxImg', function (errorMessage, loadedResource) {
+        cc.loader.loadRes('UI/matchTeam/wxImg', function (errorMessage, loadedResource) {
             for (var i = 0; i < 8; i++) {
                 if (errorMessage) {
                     cc.log('载入预制资源失败, 原因:' + errorMessage);
@@ -96,12 +96,12 @@ cc.Class({
 
                 self._wxImgs.push(item.getComponent('wxImg'));
                 if (resIndex == 8) {
-                    cc.loader.release('UI/fightPav/wxImg');
+                    cc.loader.release('UI/matchTeam/wxImg');
                 }
             }
         });
 
-        cc.loader.loadRes('UI/fightPav/ownHero', function (errorMessage, loadedResource) {
+        cc.loader.loadRes('UI/matchTeam/ownHero', function (errorMessage, loadedResource) {
             for (var i = 0; i < 8; i++) {
                 if (errorMessage) {
                     cc.log('载入预制资源失败, 原因:' + errorMessage);
@@ -116,7 +116,7 @@ cc.Class({
                 self.ownHeros.addChild(item);
                 self._ownHeros.push(item.getComponent('ownHero'));
                 // if (resIndex == 8) {
-                //     cc.loader.release('UI/fightPav/ownHero');
+                //     cc.loader.release('UI/matchTeam/ownHero');
                 // }
             }
         });

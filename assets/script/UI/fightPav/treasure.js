@@ -12,7 +12,7 @@ cc.Class({
     onLoad () {
         var self = this;
         let resIndex = 0;
-        cc.loader.loadRes('UI/fightPav/treasureItem', function (errorMessage, loadedResource) {
+        cc.loader.loadRes('UI/matchTeam/treasureItem', function (errorMessage, loadedResource) {
             for (var i = 0; i < 8; i++) {
                 if (errorMessage) {
                     cc.log('载入预制资源失败, 原因:' + errorMessage);
@@ -28,7 +28,7 @@ cc.Class({
                // item.getComponent('wxImg').initData(i,"attack",self);
                // self._wxImgs.push(item.getComponent('wxImg'));
                 if (resIndex == 8) {
-                    cc.loader.release('UI/fightPav/treasureItem');
+                    cc.loader.release('UI/matchTeam/treasureItem');
                   //  callback();
                  // self.matchSucessd();
                 } 

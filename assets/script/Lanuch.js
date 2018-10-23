@@ -24,7 +24,7 @@ cc.Class({
             console.log(data.id,typeof(data.id),"data.id");
             if (data.id || data.id!=undefined) {
                 console.log("邀请成功----------房间id是为"+data.id);
-                this._uimgr.loadUI(constant.UI.TeamPattern);
+                this._uimgr.loadUI(constant.UI.BuildTeam);
                 wx.onShow(function (res){console.log(res,"------------res")});
             }
         }

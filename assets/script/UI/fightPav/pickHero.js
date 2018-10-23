@@ -9,6 +9,7 @@ var confirmHeroProto = require('confirmHeroProto')
 var hero = require('confirmHeroProto')
 var dataMgr = require('DataMgr')
 var dataCenter = require('DataCenter')
+var hero = require('Hero')
 
 cc.Class({
     extends: uibase,
@@ -16,8 +17,8 @@ cc.Class({
     properties: {
         showSelect:cc.Node,
         comfirmCount:cc.Label,
-        ownHeros:cc.Node,
-        _ownHeros:[],
+        showOwnHero:cc.Node,
+        _ownHeroBar:[],
         showSelectHero:cc.Sprite,
         heroIconAtlas : cc.SpriteAtlas,
         _CDState:false,
@@ -30,97 +31,101 @@ cc.Class({
         teamA:null,
         teamB:null,
         isTeamA:false,
+
+        heroName:cc.Label,
        
     },
 
 
      onLoad () {
-        for (let i =0;i<4;i++) {
-            this.teamerBar.push(this["teamer" + i]);
-        }
-        var wihte =new cc.Color(255,255,255);//1
-        var bule =new cc.Color(47,203,242);//2
-        var zise =new cc.Color(242,66,253);//紫色3
-        var cese =new cc.Color(210,97,49);//橙色4
-
-        var goji =new cc.Color(221,81,81);//攻击1
-        var qishu =new  cc.Color(31,231,255);//奇术2
-        var tianfu =new cc.Color(90,161,68);//天赋3
-        var baowu =new cc.Color(255,244,44);//宝物4
-
-        this.colorBar.push(wihte);
-        this.colorBar.push(bule);
-        this.colorBar.push(zise);
-        this.colorBar.push(goji);
-        this.colorBar.push(qishu);
-        this.colorBar.push(tianfu);
-        this.colorBar.push(baowu);
-        this.colorBar.push(cese);
+        // for (let j =0;j<4;i++) {
+        //     this.teamerBar.push(this["teamer" + j]);
+        // }
        // var heroData = dataMgr.hero[teamA[j].heroid];
-        var self = this;
-        var resIndex = 0;
-        cc.loader.loadRes('UI/teamPattern/ownHero', function (errorMessage, loadedResource) {
-        for (let i = 0; i < 8; i++) {
-            if (errorMessage) {
-                cc.log('载入预制资源失败, 原因:' + errorMessage);
-                return;
-            }
-            let item = cc.instantiate(loadedResource);
-            resIndex++;
-            self.ownHeros.addChild(item);
-            self._ownHeros.push(item.getComponent('ownHero'));
-            if (resIndex == 8) {
-                cc.loader.release('UI/teamPattern/ownHero');
-                self.pickHero();
-            }
-        }
-        });
+       var self = this;
+       var resIndex = 0;
+       cc.loader.loadRes('UI/buildTeam/ownHero', function (errorMessage, loadedResource) {
+           for (let i in hero) {
+               var itemData = hero[i];
+               if (errorMessage) {
+                   cc.log('载入预制资源失败, 原因:' + errorMessage);
+                   return;
+               }
+               let item = cc.instantiate(loadedResource);
+               resIndex++;
+               self.showOwnHero.addChild(item);
+               self._ownHeroBar.push(item.getComponent('ownHero'));
+               self._ownHeroBar[resIndex-1].initData(itemData.ID,itemData.HeroName,itemData.HeroIcon,self);
+               //heroid,heroName,heroIcon,parents
+           }
+       });
      },
-     pickHero () {
-        for (let i=0;i<8;i++) {
-            this._ownHeros[i].initOwnHero(i,"yuxiaoxue","于小雪",this);
-        }
-        this.showSelect.active = false;
-        this.cdTime = 60;
-        this._CDState = true;
-        this. _uid4ShowNode = {};
-        cc.log(this._uid4ShowNode,"-----------------pickHero");
-    },
+    
 
     start () {
         cc.log(this._uid4ShowNode,"--------------this.uid4ShowNode in start");
     },
+    storeShowNode (uid4ShowNode) {
+        this._uid4ShowNode = {};
+        this._uid4ShowNode = uid4ShowNode;
+        cc.log(this._uid4ShowNode,"-------------this._uid4ShowNode");
+    },
 
     initData (teamA,teamB) {
-        this.teamA = teamA;
-        this.teamB = teamB;
-        this.isTeamA = false;//默认队B
-        for (let i in teamA) {
-            if (teamA[i].uuid == dataCenter.uuid) {
-                this.isTeamA = true;
-                this.comfirmTeam(teamA);
-                cc.log("属于队A",this._uid4ShowNode);
+        var self = this;
+        self.showSelect.active = false;
+        self.cdTime = 60;
+        self._CDState = true;
+        self._uid4ShowNode = {};
+        self.teamA = teamA;
+        self.teamB = teamB;
+        self.isTeamA = false;//默认队B
+        
+        for (let i=0;i<teamA.length;i++) {
+           
+            if (teamA[i].uid == dataCenter.uuid) {
+                self.isTeamA = true;
+                self.comfirmTeam(teamA);
             }  
         }
-        this.comfirmTeam(teamB);
-        cc.log("属于队B",this._uid4ShowNode);
+
+        for (let j=0;j < teamB.length;j++) {
+            if (teamB[j].uid == dataCenter.uuid) {
+                self.isTeamA = false;
+                self.comfirmTeam(teamB);
+            }  
+        }
+
+        
     },
     comfirmTeam (team) {
-        for (let j in team) {
-            this._uid4ShowNode[team[j].uid] = this["teamer" + j];
+        let showNode = {};
+        for (let k=0 ; k<team.length;k++) {
+            showNode[team[k].uid] = this["teamer" + k];
         }
-        cc.log("this._uid4ShowNode",this._uid4ShowNode);
+        if (this.isTeamA) {
+            cc.log("属于队A",this._uid4ShowNode);
+        }
+        else {
+            cc.log("属于队B",this._uid4ShowNode);
+        }
+        this.storeShowNode(showNode);
+        
     },
+
     //自己选择得英雄
-    selectHero () {//传英雄id
-        var self = this;
-        cc.log(self._uid4ShowNode,"--------------对应得id");
-        self.showSelect.active = true;
-        self.showSelectHero.spriteFrame = self.heroIconAtlas.getSpriteFrame("yuxiaoxue"); 
-        var showNode = self._uid4ShowNode[dataCenter.uuid];
-        cc.log(showNode,"---------------SHOWnODEDKLSFJJJJJJJJJJ");
+    selectHero (heroid) {//传英雄id
+        this.showSelect.active = true;
+        let heroData = dataMgr.hero[heroid];
+        let heroIcon = heroData.HeroIcon;
+        this.showSelectHero.spriteFrame = this.heroIconAtlas.getSpriteFrame(heroIcon);
+        this.heroName.string = heroData.HeroName;
+        this._heroid = heroid;
+        
+        // cc.log(this._uid4ShowNode,"--------------对应得id",this.teamA,this.teamB,"this.teamA,this.teamB",this,"-----------this");
+        var showNode = this._uid4ShowNode[dataCenter.uuid];
         var icon = showNode.getChildByName("heroImg");
-        icon.getComponent(cc.Sprite).spriteFrame = self.heroIconAtlas.getSpriteFrame("yuxiaoxue");
+        icon.getComponent(cc.Sprite).spriteFrame = this.heroIconAtlas.getSpriteFrame(heroIcon);
     },
 
     defalutSelect (data) {
@@ -128,7 +133,9 @@ cc.Class({
             if (i === dataCenter.uuid) {
                 var showNode = this._uid4ShowNode[i];
                 var icon = showNode.getChildByName("heroImg");
-                icon.getComponent(cc.Sprite).spriteFrame = this.heroIconAtlas.getSpriteFrame("yuxiaoxue");
+                let heroData = dataMgr.hero[this._heroid];
+                let heroIcon = heroData.HeroIcon;
+                icon.getComponent(cc.Sprite).spriteFrame = this.heroIconAtlas.getSpriteFrame(heroIcon);
             }
         }
         cc.log(this._uid4ShowNode,"--------------this.uid4ShowNode");

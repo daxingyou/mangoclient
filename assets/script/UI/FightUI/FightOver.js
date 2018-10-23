@@ -48,7 +48,6 @@ cc.Class({
             }
             else {
                 cc.log('lose');
-               
                 this.lose.active = true;
                 this.win.active = false;
                 this.lose.scale = 0;

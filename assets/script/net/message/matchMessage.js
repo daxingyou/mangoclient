@@ -15,7 +15,7 @@ var acceptInviteProto = require("acceptInviteProto")
 var refuseTeamInviteProto = require("refuseTeamInviteProto")
 var ignoreTeamInviteProto = require('ignoreTeamInviteProto')
 var leaveTeamProto = require('leaveTeamProto')
-var teamPatternData = require('teamPatternData')
+var teamData = require('teamData')
 
 var fight = {
     _uimgr: null,
@@ -29,7 +29,7 @@ var fight = {
              if (data.members === undefined) {
                return;
             }
-            teamPatternData.refreshTeam = data;
+            teamData.refreshTeam = data;
             GlobalEvent.emit("onRefreshTeam");
             membersNum = data.members.length;
             /*
@@ -50,10 +50,11 @@ var fight = {
         pomelo.on('onTeamInvited', function (data) {
             //加判断未解散，人数已满
             cc.log("收到组队邀请", data);
-            teamPatternData.onTeamInvited.push(data);
-            let num = teamPatternData.onTeamInvited.length;
+            teamData.onTeamInvited.push(data);
+            let num = teamData.onTeamInvited.length;
             var callComfirm =  function () {
-                that._uimgr.loadUI(constant.UI.TeamPattern,(data) =>{
+                //TeamPattern
+                that._uimgr.loadUI(constant.UI.BuildTeam,(data) =>{
                     data.initFriendList();//先移除
                     data.laodFriendList();//加载可以邀请的好友信息
                     that._uimgr.loadUI(constant.UI.FightPavTop,(data) =>{
@@ -87,20 +88,20 @@ var fight = {
                     that._uimgr.loadUI(constant.UI.FightPavTop);   
                 }
             };
-            teamPatternData.onTeamInvited.splice(num-1,1);
+            teamData.onTeamInvited.splice(num-1,1);
             net.Request(new acceptInviteProto(data.id,data.teamId), (data) => {
                 cc.log("同意组队邀请",data);
             });
             };
 
             var callRefuse = function () {
-                teamPatternData.onTeamInvited.splice(num-1,1);
+                teamData.onTeamInvited.splice(num-1,1);
                 net.Request(new refuseTeamInviteProto(data.id), (data) => {
                     cc.log("拒绝组队邀请",data);
                 });
             }
             var callIgnore = function () {
-                teamPatternData.onTeamInvited.splice(num-1,1);
+                teamData.onTeamInvited.splice(num-1,1);
                 net.Request(new ignoreTeamInviteProto(data.id), (data) => {
                     cc.log("忽略组队邀请",data);
                     // gameData.ingoreInvited = true;
@@ -149,7 +150,7 @@ var fight = {
         pomelo.on('onTeamReadyStateChange', function (data) {
             cc.log("队员准备状态变更", data);
             var ui = that._uimgr.getCurMainUI();
-            teamPatternData.TeamReadyState = data;
+            teamData.TeamReadyState = data;
             GlobalEvent.emit("onTeamReadyStateChange");
             //ui.changePrepareState(data);
             /*"onTeamReadyStateChange": {
@@ -184,12 +185,6 @@ var fight = {
             var ui = that._uimgr.getCurMainUI();
             gameData.beginGame +=1;
             ui.showComfirmTeamer(gameData.beginGame,data);
-
-            if (gameData.beginGame == 8) {
-                cc.log("进入选角界面");
-                 that._uimgr.loadUI(constant.UI.PickHero,function(data){
-            });
-            }
         });
 
         pomelo.on('onMatchNoConfirm', function (data) {
@@ -224,6 +219,7 @@ var fight = {
             let teamB = data.teamInfo.teamB;
             that._uimgr.loadUI(constant.UI.PickHero,function(data){
                 data.initData(teamA,teamB);
+                
             });
             // var teamInfo = data.teamInfo;
             // var teamA = teamInfo.teamA;

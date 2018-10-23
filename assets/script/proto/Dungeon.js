@@ -10,7 +10,9 @@ module.exports = {
 		SceneID: 1,
 		MonsterGroupID: 1,
 		WinMode: 0,
-		TimeLimit: 180
+		TimeLimit: 180,
+		Icon: 'attack',
+		Desc: '河洞战斗1描述。'
 	},
 	2: {
 		ID: 2,
@@ -18,6 +20,8 @@ module.exports = {
 		SceneID: 1,
 		MonsterGroupID: 1,
 		WinMode: 0,
-		TimeLimit: 180
+		TimeLimit: 180,
+		Icon: 'attack',
+		Desc: '河洞战斗2描述。'
 	},
 };

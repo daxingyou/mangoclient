@@ -98,7 +98,7 @@ cc.Class({
                 lineHeight: 50,
             }
         })
-        this.getUserInfobutton.onTap((res) => {
+        self.getUserInfobutton.onTap((res) => {
              console.log('button res', res)
             // 如果授权成功 就保存信息
             if (res.userInfo) {
@@ -109,14 +109,15 @@ cc.Class({
                     }
                 });
                 self.onGetUserInfo(res.userInfo)
-                this.getUserInfobutton.hide();
+                self.getUserInfobutton.hide();
             }
             else {
-                this.toAuthPage();
+                self.toAuthPage();
             }
         })
     },
 
+    //加载选服列表
     loadSelectServer() {
         var uimgr = cc.find('Canvas').getComponent('UIMgr');
         uimgr.loadUI(constant.UI.SelectServer);

@@ -116,7 +116,7 @@ Combat.prototype.init = function(data){
     ///低方初始化
     if(data.matchType == consts.MatchType.PVP)
     {
-
+        
     }
     else    ///初始化怪物
     {

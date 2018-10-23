@@ -104,8 +104,7 @@ cc.Class({
     laodTeamPattern() {
         console.log("进入组队模式");
         var self = this;
-       // self._uimgr.release();
-        self._uimgr.loadUI(constant.UI.TeamPattern,data =>{
+        self._uimgr.loadUI(constant.UI.BuildTeam,data =>{
              if (self.teamKind == 1) {
                 data.title.string = "天梯模式";
              }

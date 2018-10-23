@@ -31,11 +31,9 @@ cc.Class({
         cc.log("选择了英雄，中间展示");
         var self = this;
         if (self._parents!=null) {
-           self._parents.selectHero(this.heroid,this._heroName);   
+           self._parents.selectHero(this.heroid);   
         }
         cc.log("右边显示，需要显示队友的，需要服务器通知");
-
-        
 
         // net.Request(new selectHeroProto(heroid), function (data) {
         //     if (data.code == consts.SelectHeroCode.OK) {

@@ -24,7 +24,7 @@ cc.Class({
 
     Fuben () {
         this._mgr.release();
-        this._mgr.loadUI(constant.UI.TranScript);
+        this._mgr.loadUI(constant.UI.RaidUI);
     },
 
     enterFightPav () {

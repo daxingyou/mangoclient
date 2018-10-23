@@ -20,6 +20,60 @@ var SpawnSummoned = {
         if(combatMgr.curCombat.summonedMgr == null)
             combatMgr.curCombat.summonedMgr = this;
 
+        for(var i = 0;i<data.addList.length;i++)
+        {
+            var pos =  data.addList[i].area;
+            var rangelist = null;
+            var range = null;
+
+            if(data.groupId == "groupA")
+            {
+                rangelist = combatMgr.curCombat.monsterMatrix.Range.groupA;
+            }
+            else if(data.groupId == "groupB")
+            {
+                rangelist = combatMgr.curCombat.monsterMatrix.Range.groupB;
+            }
+
+    
+            if(pos == 1)
+            {
+                range = rangelist.Range1;
+            }
+            else if(pos == 2)
+            {
+                range = rangelist.Range2;
+            }
+            else if(pos == 3)
+            {
+                range = rangelist.Range3;
+            }
+    
+            Math.seed = this.seed - this.getSummonNum(pos) * 7;
+            var x = Math.seededRandomInt(range.x1, range.x2);
+            var y = Math.seededRandomInt(range.y1, range.y2);
+    
+            if(data.type == constant.SummonedType.wSword)
+            {
+                effectMgr.geBezierEffect('chenjinchou',new cc.Vec2(1100,310),new cc.Vec2(x,y),5,'wsword_bounce',0,()=>{
+                    this.summoneds.push(effectMgr.getWswordEffect('sword',new cc.Vec2(x,y),0));
+                });
+    
+                combatMgr.curCombat.summoneds = this.summoneds;
+            }
+        }
+
+        /*
+            "onAddSpawnSummon": {
+            "required string groupId": 1,
+            "required string type": 2,
+            "message AreaInfo": {
+            "required uInt32 area": 1,
+            "required uInt32 num": 2
+            },
+            "repeated AreaInfo addList": 3
+        },
+        
         //var area = null;
 
         //if(data.area == 1)
@@ -68,6 +122,7 @@ var SpawnSummoned = {
 
             combatMgr.curCombat.summoneds = this.summoneds;
         }
+        */
     },
     Reset(data){
         this.type2Nums[constant.SummonedType.wSword] = data;

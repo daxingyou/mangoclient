@@ -27,7 +27,7 @@ cc.Class({
         var self = this;
         let resIndex = 0;
         self._CDState = false;
-        cc.loader.loadRes('UI/fightPav/wxImg', function (errorMessage, loadedResource) {
+        cc.loader.loadRes('UI/matchTeam/wxImg', function (errorMessage, loadedResource) {
             for (var i = 0; i < data.length; i++) {
                 let itemData = data[i];
                 if (errorMessage) {
@@ -41,7 +41,7 @@ cc.Class({
                 item.getComponent('wxImg').initData(i,itemData.id,itemData.openid,self);
                 self._wxImgs.push(item.getComponent('wxImg'));
                 if (resIndex == 8) {
-                    cc.loader.release('UI/fightPav/wxImg');
+                    cc.loader.release('UI/matchTeam/wxImg');
                     self.matchSucessd();
                 } 
                 // cc.log(resIndex,"resIndex"); 

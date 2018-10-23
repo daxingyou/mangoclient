@@ -6,6 +6,8 @@
 module.exports = {
 	1: {
 		ID: 1,
-		Name: '商店',//月河河洞
+		Name: '河洞商店',
+		Icon: 'nvwatizhi',
+		Desc: '河洞商店描述'
 	},
 };

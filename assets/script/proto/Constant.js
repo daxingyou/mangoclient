@@ -8,4 +8,6 @@ module.exports = {
 	ReadyStartTimer: 0,
 	BaseMpRecover: 3,
 	BaseCardGain: 7,
+	DungeonCardLevel: 1,
+	DungeonArtifactLevel: 1,
 };

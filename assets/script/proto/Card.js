@@ -102,7 +102,7 @@ module.exports = {
 	},
 	1003: {
 		ID: 1003,
-		CardName: '木剑雨',
+		CardName: '寒刃雨',
 		CardDescription: '对全部敌人造成60点伤害，每击中1个目标，落地生成1把寒刃。',
 		Event: '',
 		UseLimit: {},
@@ -402,7 +402,7 @@ module.exports = {
 		CardType: 2,
 		CardQuality: 1,
 		CardAttributes: [1],
-		CardImage: 'heal'
+		CardImage: 'qiliaoshu'
 	},
 	2002: {
 		ID: 2002,
@@ -418,7 +418,7 @@ module.exports = {
 		CardType: 2,
 		CardQuality: 2,
 		CardAttributes: [1],
-		CardImage: 'heal'
+		CardImage: 'fengshaganlinshu'
 	},
 	2003: {
 		ID: 2003,
@@ -434,7 +434,7 @@ module.exports = {
 		CardType: 2,
 		CardQuality: 2,
 		CardAttributes: [1],
-		CardImage: 'heal'
+		CardImage: 'huanhunzhou'
 	},
 	2004: {
 		ID: 2004,
@@ -466,7 +466,7 @@ module.exports = {
 		CardType: 3,
 		CardQuality: 3,
 		CardAttributes: [2],
-		CardImage: 'heal'
+		CardImage: 'nvwatizhi'
 	},
 	2006: {
 		ID: 2006,
@@ -482,7 +482,7 @@ module.exports = {
 		CardType: 2,
 		CardQuality: 1,
 		CardAttributes: [1],
-		CardImage: 'defence'
+		CardImage: 'linglishifang'
 	},
 	2007: {
 		ID: 2007,
@@ -498,7 +498,7 @@ module.exports = {
 		CardType: 3,
 		CardQuality: 3,
 		CardAttributes: [2],
-		CardImage: 'defence'
+		CardImage: 'dilingbiyou'
 	},
 	2008: {
 		ID: 2008,
@@ -514,7 +514,7 @@ module.exports = {
 		CardType: 3,
 		CardQuality: 3,
 		CardAttributes: [2,4],
-		CardImage: 'defence'
+		CardImage: 'nvwazhuanshi'
 	},
 	2009: {
 		ID: 2009,
@@ -530,7 +530,7 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 1,
 		CardAttributes: [1],
-		CardImage: 'attack'
+		CardImage: 'taolandongdi'
 	},
 	2010: {
 		ID: 2010,
@@ -546,7 +546,7 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 4,
 		CardAttributes: [1],
-		CardImage: 'attack'
+		CardImage: 'shipojingtian'
 	},
 	2011: {
 		ID: 2011,

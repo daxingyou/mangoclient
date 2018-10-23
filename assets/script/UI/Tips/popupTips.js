@@ -7,7 +7,7 @@
 */
 var UIBase = require("UIBase")
 var constant = require('constants')
-var teamPatternData = require('teamPatternData')
+var teamData = require('teamData')
 
 cc.Class({
     extends: UIBase,

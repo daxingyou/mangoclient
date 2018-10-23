@@ -82,8 +82,6 @@ cc.Class({
 
         this._left = left;
         this._right = right;
-        
-        //cc.log('left ... ',this._left,' right =',this._right);
     },
     showCollect(callback){
         this.callback = callback;
@@ -92,14 +90,11 @@ cc.Class({
             this._SwordRatation.show();
         }
 
-        //cc.log('showCollect');
     },
     onFinish(){
         this._super();
 
         if(this.callback != undefined)
             this.callback();
-
-        //cc.log('showSword onFinish');
     }
 });

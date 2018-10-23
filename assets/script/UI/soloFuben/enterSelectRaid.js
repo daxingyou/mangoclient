@@ -36,7 +36,6 @@ cc.Class({
                         return;
                         
                     }
-
                     if (state  == 2) {
                         cc.log("进副本加载状态");
                         
