@@ -2,10 +2,11 @@
  * @Author: liuguolai 
  * @Date: 2018-08-31 15:41:47 
  * @Last Modified by: liuguolai
- * @Last Modified time: 2018-09-19 15:50:34
+ * @Last Modified time: 2018-10-19 11:06:10
  */
 var consts = require('consts');
 var net = require("NetPomelo");
+let constants = require('constants');
 
 cc.Class({
     extends: cc.Component,
@@ -67,6 +68,20 @@ cc.Class({
                     cc.log("%s gm request back ", protoName, data);
                 });
                 break;
+            case 'dpsPlugin':
+                let uiMgr = cc.find('Canvas').getComponent('UIMgr');
+                uiMgr.loadUI(constants.UI.DpsPanel, function (data) {
+                    data.onRefreshBtnClick();
+                });
+                break;
+            case 'autoDpsExport':
+                let bOpen = list[1]
+                if (bOpen == '0')
+                    constants.debug.autoDpsExport = false;
+                else
+                    constants.debug.autoDpsExport = true;
+                cc.log(constants.debug.autoDpsExport)
+                break;
         }
     },
 
@@ -80,5 +95,10 @@ cc.Class({
             params: list
         };
         pomelo.notify('connector.entryHandler.command', msg);
+        //"required string code": 1,
+        //"required string name": 2,
+        //"required string avatarUrl": 3,
+        //"required string gender": 4
+
     }
 });

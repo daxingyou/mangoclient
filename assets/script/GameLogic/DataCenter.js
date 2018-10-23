@@ -1,5 +1,6 @@
 module.exports = {
     uuid : 0,
+    openid:null,
     mp:0,
     thew:0,  
     discardsNum:0,
@@ -22,12 +23,9 @@ module.exports = {
     curFightTime:0,     ///当前战斗结束时间
 
     massageList:{},//好友全量消息
-    receivedReply:false,
-    friendDispose:{},//好友同意请求
 
-    friendDelete:false,//双方删好友
-    deleteEid:null,
+    beginGame:0,//点击开始游戏的总人数
 
-    onlineCtr:false,
-    onlineMsg:{},
+    userInfo:null,//微信个人信息
+    allInfo:null,
 }

@@ -5,21 +5,24 @@ cc.Class({
         heroIconAtlas : cc.SpriteAtlas,
         heroImg : cc.Node, 
         heroName :cc.Label,
-        heroIndex:null,
+        heroid:null,
         _parents:null,
+        selected:cc.Node,
+        _heroName:null,
+
     },
      onLoad () {},
 
     start () {
 
     },
-    initOwnHero (index,heroImg,heroName,parents,heroAtt) {
-        var heroImgSpr = this.heroImg.getComponent(cc.Sprite);
-        heroImgSpr.spriteFrame = this.heroIconAtlas.getSpriteFrame(heroImg);
+    initData (heroid,heroName,heroIcon,parents) {
+        this.heroid = heroid;
         this.heroName.string = heroName;
-        this.heroIndex = index;
+        this._heroName = heroName;
+        var heroImgSpr = this.heroImg.getComponent(cc.Sprite);
+        heroImgSpr.spriteFrame = this.heroIconAtlas.getSpriteFrame(heroIcon);
         this._parents = parents;
-
     },
     start () {
         this.heroImg.on('touchstart',this.onTouchHero,this);
@@ -28,8 +31,7 @@ cc.Class({
         cc.log("选择了英雄，中间展示");
         var self = this;
         if (self._parents!=null) {
-            self._parents.showSelect.active = true;
-            self._parents.showSelectHero.spriteFrame = self.heroIconAtlas.getSpriteFrame("yuxiaoxue");  
+           self._parents.selectHero(this.heroid,this._heroName);   
         }
         cc.log("右边显示，需要显示队友的，需要服务器通知");
 

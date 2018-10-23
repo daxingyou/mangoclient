@@ -78,6 +78,7 @@ Combat.prototype.init = function(data){
     var that = this;
     gameCenter.curLoadRes = 0;
     this.resNum++;
+    
     /// 加载场景
     sceneMgr.loadScene(dungeon.SceneID,function(){
         that.sceneLoadOk = true;

@@ -1,6 +1,11 @@
 var uibase = require('UIBase')
 var constant = require('constants')
 var combatMgr = require('CombatMgr')
+var net = require("NetPomelo")
+var matchProto = require('matchProto')
+var buildTeamProto = require('buildTeamProto')
+var consts = require('consts')
+
 
 cc.Class({
     extends: uibase,
@@ -10,21 +15,18 @@ cc.Class({
         soloBtn:cc.Node,
         teamBtn:cc.Node,
         practiceBtn:cc.Node,
-
-        showWait:cc.Node,
-        _CDState:false,
-        cdTime:0,
-        waitedTime:cc.Label,
-        minTime:0,
-
         teamKind:1,
     },
 
 
-    // onLoad () {},
+    onLoad () {
+       
+    },
 
     start () {
-        this.scheduleOnce(this.matchSucceed,5);
+      this.showLevel(10);//假装等级为10
+      this._uimgr = cc.find('Canvas').getComponent('UIMgr');
+      GlobalEvent.emit("h",10);
     },
     
     showLevel (data) {
@@ -39,31 +41,50 @@ cc.Class({
          }
     },
 
-    solo () {
-        cc.log("单人模式加载计时器，加载单人模式预制体");
-        this._CDState = true;
-        this.cdTime = 0;
-        this.showWait.active = true;
-        this.unEableClick();
+    init () {
+        this._CDState = false;
+        this.eableClick();
     },
     
-    team (event, customEventData,teamData) {
-        cc.log("组队模式 or 练习模式 加载队友模式预制体");
+    team (event, customEventData) {
         this.unEableClick();
-        this._CDState = true;
-        this.cdTime = 0;
-        this.showWait.active = true;
-        if (customEventData == 1) {
-            this.teamKind = 1;
+        let cust = parseInt(customEventData);
+        this.teamKind = cust;
+        if (cust == 1) {
+            net.Request(new buildTeamProto(consts.Team.TYPE_LADDER,0), (data) => {
+                cc.log("创建天梯队伍",data);
+            });    
             // this.canInvite.active = true;//加判断，可以邀请的段位
         }
-        else if (customEventData == 2) {
-          this.teamKind = 2;
+        else if (cust == 2) {
+          net.Request(new buildTeamProto(consts.Team.TYPE_PRACTICE,0), (data) => {
+            cc.log("创建4v4队伍",data);
+            if (data.code == 1) {
+                cc.log("创建成功");
+            }
+            else if (data.code == 2) {
+                 cc.log("类型错误");
+            }
+            else if (data.code == 3) {
+                cc.log("已经创建了队伍");
+            }
+        });
         } 
-        //if () {cc.log("如果是队长显示开始匹配");}
-        this._prepare = true;
-      //  this.matchSucess();//直接匹配成功
-
+        else if (customEventData == 3) {//协议暂时和4v4一样
+            net.Request(new buildTeamProto(consts.Team.TYPE_PRACTICE,0), (data) => {
+                cc.log("创建单人队伍",data);
+                if (data.code == 1) {
+                    cc.log("创建成功");
+                }
+                else if (data.code == 2) {
+                     cc.log("类型错误");
+                }
+                else if (data.code == 3) {
+                    cc.log("已经创建了队伍");
+                }
+            });
+        }
+        this.laodTeamPattern();
     },
 
     unEableClick () {
@@ -80,61 +101,35 @@ cc.Class({
         this.practiceBtn.getComponent(cc.Button).interactable = true;
     },
 
-    cancelMatch () {
-        cc.log("取消匹配");
-        this.eableClick();
-        this._CDState = false;
-        this.cdTime = 0;
-        this.minTime = 0;
-        this.showWait.active = false;
-        cc.log("释放team 预知体");
-    },
-    matchSucceed() {
-        cc.log("匹配成功");
-        var uimgr = cc.find('Canvas').getComponent('UIMgr');
+    laodTeamPattern() {
+        console.log("进入组队模式");
         var self = this;
-         uimgr.loadUI(constant.UI.TeamPattern,function(data){
+       // self._uimgr.release();
+        self._uimgr.loadUI(constant.UI.TeamPattern,data =>{
              if (self.teamKind == 1) {
                 data.title.string = "天梯模式";
              }
-             else {
+             else if (self.teamKind == 2){
                 data.title.string = "4v4组队";
-                data.prepareBtn.getChildByName('Label').getComponent(cc.Label).string = "取消准备";
              }
+             else if (self.teamKind == 3) {
+                data.title.string = "单人模式";
+             }
+            data.laodFriendList();
          });
+        
          //隐藏顶部，返回按钮
-         var ui = uimgr.getUI(constant.UI.FightPavTop);
+         var ui = self._uimgr.getUI(constant.UI.FightPavTop);
          if(ui != null)
              ui.changeTitle(self.teamKind);
-
     },
+
     enterStore() {
         cc.log("进入商店");
-        var uimgr = cc.find('Canvas').getComponent('UIMgr');
-        //uimgr.loadUI(constant.UI.Store,function(data){});
-        uimgr.loadUI(constant.UI.PileKu,function(data){});
-        var ui = uimgr.getUI(constant.UI.FightPavTop);
+        this._uimgr.loadUI(constant.UI.Store,function(data){});
+        var ui = this._uimgr.getUI(constant.UI.FightPavTop);
         if(ui != null) {
-            ui.changeTitle(3);
+            ui.changeTitle(4);
         }     
     },
-
-    update (dt) {
-        if (this._CDState) {
-                this.cdTime += dt;
-            var temp = Math.floor(this.cdTime);
-            var moreSec = temp%59;
-            if ( moreSec == 0 && temp!=0) {
-               this.minTime = Math.floor(temp/59);
-               this.cdTime = 0;
-               temp = 0;
-            }
-            if (temp < 10) {
-                this.waitedTime.string ="0"+ this.minTime + ":0" + temp.toString();
-            }
-            else {
-                this.waitedTime.string ="0"+ this.minTime + ":" + temp.toString();
-            } 
-        }
-     },
 });

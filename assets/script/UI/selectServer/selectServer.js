@@ -53,6 +53,7 @@ cc.Class({
     start() {
         //var uuid = cc.sys.localStorage.getItem("uuid");
         var uuid = dataCenter.uuid;
+        dataCenter.openid = uuid;
 
         var self = this;
         cc.log("获取服务器列表");
@@ -245,6 +246,38 @@ cc.Class({
     _onSocketError: function () {
         this._loginClicked = false;
     },
+    
+    login () {
+        wx.login({
+            success: function(res) {
+                console.log(res,"res-----------in success");
+                if (res.code) {
+                    wx.request({
+                        url: '',
+                        data: {
+                            code: res.code,
+                        },
+                        method: 'POST',
+                        success : function (res) {
+                            console.log(res,"success------in request");
+                        },
+                        fail : function (res) {
+                            console.log(res,"fail------in request");
+                        },
+                })
+            }
+            },
+            fail: function(res) {
+                console.log(res,"res-----------in fail");
+            },
+            timeout: function(res) {
+                console.log(res,"res-----------in timeout");
+            },
+            // complete: function(res){
+            //     console.log(res,"res-----------in complete");
+            // },
+        })
+    },
 
     loginClick(event) {
         if (this._loginClicked) {
@@ -253,19 +286,27 @@ cc.Class({
         else {
             this._loginClicked = true;
         }
-        // if(this.userName.string = '')
-        //     return;
-
-        //var uid = cc.sys.localStorage.getItem("uuid");
-        var uid = dataCenter.uuid;
-        cc.log(uid + "uid");
-
-
-
-        //    if(this.click == 1){ //判断是否勾选用户协议
-        //     cc.log("进入游戏---------");
+        var uid;
+        var _getUid = function (code) {
+            uid = code;
+        }
+        if (cc.sys.platform == cc.sys.WECHAT_GAME) {
+            wx.login({
+                success: function(res) {
+                    console.log(res,"res in success");
+                    if (res.code) {
+                        _getUid(res.code);
+                    }
+                },
+                fail: function (res) {
+                },
+            });
+        }
+        else {
+             uid = dataCenter.uuid;
+        }
+        console.log(uid + "uid");
         var that = this;
-
         pomelo.init({
             host: that.host,
             port: that.port,
@@ -276,8 +317,8 @@ cc.Class({
                 that._loginClicked = false;
                 var uuid = data.uuid;
                 that.port = data.port;
-                cc.log(that.port + "that.port");
-                cc.log("请求登陆地址 = %s 端口： = %i,uuid = %s", that.host, data.port, uuid);
+                console.log(that.port + "that.port");
+                console.log("请求登陆地址 = %s 端口： = %i,uuid = %s", that.host, data.port, uuid);
                 cc.sys.localStorage.setItem("uuid", data.uuid);
                 ///连接逻辑服
                 pomelo.disconnect(that._connectToConnector.bind(that, uuid, that.host, data.port));
@@ -285,28 +326,48 @@ cc.Class({
         });
     },
 
+    _getLoginUserInfo(code) {
+        let platform = cc.sys.platform;
+        switch (platform) {
+            case cc.sys.WECHAT_GAME:
+            userInfo:dataCenter.userInfo
+            case cc.sys.DESKTOP_BROWSER:
+            default:
+                return {
+                    name: code || "unknow",
+                    gender: 1,
+                    avatarUrl: ""
+                }
+        }
+    },
+
     _connectToConnector(code, host, port) {
         var that = this;
         that._loginClicked = true;
         pomelo.init({ host: host, port: port, log: true }, function (data) {
-            pomelo.request("connector.entryHandler.enter", { code: code }, function (data) {
-                that._loginClicked = false;
-                if (data.code == consts.Login.RELAY) {
-                    cc.log("重连 ip:%s port:%s", data.host, data.port);
-                    // 重定向
-                    pomelo.disconnect(that._connectToConnector.bind(that, data.uuid, data.host, data.port));
-                    return;
-                }
-                else if (data.code == consts.Login.OK) {
-                    cc.log("连接逻辑服 成功 info: ", data.info);
-                    dataCenter.uuid = data.info.id;
-                    that._mgr.release();
-                    that._mgr.loadUI(constant.UI.Main);
-                }
-                else {
+            pomelo.request(
+                "connector.entryHandler.enter",
+                { code: code, userInfo: that._getLoginUserInfo(code) },
+                function (data) {
+                    that._loginClicked = false;
+                    if (data.code == consts.Login.RELAY) {
+                        console.log("重连 ip:%s port:%s", data.host, data.port);
+                        // 重定向
+                        pomelo.disconnect(that._connectToConnector.bind(that, data.uuid, data.host, data.port));
+                        return;
+                    }
+                    else if (data.code == consts.Login.OK) {
+                        console.log("连接逻辑服 成功 info: ", data.info);
+                        dataCenter.allInfo = data.info;
+                        dataCenter.uuid = data.info.id;
+                        dataCenter.openid = data.info.openid;
+                        that._mgr.release();
+                        that._mgr.loadUI(constant.UI.Main);
+                    }
+                    else {
 
-                }
-            });
+                    }
+                });
         });
     }
 

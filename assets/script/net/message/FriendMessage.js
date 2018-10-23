@@ -1,7 +1,7 @@
 var dataCenter = require('DataCenter');
 var constant = require('constants')
 var combatMgr = require('CombatMgr');
-
+var friendData = require('FriendData')
 var friend = {
     init: function () {
         this._uiMgr = cc.find('Canvas').getComponent('UIMgr');
@@ -29,8 +29,8 @@ var friend = {
         pomelo.on('onAddInviter', function (data) {
             cc.log("收到好友请求", data);
             that._uiMgr.showTips("收到好友请求");
-            dataCenter.onlineCtr = true;
-            dataCenter.onlineMsg = data;
+            friendData.AddInviter = data;
+            GlobalEvent.emit("onAddInviter");
             /*
             "onAddInviter": {
                 "required string eid": 1,
@@ -50,8 +50,10 @@ var friend = {
 
         pomelo.on('onNewFriend', function (data) {
             cc.log("新增好友", data);
-            dataCenter.receivedReply = true;
-            dataCenter.friendDispose = data;
+            friendData.NewFriend = data; 
+            GlobalEvent.emit("onNewFriend");
+            // dataCenter.receivedReply = true;
+            // dataCenter.friendDispose = data;
             /*
             "onNewFriend": {
                 "required string eid": 1,
@@ -73,11 +75,10 @@ var friend = {
         pomelo.on('onDeleteFriend', function (data) {
             cc.log("删除好友", data);
             that._uiMgr.showTips(data.eid+"删除了你");
-            dataCenter.friendDelete = true;
-            dataCenter.deleteEid = data.eid;
-            // if (data.eid == dataCenter.uuid) {
-            //     that._uiMgr.showTips("你被删除好友");
-            // }
+            friendData.DeleteFriend = data.eid;
+            GlobalEvent.emit("onDeleteFriend");
+            // dataCenter.friendDelete = true;
+            // dataCenter.deleteEid = data.eid;
            
             /*  "onDeleteFriend": {
                 "required string eid": 1

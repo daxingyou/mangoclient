@@ -3,10 +3,12 @@
     "__type__": "cc.Prefab",
     "_name": "",
     "_objFlags": 0,
-    "_rawFiles": null,
+    "_native": "",
     "data": {
       "__id__": 1
-    }
+    },
+    "optimizationPolicy": 0,
+    "asyncLoadAssets": false
   },
   {
     "__type__": "cc.Node",
@@ -4640,7 +4642,21 @@
     "heroIconAtlas": {
       "__uuid__": "a745a576-8f6b-4064-8ad7-569110e645c9"
     },
-    "_CDState": false
+    "_CDState": false,
+    "colorBar": [],
+    "teamer0": {
+      "__id__": 76
+    },
+    "teamer1": {
+      "__id__": 90
+    },
+    "teamer2": {
+      "__id__": 104
+    },
+    "teamer3": {
+      "__id__": 118
+    },
+    "teamerBar": []
   },
   {
     "__type__": "cc.PrefabInfo",

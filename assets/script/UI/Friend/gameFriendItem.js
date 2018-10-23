@@ -42,9 +42,10 @@ cc.Class({
         this._parents = parent;
     },
     popupTips () {
-        this._uiMgr.popupTips(this,"确定要删除好友吗");
+        var self = this;
+        self._uiMgr.popupTips(1,"确定要删除好友吗","提示",null,null,self.comfirm,self);
     },
-    comfirmDeletFriend() {
+    comfirm() {
         var self = this;
         net.Request(new deleteFriendProto(self._eid), function (data) {
             cc.log(data,"删除好友");

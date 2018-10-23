@@ -47,8 +47,6 @@ HandCard.prototype.Active = function(Target,targets=null){
 HandCard.prototype.release = function(){
     this.skillName = null;
     this.spriteName = null;
-    
-    //this.ability = ;
 }
 
 module.exports = HandCard;

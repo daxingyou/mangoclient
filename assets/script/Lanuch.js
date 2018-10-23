@@ -4,29 +4,62 @@ var matchMessage = require("matchMessage")
 var loadingMessage = require('LoadingMessage')
 var friendMessage = require('FriendMessage')
 var ladderMessage = require('LadderMessage')
+var teamRaidMessage = require('TeamRaidMessage')
+let debugMessage = require('debugMessage')
 var constant = require('constants')
 var uimgr = require('UIMgr')
 var scenemgr = require('SceneMgr')
+var dataCenter = require('DataCenter')
 
 cc.Class({
     extends: cc.Component,
 
     properties: {
     },
+       invitedResult (mass) {
+        if (cc.sys.platform == cc.sys.WECHAT_GAME) {
+            let obj = wx.getLaunchOptionsSync();
+            let data = obj.query;
+            console.log(obj.query,JSON.stringify(data));
+            console.log(data.id,typeof(data.id),"data.id");
+            if (data.id || data.id!=undefined) {
+                console.log("邀请成功----------房间id是为"+data.id);
+                this._uimgr.loadUI(constant.UI.TeamPattern);
+                wx.onShow(function (res){console.log(res,"------------res")});
+            }
+        }
+        else {
+            cc.log("加载登录");
+            uimgr.loadUI(constant.UI.Login);
+        }
+     },
 
     onLoad () {
+        this._uimgr = cc.find('Canvas').getComponent('UIMgr');
+        if (cc.sys.platform == cc.sys.WECHAT_GAME) {
+            console.log("微信版本");
+            //监听分享是否成功
+            this._uimgr.loadUI(constant.UI.WxLogin);
+            GlobalEvent.on("invited",this.invitedResult,this);
+        }
+        else {
+            this._uimgr.loadUI(constant.UI.Login);
+        }
+        
+       
+
         scenemgr.init();
 
         ////数据加载
         dataMgr.init(()=>{});
-        uimgr = cc.find('Canvas').getComponent('UIMgr');
-        uimgr.loadUI(constant.UI.Login);
 
         ///消息协议注册
         matchMessage.init();
         loadingMessage.init();
         friendMessage.init();
         ladderMessage.init();
+        teamRaidMessage.init();
+        debugMessage.init();
 
         // 适配
         //设计分辨率
@@ -64,9 +97,9 @@ cc.Class({
     },
     
     start () {
-        var host = '127.0.0.1'
-        var port = 50007
-        pomelo.init({host:host,port:port,log:true},function(data){})
+        //var host = '127.0.0.1'
+        //var port = 50007
+        //pomelo.init({host:host,port:port,log:true},function(data){})
 
         if(cc.sys.platform == cc.sys.WECHAT_GAME)
         {
@@ -76,6 +109,8 @@ cc.Class({
         cc.game.on(cc.game.EVENT_HIDE,function(){
             wxAPI.SetQuitTime();
         });
+       if (cc.sys.platform == cc.sys.WECHAT_GAME)
+       GlobalEvent.emit("invited",1);
     },
 
     initShaders() {

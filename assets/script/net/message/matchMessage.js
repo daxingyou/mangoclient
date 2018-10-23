@@ -9,7 +9,13 @@ var monster = require('Monster_')
 var dataMgr = require('DataMgr')
 var FSMEvent = require('FSMEvent');
 var efferMgr = require('EffectMgr');
-
+var disposeInvite = require('disposeInvite')
+var net = require("NetPomelo")
+var acceptInviteProto = require("acceptInviteProto")
+var refuseTeamInviteProto = require("refuseTeamInviteProto")
+var ignoreTeamInviteProto = require('ignoreTeamInviteProto')
+var leaveTeamProto = require('leaveTeamProto')
+var teamPatternData = require('teamPatternData')
 
 var fight = {
     _uimgr: null,
@@ -17,10 +23,15 @@ var fight = {
     init: function () {
         this._uimgr = cc.find('Canvas').getComponent('UIMgr');
         var that = this;
-
+        var membersNum = 0;
         pomelo.on('onRefreshTeam', function (data) {
             cc.log("队伍信息刷新", data);
-
+             if (data.members === undefined) {
+               return;
+            }
+            teamPatternData.refreshTeam = data;
+            GlobalEvent.emit("onRefreshTeam");
+            membersNum = data.members.length;
             /*
               "onRefreshTeam": {
                 "required string teamType": 1,
@@ -37,8 +48,67 @@ var fight = {
         });
 
         pomelo.on('onTeamInvited', function (data) {
+            //加判断未解散，人数已满
             cc.log("收到组队邀请", data);
+            teamPatternData.onTeamInvited.push(data);
+            let num = teamPatternData.onTeamInvited.length;
+            var callComfirm =  function () {
+                that._uimgr.loadUI(constant.UI.TeamPattern,(data) =>{
+                    data.initFriendList();//先移除
+                    data.laodFriendList();//加载可以邀请的好友信息
+                    that._uimgr.loadUI(constant.UI.FightPavTop,(data) =>{
+                        data.initBackBtn(backShowListUI,that);
+                        data.changeTitle(2);
+                    });
+                });
+                    
+            //返回选择模式界面
+            var backShowListUI = function () {
+                var comfirm = function() {
+                        net.Request(new leaveTeamProto(gameData.uuid), (data) => {
+                            cc.log("离开队伍",data);
+                        })
+                        that._uimgr.loadUI(constant.UI.ShowList,data => {
+                        data.init();
+                        that._uimgr.loadUI(constant.UI.FightPavTop,(data) =>{
+                            data.initBackBtn(null,null);
+                            data.changeTitle(0);
+                        });
+                    });};
+                if (membersNum > 1) {
+                    that._uimgr.popupTips(1,"确定要退出吗","提示",null,null,comfirm,that);
+                }
+                else {
+                    // that._uimgr.release();
+                    net.Request(new leaveTeamProto(gameData.uuid), (data) => {
+                        cc.log("离开队伍",data);
+                    })
+                    that._uimgr.loadUI(constant.UI.ShowList,data =>{data.init();});   
+                    that._uimgr.loadUI(constant.UI.FightPavTop);   
+                }
+            };
+            teamPatternData.onTeamInvited.splice(num-1,1);
+            net.Request(new acceptInviteProto(data.id,data.teamId), (data) => {
+                cc.log("同意组队邀请",data);
+            });
+            };
 
+            var callRefuse = function () {
+                teamPatternData.onTeamInvited.splice(num-1,1);
+                net.Request(new refuseTeamInviteProto(data.id), (data) => {
+                    cc.log("拒绝组队邀请",data);
+                });
+            }
+            var callIgnore = function () {
+                teamPatternData.onTeamInvited.splice(num-1,1);
+                net.Request(new ignoreTeamInviteProto(data.id), (data) => {
+                    cc.log("忽略组队邀请",data);
+                    // gameData.ingoreInvited = true;
+                    // gameData.inviteList.push(data.id);
+                });
+            };
+            that._uimgr.popupTips(2,data.openid+"邀请你一起玩游戏","邀请",callIgnore,callRefuse,callComfirm,that);
+          
             /*  "onTeamInvited": {
                 "required string id": 1,
                 "required string openid": 2,
@@ -63,7 +133,7 @@ var fight = {
 
         pomelo.on('onTeamBeRefused', function (data) {
             cc.log("组队邀请被拒", data);
-
+            that._uimgr.showTips(data.name+"拒绝了你的组队邀请");
             /* "onTeamBeRefused": {
                 "required string name": 1
             },*/
@@ -72,11 +142,16 @@ var fight = {
 
         pomelo.on('onTeamBeKicked', function (data) {
             cc.log("被提出队伍", data);
+            that._uimgr.showTips("队长将你请离队伍");
+            GlobalEvent.emit("onTeamBeKicked");
         });
 
         pomelo.on('onTeamReadyStateChange', function (data) {
             cc.log("队员准备状态变更", data);
-
+            var ui = that._uimgr.getCurMainUI();
+            teamPatternData.TeamReadyState = data;
+            GlobalEvent.emit("onTeamReadyStateChange");
+            //ui.changePrepareState(data);
             /*"onTeamReadyStateChange": {
                 "required string id": 1,
                 "required uInt32 ready": 2
@@ -87,7 +162,7 @@ var fight = {
 
         pomelo.on('onBeginMatch', function (data) {
             cc.log("匹配开始", data);
-
+            GlobalEvent.emit("onBeginMatch");
             /*  "onBeginMatch": {
                 "required uInt32 predictTime": 1
             },
@@ -100,14 +175,33 @@ var fight = {
 
         pomelo.on('onEnterMatchConfirm', function (data) {
             cc.log("进入匹配成功确认", data);
+            var ui = that._uimgr.getCurMainUI();
+            ui.teamMatchSucess(data);
         });
 
         pomelo.on('onMatchConfirm', function (data) {
             cc.log("匹配确认", data);
+            var ui = that._uimgr.getCurMainUI();
+            gameData.beginGame +=1;
+            ui.showComfirmTeamer(gameData.beginGame,data);
+
+            if (gameData.beginGame == 8) {
+                cc.log("进入选角界面");
+                 that._uimgr.loadUI(constant.UI.PickHero,function(data){
+            });
+            }
         });
 
         pomelo.on('onMatchNoConfirm', function (data) {
             cc.log("匹配未确认，回组队", data);
+            //that._uimgr.release();
+            that._uimgr.loadUI(constant.UI.ShowList,(data) =>{
+                data.init();
+            });
+            that._uimgr.loadUI(constant.UI.FightPavTop,(data) =>{
+                data.initBackBtn(null,null);
+                data.changeTitle(0);
+            }); 
         });
 
         pomelo.on('onPunishBeginTimeUpdate', function (data) {
@@ -126,10 +220,15 @@ var fight = {
             cc.log("当前ui",ui);
             that._uimgr.showTips('匹配成功');
             cc.log('匹配成功, 开始选英雄', data.teamInfo);
-            var teamInfo = data.teamInfo;
-            var teamA = teamInfo.teamA;
-            ui.selectScr.initData(teamA);
-            ui.showSelect();
+            let teamA = data.teamInfo.teamA;
+            let teamB = data.teamInfo.teamB;
+            that._uimgr.loadUI(constant.UI.PickHero,function(data){
+                data.initData(teamA,teamB);
+            });
+            // var teamInfo = data.teamInfo;
+            // var teamA = teamInfo.teamA;
+            // ui.selectScr.initData(teamA);
+            // ui.showSelect();
         });
 
         pomelo.on('onSelectHeroNotify', function (data) {
@@ -140,14 +239,15 @@ var fight = {
 
         pomelo.on('onConfirmHeroNotify', function (data) {
             cc.log(data.uid, '%s确认英雄:%s', data.heroid);
-            var ui = that._uimgr.getCurMainUI();
-            ui.selectScr.showTeamPrepare(data);
+            // var ui = that._uimgr.getCurMainUI();
+            // ui.selectScr.showTeamPrepare(data);
         });
 
         pomelo.on('onEnterLoadCD', function (data) {
             cc.log('加载前倒计时:', data);
-            var ui = that._uimgr.getCurMainUI();
-            ui.selectScr.beginLoadCD(data);
+             var ui = that._uimgr.getCurMainUI();
+             ui.defalutSelect(data);
+            // ui.selectScr.beginLoadCD(data);
         });
       
         pomelo.on('onStartLoad', function (data) {
@@ -164,7 +264,11 @@ var fight = {
             cc.log('开始加载战斗：', data.teamInfo, data.myInfo);
             cc.log(data,"data");
             combatMgr.initCombat(data);
-            that._uimgr.getUI(constant.UI.Match).hide();
+
+            //that._uimgr.getUI(constant.UI.Match).hide();
+
+            that._uimgr.getCurMainUI().hide();
+
             that._uimgr.loadUI(constant.UI.loadProjess, function (data) {
                 
                 that._uimgr.loadUI(constant.UI.Fight, function (data) {
@@ -766,8 +870,7 @@ var fight = {
           */
         pomelo.on('onClearSpawnSummon', function (data) {
 
-        });
-        
+        }); 
     }
 }
 

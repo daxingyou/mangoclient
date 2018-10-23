@@ -59,7 +59,7 @@ module.exports = {
         Friend : {"id":11,"path":'UI/Friend/Friend','type':1,'script':'FriendUI'},
         FightPavTop: {"id":12,"path":'UI/fightPav/top','type':2,'script':'top'},
         ShowList: {"id":13,"path":'UI/fightPav/showList','type':1,'script':'showList'},
-        TeamPattern: {"id":14,"path":'UI/fightPav/teamPattern','type':1,'script':'teamPattern'},
+        TeamPattern: {"id":14,"path":'UI/teamPattern/teamPattern','type':1,'script':'teamPattern'},
         MatchSucess: {"id":15,"path":'UI/fightPav/matchSucess','type':1,'script':'matchSucess'},
         PickHero: {"id":16,"path":'UI/fightPav/pickHero','type':1,'script':'pickHero'},
         Load: {"id":17,"path":'UI/fightPav/load','type':1,'script':'load'},
@@ -69,7 +69,16 @@ module.exports = {
         ComfirmCard: {"id":21,"path":'UI/fightPav/comfirmCard','type':1,'script':'comfirmCard'},
 
         PopupTips: {"id":22,"path":'UI/tips/popupTips','type':3,"script":'popupTips'},
+        WxLogin: {"id":23,"path":'UI/login/wxLogin','type':1,"script":'wxLogin'},
+        TranScript: {"id":24,"path":'UI/tranScript/tranScript','type':1,"script":'tranScript'},
+        SoloFubenSelectHero:  {"id":25,"path":'UI/soloFuben/soloSelectHero','type':1,"script":'soloSelectHero'},
+        EnterSelectRaid: {"id":26,"path":'UI/soloFuben/enterSelectRaid','type':1,"script":'enterSelectRaid'},
+
+        DpsPanel: {"id":999,"path":'UI/Debug/dpsPanel','type':2,'script':'dpsPanel'},
     },
+    // Prefab: {
+    //     selectServerItem: "UI/"
+    // },
     SummonedType : {
         wSword : 'wSword',
     },
@@ -114,6 +123,12 @@ module.exports = {
         Hide : 'Hide',
         Clear : 'Clear',
         GetIcon : 'GetIcon',
-        GetName : 'GetName'
-    }
+        GetName : 'GetName',
+
+       // teamPattern:
+    },
+    eventList : {
+        onRefreshTeam :'onRefreshTeam',
+
+    },
 };

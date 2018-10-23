@@ -36,6 +36,7 @@ cc.Class({
         showNode0: cc.Node,
         showNode1: cc.Node,
         heroIcons: cc.SpriteAtlas,
+        
     },
     onLoad() {
         this._heros = {

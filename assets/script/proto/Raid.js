@@ -11,6 +11,6 @@ module.exports = {
 		RequireLevel: 1,
 		TotalCount: 2,
 		Rooms: {"1":{"cardcount":3, "room_id":1},
-"2":{"cardcount":1, "room_id":2}}
+				"2":{"cardcount":1, "room_id":2}}
 	},
 };

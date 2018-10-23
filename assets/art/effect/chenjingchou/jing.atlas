@@ -1,103 +1,495 @@
 
 jing.png
-size: 978,817
+size: 1858,1030
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 effect/beam12
-  rotate: false
-  xy: 2, 2
-  size: 256, 256
+  rotate: true
+  xy: 0, 26
+  size: 248, 100
   orig: 256, 256
-  offset: 0, 0
+  offset: 4, 79
+  index: -1
+effect/cloud2
+  rotate: false
+  xy: 0, 790
+  size: 453, 240
+  orig: 506, 273
+  offset: 29, 9
   index: -1
 effect/dr_quan
   rotate: false
-  xy: 260, 9
-  size: 128, 128
+  xy: 1711, 406
+  size: 117, 120
   orig: 128, 128
+  offset: 4, 3
+  index: -1
+effect/flash
+  rotate: false
+  xy: 1735, 84
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+effect/frozen_spike
+  rotate: false
+  xy: 1110, 55
+  size: 160, 219
+  orig: 160, 219
+  offset: 0, 0
+  index: -1
+effect/ground_light
+  rotate: false
+  xy: 180, 0
+  size: 124, 20
+  orig: 124, 20
+  offset: 0, 0
+  index: -1
+effect/ground_part1
+  rotate: true
+  xy: 1750, 136
+  size: 131, 36
+  orig: 133, 38
+  offset: 1, 1
+  index: -1
+effect/ground_part2
+  rotate: false
+  xy: 1272, 228
+  size: 254, 46
+  orig: 256, 48
+  offset: 1, 1
+  index: -1
+effect/ground_part3
+  rotate: false
+  xy: 455, 851
+  size: 492, 64
+  orig: 494, 66
+  offset: 1, 1
+  index: -1
+effect/ground_part4
+  rotate: true
+  xy: 121, 298
+  size: 490, 70
+  orig: 492, 72
+  offset: 1, 1
+  index: -1
+effect/ground_part_out1
+  rotate: true
+  xy: 0, 276
+  size: 512, 119
+  orig: 512, 119
+  offset: 0, 0
+  index: -1
+effect/ground_part_out2
+  rotate: false
+  xy: 455, 917
+  size: 513, 113
+  orig: 513, 113
+  offset: 0, 0
+  index: -1
+effect/ice01
+  rotate: false
+  xy: 1110, 0
+  size: 100, 53
+  orig: 100, 65
+  offset: 0, 0
+  index: -1
+effect/ice03
+  rotate: true
+  xy: 1711, 269
+  size: 135, 74
+  orig: 135, 74
+  offset: 0, 0
+  index: -1
+effect/ice03_light
+  rotate: false
+  xy: 1532, 70
+  size: 135, 74
+  orig: 135, 74
+  offset: 0, 0
+  index: -1
+effect/ice_B_L
+  rotate: false
+  xy: 1272, 59
+  size: 152, 37
+  orig: 154, 39
+  offset: 1, 1
+  index: -1
+effect/ice_B_R
+  rotate: false
+  xy: 121, 284
+  size: 53, 12
+  orig: 55, 14
+  offset: 1, 1
+  index: -1
+effect/ice_B_mid
+  rotate: true
+  xy: 1726, 793
+  size: 237, 40
+  orig: 239, 42
+  offset: 1, 1
+  index: -1
+effect/ice_F_L
+  rotate: false
+  xy: 1426, 50
+  size: 91, 46
+  orig: 93, 48
+  offset: 1, 1
+  index: -1
+effect/ice_F_R
+  rotate: false
+  xy: 606, 34
+  size: 164, 59
+  orig: 166, 61
+  offset: 1, 1
+  index: -1
+effect/ice_F_RR
+  rotate: false
+  xy: 1411, 0
+  size: 74, 48
+  orig: 76, 50
+  offset: 1, 1
+  index: -1
+effect/ice_F_mid
+  rotate: true
+  xy: 1272, 0
+  size: 57, 60
+  orig: 59, 62
+  offset: 1, 1
+  index: -1
+effect/ice_blow/ice_blow_00002
+  rotate: false
+  xy: 970, 780
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+effect/ice_blow/ice_blow_00003
+  rotate: false
+  xy: 1222, 780
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+effect/ice_blow/ice_blow_00004
+  rotate: false
+  xy: 1474, 780
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+effect/ice_blow/ice_blow_00005
+  rotate: false
+  xy: 102, 22
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+effect/ice_blow/ice_blow_00006
+  rotate: false
+  xy: 354, 22
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+effect/ice_blow/ice_blow_00007
+  rotate: false
+  xy: 455, 599
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+effect/ice_blow/ice_blow_00008
+  rotate: false
+  xy: 451, 347
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+effect/ice_blow/ice_blow_00009
+  rotate: false
+  xy: 707, 599
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+effect/ice_blow/ice_blow_00010
+  rotate: false
+  xy: 703, 347
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+effect/ice_blow/ice_blow_00011
+  rotate: false
+  xy: 703, 347
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+effect/ice_debris1
+  rotate: false
+  xy: 1787, 86
+  size: 47, 44
+  orig: 48, 45
+  offset: 1, 1
+  index: -1
+effect/ice_debris2
+  rotate: true
+  xy: 1212, 0
+  size: 53, 50
+  orig: 55, 51
+  offset: 1, 1
+  index: -1
+effect/ice_debris3
+  rotate: false
+  xy: 772, 38
+  size: 72, 55
+  orig: 73, 55
+  offset: 1, 0
+  index: -1
+effect/ice_frag1/ice_frag1_1
+  rotate: true
+  xy: 1743, 4
+  size: 78, 40
+  orig: 80, 42
+  offset: 1, 1
+  index: -1
+effect/ice_frag1/ice_frag1_2
+  rotate: false
+  xy: 900, 287
+  size: 52, 58
+  orig: 54, 60
+  offset: 1, 1
+  index: -1
+effect/ice_frag1/ice_frag1_3
+  rotate: true
+  xy: 1788, 132
+  size: 56, 47
+  orig: 58, 49
+  offset: 1, 1
+  index: -1
+effect/ice_frag1/ice_frag1_4
+  rotate: false
+  xy: 1334, 6
+  size: 75, 51
+  orig: 77, 53
+  offset: 1, 1
+  index: -1
+effect/ice_frag1/ice_frag1_5
+  rotate: false
+  xy: 1715, 528
+  size: 137, 84
+  orig: 139, 86
+  offset: 1, 1
+  index: -1
+effect/ice_frag3/ice_frag3_1
+  rotate: true
+  xy: 858, 276
+  size: 69, 40
+  orig: 71, 42
+  offset: 1, 1
+  index: -1
+effect/ice_frag3/ice_frag3_2
+  rotate: true
+  xy: 1641, 0
+  size: 68, 34
+  orig: 70, 36
+  offset: 1, 1
+  index: -1
+effect/ice_frag3/ice_frag3_3
+  rotate: false
+  xy: 606, 0
+  size: 91, 32
+  orig: 93, 34
+  offset: 1, 1
+  index: -1
+effect/ice_frag3/ice_frag3_4
+  rotate: false
+  xy: 1785, 31
+  size: 42, 51
+  orig: 44, 53
+  offset: 1, 1
+  index: -1
+effect/ice_frag3/ice_frag3_5
+  rotate: false
+  xy: 1669, 71
+  size: 64, 65
+  orig: 66, 67
+  offset: 1, 1
+  index: -1
+effect/icebolt01
+  rotate: true
+  xy: 1768, 888
+  size: 142, 86
+  orig: 143, 86
+  offset: 0, 0
+  index: -1
+effect/icebolt01_light
+  rotate: true
+  xy: 1768, 744
+  size: 142, 86
+  orig: 143, 86
   offset: 0, 0
   index: -1
 effect/jian_01
   rotate: false
-  xy: 2, 260
-  size: 190, 555
-  orig: 190, 555
-  offset: 0, 0
+  xy: 1662, 146
+  size: 40, 128
+  orig: 45, 131
+  offset: 2, 2
   index: -1
 effect/jian_02
   rotate: false
-  xy: 194, 260
-  size: 190, 555
-  orig: 190, 555
-  offset: 0, 0
+  xy: 1704, 138
+  size: 44, 129
+  orig: 45, 131
+  offset: 1, 1
   index: -1
 effect/jpg_a007
   rotate: false
-  xy: 390, 9
+  xy: 1272, 98
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 effect/jpg_bjsd
   rotate: false
-  xy: 260, 194
+  xy: 1677, 5
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 effect/jpg_texiao001
   rotate: false
-  xy: 520, 9
+  xy: 1402, 98
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 effect/jpg_x_dhack_sys
   rotate: false
-  xy: 386, 139
+  xy: 193, 532
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 effect/k
-  rotate: false
-  xy: 386, 397
-  size: 294, 418
-  orig: 294, 418
-  offset: 0, 0
+  rotate: true
+  xy: 451, 274
+  size: 71, 92
+  orig: 74, 105
+  offset: 1, 7
   index: -1
 effect/k_01
   rotate: false
-  xy: 682, 397
-  size: 294, 418
-  orig: 294, 418
-  offset: 0, 0
+  xy: 1787, 312
+  size: 71, 92
+  orig: 74, 105
+  offset: 2, 7
   index: -1
 effect/png_parti_b
   rotate: false
-  xy: 650, 9
+  xy: 1532, 146
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 effect/png_ray012
   rotate: false
-  xy: 644, 139
+  xy: 193, 274
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
+effect/rain/rain_00000
+  rotate: false
+  xy: 606, 95
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+effect/rain/rain_00016
+  rotate: false
+  xy: 959, 528
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+effect/rain/rain_00032
+  rotate: false
+  xy: 1211, 528
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+effect/rain/rain_00048
+  rotate: false
+  xy: 1463, 528
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+effect/rain/rain_00064
+  rotate: false
+  xy: 955, 276
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+effect/rain/rain_00080
+  rotate: false
+  xy: 1207, 276
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+effect/rain/rain_00096
+  rotate: false
+  xy: 1459, 276
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+effect/rain/rain_00112
+  rotate: false
+  xy: 858, 24
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+effect/snow_sword
+  rotate: true
+  xy: 1519, 23
+  size: 45, 120
+  orig: 45, 120
+  offset: 0, 0
+  index: -1
+effect/snow_sword_light
+  rotate: false
+  xy: 1788, 190
+  size: 45, 120
+  orig: 45, 120
+  offset: 0, 0
+  index: -1
+effect/speed
+  rotate: false
+  xy: 0, 0
+  size: 178, 20
+  orig: 184, 26
+  offset: 0, 3
+  index: -1
 effect/star
   rotate: false
-  xy: 902, 339
+  xy: 545, 289
   size: 59, 56
   orig: 59, 56
   offset: 0, 0
   index: -1
 effect/tga_ly_guangqiu2
   rotate: false
-  xy: 780, 9
+  xy: 1715, 614
   size: 128, 128
   orig: 128, 128
   offset: 0, 0

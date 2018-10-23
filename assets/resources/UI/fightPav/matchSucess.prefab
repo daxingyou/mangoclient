@@ -3,10 +3,12 @@
     "__type__": "cc.Prefab",
     "_name": "",
     "_objFlags": 0,
-    "_rawFiles": null,
+    "_native": "",
     "data": {
       "__id__": 1
-    }
+    },
+    "optimizationPolicy": 0,
+    "asyncLoadAssets": false
   },
   {
     "__type__": "cc.Node",
@@ -344,7 +346,7 @@
     "_N$paddingTop": 10,
     "_N$paddingBottom": 0,
     "_N$spacingX": 120,
-    "_N$spacingY": 120,
+    "_N$spacingY": 160,
     "_N$verticalDirection": 1,
     "_N$horizontalDirection": 0
   },
@@ -394,7 +396,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 63,
+      "width": 13,
       "height": 40
     },
     "_rotationX": 0,
@@ -403,8 +405,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -220,
-      "y": 182
+      "x": -205,
+      "y": 184
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -429,7 +431,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "Label",
+    "_N$string": "0",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "黑体",
@@ -989,7 +991,10 @@
     "comfirmRole": {
       "__id__": 12
     },
-    "_wxImgs": []
+    "_wxImgs": [],
+    "selfEnterGame": false,
+    "_eid": [],
+    "wxImgScr": null
   },
   {
     "__type__": "cc.PrefabInfo",

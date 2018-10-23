@@ -48,7 +48,7 @@ cc.wxAPI = function(){
     }
 
     ///显示子域
-    api.Show = function(){this.SendMessage(constants.MessageType.Show);}
+    api.Show = function(num){this.SendMessage(constants.MessageType.Show,num);}
 
     ///隐藏子域
     api.Hide = function(){this.SendMessage(constants.MessageType.Hide);}

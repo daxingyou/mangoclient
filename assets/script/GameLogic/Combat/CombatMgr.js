@@ -14,7 +14,7 @@ var CombatMgr = {
     initCombat : function(data){
         if(data.matchType == consts.MatchType.PVE && data.matchNum === 1)
         {
-            //this.curCombat = new PVECombat();
+            this.curCombat = new PVECombat();
         }
         else if(data.matchType == consts.MatchType.PVE && data.matchNum === 2)
         {

@@ -5,6 +5,7 @@ cc.Class({
 
     properties: {
         effect : sp.Skeleton,
+        _ani : null,
         iseffect : false,
         _path : '',
         _active : false,
@@ -17,6 +18,18 @@ cc.Class({
 
     onLoad () {
         var spine = this.effect = this.getComponent('sp.Skeleton');
+        
+        this.ani = this.getComponent(cc.Animation);
+        
+        var that = this;
+
+        if(this.ani != null)
+        {
+            this.ani.on('stop',()=>{
+                that._active = false;
+                that.node.position = new cc.v2(0,-1000);
+            },this);
+        }
 
         if(spine == null)
             return;
@@ -25,7 +38,6 @@ cc.Class({
         //if(track != null)
         //    cc.log('animation.name = ',track.animation.name,' animation.duration =',track.animation.duration);
 
-        var that = this;
 
         spine.setCompleteListener((trackEntry, loopCount) => {
             var animationName = trackEntry.animation ? trackEntry.animation.name : "";
@@ -71,8 +83,17 @@ cc.Class({
     show(name,callBack){
         this._curAni = name;
         this._active = true;
-        this.effect.clearTrack();
-        this.effect.setAnimation(0,name, false);
+
+        if(this.effect == null)
+        {
+            this.ani.play(name);
+        }
+        else
+        {
+            this.effect.clearTrack();
+            this.effect.setAnimation(0,name, false);
+        }
+
         this.callBack = callBack;
     },
     showMove(name,end,frame){

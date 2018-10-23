@@ -99,8 +99,6 @@ cc.Class({
                } 
             });
         }
-
-    //cc.log("当前删除的self._curIndex===",self._curIndex);
    self._parents._updateApplyList(self._curIndex);
     },
     // update (dt) {},

@@ -15,13 +15,41 @@ cc.Class({
 
     },
 
-    backMainUI () {
-        cc.log("返回主界面");
-        var uimgr = cc.find('Canvas').getComponent('UIMgr');
-        uimgr.loadUI(constant.UI.Main,function(data){
-            uimgr.getUI(constant.UI.FightPavTop).hide();
-        });
+    initBackBtn(callBack, target) {
+        this._BackCallBack = callBack;
+        this._BackTarget = target;
     },
+
+    
+    backMainUI () {
+        if(this._BackCallBack)
+        {
+            cc.log("点击返回了");
+            this._BackCallBack.call(this._BackTarget);
+        }
+        else {
+            var uimgr = cc.find('Canvas').getComponent('UIMgr');
+            uimgr.loadUI(constant.UI.Main,function(data){
+            uimgr.getUI(constant.UI.FightPavTop).hide();
+            });
+        }
+        
+       // this.hide();
+        // var uimgr = cc.find('Canvas').getComponent('UIMgr');
+        // cc.log("返回主界面");
+        // if (type == 1) {
+        //     uimgr.loadUI(constant.UI.Main,function(data){
+        //         uimgr.getUI(constant.UI.FightPavTop).hide();
+        //     });
+        // } 
+        // else if (type == 2) {
+        //     uimgr.loadUI(constant.UI.ShowList,function(data){
+        //         //uimgr.getUI(constant.UI.FightPavTop).hide();
+        //     });
+        // }
+    },
+
+
 
     onClickState () {
         cc.log("点击说明按钮");
@@ -47,6 +75,12 @@ cc.Class({
             this.title.getComponent(cc.Label).string = "4V4组队";
         }
         else if (teamKind == 3) {
+            this.title.getComponent(cc.Label).string = "单人模式";
+        }
+        else if (teamKind == 0) {
+            this.title.getComponent(cc.Label).string = "对弈亭";
+        }
+        else if (teamKind == 4) {
             this.title.getComponent(cc.Label).string = "商店";
         }
         

@@ -38,7 +38,8 @@ cc.Class({
     editingDidBegan : function(){
         this._userName = this.userName.string;
         this.showLabel.string = this.userName.string;
-        //cc.log(this.showLabel.string);
+        dataCenter.openid = this.userName.string;
+        
     },
 
     loginClick(event){
@@ -50,7 +51,6 @@ cc.Class({
 
         var uimgr = cc.find('Canvas').getComponent('UIMgr');
         uimgr.loadUI(constant.UI.SelectServer);
-
         /*
         //var host = "192.168.0.139";
         var host = "192.168.0.113";

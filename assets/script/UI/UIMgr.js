@@ -38,7 +38,6 @@ cc.Class({
         //    var enemy = cc.instantiate(this.dmg);
         //    this.dmgPool.put(enemy);
         //}
-        //initDmg();
     },
 
     initDmg(){
@@ -249,11 +248,17 @@ cc.Class({
             data.showText(str,pos);
         });
     },  ///获取当前主UI
-    popupTips: function (str,callback) {
+
+    //弹出提示框
+    popupTips: function (type,text,title,cancelCallback,refuseCallback,comfirmCallback,target) {
         this.loadUI(constant.UI.PopupTips,(data) => {
-            data.showText(str,callback);
+            data.showText(type,text,title);
+            data.initCancelBtn(cancelCallback,target);
+            data.initConfirmBtn(comfirmCallback,target);
+            data.initRefuseBtn(refuseCallback,target);
         });
     },
+    
     getCurMainUI() {
         if(this._frontUI != null && this._frontUI.node.active)
             return this._frontUI;
