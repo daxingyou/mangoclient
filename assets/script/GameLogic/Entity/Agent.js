@@ -25,7 +25,10 @@ var Agent = function (path, pos, teamid, hp, maxHp, armo, uid, buffs, scale, loa
         that.hpbar.freshenBuff(buffs);
 
         loadRes.load(path, true, (data) => {
+            cc.log('data === ',data);
             that.go = cc.instantiate(data);
+            cc.log('that.go === ',that.go);
+            cc.log('cc.find(Canvas/pool) === ',cc.find('Canvas/pool'));
             that.go.parent = cc.find('Canvas/pool');
             that.go.position = cc.v2(pos.x, pos.y);
 

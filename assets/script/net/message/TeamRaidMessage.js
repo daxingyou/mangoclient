@@ -1,10 +1,15 @@
+var constant = require('constants')
+var teamRaidData = require('teamRaidData')
 var teamRaid = {
     init: function () {
         this._uiMgr = cc.find('Canvas').getComponent('UIMgr');
         var that = this;
         pomelo.on('onTeamRaidBeginSelectHero', function (data) {
             cc.log("组队副本进入选英雄", data);
-
+            let teamInfo = data.teamInfo;
+            that._uiMgr.loadUI(constant.UI.PickHero,function(data){
+                data.storeRaidTeamInfo(teamInfo);
+            });
             /*
               "onTeamRaidBeginSelectHero": {
                 "message TeamMember": {
@@ -19,7 +24,8 @@ var teamRaid = {
 
         pomelo.on('onTeamRaidSelectHeroNotify', function (data) {
             cc.log("组队副本队友选择了英雄通知", data);
-
+            var ui = that._uiMgr.getCurMainUI();
+            ui.showTeamerSelect(data);
             /*
             "onTeamRaidSelectHeroNotify": {
                 "required string uid": 1,
@@ -30,7 +36,8 @@ var teamRaid = {
 
         pomelo.on('onTeamRaidConfirmHeroNotify', function (data) {
             cc.log("组队副本队友确认英雄通知", data);
-
+            var ui = that._uiMgr.getCurMainUI();
+            ui.showTeamerComfirm(data);
             /*
             "onTeamRaidConfirmHeroNotify": {
                 "required string uid": 1,
@@ -41,6 +48,10 @@ var teamRaid = {
 
         pomelo.on('onTeamRaidMembersUpdate', function (data) {
             cc.log("组队副本队员信息更新", data);
+            let teamInfo = data.teamInfo;
+            that._uiMgr.loadUI(constant.UI.TeamSelectRaid,data =>{
+                data.initData(teamInfo);
+            });
             /*
                  "onTeamRaidMembersUpdate": {
                 "message MemberInfo": {
@@ -59,7 +70,9 @@ var teamRaid = {
 
         pomelo.on('onTeamRaidShowRoomList', function (data) {
             cc.log("组队副本点选关卡列表", data);
-
+            teamRaidData.teamRaidInfo = data.selectList;
+            // var ui = that._uiMgr.getCurMainUI();
+            // ui.loadRaid(data);
             /*  "onTeamRaidShowRoomList": {
                 "message RoomInfo": {
                 "required string type": 1,

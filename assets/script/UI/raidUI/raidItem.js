@@ -1,25 +1,31 @@
 var uibase = require('UIBase')
 var constant = require('constants')
 var dataCenter = require('DataCenter')
+var buildTeamProto = require('buildTeamProto')
+var consts = require('consts')
+var net = require('NetPomelo')
 cc.Class({
     extends: uibase,
 
     properties: {
         _curIndex:null,
-        fubenName:cc.Label,
+        raidName:cc.Label,
         requireLevel:cc.Label,
         _parents:null,
         raidId:null,
+        icon:cc.Sprite,
+        raidIcon: cc.SpriteAtlas,//替换图集
+        _requirePlayers:1,
         
     },
-    initData (index,raidId,name,requireLevel,parent,sprite) {
-        this._curIndex = index;
-        this.raidId = raidId;
-        this.fubenName.string = name;
-        this.requireLevel.string = requireLevel + "级开启";
+    initData (data,parent) {
+        cc.log("副本关卡信息",data);
+        this.raidId = data.ID;
+        this.raidName.string = data.Name;
+        this.requireLevel.string = data.RequireLevel + "级开启";
+        this._requirePlayers = data.RequirePlayers;
+     //   this.icon.spriteFrame = this.raidIcon.getSpriteFrame(data.Icon);
         this._parents = parent;
-        cc.log(raidId,"raidId");
-
     },//名称，图标，状态
     //玩家还未开启的副本，显示开启等级。
     //该副本的当前状态为“已开启且无进度”，进入单人英雄选择界面。	
@@ -29,30 +35,57 @@ cc.Class({
         this._uimgr = cc.find('Canvas').getComponent('UIMgr');
     },
 
+
     loadSoloSelectHero() {
         var self = this;
-       // cc.log(dataCenter.allInfo.raidsInfo.raids,"dataCenter.allInfo.raidsInfo.raids");
-       let obj = dataCenter.allInfo.raidsInfo.raids;
-        if (Object.keys(obj).length != 0) {
-            cc.log("已经存在副本");
-            let raidData = dataCenter.allInfo.raidsInfo.raids;
-            for (let raidId in raidData) {
-                let itemData = raidData[raidId];
-                self._uimgr.loadUI(constant.UI.EnterSelectRaid,data =>{
-                    data.initData(itemData);
+        let obj = dataCenter.allInfo.raidsInfo.raids;
+         // cc.log(dataCenter.allInfo.raidsInfo.raids,"dataCenter.allInfo.raidsInfo.raids");
+        if (self._requirePlayers == 1) {
+            cc.log("单人副本",obj);
+            if (Object.keys(obj).length != 0) {
+                cc.log("已经存在副本");
+                let raidData = dataCenter.allInfo.raidsInfo.raids;
+                for (let raidId in raidData) {
+                    let itemData = raidData[raidId];
+                    self._uimgr.loadUI(constant.UI.EnterSelectRaid,data =>{
+                        data.initData(itemData);
+                    });
+                    return;
+                }
+            }
+            else {
+                self._uimgr.loadUI(constant.UI.SoloRaidSelectHero,data =>{
+                    data.initData();
+                    data.comfirmRaidID(self.raidId);
                 });
-                return;
             }
         }
         else {
-            cc.log("dsalkfffffffffffffj");
-            self._uimgr.loadUI(constant.UI.SoloRaidSelectHero,data =>{
-                data.initData();
-                data.comfirmRaidID(self.raidId);
+            cc.log("多人副本",obj);
+            self._uimgr.loadUI(constant.UI.BuildTeam,data =>{
+                data.title.string = "组队副本";
+                data.laodFriendList();
             });
-        }
-        
+            self._uimgr.loadUI(constant.UI.FightPavTop,(data) =>{
+                data.initBackBtn(self.backRaidUI,self);
+                data.changeTitle(5);
+            });
+
+            net.Request(new buildTeamProto(consts.Team.TYPE_RAID,self.raidId), (data) => {
+                cc.log("创建副本队伍",data);
+            });
+
+        } 
     },
+
+    backRaidUI() {
+        cc.log("返回选择副本");
+        this._uimgr.loadUI(constant.UI.RaidUI,data =>{
+
+        });
+    },
+
+
     
     	
 

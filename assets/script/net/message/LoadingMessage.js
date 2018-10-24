@@ -15,7 +15,6 @@ var loading = {
 
         pomelo.on('onLoadProgress', function (data) {
             cc.log("加载进度广播", data.progress,data);
-
             dataCenter.otherLoadRes[data.uid] = data.progress;
         });
 

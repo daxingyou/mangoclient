@@ -83,6 +83,9 @@ cc.Class({
         else if (teamKind == 4) {
             this.title.getComponent(cc.Label).string = "商店";
         }
+        else if (teamKind == 4) {
+            this.title.getComponent(cc.Label).string = "组队准备";
+        }
         
     },
 

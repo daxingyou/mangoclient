@@ -56,6 +56,7 @@ cc.Class({
 
         }
     },
+    
     //加载关卡，商店，奖励
     loadRaid (selectList) {
         cc.log("可选关卡商店奖励",selectList);
@@ -82,11 +83,16 @@ cc.Class({
                 resIndex++;
                 self.showRaid.addChild(item);
                 self._showRaid.push(item.getComponent('raidRoom'));
-                //index,raidName,parent,img,des
-                self._showRaid[resIndex-1].initData(self.roomId,raidId,resIndex,raidType.Name,self);
                 //roomId,raidId,idx,raidName,parent,img,des
-                //heroid,heroName,heroIcon,parents
-                //还需要添加卡牌图，描述字段
+                self._showRaid[resIndex-1].initData(self.roomId,1,resIndex,raidType.Name,raidType.Icon,raidType.Desc,self);
+        //         ID: 3,
+		// Name: '怨鬼',
+		// SceneID: 1,
+		// MonsterGroupID: 4,
+		// WinMode: 0,
+		// TimeLimit: 180,
+		// Icon: 'attack',
+		// Desc: '河洞战斗3描述。
             }
         })
     },

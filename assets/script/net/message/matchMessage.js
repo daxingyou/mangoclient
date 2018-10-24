@@ -218,8 +218,7 @@ var fight = {
             let teamA = data.teamInfo.teamA;
             let teamB = data.teamInfo.teamB;
             that._uimgr.loadUI(constant.UI.PickHero,function(data){
-                data.initData(teamA,teamB);
-                
+                data.initData(teamA,teamB);    
             });
             // var teamInfo = data.teamInfo;
             // var teamA = teamInfo.teamA;
@@ -259,13 +258,15 @@ var fight = {
            
             cc.log('开始加载战斗：', data.teamInfo, data.myInfo);
             cc.log(data,"data");
+            gameData.teamInfo = data.teamInfo;
+
             combatMgr.initCombat(data);
 
             //that._uimgr.getUI(constant.UI.Match).hide();
 
             that._uimgr.getCurMainUI().hide();
 
-            that._uimgr.loadUI(constant.UI.loadProjess, function (data) {
+            that._uimgr.loadUI(constant.UI.UploadProjess, function (data) {
                 
                 that._uimgr.loadUI(constant.UI.Fight, function (data) {
                     data.initData(()=>{
@@ -279,7 +280,7 @@ var fight = {
                         }
 
                     });
-                })
+                });
             });
             
             spawnSummoned.seed = data.spawnSummons.seed % 233280;

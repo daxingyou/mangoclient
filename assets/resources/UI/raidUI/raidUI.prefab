@@ -874,7 +874,7 @@
       "__id__": 1
     },
     "component": "raidUI",
-    "handler": "soloFuben",
+    "handler": "soloRaid",
     "customEventData": ""
   },
   {
@@ -1199,7 +1199,7 @@
       "__id__": 1
     },
     "component": "raidUI",
-    "handler": "teamFuben",
+    "handler": "teamRaid",
     "customEventData": ""
   },
   {
@@ -1333,7 +1333,8 @@
       "__id__": 38
     },
     "defalutShow": true,
-    "_soloItemBar": []
+    "_soloItemBar": [],
+    "_teamItemBar": []
   },
   {
     "__type__": "cc.Sprite",

@@ -16,8 +16,8 @@ module.exports = {
     swordNum:0,
     fightEnd:false,
     hp:null,
-    loadProjess:{},
-    teamA:{},
+    loadProjessData:{},
+    teamInfo:{},
     loadBegin:true,
     IsReconnect: false,
     curFightTime:0,     ///当前战斗结束时间

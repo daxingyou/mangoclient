@@ -73,6 +73,8 @@ module.exports = {
         RaidUI: {"id":24,"path":'UI/raidUI/raidUI','type':1,"script":'raidUI'},
         SoloRaidSelectHero:  {"id":25,"path":'UI/soloRaid/soloRaidSelectHero','type':1,"script":'soloRaidSelectHero'},
         EnterSelectRaid: {"id":26,"path":'UI/soloRaid/enterSelectRaid','type':1,"script":'enterSelectRaid'},
+        TeamSelectRaid: {"id":27,"path":'UI/teamRaid/teamSelectRaid','type':1,"script":'teamRaidSelectRaid'},
+        UploadProjess: {"id":28,"path":'UI/uploadProjess/uploadProjess','type':5,'script':'uploadProjess'},
         DpsPanel: {"id":999,"path":'UI/Debug/dpsPanel','type':2,'script':'dpsPanel'},
     },
     // Prefab: {
