@@ -66,6 +66,7 @@ cc.Class({
     start () {
        
     },
+
     storeShowNode (uid4ShowNode) {
         this._uid4ShowNode = {};
         this._uid4ShowNode = uid4ShowNode;
@@ -86,16 +87,14 @@ cc.Class({
                 self.comfirmTeam(teamA);
             }  
         }
-
         for (let j=0;j < teamB.length;j++) {
             if (teamB[j].uid == dataCenter.uuid) {
                 self.isTeamA = false;
                 self.comfirmTeam(teamB);
             }  
         }
-
-        
     },
+
     comfirmTeam (team) {
         let showNode = {};
         for (let k=0 ; k<team.length;k++) {
@@ -107,12 +106,12 @@ cc.Class({
             this.teamer2.active = false;
             this._isRaid = true;
         }
-         // if (this.isTeamA) {
-        //     cc.log("属于队A/或者副本",this._uid4ShowNode);
-        // }
-        // else {
-        //     cc.log("属于队B",this._uid4ShowNode);
-        // }
+         if (this.isTeamA) {
+            cc.log("属于队A/或者副本",this._uid4ShowNode);
+        }
+        else {
+            cc.log("属于队B",this._uid4ShowNode);
+        }
         
     },
 
@@ -123,6 +122,7 @@ cc.Class({
         let heroIcon = heroData.HeroIcon;
         this.showSelectHero.spriteFrame = this.heroIconAtlas.getSpriteFrame(heroIcon);
         this.heroName.string = heroData.HeroName;
+        dataCenter.userName = heroData.HeroName;
         this._heroid = heroid;
         var showNode = this._uid4ShowNode[dataCenter.uuid];
         let heroName =  showNode.getChildByName("heroName");
@@ -136,51 +136,64 @@ cc.Class({
             });
         }
         else {//普通组队
-            // net.Request(new leaveTeamProto(heroid), (data) => {
-            //     cc.log("4v4组队选择英雄",data);
-            // })
+            net.Request(new selectHeroProto(heroid), (data) => {
+                cc.log("4v4组队选择英雄",data);
+            })
         }
     },
 
+      //确认英雄
+      comfirmHero () {
+        if (this._isRaid) {
+            net.Request(new teamRaidConfirmHeroProto(this._heroid), (data) => {
+                cc.log("组队副本确认英雄",data);
+            });
+        }
+        else {
+            net.Request(new confirmHeroProto(this._heroid), (data) => {
+                cc.log("4V4组队确认英雄",data);
+            });
+        }
+        let showNode = this._uid4ShowNode[dataCenter.uuid];
+        let comfirmTips = showNode.getChildByName("comfirm");
+        comfirmTips.active = true;
+        this._CDState = false;
+    },
+
     defalutSelect (data) {
-        for (let i in data) {
-            if (i === dataCenter.uuid) {
-                var showNode = this._uid4ShowNode[i];
-                var icon = showNode.getChildByName("heroImg");
-                let heroData = dataMgr.hero[this._heroid];
+        cc.log(data,"-------------------默认");
+        for (let uid in data) {
+            if (this._uid4ShowNode[uid] != undefined) {
+                var showNode = this._uid4ShowNode[uid];
+                let heroData = dataMgr.hero[data[uid]];
                 let heroIcon = heroData.HeroIcon;
+                let icon = showNode.getChildByName("heroImg");
+                let heroName =  showNode.getChildByName("heroName");
+                let comfirmTips = showNode.getChildByName("comfirm");
                 icon.getComponent(cc.Sprite).spriteFrame = this.heroIconAtlas.getSpriteFrame(heroIcon);
+                heroName.getComponent(cc.Label).string = heroData.HeroName; 
+                comfirmTips.active = true;
             }
         }
-        cc.log(this._uid4ShowNode,"--------------this.uid4ShowNode");
     },
 
 
     //展示队友选择得英雄
     showTeamerSelect (data) {
-       // cc.log("队友选择的英雄",data,data.uid,data.heroid);
+        cc.log("队友选择的英雄",data,data.uid,data.heroid);
         let heroid = data.heroid;
         let heroData = dataMgr.hero[data.heroid];
         let heroIcon = heroData.HeroIcon;
         let showNode = this._uid4ShowNode[data.uid];
         let icon = showNode.getChildByName("heroImg");
+        let comfirmTips = showNode.getChildByName("comfirm");
+        comfirmTips.active = true;
         icon.getComponent(cc.Sprite).spriteFrame = this.heroIconAtlas.getSpriteFrame(heroIcon);
         let heroName =  showNode.getChildByName("heroName");
         heroName.getComponent(cc.Label).string = heroData.HeroName;
-       
     },
 
-    //确认英雄
-    comfirmHero () {
-        net.Request(new teamRaidConfirmHeroProto(this._heroid), (data) => {
-            cc.log("组队副本确认英雄",data);
-        });
-        let showNode = this._uid4ShowNode[dataCenter.uuid];
-        let comfirmTips = showNode.getChildByName("comfirm");
-        comfirmTips.active = true;
-        this._CDState = false;
-
-    },
+  
 
     //展示队友确认英雄
     showTeamerComfirm (data) {

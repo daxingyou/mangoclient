@@ -75,6 +75,9 @@ module.exports = {
         EnterSelectRaid: {"id":26,"path":'UI/soloRaid/enterSelectRaid','type':1,"script":'enterSelectRaid'},
         TeamSelectRaid: {"id":27,"path":'UI/teamRaid/teamSelectRaid','type':1,"script":'teamRaidSelectRaid'},
         UploadProjess: {"id":28,"path":'UI/uploadProjess/uploadProjess','type':5,'script':'uploadProjess'},
+        TeamAwardCard: {"id":29,"path":'UI/teamRaid/awardCard','type':1,"script":'awardCard'},
+        BagUI : {"id":30,"path":'UI/bag/BagUI','type':1,'script':'BagUI'},
+        EmailUI :  {"id":31,"path":'UI/emailUI/emailUI','type':1,"script":'emailUI'},
         DpsPanel: {"id":999,"path":'UI/Debug/dpsPanel','type':2,'script':'dpsPanel'},
     },
     // Prefab: {
@@ -132,4 +135,7 @@ module.exports = {
         onRefreshTeam :'onRefreshTeam',
 
     },
+    debug: {
+        autoDpsExport: false,
+    }
 };

@@ -28,4 +28,5 @@ module.exports = {
 
     userInfo:null,//微信个人信息
     allInfo:null,
+    fightType:null,
 }

@@ -1,11 +1,12 @@
 var uibase = require('UIBase')
 var constant = require('constants')
 var dataMgr = require('DataMgr')
-var Dungeon = require('Dungeon')
 var dataMgr = require('DataMgr')
 var raidEnterRoomProto = require('raidEnterRoomProto')
 var dataCenter = require('DataCenter')
 var net = require('NetPomelo')
+var soloRaidData = require('soloRaidData')
+
 cc.Class({
     extends:uibase,
     properties: {
@@ -16,6 +17,8 @@ cc.Class({
        showRaid:cc.Node,
        _showRaid:[],
        roomId:null,
+       raidId:null,
+
     },
 
     initData (raidInfo) {
@@ -28,7 +31,9 @@ cc.Class({
         this.heroName.string = heroData.HeroName;
         let raidData = dataMgr.raid[raidInfo.raidID];
         this.raidName.string = raidData.Name;
-        dataCenter.userName= heroData.HeroName;
+        dataCenter.userName = heroData.HeroName;
+
+        let raidsInfo = dataCenter.allInfo.raidsInfo.raids;//已经存在副本信息
         for (let i in rooms) {//遍历房间
            // cc.log(rooms[i],"------------rooms[i]",i,"----------rooid");
             for (let j in rooms[i]) {//房间里的关卡
@@ -39,20 +44,29 @@ cc.Class({
                         this.loadRaid(rooms[i]["selectList"]);
                         return;  
                     }
-                    if (state  == 2) {
-                        let raidsInfo = dataCenter.allInfo.raidsInfo.raids;
-                        net.Request(new raidEnterRoomProto(raidInfo.raidID, raidInfo.rooms.length), (data) => {
+                    else if (state  == 2) {
+                        net.Request(new raidEnterRoomProto(soloRaidData.raidId,raidInfo.rooms.length), (data) => {
                             cc.log("进副本加载状态",data);
                         });
                     }
-                    
+                    else if (state == 3) {
+                         cc.log("加载前倒计时");
+                         net.Request(new raidEnterRoomProto(soloRaidData.raidId,raidInfo.rooms.length), (data) => {
+                             cc.log("进副本加载状态",data);
+                         });
+                    }
                 }
-
             }
             //cc.log(i,"i",rooms[i]);
-            
-
           //  cc.log(rooms[i]);
+        //     // 副本状态
+    // DungeonStatus: {
+    //     END: 1,  // 已经完结
+    //     IN_SELECT_HERO: 2,  // 选角中
+    //     IN_BEFORE_LOAD_CD: 3,  // 加载前倒计时
+    //     IN_LOAD: 4,  // 加载中
+    //     IN_FIGHT: 5,  // 战斗中
+    // },
 
         }
     },

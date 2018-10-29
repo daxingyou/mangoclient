@@ -68,25 +68,7 @@ cc.Class({
         }
     },
     changeTitle(teamKind) {
-        if (teamKind == 1) {
-            this.title.getComponent(cc.Label).string = "天梯模式";
-        }
-        else if (teamKind == 2) {
-            this.title.getComponent(cc.Label).string = "4V4组队";
-        }
-        else if (teamKind == 3) {
-            this.title.getComponent(cc.Label).string = "单人模式";
-        }
-        else if (teamKind == 0) {
-            this.title.getComponent(cc.Label).string = "对弈亭";
-        }
-        else if (teamKind == 4) {
-            this.title.getComponent(cc.Label).string = "商店";
-        }
-        else if (teamKind == 4) {
-            this.title.getComponent(cc.Label).string = "组队准备";
-        }
-        
+        this.title.getComponent(cc.Label).string = teamKind;
     },
 
 

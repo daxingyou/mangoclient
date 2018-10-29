@@ -114,7 +114,7 @@ cc.Class({
                         data.init();
                         self._uimgr.loadUI(constant.UI.FightPavTop,(data) =>{
                             data.initBackBtn(null,null);
-                            data.changeTitle(0);
+                            data.changeTitle("对弈亭");
                         });
                     }
                     );},self);
@@ -126,12 +126,12 @@ cc.Class({
                     self._uimgr.loadUI(constant.UI.ShowList,data =>{data.init();});   
                     self._uimgr.loadUI(constant.UI.FightPavTop,data =>{
                     data.initBackBtn(null,null);
-                    data.changeTitle(0);});   
+                    data.changeTitle("对弈亭");});   
                 }
                 };
                 self._uimgr.loadUI(constant.UI.FightPavTop,(data) =>{
                     data.initBackBtn(backShowListUI,self);
-                    data.changeTitle(2);
+                    data.changeTitle("4V4组队");
                 });
                 }
             else {

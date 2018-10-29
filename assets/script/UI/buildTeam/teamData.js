@@ -5,6 +5,7 @@ module.exports = {
     TeamReadyState:null,
     massageList:{},//好友全量消息
     onTeamInvited:[],
+    onForTeamInvited:{},
     AcceptFriendNotify:null,
     DeleteFriend:null,
 

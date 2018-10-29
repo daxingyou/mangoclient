@@ -41,7 +41,7 @@ cc.Class({
         //显示拒绝，忽略，接受
         else if (type == 2) {
         this.cancelLabel.string = "忽略";
-        this._type = 2;
+        this._type == 2;
         }
 
         //邀请，求邀请信息被挂起
@@ -50,7 +50,9 @@ cc.Class({
             this.cancelBtn.active = false;
             this.refuseBtn.active = false;
             this.comfirmBtn.active = false;
+            this._type = 3;
         }
+       
 
         this.text.getComponent(cc.RichText).string = text;
         // this.text.string = text;
@@ -77,13 +79,29 @@ cc.Class({
       //  this.comfirmParameter = parameter;
     },
 
+    start () {
+      //  if (this._type == 3) 
+     //   this.initParams();
+    },
 
-    // initCancelBtn(callBack, target, parameter) {
-    //     this.cancelCallBack = callBack;
-    //     this.cancelTarget = target;
-    //     this.cancelParameter = parameter;
-    // },
-
+    initParams (params) {
+        if (params == null) 
+        return;
+        cc.log("params",params,"加载头像",params.id,params.openid);
+        var self = this;
+        cc.loader.loadRes('UI/buildTeam/forInvitedMe', function (errorMessage, loadedResource) {
+            // for (var i = 0; i < params.length; i++) {
+             //  var itemData = params[i];
+                if (errorMessage) {
+                    cc.log('载入预制资源失败, 原因:' + errorMessage);
+                    return;
+                }
+                let item = cc.instantiate(loadedResource);
+               // resIndex++;
+                self.loadData.addChild(item);
+                item.getComponent('forInvitedMe').initData(params.id,params.openid,self);
+        });
+    },
 
     confirm() {
         if(this._confirmCallBack)
@@ -114,9 +132,15 @@ cc.Class({
 
      //点击面板任意区域取消
     cancel() {
-        if (this._type ==2) {
-            GlobalEvent.emit("TeamInvited");//暂时被挂起,
+       
+        if (this._type == 2)
+        GlobalEvent.emit("TeamInvited");//暂时被挂起,
+       
+
+        if (this._type == 3 && teamData.onForTeamInvited !=null) {
+            GlobalEvent.emit("forTeamInvited");//求邀请暂时被挂起,
         }
+
         this.hide();
     },
 

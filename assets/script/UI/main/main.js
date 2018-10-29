@@ -26,6 +26,13 @@ cc.Class({
         this._mgr.release();
         this._mgr.loadUI(constant.UI.RaidUI);
     },
+    bag(){
+        this._mgr.loadUI(constant.UI.BagUI);
+    },
+
+    Email () {
+        this._mgr.loadUI(constant.UI.EmailUI);
+    },
 
     enterFightPav () {
         var self = this;

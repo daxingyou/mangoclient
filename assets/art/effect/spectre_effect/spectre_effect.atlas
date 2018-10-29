@@ -1,0 +1,62 @@
+
+spectre_effect.png
+size: 1478,200
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect/charm_effect
+  rotate: true
+  xy: 804, 64
+  size: 136, 332
+  orig: 136, 332
+  offset: 0, 0
+  index: -1
+effect/charm_effect_flash
+  rotate: true
+  xy: 1138, 64
+  size: 136, 332
+  orig: 136, 332
+  offset: 0, 0
+  index: -1
+effect/charm_effect_frame
+  rotate: true
+  xy: 0, 0
+  size: 200, 400
+  orig: 200, 400
+  offset: 0, 0
+  index: -1
+effect/charm_effect_frame_light
+  rotate: true
+  xy: 402, 0
+  size: 200, 400
+  orig: 200, 400
+  offset: 0, 0
+  index: -1
+effect/floorsmoke_L
+  rotate: false
+  xy: 1348, 11
+  size: 130, 51
+  orig: 130, 51
+  offset: 0, 0
+  index: -1
+effect/floorsmoke_R
+  rotate: false
+  xy: 998, 4
+  size: 176, 58
+  orig: 176, 58
+  offset: 0, 0
+  index: -1
+effect/soul
+  rotate: true
+  xy: 1176, 7
+  size: 55, 170
+  orig: 55, 170
+  offset: 0, 0
+  index: -1
+effect/soul_light
+  rotate: true
+  xy: 804, 6
+  size: 56, 192
+  orig: 56, 192
+  offset: 0, 0
+  index: -1

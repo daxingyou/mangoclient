@@ -1,0 +1,524 @@
+
+spcetre.png
+size: 1872,1030
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+atm_L
+  rotate: true
+  xy: 1474, 338
+  size: 61, 141
+  orig: 63, 143
+  offset: 1, 1
+  index: -1
+atm_R
+  rotate: false
+  xy: 1722, 629
+  size: 127, 142
+  orig: 129, 144
+  offset: 1, 1
+  index: -1
+atm_under_L
+  rotate: true
+  xy: 942, 111
+  size: 197, 141
+  orig: 199, 143
+  offset: 1, 1
+  index: -1
+atm_under_R
+  rotate: true
+  xy: 1694, 491
+  size: 136, 159
+  orig: 138, 161
+  offset: 1, 1
+  index: -1
+body
+  rotate: false
+  xy: 0, 609
+  size: 504, 421
+  orig: 506, 423
+  offset: 1, 1
+  index: -1
+body_flame
+  rotate: false
+  xy: 0, 155
+  size: 312, 452
+  orig: 314, 454
+  offset: 1, 1
+  index: -1
+charm
+  rotate: false
+  xy: 1244, 339
+  size: 67, 159
+  orig: 69, 161
+  offset: 1, 1
+  index: -1
+closedeyes
+  rotate: false
+  xy: 1686, 334
+  size: 133, 28
+  orig: 135, 30
+  offset: 1, 1
+  index: -1
+clothes_under_L
+  rotate: false
+  xy: 314, 0
+  size: 245, 273
+  orig: 247, 275
+  offset: 1, 1
+  index: -1
+clothes_under_R
+  rotate: false
+  xy: 1242, 774
+  size: 321, 256
+  orig: 323, 258
+  offset: 1, 1
+  index: -1
+effect/charm_effect
+  rotate: false
+  xy: 314, 275
+  size: 136, 332
+  orig: 136, 332
+  offset: 0, 0
+  index: -1
+effect/flame_gone/flame_gone_00001
+  rotate: false
+  xy: 1676, 122
+  size: 110, 89
+  orig: 125, 185
+  offset: 4, 0
+  index: -1
+effect/flame_gone/flame_gone_00002
+  rotate: false
+  xy: 1674, 213
+  size: 125, 119
+  orig: 125, 185
+  offset: 0, 0
+  index: -1
+effect/flame_gone/flame_gone_00003
+  rotate: false
+  xy: 1327, 191
+  size: 125, 143
+  orig: 125, 185
+  offset: 0, 0
+  index: -1
+effect/flame_gone/flame_gone_00004
+  rotate: true
+  xy: 1313, 336
+  size: 125, 159
+  orig: 125, 185
+  offset: 0, 0
+  index: -1
+effect/flame_gone/flame_gone_00005
+  rotate: true
+  xy: 1686, 364
+  size: 125, 167
+  orig: 125, 185
+  offset: 0, 0
+  index: -1
+effect/flame_gone/flame_gone_00006
+  rotate: true
+  xy: 1515, 522
+  size: 124, 177
+  orig: 125, 185
+  offset: 1, 0
+  index: -1
+effect/flame_gone/flame_gone_00007
+  rotate: true
+  xy: 1334, 523
+  size: 125, 179
+  orig: 125, 185
+  offset: 0, 0
+  index: -1
+effect/flame_gone/flame_gone_00008
+  rotate: false
+  xy: 452, 275
+  size: 121, 184
+  orig: 125, 185
+  offset: 4, 0
+  index: -1
+effect/flame_gone/flame_gone_00009
+  rotate: false
+  xy: 1085, 123
+  size: 123, 185
+  orig: 125, 185
+  offset: 2, 0
+  index: -1
+effect/flame_gone/flame_gone_00010
+  rotate: false
+  xy: 1210, 500
+  size: 122, 185
+  orig: 125, 185
+  offset: 3, 0
+  index: -1
+effect/flame_gone/flame_gone_00011
+  rotate: true
+  xy: 1355, 650
+  size: 122, 185
+  orig: 125, 185
+  offset: 3, 0
+  index: -1
+effect/flame_gone/flame_gone_00012
+  rotate: true
+  xy: 1000, 310
+  size: 119, 185
+  orig: 125, 185
+  offset: 6, 0
+  index: -1
+effect/flame_gone/flame_gone_00013
+  rotate: true
+  xy: 1085, 0
+  size: 121, 185
+  orig: 125, 185
+  offset: 4, 0
+  index: -1
+effect/flame_gone/flame_gone_00014
+  rotate: true
+  xy: 1542, 648
+  size: 123, 178
+  orig: 125, 185
+  offset: 2, 2
+  index: -1
+effect/flame_gone/flame_gone_00015
+  rotate: true
+  xy: 1512, 401
+  size: 119, 172
+  orig: 125, 185
+  offset: 1, 5
+  index: -1
+effect/flame_gone/flame_gone_00016
+  rotate: false
+  xy: 1210, 151
+  size: 115, 164
+  orig: 125, 185
+  offset: 0, 11
+  index: -1
+effect/floorsmoke_L
+  rotate: true
+  xy: 452, 477
+  size: 130, 51
+  orig: 130, 51
+  offset: 0, 0
+  index: -1
+effect/floorsmoke_R
+  rotate: false
+  xy: 1334, 463
+  size: 176, 58
+  orig: 176, 58
+  offset: 0, 0
+  index: -1
+effect/ghost_flame/ghost_flame_00000
+  rotate: false
+  xy: 688, 18
+  size: 125, 243
+  orig: 125, 250
+  offset: 0, 0
+  index: -1
+effect/ghost_flame/ghost_flame_00004
+  rotate: false
+  xy: 815, 74
+  size: 125, 234
+  orig: 125, 250
+  offset: 0, 0
+  index: -1
+effect/ghost_flame/ghost_flame_00008
+  rotate: true
+  xy: 0, 28
+  size: 125, 250
+  orig: 125, 250
+  offset: 0, 0
+  index: -1
+effect/ghost_flame/ghost_flame_00012
+  rotate: false
+  xy: 1025, 431
+  size: 125, 250
+  orig: 125, 250
+  offset: 0, 0
+  index: -1
+effect/ghost_flame/ghost_flame_00016
+  rotate: false
+  xy: 561, 11
+  size: 125, 250
+  orig: 125, 250
+  offset: 0, 0
+  index: -1
+effect/ghost_flame/ghost_flame_00020
+  rotate: true
+  xy: 749, 310
+  size: 125, 249
+  orig: 125, 250
+  offset: 0, 0
+  index: -1
+effect/scratch/scratch_00001
+  rotate: false
+  xy: 1617, 336
+  size: 67, 63
+  orig: 100, 200
+  offset: 19, 137
+  index: -1
+effect/scratch/scratch_00002
+  rotate: false
+  xy: 1481, 77
+  size: 100, 125
+  orig: 100, 200
+  offset: 0, 75
+  index: -1
+effect/scratch/scratch_00003
+  rotate: true
+  xy: 1180, 687
+  size: 85, 173
+  orig: 100, 200
+  offset: 0, 21
+  index: -1
+effect/scratch/scratch_00004
+  rotate: false
+  xy: 1454, 204
+  size: 89, 130
+  orig: 100, 200
+  offset: 0, 0
+  index: -1
+effect/scratch/scratch_00005
+  rotate: false
+  xy: 1701, 7
+  size: 74, 68
+  orig: 100, 200
+  offset: 26, 0
+  index: -1
+effect/skill_flame/skill_flame_00001
+  rotate: true
+  xy: 749, 263
+  size: 45, 31
+  orig: 110, 75
+  offset: 2, 23
+  index: -1
+effect/skill_flame/skill_flame_00003
+  rotate: false
+  xy: 1676, 77
+  size: 96, 43
+  orig: 110, 75
+  offset: 2, 17
+  index: -1
+effect/skill_flame/skill_flame_00005
+  rotate: true
+  xy: 252, 52
+  size: 101, 60
+  orig: 110, 75
+  offset: 2, 8
+  index: -1
+effect/skill_flame/skill_flame_00007
+  rotate: false
+  xy: 815, 7
+  size: 104, 65
+  orig: 110, 75
+  offset: 2, 5
+  index: -1
+effect/skill_flame/skill_flame_00009
+  rotate: true
+  xy: 1553, 0
+  size: 75, 67
+  orig: 110, 75
+  offset: 2, 4
+  index: -1
+effect/skill_flame/skill_flame_00011
+  rotate: false
+  xy: 1622, 6
+  size: 77, 69
+  orig: 110, 75
+  offset: 2, 4
+  index: -1
+effect/skill_flame/skill_flame_00013
+  rotate: true
+  xy: 1481, 0
+  size: 75, 70
+  orig: 110, 75
+  offset: 4, 3
+  index: -1
+effect/skill_flame/skill_flame_00015
+  rotate: false
+  xy: 1788, 62
+  size: 63, 73
+  orig: 110, 75
+  offset: 18, 2
+  index: -1
+effect/skill_flame/skill_flame_00017
+  rotate: true
+  xy: 1801, 216
+  size: 57, 71
+  orig: 110, 75
+  offset: 26, 2
+  index: -1
+effect/skill_flame/skill_flame_00019
+  rotate: true
+  xy: 1378, 0
+  size: 44, 68
+  orig: 110, 75
+  offset: 39, 4
+  index: -1
+effect/soul
+  rotate: false
+  xy: 1187, 317
+  size: 55, 170
+  orig: 55, 170
+  offset: 0, 0
+  index: -1
+effect/soul_light
+  rotate: false
+  xy: 1152, 489
+  size: 56, 192
+  orig: 56, 192
+  offset: 0, 0
+  index: -1
+eyeball_L
+  rotate: false
+  xy: 1059, 73
+  size: 24, 36
+  orig: 26, 38
+  offset: 1, 1
+  index: -1
+eyeball_R
+  rotate: false
+  xy: 1826, 20
+  size: 41, 40
+  orig: 43, 42
+  offset: 1, 1
+  index: -1
+eyebrow_L
+  rotate: true
+  xy: 252, 0
+  size: 50, 34
+  orig: 52, 36
+  offset: 1, 1
+  index: -1
+eyebrow_R
+  rotate: false
+  xy: 1777, 20
+  size: 47, 40
+  orig: 49, 42
+  offset: 1, 1
+  index: -1
+eyelid_L
+  rotate: false
+  xy: 1821, 275
+  size: 51, 87
+  orig: 53, 89
+  offset: 1, 1
+  index: -1
+eyelid_R
+  rotate: true
+  xy: 1378, 46
+  size: 143, 101
+  orig: 145, 103
+  offset: 1, 1
+  index: -1
+face
+  rotate: false
+  xy: 1565, 773
+  size: 278, 257
+  orig: 280, 259
+  offset: 1, 1
+  index: -1
+hair_behind_L
+  rotate: false
+  xy: 767, 437
+  size: 256, 244
+  orig: 258, 246
+  offset: 1, 1
+  index: -1
+hair_behind_R
+  rotate: true
+  xy: 871, 791
+  size: 239, 369
+  orig: 241, 371
+  offset: 1, 1
+  index: -1
+hair_behind_mid_L
+  rotate: false
+  xy: 575, 263
+  size: 172, 196
+  orig: 174, 198
+  offset: 1, 1
+  index: -1
+hair_behind_mid_R
+  rotate: true
+  xy: 506, 461
+  size: 220, 259
+  orig: 222, 261
+  offset: 1, 1
+  index: -1
+hair_top
+  rotate: false
+  xy: 506, 683
+  size: 363, 347
+  orig: 365, 349
+  offset: 1, 1
+  index: -1
+hand_L
+  rotate: false
+  xy: 1583, 87
+  size: 91, 118
+  orig: 93, 120
+  offset: 1, 1
+  index: -1
+hand_R
+  rotate: false
+  xy: 942, 0
+  size: 115, 109
+  orig: 117, 111
+  offset: 1, 1
+  index: -1
+mouth
+  rotate: true
+  xy: 921, 45
+  size: 27, 19
+  orig: 29, 21
+  offset: 1, 1
+  index: -1
+mouth_open
+  rotate: true
+  xy: 1334, 651
+  size: 34, 19
+  orig: 36, 21
+  offset: 1, 1
+  index: -1
+mouth_open2
+  rotate: false
+  xy: 452, 461
+  size: 36, 14
+  orig: 38, 16
+  offset: 1, 1
+  index: -1
+skull
+  rotate: false
+  xy: 1545, 207
+  size: 127, 127
+  orig: 129, 129
+  offset: 1, 1
+  index: -1
+temple_L
+  rotate: true
+  xy: 871, 683
+  size: 106, 307
+  orig: 108, 309
+  offset: 1, 1
+  index: -1
+temple_R
+  rotate: false
+  xy: 1272, 0
+  size: 104, 149
+  orig: 106, 151
+  offset: 1, 1
+  index: -1
+whiteeye_L
+  rotate: false
+  xy: 1152, 439
+  size: 33, 48
+  orig: 35, 50
+  offset: 1, 1
+  index: -1
+whiteeye_R
+  rotate: true
+  xy: 1788, 137
+  size: 74, 63
+  orig: 76, 65
+  offset: 1, 1
+  index: -1

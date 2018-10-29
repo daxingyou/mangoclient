@@ -250,12 +250,13 @@ cc.Class({
     },  ///获取当前主UI
 
     //弹出提示框
-    popupTips: function (type,text,title,cancelCallback,refuseCallback,comfirmCallback,target) {
+    popupTips: function (type,text,title,cancelCallback,refuseCallback,comfirmCallback,target,params) {
         this.loadUI(constant.UI.PopupTips,(data) => {
             data.showText(type,text,title);
             data.initCancelBtn(cancelCallback,target);
             data.initConfirmBtn(comfirmCallback,target);
             data.initRefuseBtn(refuseCallback,target);
+            data.initParams(params);
         });
     },
     

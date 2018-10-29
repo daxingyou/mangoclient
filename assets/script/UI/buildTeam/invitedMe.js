@@ -47,7 +47,7 @@ cc.Class({
                 data.init();
                 that._uimgr.loadUI(constant.UI.FightPavTop,(data) =>{
                     data.initBackBtn(null,null);
-                    data.changeTitle(0);
+                    data.changeTitle("对弈亭");
                 });
             });};
         if (teamData.refreshTeam.length > 1) {
@@ -67,7 +67,7 @@ cc.Class({
             data.laodFriendList();//加载可以邀请的好友信息
             that._uimgr.loadUI(constant.UI.FightPavTop,(data) =>{
                 data.initBackBtn(backShowListUI,that);
-                data.changeTitle(2);
+                data.changeTitle("对弈亭");
             });
         });
         net.Request(new acceptInviteProto(that._eid,that._teamId), (data) => {

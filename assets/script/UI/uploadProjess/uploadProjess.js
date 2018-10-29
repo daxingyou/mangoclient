@@ -14,14 +14,13 @@ cc.Class({
 
       showNode0: cc.Node,
       showNode1: cc.Node,
+      showNode2: cc.Node,
+      showNode3: cc.Node,
     },
 
-   
     onLoad () {
         this.loadStard();
     },
-
- 
 
     loadStard () {
 
@@ -40,7 +39,7 @@ cc.Class({
         let teamA = dataCenter.teamInfo.teamA;
         cc.log("加载 teamA",teamA);
         let teamB = dataCenter.teamInfo.teamB;
-       // cc.log("加载 teamB",teamB);
+        cc.log("加载 teamB",teamB);
         this._uid2ShowNode = {};
         for (var i in teamA) {
             var uid = teamA[i].uid;

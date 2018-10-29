@@ -7,6 +7,7 @@
 var consts = require('consts') 
 var constant = require('constants')
 var PVECombat = require('PVECombat')
+var PVPCombat = require('PVPCombat')
 
 var CombatMgr = {
     curCombat : null,
@@ -19,15 +20,14 @@ var CombatMgr = {
         else if(data.matchType == consts.MatchType.PVE && data.matchNum === 2)
         {
             this.curCombat = new PVECombat();
-            //cc.log(this.curCombat,"-------------this.curCombat");
         }
         else if(data.matchType == consts.MatchType.PVE && data.matchNum === 3)
         {
-            //this.curCombat = new PVECombat();
+            this.curCombat = new PVECombat();
         }
         else if(data.matchType == consts.MatchType.PVP)
         {
-            //this.curCombat = new PVECombat();
+            this.curCombat = new PVPCombat();
         }
       //  cc.log(data,"---------------data in CombatMgr");
         this.curCombat.init(data);

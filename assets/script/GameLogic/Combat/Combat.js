@@ -50,7 +50,7 @@ Combat.prototype.Tick = function(){
         if(gameCenter.curLoadRes >= this.resNum && this.UILoadOk)
         {
             this.checkLoadRes = false;
-            cc.log('加载完成！');
+            cc.log('~~~~~~~ 加载完成！');
             //this.UIMgr.getUI(constant.UI.Match).hide();
             net.Request(new loadFinishedProto(),function(){
                 
@@ -74,19 +74,20 @@ Combat.prototype.Tick = function(){
 Combat.prototype.init = function(data){
     this.UIMgr = cc.find('Canvas').getComponent('UIMgr');
     this.UIMgr.initDmg();
-    var dungeon = dataMgr.dungeon[data.dgId];
+    this.dungeon = dataMgr.dungeon[data.dgId];
     var that = this;
     gameCenter.curLoadRes = 0;
     this.resNum++;
     
     /// 加载场景
-    sceneMgr.loadScene(dungeon.SceneID,function(){
+    sceneMgr.loadScene(this.dungeon.SceneID,function(){
         that.sceneLoadOk = true;
         gameCenter.curLoadRes++;
     })
 
-    this.time = dungeon.TimeLimit;
+    this.time = this.dungeon.TimeLimit;
 
+    /*
     ///test demo 默认 为 PVE_2
     this.matrix = dataMgr.matrix[5];
 
@@ -139,7 +140,7 @@ Combat.prototype.init = function(data){
         gameCenter.resNum = this.resNum;
         this.checkLoadRes = true;
         this._loadProgress = 0;
-    }
+    }*/
 }
 
 Combat.prototype.getSelf = function(){

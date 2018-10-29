@@ -26,7 +26,8 @@ cc.Class({
     init (data) {
         var self = this;
         let resIndex = 0;
-        self._CDState = false;
+        self._CDState = true;
+        self.cdTime = 30;
         cc.loader.loadRes('UI/matchTeam/wxImg', function (errorMessage, loadedResource) {
             for (var i = 0; i < data.length; i++) {
                 let itemData = data[i];
@@ -54,9 +55,6 @@ cc.Class({
 
     //匹配成功
     matchSucessd () {
-        this._CDState = true;
-        this.cdTime = 30;
-        cc.log("匹配成功，显示头像");
         this.scheduleOnce(function(){
             this.onClickEnterGame();
         },1);

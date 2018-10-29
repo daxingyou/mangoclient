@@ -1,5 +1,7 @@
 var constant = require('constants')
 var teamRaidData = require('teamRaidData')
+var combatMgr = require('CombatMgr')
+var dataCenter = require('DataCenter')
 var teamRaid = {
     init: function () {
         this._uiMgr = cc.find('Canvas').getComponent('UIMgr');
@@ -48,7 +50,13 @@ var teamRaid = {
 
         pomelo.on('onTeamRaidMembersUpdate', function (data) {
             cc.log("组队副本队员信息更新", data);
+            if (dataCenter.fightEnd) {
+                combatMgr.Release();
+                that._uiMgr.release();
+              //  combatMgr.curCombat.UILoadOk = true; 
+            }
             let teamInfo = data.teamInfo;
+            teamRaidData.teamInfo = teamInfo;
             that._uiMgr.loadUI(constant.UI.TeamSelectRaid,data =>{
                 data.initData(teamInfo);
             });
@@ -70,7 +78,8 @@ var teamRaid = {
 
         pomelo.on('onTeamRaidShowRoomList', function (data) {
             cc.log("组队副本点选关卡列表", data);
-            teamRaidData.teamRaidInfo = data.selectList;
+            teamRaidData.selectList = data.selectList;
+            GlobalEvent.emit("teamSelectAward");
             // var ui = that._uiMgr.getCurMainUI();
             // ui.loadRaid(data);
             /*  "onTeamRaidShowRoomList": {
@@ -84,7 +93,7 @@ var teamRaid = {
 
         pomelo.on('onTeamRaidRoomSelected', function (data) {
             cc.log("组队副本队员点选关卡", data);
-
+            that._uiMgr.showTips("副本队员选择关卡");
             /*
               "onTeamRaidRoomSelected": {
                 "required string uid": 1,
@@ -94,6 +103,12 @@ var teamRaid = {
 
         pomelo.on('onTeamRaidBeginGetCard', function (data) {
             cc.log("组队副本进入奖励卡牌选择", data);
+            let cardsList = data.cardsList;
+            teamRaidData.cardsList = cardsList;
+       
+            // that._uiMgr.loadUI(constant.UI.TeamAwardCard,function(data){
+            //    data.initData(cardsList);
+            // });
 
             /*  "onTeamRaidBeginGetCard": {
                 "repeated uInt32 cardsList": 1
@@ -102,6 +117,8 @@ var teamRaid = {
 
         pomelo.on('onTeamRaidMemberGetCard', function (data) {
             cc.log("组队副本队员选择了组队卡牌", data);
+            that._uiMgr.showTips("副本队员选择了组队卡牌");
+
         });
 
         pomelo.on('onTeamRaidPass', function (data) {

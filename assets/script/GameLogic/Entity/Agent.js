@@ -17,18 +17,17 @@ var Agent = function (path, pos, teamid, hp, maxHp, armo, uid, buffs, scale, loa
     this.teamid = teamid;
     var that = this;
 
-    loadRes.load('UI/hero/hpBar', true, (data) => {
+    loadRes.load('UI/hero/hpBar', false, (data) => {
         that.hpbar = cc.instantiate(data).getComponent('hpBar');
         //cc.log(that.hpbar + "that.hpbar");
         that.hpbar.node.parent = cc.find('Canvas/ui');
         that.hpbar.freshen(hp, maxHp, armo);
         that.hpbar.freshenBuff(buffs);
 
-        loadRes.load(path, true, (data) => {
-            cc.log('data === ',data);
+        cc.log('~~~~~~~~~~  Model path = ',path);
+
+        loadRes.load(path, false, (data) => {
             that.go = cc.instantiate(data);
-            cc.log('that.go === ',that.go);
-            cc.log('cc.find(Canvas/pool) === ',cc.find('Canvas/pool'));
             that.go.parent = cc.find('Canvas/pool');
             that.go.position = cc.v2(pos.x, pos.y);
 
@@ -44,7 +43,14 @@ var Agent = function (path, pos, teamid, hp, maxHp, armo, uid, buffs, scale, loa
             that.contentSize = new cc.Rect(worldPos.x - that.width / 2, worldPos.y, that.width, that.height);
             that.aniMgr = that.go.getChildByName('body').getComponent('AnimationMgr');
 
-            that.hpbar.node.position = cc.v2(pos.x - 667, pos.y + that.height + 20 - 375);
+            if(that.go.name == 'head')
+            {
+                that.hpbar.node.position = cc.v2(pos.x - 667, pos.y + that.height + 80 - 375);
+            }
+            else
+            {
+                that.hpbar.node.position = cc.v2(pos.x - 667, pos.y + that.height + 20 - 375);
+            }
 
             loadok();
         })

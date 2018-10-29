@@ -66,7 +66,7 @@ cc.Class({
     again(){
        
          if (this._CDState == false) {
-            this._uimgr.loadUI(constant.UI.Match,function(data){
+            this._uimgr.loadUI(constant.UI.RaidUI,function(data){
                 combatMgr.Release();
                 combatMgr.curCombat.UILoadOk = true; 
             });

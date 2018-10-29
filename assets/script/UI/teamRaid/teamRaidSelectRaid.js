@@ -5,6 +5,7 @@ var dataMgr = require('DataMgr')
 var dataCenter = require('DataCenter')
 var teamRaidData = require('teamRaidData')
 var teamRaidSelectRoomProto = require('teamRaidSelectRoomProto')
+var teamRaidIgnoreGetCardProto = require('teamRaidIgnoreGetCardProto')
 cc.Class({
     extends: uibase,
 
@@ -19,11 +20,16 @@ cc.Class({
        countDown :cc.Node,
        showRaid:cc.Node,
        _showRaid:[],
-
+       raidName:cc.Label,
+       showCard:cc.Node,
     },
+
     initData (data) {
         cc.log("队伍信息",data);
+        this.raidName.string = teamRaidData.teamRaidTitle;
         this._CDState = true;
+        this.cdTime = 30;
+        this.countDown.active = true;
         for (let i=0;i < data.length;i++) {
             let itemData = data[i];
             this["teamer" + i].active = true;
@@ -75,13 +81,68 @@ cc.Class({
     
 
     onLoad () {
-        if(teamRaidData.teamRaidInfo !=null) {
-            this.loadRaid(teamRaidData.teamRaidInfo);
+        //选择关卡
+        if (teamRaidData.selectList != null) {
+            this.loadRaid(teamRaidData.selectList);
         }
+
+        //奖励卡牌
+        if (teamRaidData.cardsList != null) {
+            this.teamerSelectAward(teamRaidData.cardsList);
+        }
+
+        GlobalEvent.on("teamSelectAward",this.teamerSelectAward(teamRaidData.cardsList),this);
+       
+    },
+    start () {
+    
+    },
+
+    //选择奖励卡牌
+    teamerSelectAward(cardsList) {
+        cc.log("cardsList",cardsList);
+        var self = this;
+        self.showCard.active = true;
+        self._CDState = false;
+        var resIndex = 0;
+        cc.loader.loadRes('UI/teamRaid/awardCardItem', function (errorMessage, loadedResource) {
+            // let invited = teamData.onTeamInvited;
+            for (let i = 0; i < cardsList.length; i++) {
+                let itemData = cardsList[i];
+                if (errorMessage) {
+                    cc.log('载入预制资源失败, 原因:' + errorMessage);
+                    return;
+                }
+                resIndex++;
+                let item = cc.instantiate(loadedResource);
+                self.showCard.addChild(item);
+                item.getComponent('awardCardItem').initData(itemData,self);
+                if (resIndex == cardsList.length) {
+                    teamRaidData.selectList == null;
+                    cc.loader.release('UI/teamRaid/awardCardItem');
+                }
+
+            }
+        }); 
+    },
+
+    //选择完关闭
+    selectCardEnd () {
+        this.showCard.active = false;
+        this._CDState = true;
+        this.cdTime = 30;
+    },
+
+    //跳过卡牌奖励
+    ingoreAwardCard () {
+        net.Request(new teamRaidIgnoreGetCardProto(), (data) => {
+            cc.log("跳过卡牌奖励",data);
+        });
+        this.showCard.active = false;
     },
 
     start () {
-
+       
     },
 
     update (dt) {
@@ -93,7 +154,7 @@ cc.Class({
             }
             if (this.countDown == undefined)
             return;
-           // getComponent(cc.Label).string
+   
             this.countDown.getComponent(cc.Label).string = "剩余"+temp+"秒";
         }
      },

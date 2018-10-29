@@ -53,6 +53,8 @@ cc.Class({
         is_clickInvited: false,
         is_invitedSucceed: false,
         teamId:null,
+        refreshUserSteate:0,
+        _refreshSteate:true,
     },
 
 
@@ -75,21 +77,23 @@ cc.Class({
          GlobalEvent.on("onTeamReadyStateChange",this.TeamReadyStateChange,this);
          GlobalEvent.on("onBeginMatch",this.showFloatWait,this);
          GlobalEvent.on("TeamInvited",this.teamInvited,this);//暂时被挂起,
+         GlobalEvent.on("forTeamInvited",this.forTeamInvited,this);//求邀请暂时被挂起,
      },
 
      start () {
-         let teamInfo = dataCenter.allInfo.teamInfo;
+         let teamInfo = dataCenter.allInfo.teamInfo;//已经创建了队伍
          if (teamInfo["teamId"] !="") {
             teamData.refreshTeam = teamInfo;
          }//重连
-         cc.log(teamData.refreshTeam,"refreshTeam,",teamInfo.teamId,"teamInfo.teamId");
+
+        // cc.log(teamData.refreshTeam,"refreshTeam,",teamInfo.teamId,"teamInfo.teamId");
          if (teamData.refreshTeam != null) {
           //  GlobalEvent.emit("onRefreshTeam");
           this.RefreshTeam();
          }
-         if (teamInfo.invitedList.length != 0) {
+         if (teamInfo.invitedList.length != 0) {//存在邀请我的列表
             teamData.onTeamInvited = teamInfo.invitedList;
-            cc.log("teamInfo.invitedList",teamInfo.invitedList,teamData.onTeamInvited,"teamData.onTeamInvited");
+            cc.log("teamInfo.invitedList",teamInfo.invitedList,"邀请我的列表");
          }
 
          if (teamData.onTeamInvited.length != 0) {
@@ -99,16 +103,63 @@ cc.Class({
          
      },
 
+     //邀请信息提示
      teamInvited() {
         let num  = teamData.onTeamInvited.length;
-        cc.log(num,"teamData.onTeamInvited.length");
+        //cc.log(num,"teamData.onTeamInvited.length");
         this.invitedTips.active = true;
         this.invitedTips.getComponent(cc.Label).string = num;
      },
 
+      //求邀请信息提示
+     forTeamInvited () {
+        this.beInvitedTips.active = true;
+        this.beInvitedTips.getComponent(cc.Label).string = 1;
+     },
+
+    //显示求邀请我的列表
+    clickBeInvited () {
+    cc.log("显示求邀请我的列表",teamData.onForTeamInvited);
+    if (this.beInvitedTips.active) {
+        this.showApplyList.active = true;
+        this.content = this.showApplyList.getChildByName('view').getChildByName('content');
+        this.content.removeAllChildren();
+        var self = this;
+        let resIndex = 0;
+        self._invitedBar = [];
+        cc.loader.loadRes('UI/buildTeam/beInvitedMe', function (errorMessage, loadedResource) {
+            let Beinvited = teamData.onForTeamInvited;
+            // for (let i = 0; i < invited.length; i++) {
+               // let itemData = invited[i];
+                if (errorMessage) {
+                    cc.log('载入预制资源失败, 原因:' + errorMessage);
+                    return;
+                }
+                let item = cc.instantiate(loadedResource);
+                self.content.addChild(item);
+                item.getComponent('invitedMe').initData(Beinvited.id,Beinvited.openid,self,1);
+              //  self._invitedBar.push(item.getComponent('invitedMe'));
+              //  self._invitedBar[i].initData(i,1,itemData.id,itemData.openid,itemData.teamId,self);
+                // if (resIndex == invited.length) {
+                //     cc.loader.release('UI/BuildTeam/invitedMe');
+                // }
+           // }
+    });
+    }
+    this.showApplyBtn.getComponent(cc.Button).interactable = false;
+    },
+
+    //操作后消除提示
+    clearBeinvitedTips () {
+        this.invitedTips.active = false;
+    },
+
+
+
+
      //显示邀请我的列表
      clickInvited () {
-         cc.log("teamData.onTeamInvited",teamData.onTeamInvited);
+         cc.log("显示邀请我的列表",teamData.onTeamInvited);
         if (this.invitedTips.active) {
             this.showApplyList.active = true;
             this.content = this.showApplyList.getChildByName('view').getChildByName('content');
@@ -116,7 +167,7 @@ cc.Class({
             var self = this;
             let resIndex = 0;
             self._invitedBar = [];
-            cc.loader.loadRes('UI/BuildTeam/invitedMe', function (errorMessage, loadedResource) {
+            cc.loader.loadRes('UI/buildTeam/invitedMe', function (errorMessage, loadedResource) {
                 let invited = teamData.onTeamInvited;
                 for (let i = 0; i < invited.length; i++) {
                     let itemData = invited[i];
@@ -125,21 +176,24 @@ cc.Class({
                         return;
                     }
                     let item = cc.instantiate(loadedResource);
+                    resIndex++;
                     self.content.addChild(item);
                     self._invitedBar.push(item.getComponent('invitedMe'));
                     self._invitedBar[i].initData(i,1,itemData.id,itemData.openid,itemData.teamId,self);
-                    // if (resIndex == invited.length) {
-                    //     cc.loader.release('UI/BuildTeam/invitedMe');
-                    // }
+                    if (resIndex == invited.length) {
+                        cc.loader.release('UI/BuildTeam/invitedMe');
+                    }
                 }
-        });
+            });
         }
         this.showApplyBtn.getComponent(cc.Button).interactable = false;
      },
-
+    
+     //关闭邀请申请列表
      closeApplyList() {
         this.showApplyList.active = false;
         this.showApplyBtn.getComponent(cc.Button).interactable = true;
+
      },
 
      //更新申请列表
@@ -163,54 +217,24 @@ cc.Class({
 
     },
 
-
-
       //刷新队友成员
-     RefreshTeam() {
+    RefreshTeam() {
         this._membersData= [];
         this.teamId = teamData.refreshTeam.teamId;
         let item = teamData.refreshTeam.members;
         let len = item.length;
+        let titleText = this.title.string;
+        
         for (let i=0;i < 4;i++) {
             //初始化全部隐藏
             this.rolesBar[i].active = false;
-            if (item[0].id == dataCenter.uuid) {
-                //是队长显示开始匹配按钮
-                let self = this;
-                self._header = true;
-                self.beginMatchBtn.active = true;
 
-                //修改队长返回按钮的功能
-                var backShowListUI = function () {
-               //self._uimgr.release();
-                if (len > 1) {
-                    self._uimgr.popupTips(1,"确定要退出吗","提示",null,null,
-                    function(){
-                        net.Request(new leaveTeamProto(item[0].id), (data) => {
-                            cc.log("离开队伍",data);
-                        })
-                        self._uimgr.loadUI(constant.UI.ShowList,data => {
-                        data.init();
-                        self._uimgr.loadUI(constant.UI.FightPavTop,(data) =>{
-                            data.initBackBtn(null,null);
-                            data.changeTitle(0);
-                        });
-                    }
-                    );},self);
-                }
-                else {
-                    net.Request(new leaveTeamProto(item[0].id), (data) => {
-                        cc.log("离开队伍",data);
-                    })
-                   self.onTeamBeKicked();   
-                }
-                };
-                self._uimgr.loadUI(constant.UI.FightPavTop,(data) =>{
-                    data.initBackBtn(backShowListUI,self);
-                    data.changeTitle(2);
-                });
+            if (item[0].id == dataCenter.uuid) {//  //是队长显示开始匹配按钮
+                this._header = true;
+                this.beginMatchBtn.active = true;
                 }
             else {
+                cc.log("不是队长");
                 this._header = false;
                 this.beginMatchBtn.active = false;
             }
@@ -228,27 +252,60 @@ cc.Class({
             if (i < len) {
                 //成员信息
                 this.rolesBar[i].active = true;
+                if (i !=0) {
+                    this.rolesBar[i].getChildByName('prepare').active = true;
+                }
+               
                 var userName = this.rolesBar[i].getChildByName("userName").getComponent(cc.Label);
                 userName.string = item[i].openid;
                 this._membersData.push(item[i]);
-               
+            
                 //隐藏其他队友准备按钮,踢人按钮
                 if (item[i].id != dataCenter.uuid && i!=0) {
-                   this.rolesBar[i].getChildByName('prepare').active = false;
+                this.rolesBar[i].getChildByName('prepare').active = false;
                 } 
             }  
         } 
-     },
+        //修改返回按钮功能
+        let self = this;
+        let backShowListUI = function () {
+            let comfirm = function(){
+                net.Request(new leaveTeamProto(item[i].id), (data) => {
+                    cc.log("离开队伍",data);
+                })
+                self._uimgr.loadUI(constant.UI.ShowList,data => {
+                data.init();
+                self._uimgr.loadUI(constant.UI.FightPavTop,(data) =>{
+                    data.initBackBtn(null,null);
+                    data.changeTitle("对弈亭");
+                });
+            }
+            );}
+
+        if (len > 1) {
+            self._uimgr.popupTips(1,"确定要退出吗","提示",null,null,comfirm,self);
+        }
+        else {
+            net.Request(new leaveTeamProto(item[i].id), (data) => {
+                cc.log("离开队伍",data);
+            });
+        self.onTeamBeKicked();   
+        }
+        };
+        self._uimgr.loadUI(constant.UI.FightPavTop,(data) =>{
+            data.initBackBtn(backShowListUI,self);
+            data.changeTitle(titleText);
+        });
+    },
 
 
      //被提出队伍 or 自己离开队伍
      onTeamBeKicked () {
         var self = this;
-       // self._uimgr.release();
-        self._uimgr.loadUI(constant.UI.ShowList);
+        self._uimgr.loadUI(constant.UI.ShowList,data=>{data.init();});
         self._uimgr.loadUI(constant.UI.FightPavTop,(data) =>{
             data.initBackBtn(null,null);
-            data.changeTitle(0);
+            data.changeTitle("对弈亭");
         });
      },
 
@@ -297,18 +354,43 @@ cc.Class({
         this._membersData = [];
      },
 
-
-     //加载在线好友
-     laodFriendList () {
-       
+     updateFriendState () {
+        cc.log("刷新队友状态");
+        this._refreshSteate = false;
+        let self = this;
         net.Request(new getFriendsManageInfoProto(dataCenter.uuid), function (data) {
             console.log(data,"getFriendsManageInfoProto");
+            let infos = data.infos;
+            for (let i =0;i<infos.length;i++) {
+                let itemData = infos[i];
+                let id = itemData.id;
+                if (itemData.state == consts.UserState.ONLINE) {
+                    self._showGameFriend[i].userState("在线");
+                }
+                else if (itemData.state == consts.UserState.OFFLINE) {
+                    self._showGameFriend[i].userState("离线");
+                }
+                else if (itemData.state == consts.UserState.TEAM) {
+                    self._showGameFriend[i].userState("组队中",id);
+                }
+                else if (itemData.state == consts.UserState. PLAYING) {
+                    self._showGameFriend[i].userState("游戏中");
+                }
+            } 
         });
-       
-        // // 显示可以邀请的好友列表
+        this._refreshSteate = true;
+     //   self._showGameFriend
+    },
+
+
+     //加载好友
+     laodFriendList () {
          var resIndex = 0;
          var self = this;
-         let friendsInfo = dataCenter.massageList;
+         let friendsInfo = dataCenter.massageList;//好友全量信息
+         self.showGameFriend.removeAllChildren();
+         self._showGameFriend = [];
+         cc.log("加载好友列表",friendsInfo);
          for (let i in friendsInfo) {
              if (i == "friends") {
                  let friends = friendsInfo[i];
@@ -327,6 +409,7 @@ cc.Class({
                         
                          if (resIndex == friends.length) {
                              cc.loader.release('UI/Friend/canInviteFriend');
+                             self.updateFriendState();
                              if (friends.length > 4) {
                               self.showGameFriend.height = (friends.length+1) * 150;
                             }   
@@ -334,7 +417,6 @@ cc.Class({
                      }
              });
             }  
-            cc.log("加载好友列表");
         } 
      },
    
@@ -500,7 +582,16 @@ cc.Class({
    
 
      update (dt) {
-    
+      //  this.updateFriendState();
+        this.refreshUserSteate += dt;
+        var temps = Math.floor(this.refreshUserSteate);
+        var moreSecs = temps % 30;
+      //  cc.log(temps,moreSecs,"temps,moreSecs");
+        if ( moreSecs == 0 && temps!=0) {
+            this.updateFriendState();   
+        }
+
+        
         if(cc.sys.platform == cc.sys.WECHAT_GAME) {
             this._updaetSubDomainCanvas();
         }
@@ -521,6 +612,7 @@ cc.Class({
                 this.waitedTime.string ="0"+ this.minTime + ":" + temp.toString();
             } 
         }
+
      },
 
      _updaetSubDomainCanvas () {

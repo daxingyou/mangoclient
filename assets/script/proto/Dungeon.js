@@ -42,7 +42,7 @@ module.exports = {
 		WinMode: 0,
 		TimeLimit: 180,
 		Icon: 'attack',
-		Desc: '河洞战斗1描述。'
+		Desc: '河洞战斗4描述。'
 	},
 	5: {
 		ID: 5,
@@ -52,7 +52,7 @@ module.exports = {
 		WinMode: 0,
 		TimeLimit: 180,
 		Icon: 'attack',
-		Desc: '河洞战斗2描述。'
+		Desc: '河洞战斗5描述。'
 	},
 	6: {
 		ID: 6,
@@ -62,7 +62,7 @@ module.exports = {
 		WinMode: 0,
 		TimeLimit: 180,
 		Icon: 'attack',
-		Desc: '河洞战斗3描述。'
+		Desc: '河洞战斗6描述。'
 	},
 	7: {
 		ID: 7,
@@ -72,7 +72,7 @@ module.exports = {
 		WinMode: 0,
 		TimeLimit: 180,
 		Icon: 'attack',
-		Desc: '河洞战斗3描述。'
+		Desc: '河洞战斗7描述。'
 	},
 	8: {
 		ID: 8,
@@ -82,6 +82,6 @@ module.exports = {
 		WinMode: 0,
 		TimeLimit: 180,
 		Icon: 'attack',
-		Desc: '河洞战斗4描述。'
+		Desc: '河洞战斗8描述。'
 	},
 };

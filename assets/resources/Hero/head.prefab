@@ -223,7 +223,7 @@
     "_enabled": true,
     "_paused": false,
     "defaultSkin": "",
-    "defaultAnimation": "",
+    "defaultAnimation": "guard",
     "loop": true,
     "_premultipliedAlpha": false,
     "_N$skeletonData": {

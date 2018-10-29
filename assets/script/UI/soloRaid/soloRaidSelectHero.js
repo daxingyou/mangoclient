@@ -1,5 +1,6 @@
 var uibase = require('UIBase')
 var constant = require('constants')
+var consts = require('consts')
 var net = require('NetPomelo')
 var hero = require('Hero')
 var raidEnterRoomProto = require('raidEnterRoomProto')
@@ -16,7 +17,6 @@ cc.Class({
             _ownHeroBar:[],
             showSelectHero:cc.Sprite,
             heroName:cc.Label,
-            raidId:null,
             _heroid:null,
     },
 
@@ -27,6 +27,7 @@ cc.Class({
         cc.loader.loadRes('UI/buildTeam/ownHero', function (errorMessage, loadedResource) {
             for (let i in hero) {
                 var itemData = hero[i];
+                cc.log("自己拥有的英雄",itemData);
                 if (errorMessage) {
                     cc.log('载入预制资源失败, 原因:' + errorMessage);
                     return;
@@ -47,11 +48,11 @@ cc.Class({
         this._uimgr = cc.find('Canvas').getComponent('UIMgr');
     },
 
-    //确认进来的房间ID
-    comfirmRaidID (raidId) {
-        this.raidId = raidId;
-        cc.log(this.raidId,"this.raidID");
-    },
+    // //确认进来的房间ID
+    // comfirmRaidID (raidId) {
+    //     this.raidId = raidId;
+    //     cc.log(this.raidId,"this.raidID");
+    // },
 
 
     selectHero (heroid) {
@@ -63,36 +64,42 @@ cc.Class({
     },
 
     comfirmHero (heroid) {
-         cc.log(this.raidId,'this.raidId');
+         cc.log(soloRaidData.raidId,"soloRaidData.raidId");
          let rooms = null;
          var self = this;
          let heroData = dataMgr.hero[self._heroid];
          dataCenter.userName = heroData.HeroName;
-         net.Request(new raidSelectHeroProto(self.raidId,self._heroid), function (data) {
-            {    cc.log("单人副本确认选择英雄",data);
-                if (data.code == 1) {
-                    let raidInfo = data.raidInfo;
-                    soloRaidData.raidInfo = raidInfo;
-                    self._uimgr.release();
-                    self._uimgr.loadUI(constant.UI.EnterSelectRaid,data =>{
-                        data.initData(raidInfo);
-                    });
+         net.Request(new raidSelectHeroProto(soloRaidData.raidId,self._heroid), function (data) {
+            {    
+                if (data.code == consts.SelectHeroCode.OK) {
+                let raidInfo = data.raidInfo;
+                soloRaidData.raidInfo = raidInfo;
+                self._uimgr.release();
+                self._uimgr.loadUI(constant.UI.EnterSelectRaid,data =>{
+                    data.initData(raidInfo);
+                });
+                cc.log("单人副本确认英雄");
                 }
-                else if (data.code == 2) {
 
+                else if (data.code == consts.SelectHeroCode.BE_SELECEED) {
+                    cc.log("已经被选了")
                 }
-                else if (data.code == 3) {
+
+                else if (data.code == consts.SelectHeroCode.NOT_EXIST) {
                     cc.log("已经确认过英雄",soloRaidData.raidInfo);
                     self._uimgr.release();
                     self._uimgr.loadUI(constant.UI.EnterSelectRaid,data =>{
                         data.initData(soloRaidData.raidInfo);
                     });
+                }
 
+                else if (data.code == consts.SelectHeroCode. ALREADY_CONFIRMED) {
+                    cc.log("已经确认了");
                 }
             }
-            //else{
-            //    cc.log("单人副本确认异常");
-            //}
+                //else{
+                //    cc.log("单人副本确认异常");
+                //}
          });
     },
 

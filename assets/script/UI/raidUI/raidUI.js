@@ -2,6 +2,7 @@ var uibase = require('UIBase')
 var constant = require('constants')
 var net = require('NetPomelo')
 var raid = require('Raid')
+var consts = require('consts')
 var dataMgr = require('DataMgr')
 cc.Class({
     extends: uibase,
@@ -12,8 +13,6 @@ cc.Class({
         _soloItemBar:[],
         _teamItemBar:[],
     },
-
-
 
     start () {
         this._uimgr =cc.find('Canvas').getComponent('UIMgr');
@@ -29,7 +28,6 @@ cc.Class({
         //cc.log(raid,"----------------raid");
         cc.loader.loadRes('UI/raidUI/raidItem', function (errorMessage, loadedResource) {
             for (let i in raid) {
-
                 var itemData = raid[i];
                 if (errorMessage) {
                     cc.log('载入预制资源失败, 原因:' + errorMessage);
@@ -41,18 +39,15 @@ cc.Class({
                     let item = cc.instantiate(loadedResource);
                     self.display.addChild(item);
                     self._soloItemBar.push(item.getComponent('raidItem'));
-                   // cc.log(resIndex,"resIndex",i,"----i");
-                //    self._soloItemBar[blongSolo-1].initData(blongSolo-1,itemData.ID,itemData.Name,itemData.RequireLevel,self);
-                    self._soloItemBar[blongSolo-1].initData(itemData,self);
+                    self._soloItemBar[blongSolo-1].initData(blongSolo,itemData,self);
                 }
-
                 if (resIndex == Object.keys(raid).length) {
                     cc.loader.release('UI/raidUI/raidItem');
                 }
             }
     })
     },
-    
+
     teamRaid() {
         var self = this;
         var resIndex = 0;
@@ -73,9 +68,8 @@ cc.Class({
                     let item = cc.instantiate(loadedResource);
                     self.display.addChild(item);
                     self._teamItemBar.push(item.getComponent('raidItem'));
-                    self._teamItemBar[blongMult-1].initData(itemData,self);
+                    self._teamItemBar[blongMult-1].initData(blongMult,itemData,self);
                 }
-
                 if (resIndex == Object.keys(raid).length) {
                     cc.loader.release('UI/raidUI/raidItem');
                 }

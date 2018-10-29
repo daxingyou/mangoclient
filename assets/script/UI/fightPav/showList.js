@@ -26,7 +26,7 @@ cc.Class({
     start () {
       this.showLevel(10);//假装等级为10
       this._uimgr = cc.find('Canvas').getComponent('UIMgr');
-      GlobalEvent.emit("h",10);
+      this.eableClick();
     },
     
     showLevel (data) {
@@ -42,7 +42,6 @@ cc.Class({
     },
 
     init () {
-        this._CDState = false;
         this.eableClick();
     },
     
@@ -116,11 +115,6 @@ cc.Class({
              }
             data.laodFriendList();
          });
-        
-         //隐藏顶部，返回按钮
-         var ui = self._uimgr.getUI(constant.UI.FightPavTop);
-         if(ui != null)
-             ui.changeTitle(self.teamKind);
     },
 
     enterStore() {
@@ -128,7 +122,7 @@ cc.Class({
         this._uimgr.loadUI(constant.UI.Store,function(data){});
         var ui = this._uimgr.getUI(constant.UI.FightPavTop);
         if(ui != null) {
-            ui.changeTitle(4);
+            ui.changeTitle("商店");
         }     
     },
 });
