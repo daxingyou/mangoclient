@@ -42,6 +42,7 @@ var CombatMgr = {
         return this.curCombat.own;
     },
     getSelf : function(){
+        //cc.log('own num  == ' ,this.curCombat.own ,'  cur PlayerIndex = ',this.curCombat.curPlayerIndex);
         return this.curCombat.own[this.curCombat.curPlayerIndex];
     },
     getAbilityTarget : function(Objective){

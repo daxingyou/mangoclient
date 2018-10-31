@@ -1,35 +1,55 @@
-// Learn cc.Class:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
-
+var uibase = require('UIBase');
+var constant = require('constants')
+var consts = require('consts')
 cc.Class({
-    extends: cc.Component,
+    extends: uibase,
 
     properties: {
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
+       _mailId:null,
+       _flag:null,
+      
+       playerName:cc.Label,
+       text:cc.Label,
+       time:cc.Label,
+       _parents:null,
+       tips:cc.Node,
+       _switch:false,
+       _type:null,
+       _guid:null,
+       _reward:null,
     },
 
-    // LIFE-CYCLE CALLBACKS:
+    initData (type,data,parent) {
+        cc.log(data,"data");
+        this._type = type;
+        this._mailId = data.maildID;
+        this._guid = data.guid;
+        this._flag = data.flag;
+        this._reward = data.reward;
+        this.playerName.string = '';
+        this.text.string = '';
+        let time = new Date().getTime() - data.time;
+        this.time.string = new Date(time);
+        this._parents = parent;
+
+        if (this._flag == consts.Mail.FLAG_UNREAD)  {
+            this.tips.active = true;
+        }
+        else if (this._flag == consts.Mail.FLAG_READ) {
+            this.tips.active = false;
+        }
+        else if (this._flag == consts.Mail.FLAG_GOT) {
+            cc.log("已领");
+        }
+        else if (this._flag == consts.Mail.FLAG_DEL) {
+            cc.log("删除");
+        }
+    },
+
+    look() {
+        this._parents.lookEamil(this._type,this._guid,this._reward);
+        this.tips.active = false;
+    },
 
     // onLoad () {},
 
@@ -37,5 +57,11 @@ cc.Class({
 
     },
 
-    // update (dt) {},
+    update (dt) {
+        // if (!this._switch) {
+        //     if (this._flag != null) {
+        //         if ()
+        //     }
+        // }
+    },
 });

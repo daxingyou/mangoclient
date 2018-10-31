@@ -237,9 +237,27 @@ cc.Class({
         }
 
         if(this.curObjective.team == constant.Team.own)
-            this._targetTips[0].showRect(cc.rect(55,247,550,320));
+        {
+            if(GameLogic.player.pos == 0)
+            {
+                this._targetTips[0].showRect(cc.rect(55,247,550,320));
+            }
+            else
+            {
+                this._targetTips[0].showRect(cc.rect(775,247,550,320));
+            }
+        }
         else
-            this._targetTips[0].showRect(cc.rect(775,247,550,320));
+        {
+            if(GameLogic.player.pos == 1)
+            {
+                this._targetTips[0].showRect(cc.rect(55,247,550,320));
+            }
+            else
+            {
+                this._targetTips[0].showRect(cc.rect(775,247,550,320));
+            }
+        }
     },
     HideTips(){
         for(var i in this._targetTips)

@@ -45,7 +45,6 @@ cc.Class({
                     cc.loader.release('UI/matchTeam/wxImg');
                     self.matchSucessd();
                 } 
-                // cc.log(resIndex,"resIndex"); 
             }
         });
     },
@@ -74,8 +73,9 @@ cc.Class({
 
     //显示队友准备人数
     showComfirmTeamer (num,data) {
-        for (let i=0;i<this._eid.length;i++) {
-            if (data.id == this._wxImgs[i]._eid) {
+        cc.log("队友",data,"点击了开始");
+        for (let i= 0;i<this._eid.length;i++) {
+            if (data.id == this._eid[i]) {
                 this._wxImgs[i].onclickBegin();
             }
         }

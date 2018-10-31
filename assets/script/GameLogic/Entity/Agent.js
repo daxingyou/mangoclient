@@ -6,7 +6,7 @@
 var loadRes = require('LoadRes')
 var constant = require('constants')
 
-var Agent = function (path, pos, teamid, hp, maxHp, armo, uid, buffs, scale, loadok) {
+var Agent = function (path, pos, teamid, hp, maxHp, armo, uid, buffs, scale,idx, loadok) {
     this.go = null;
     this.hpbar = null;
     this.spData = null;
@@ -24,17 +24,31 @@ var Agent = function (path, pos, teamid, hp, maxHp, armo, uid, buffs, scale, loa
         that.hpbar.freshen(hp, maxHp, armo);
         that.hpbar.freshenBuff(buffs);
 
-        cc.log('~~~~~~~~~~  Model path = ',path);
+        //cc.log('~~~~~~~~~~  Model path = ',path);
 
         loadRes.load(path, false, (data) => {
             that.go = cc.instantiate(data);
             that.go.parent = cc.find('Canvas/pool');
             that.go.position = cc.v2(pos.x, pos.y);
 
+            var index  = 0;
+            cc.log('cur idx == ',idx,' cur pos  == ',pos.y);
+            if(idx == 1 || idx == 2)
+            {
+                index = 1;
+            }
+            else if(idx == 3 || idx == 4)
+            {
+                index = 2;
+            }
+
+            that.go.zIndex = index;
+
             if (this.teamid == constant.Team.own)
                 this.go.scaleX = scale;
             else
                 this.go.scaleX = -scale;
+
             that.go.scaleY = scale;
             var spData = that.go.getChildByName('body').getComponent(sp.Skeleton);
             that.height = Math.ceil(spData.skeletonData.skeletonJson.skeleton.height);

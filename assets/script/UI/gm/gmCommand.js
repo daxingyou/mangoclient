@@ -2,7 +2,7 @@
  * @Author: liuguolai 
  * @Date: 2018-08-31 15:41:47 
  * @Last Modified by: liuguolai
- * @Last Modified time: 2018-10-19 11:06:10
+ * @Last Modified time: 2018-10-30 11:30:25
  */
 var consts = require('consts');
 var net = require("NetPomelo");
@@ -16,12 +16,14 @@ cc.Class({
         btnClose: cc.Button,
         editBox: cc.EditBox,
         _clickCnt: 0,
-        _lastClickTime: 0,
+        _lastClickTime: 0
     },
 
     onLoad: function () {
         if (!consts.ENABLE_GM)
             return;
+        this._lastCommand = [];
+        this._lastCommandIdx = 0;
         var self = this;
         self.node.on(cc.Node.EventType.TOUCH_START, function (event) {
             var timeNow = new Date().getTime();
@@ -40,7 +42,32 @@ cc.Class({
         });
         self.editBox.node.on('editing-return', function (event) {
             self._handle();
-        })
+        });
+    },
+
+    onEnable () {
+        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
+    },
+
+    onDisable () {
+        cc.systemEvent.off(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
+    },
+
+    onKeyDown (event) {
+        if (this._lastCommand.length === 0)
+            return;
+        switch(event.keyCode) {
+            case cc.KEY.up:
+                if (this._lastCommandIdx === 0)
+                    this._lastCommandIdx = this._lastCommand.length;
+                this._lastCommandIdx = (this._lastCommandIdx - 1) % this._lastCommand.length;
+                this.editBox.string = this._lastCommand[this._lastCommandIdx];
+                break;
+            case cc.KEY.down:
+                this._lastCommandIdx = (this._lastCommandIdx + 1) % this._lastCommand.length;
+                this.editBox.string = this._lastCommand[this._lastCommandIdx];
+                break;
+        }
     },
 
     _handle: function () {
@@ -53,6 +80,9 @@ cc.Class({
         else {
             this._handleGmCommand(text);
         }
+        cc.log(this._lastCommand)
+        this._lastCommand.push(text);
+        this._lastCommandIdx = this._lastCommand.length;
         this.editBox.string = "";
     },
 
@@ -95,10 +125,5 @@ cc.Class({
             params: list
         };
         pomelo.notify('connector.entryHandler.command', msg);
-        //"required string code": 1,
-        //"required string name": 2,
-        //"required string avatarUrl": 3,
-        //"required string gender": 4
-
     }
 });

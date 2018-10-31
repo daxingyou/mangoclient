@@ -4,6 +4,7 @@ var listItem = require('listItem')
 var constant = require('constants')
 var dataCenter = require('DataCenter')
 var consts = require('consts')
+var emailData = require('emailData')
 
 
 cc.Class({
@@ -359,6 +360,7 @@ cc.Class({
                     else if (data.code == consts.Login.OK) {
                         console.log("连接逻辑服 成功 info: ", data.info);
                         dataCenter.allInfo = data.info;
+                        emailData.initMainInfo(dataCenter.allInfo.mailInfo);
                         dataCenter.uuid = data.info.id;
                         dataCenter.openid = data.info.openid;
                         that._mgr.release();

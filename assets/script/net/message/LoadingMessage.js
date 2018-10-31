@@ -26,6 +26,10 @@ var loading = {
                 combatMgr.Release();
             });
         });
+
+        pomelo.on('onTips', function (text) {
+            uiMgr.showTips(text);
+        })
     }
 }
 

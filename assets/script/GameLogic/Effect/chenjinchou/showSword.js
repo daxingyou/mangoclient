@@ -51,9 +51,6 @@ cc.Class({
         this._thisValue[8] = temp;
         
         this._SwordRatation = this.getComponent('SwordRatation');
-
-        //this.node.zIndex = this.thisZIndex;
-        //cc.log('showSword showSword');
     },
 
     update (dt) {
@@ -67,8 +64,6 @@ cc.Class({
         var left = Math.seededRandomInt(4, 8);
         Math.seed = seed - 13;
         var right = Math.seededRandomInt(4, 8);
-        //var left = utility.RandomSeedInt(5,8);
-        //var right = utility.RandomSeedInt(5,8);
 
         var src = this.getComponent('ShaderUtilsForWsword');
         src.setValue(left/10,right/10);

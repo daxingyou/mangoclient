@@ -21,12 +21,12 @@ cc.Class({
         this._parents = parents;
         this.userName.string = openid;
         this._eid = id;
+        cc.log("每个人的索引-----------",this._index);
     },
 
     onclickBegin () {
-
         this.comfirmImg.active = true;
-        cc.log(this._index,this._eid,"idididiidiid");
+        cc.log(this._index,"点击开始游戏");
     },
   
 

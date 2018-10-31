@@ -92,6 +92,9 @@ var mgr = {
         var go = this.getEffect(name,pos,teamID);
         if(go != null)
             go.showMove(effect,end,frame);
+
+        
+            
         return go;
       
     },                  //抛物线特效

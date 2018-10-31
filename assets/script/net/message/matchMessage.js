@@ -9,12 +9,10 @@ var monster = require('Monster_')
 var dataMgr = require('DataMgr')
 var FSMEvent = require('FSMEvent');
 var efferMgr = require('EffectMgr');
-var disposeInvite = require('disposeInvite')
 var net = require("NetPomelo")
 var acceptInviteProto = require("acceptInviteProto")
 var refuseTeamInviteProto = require("refuseTeamInviteProto")
 var ignoreTeamInviteProto = require('ignoreTeamInviteProto')
-var leaveTeamProto = require('leaveTeamProto')
 var teamData = require('teamData')
 
 var fight = {
@@ -55,16 +53,102 @@ var fight = {
             let num = teamData.onTeamInvited.length;
             var callComfirm =  function () {
                 //TeamPattern
-                that._uimgr.loadUI(constant.UI.BuildTeam,(data) =>{
-                    data.initFriendList();//先移除
-                    data.laodFriendList();//加载可以邀请的好友信息
-                });   
 
                 teamData.onTeamInvited.splice(num-1,1);
                 net.Request(new acceptInviteProto(data.id,data.teamId), (data) => {
-                    cc.log("同意组队邀请",data);
+                    
+                    if (data.code == consts.TeamCode.OK) {
+                        cc.log("同意组队邀请",data);
+                        that._uimgr.loadUI(constant.UI.BuildTeam,(data) =>{
+                            data.initFriendList();//先移除
+                            data.laodFriendList();//加载可以邀请的好友信息
+                        });   
+                    }
+                    else if (data.code == consts.TeamCode.TYPE_ERR) {
+                        cc.log("类型错误");
+                    }
+                    else if (data.code == consts.TeamCode.IN_TEAM) {
+                        cc.log("队伍中");
+                    }
+                    else if (data.code == consts.TeamCode.NOT_IN_TEAM) {
+                        cc.log("队伍已解散");
+                        that._uimgr.showTips("队伍已解散");
+                    }
+                    else if (data.code == consts.TeamCode.TEAM_FULL) {
+                        cc.log("人满了");
+                        that._uimgr.showTips("人满了");
+                    }
+                    else if (data.code == consts.TeamCode.IN_MY_TEAM) {
+                        cc.log("已经在队伍中");
+                        that._uimgr.showTips("已经在队伍中");
+                    }
+                    else if (data.code == consts.TeamCode.PLAYING) {
+                        cc.log("已经在游戏中");
+                        that._uimgr.showTips("已经在游戏中");
+                    }
+                    else if (data.code == consts.TeamCode.LEVEL_LIMIT) {
+                        cc.log("等级限制");
+                        that._uimgr.showTips("等级限制");
+                    }
+                    else if (data.code == consts.TeamCode.RAND_LIMIT) {
+                        cc.log("段位限制");
+                        that._uimgr.showTips("段位限制");
+                    }
+                    else if (data.code == consts.TeamCode.HERO_NUM_LIMIT) {
+                        cc.log("英雄数量限制");
+                        that._uimgr.showTips("英雄数量限制");
+                    }
+                    
+                    else if (data.code == consts.TeamCode.MEMBER_NOT_EXIST) {
+                        cc.log("没有该成员");
+                        that._uimgr.showTips("没有该成员");
+                    }
+                    else if (data.code == consts.TeamCode.NOT_CAPTAIN) {
+                        cc.log("不是队长");
+                        that._uimgr.showTips("不是队长");
+                    }
+                    else if (data.code == consts.TeamCode.READY_OFF_ALREADY) {
+                        cc.log("已经取消准备");
+                    }
+                    else if (data.code == consts.TeamCode.TEAM_NOT_EXIST) {
+                        cc.log("已经准备");
+                    }
+                    else if (data.code == consts.TeamCode.READY_ON_ALREADY) {
+                        cc.log("没有准备");
+                    }
+                    else if (data.code == consts.TeamCode.READY_OFF_ALREADY) {
+                        cc.log("已经取消准备");
+                    }
+                    else if (data.code == consts.TeamCode.MATCHING) {
+                        cc.log("匹配中");
+                    }
+                    else if (data.code == consts.TeamCode.IN_PUNISH) {
+                        cc.log("超时惩罚");
+                    }
                 });
             };
+    //         // 队伍错误码
+    // TeamCode: {
+    //     OK: 1,
+    //     TYPE_ERR: 2,  // 类型错误
+    //     IN_TEAM: 3,  // 队伍中
+    //     NOT_IN_TEAM: 4,  // 不在队伍中（队伍解散）
+    //     TEAM_FULL: 5, // 人满了
+    //     IN_MY_TEAM: 6,  // 已经在自己的队伍中
+    //     PLAYING: 7,  // 游戏中
+    //     LEVEL_LIMIT: 8,  // 等级限制
+    //     RAND_LIMIT: 9,  // 段位限制
+    //     HERO_NUM_LIMIT: 10,  // 英雄数量限制
+    //     TEAM_NOT_EXIST: 11,  // 队伍不存在
+    //     MEMBER_NOT_EXIST: 12,  // 没有该成员
+    //     NOT_CAPTAIN: 13,  // 不是队长
+    //     READY_OFF_ALREADY: 14,  // 已经取消准备
+    //     READY_ON_ALREADY: 15,  // 已经准备
+    //     CAPTAIN_LIMIT: 16,  // 队长限制（例如准备）
+    //     NOT_READY: 17,  // 没有准备
+    //     MATCHING: 18,  // 匹配中
+    //     IN_PUNISH: 19,  // 超时惩罚中
+    // },
 
             var callRefuse = function () {
                 teamData.onTeamInvited.splice(num-1,1);
@@ -161,14 +245,10 @@ var fight = {
 
         pomelo.on('onMatchNoConfirm', function (data) {
             cc.log("匹配未确认，回组队", data);
-            //that._uimgr.release();
+           // that._uimgr.release();
             that._uimgr.loadUI(constant.UI.BuildTeam,(data) =>{
                 data.initFriendList();//先移除
                 data.laodFriendList();//加载可以邀请的好友信息
-                that._uimgr.loadUI(constant.UI.FightPavTop,(data) =>{
-                    data.initBackBtn(backShowListUI,that);
-                    data.changeTitle("4v4组队");
-                });
             });
         });
 
@@ -232,7 +312,7 @@ var fight = {
             cc.log(data,"data");
             gameData.teamInfo = data.teamInfo;
 
-            combatMgr.initCombat(data);
+           // combatMgr.initCombat(data);
 
             //that._uimgr.getUI(constant.UI.Match).hide();
 
@@ -477,7 +557,8 @@ var fight = {
             var damage = new Array();
 
             damage['caster'] = data.caster;
-            
+            var player = gameLogic.getCombatUnitForUid(data.caster);
+
             for (var uid in data.damageInfo) {
                 damage[uid] = new Array();
 
@@ -497,7 +578,7 @@ var fight = {
                 unit.onSpawnSummonDamage(data.damageInfo[uid], data.caster);
             }
 
-            spawnSummoned.collect(damage);
+            spawnSummoned.collect(damage,player);
         });
 
         pomelo.on('onSwordWheel', function (data) {

@@ -10,6 +10,7 @@ var constant = require('constants')
 var uimgr = require('UIMgr')
 var scenemgr = require('SceneMgr')
 var dataCenter = require('DataCenter')
+var playerMessage = require('PlayerMessage')
 
 cc.Class({
     extends: cc.Component,
@@ -60,6 +61,7 @@ cc.Class({
         ladderMessage.init();
         teamRaidMessage.init();
         debugMessage.init();
+        playerMessage.init();
 
         // 适配
         //设计分辨率

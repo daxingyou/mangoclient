@@ -7,7 +7,7 @@ module.exports = {
 	1: {
 		ID: 1,
 		Type: 1,
-		Title: '{"PlayName"}',
+		Title: '{PlayName}',
 		Describe: '您的好友赠送了银两给您，快快收下TA的心意吧',
 		Reward: {100:10},
 		UseLogic: ''
@@ -15,7 +15,7 @@ module.exports = {
 	2: {
 		ID: 2,
 		Type: 1,
-		Title: '{"PlayName"}',
+		Title: '{PlayName}',
 		Describe: '您的好友赠送了银两给您，快快收下TA的心意吧',
 		Reward: {},
 		UseLogic: ''

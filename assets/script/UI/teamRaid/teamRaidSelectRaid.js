@@ -101,6 +101,8 @@ cc.Class({
     //选择奖励卡牌
     teamerSelectAward(cardsList) {
         cc.log("cardsList",cardsList);
+        if (cardsList == null) 
+        return;
         var self = this;
         self.showCard.active = true;
         self._CDState = false;

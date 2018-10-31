@@ -129,6 +129,12 @@ cc.Class({
         var resIndex = 0;
         var applyIndex = 0;
         let friendInfos = dataCenter.massageList;
+        if (JSON.stringify(friendsInfo)==='{}') {
+            friendsInfo = dataCenter.allInfo.friendsInfo;
+            if (JSON.stringify(friendsInfo)==='{}') {
+                return;
+            }
+        }
          for (let i in friendInfos) {
             if (i == "friends") {//好友列表
                 var friends = friendInfos[i];
@@ -212,7 +218,8 @@ cc.Class({
     }, 
 
     onclickSelect () {
-        var uid = "5b6ab99c9f96ef630891ccf8";
+        var uid = "5bd66a5d4235b14a78b54106";//m
+        //5bd66a5d4235b14a78b54106 
         //"5b7a6051ce71253d40bf7167";//name 11
        //5b6ab81a9f96ef630891ccf4 name 12;
        //5b911230713af49284a85068 name 103

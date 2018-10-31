@@ -28,7 +28,7 @@ PVECombat.prototype.init = function(data){
 
         this.resNum++;
         var uid = entity.uid , idx = entity.pos;
-        var hero = new Hero_(entity,dataMgr.heroAttributes[entity.heroid],this.matrix.MatrixPos[idx],constant.Team.own,this,uid);
+        var hero = new Hero_(entity,dataMgr.heroAttributes[entity.heroid],this.matrix.MatrixPos[idx],constant.Team.own,this,uid,idx);
         this.own[idx] = hero;
 
         this.resNum +=Effectmgr.init(dataMgr.hero[entity.heroid].InitialDrawPile);

@@ -6,6 +6,8 @@ var EventEmitter = require('events').EventEmitter;
 
 var SpawnSummoned = {
     summoneds : [],
+    summonedAs : [],
+    summonedBs : [],
     index : 0,
     type2Nums: {},
     seed: 0,
@@ -28,13 +30,12 @@ var SpawnSummoned = {
 
             if(data.groupId == "groupA")
             {
-                rangelist = combatMgr.curCombat.monsterMatrix.Range.groupA;
+                rangelist = combatMgr.curCombat.monsterMatrix.Range.groupB;
             }
             else if(data.groupId == "groupB")
             {
-                rangelist = combatMgr.curCombat.monsterMatrix.Range.groupB;
+                rangelist = combatMgr.curCombat.monsterMatrix.Range.groupA;
             }
-
     
             if(pos == 1)
             {
@@ -55,74 +56,27 @@ var SpawnSummoned = {
     
             if(data.type == constant.SummonedType.wSword)
             {
-                effectMgr.geBezierEffect('chenjinchou',new cc.Vec2(1100,310),new cc.Vec2(x,y),5,'wsword_bounce',0,()=>{
-                    this.summoneds.push(effectMgr.getWswordEffect('sword',new cc.Vec2(x,y),0));
-                });
-    
-                combatMgr.curCombat.summoneds = this.summoneds;
+                if(data.groupId == "groupA")
+                {
+                    effectMgr.geBezierEffect('chenjinchou',new cc.Vec2(370,310),new cc.Vec2(x,y),5,'wsword_bounce',0,()=>{
+                        var effect = effectMgr.getWswordEffect('sword',new cc.Vec2(x,y),0);
+                        this.summoneds.push(effect);
+                        this.summonedAs.push(effect);
+                    });
+        
+                }
+                else if(data.groupId == "groupB")
+                {
+                    effectMgr.geBezierEffect('chenjinchou',new cc.Vec2(1100,310),new cc.Vec2(x,y),5,'wsword_bounce',0,()=>{
+                        var effect = effectMgr.getWswordEffect('sword',new cc.Vec2(x,y),0);
+                        this.summoneds.push(effect);
+                        this.summonedBs.push(effect);
+                    });
+                }
             }
         }
-
-        /*
-            "onAddSpawnSummon": {
-            "required string groupId": 1,
-            "required string type": 2,
-            "message AreaInfo": {
-            "required uInt32 area": 1,
-            "required uInt32 num": 2
-            },
-            "repeated AreaInfo addList": 3
-        },
         
-        //var area = null;
-
-        //if(data.area == 1)
-        //{
-        //    area = combatMgr.curCombat.monsterMatrix.Area1;
-        //}else if(data.area == 2)
-        //{
-        //    area = combatMgr.curCombat.monsterMatrix.Area2;
-        //}else if(data.area == 3)
-        //{
-        //    area = combatMgr.curCombat.monsterMatrix.Area3;
-        //}
-
-        //var index = utility.RandomSeedInt(0,area.length-1);
-        //// 最大只填了3
-        //if(index > 3)
-        //   index = 3;
-
-        var pos =  data.area;
-        var range = null;
-
-        if(pos == 1)
-        {
-            range = combatMgr.curCombat.monsterMatrix.Range1;
-        }
-        else if(pos == 2)
-        {
-            range = combatMgr.curCombat.monsterMatrix.Range2;
-        }
-        else if(pos == 3)
-        {
-            range = combatMgr.curCombat.monsterMatrix.Range3;
-        }
-
-        // var x = utility.RandomSeedInt(range.x1,range.x2);
-        // var y = utility.RandomSeedInt(range.y1,range.y1);
-        Math.seed = this.seed - this.getSummonNum(data.type) * 7;
-        var x = Math.seededRandomInt(range.x1, range.x2);
-        var y = Math.seededRandomInt(range.y1, range.y2);
-
-        if(data.type == constant.SummonedType.wSword)
-        {
-            effectMgr.geBezierEffect('chenjinchou',new cc.Vec2(1100,310),new cc.Vec2(x,y),5,'wsword_bounce',0,()=>{
-                this.summoneds.push(effectMgr.getWswordEffect('sword',new cc.Vec2(x,y),0));
-            });
-
-            combatMgr.curCombat.summoneds = this.summoneds;
-        }
-        */
+        combatMgr.curCombat.summoneds = this.summoneds;
     },
     Reset(data){
         this.type2Nums[constant.SummonedType.wSword] = data;
@@ -138,7 +92,6 @@ var SpawnSummoned = {
         var length = first + second + thrid;
         var min = 1;
         var max = 3;
-
 
         while(length > 0)
         {
@@ -214,31 +167,39 @@ var SpawnSummoned = {
             }
 
             Math.seed = this.seed - i * 7;
-            // var x = utility.RandomSeedInt(range.x1,range.x2);
-            // var y = utility.RandomSeedInt(range.y1,range.y2);
+
             var x = Math.seededRandomInt(range.x1, range.x2);
             var y = Math.seededRandomInt(range.y1, range.y2);
     
-           //cc.log('script debug cur num = ',list[i],' cur pos = x ',x,' y=',y,' range.x1 =',range.x1,' range.x2 =',range.x2,' range.y1 =',range.y1,' range.y2 =',range.y2);
-
             effectMgr.geBezierEffect('chenjinchou',new cc.Vec2(1100,310),new cc.Vec2(x,y),5,'wsword_bounce',0,(curPos)=>{
                 this.summoneds.push(effectMgr.getWswordEffect('sword',curPos,0));
-
-                //cc.log('script debug cur EffectMgr pos = ',curPos);
             });
         }
     },      //回收召唤物
-    collect(damage){
+    collect(damage,player){
         this.type2Nums[constant.SummonedType.wSword] = {};
         this.event.emit("spawnSummonChange");
 
         this.index = 0;
         ///当前一轮的伤害
         this.damage = damage;
-        for(var i =0;i<this.summoneds.length;i++)
+
+        ///如果当前玩家是左侧阵营
+        if(player.pos == 0)
         {
-            this.summoneds[i].showCollect(this.ShowDamage);
+            for(var i =0;i<this.summonedAs.length;i++)
+            {
+                this.summonedAs[i].showCollect(this.ShowDamage);
+            }
         }
+        else
+        {
+            for(var i =0;i<this.summonedBs.length;i++)
+            {
+                this.summonedBs[i].showCollect(this.ShowDamage);
+            }
+        }
+                
         
     },   
     collectItem(){

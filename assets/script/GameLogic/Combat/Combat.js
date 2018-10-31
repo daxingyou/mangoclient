@@ -7,10 +7,6 @@
 var dataMgr = require('DataMgr')
 var gameCenter = require('DataCenter')
 var sceneMgr = require('SceneMgr')
-var Hero_ = require('Hero_')
-var constant = require('constants')
-var consts = require('consts')
-var Monster_ = require('Monster_')
 var net = require('NetPomelo')
 var loadFinishedProto = require('loadFinishedProto')
 var loadProgressProto = require('loadProgressProto')
@@ -43,6 +39,8 @@ Combat.prototype.checkLoadRes = false;
 Combat.prototype.sceneLoadOk = false;
 ///战斗UI 是否加载完成
 Combat.prototype.UILoadOk = false;
+///战斗阵形位置 默认为0 左边 1 为右边
+Combat.prototype.pos = 0;
 
 Combat.prototype.Tick = function(){
     if(this.checkLoadRes)

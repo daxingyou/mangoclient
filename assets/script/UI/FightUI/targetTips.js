@@ -30,7 +30,6 @@ cc.Class({
     show(target){
         if(target != null)
 
-
         if(target.table.ID == 10001 && target.agent.go.scale > -1 && target.agent.go.scale < 1)
         {
             this.bottomLeft.position = cc.v2(target.agent.go.position.x + target.summoned.TargetFrame.x1,target.agent.go.position.y + target.summoned.TargetFrame.y1);

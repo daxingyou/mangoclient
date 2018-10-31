@@ -57,17 +57,6 @@ cc.Class({
                     }
                 }
             }
-            //cc.log(i,"i",rooms[i]);
-          //  cc.log(rooms[i]);
-        //     // 副本状态
-    // DungeonStatus: {
-    //     END: 1,  // 已经完结
-    //     IN_SELECT_HERO: 2,  // 选角中
-    //     IN_BEFORE_LOAD_CD: 3,  // 加载前倒计时
-    //     IN_LOAD: 4,  // 加载中
-    //     IN_FIGHT: 5,  // 战斗中
-    // },
-
         }
     },
     
@@ -98,7 +87,7 @@ cc.Class({
                 self.showRaid.addChild(item);
                 self._showRaid.push(item.getComponent('raidRoom'));
                 //roomId,raidId,idx,raidName,parent,img,des
-                self._showRaid[resIndex-1].initData(self.roomId,1,resIndex,raidType.Name,raidType.Icon,raidType.Desc,self);
+                self._showRaid[resIndex-1].initData(self.roomId,soloRaidData.raidId,resIndex,raidType.Name,raidType.Icon,raidType.Desc,self);
         //         ID: 3,
 		// Name: '怨鬼',
 		// SceneID: 1,

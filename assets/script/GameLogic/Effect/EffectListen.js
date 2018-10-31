@@ -107,6 +107,16 @@ cc.Class({
         var dir = end.sub(this.node.position);
         this.step = dir.div(frame);
         this.frame = frame;
+
+        var temp = end.x - this.node.position.x;
+
+        if(temp < 0)
+        {
+            this.node.scaleX = -1;
+        }
+        else{
+            this.node.scaleX = 1;
+        }
     },
     showBezier(name,start,end,callBack){
         this._MoveAni = true;

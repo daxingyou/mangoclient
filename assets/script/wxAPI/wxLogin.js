@@ -29,16 +29,14 @@ cc.Class({
         console.log('检查用户授权');
         wx.getSetting({
             success: (res) => {
-                var authSetting = res.authSetting
+                var authSetting = res.authSetting;
                 if (authSetting['scope.userInfo'] === true) {
                     // 用户已授权，可以直接调用相关 API
-                    console.log('用户已经收授权')
-                    self.userInfo = wx.getStorageSync('userInfo').userInfo
-                    dataCenter.userInfo = wx.getStorageSync('userInfo').userInfo
-                    console.log('userInfo',dataCenter.userInfo)
+                    console.log('用户已经收授权');
+                    console.log('userInfo',dataCenter.userInfo);
                     // 添加头像和名字
-                    this.onGetUserInfo(self.userInfo)
-                  //  self.toStartPage()
+                    self.createAuthButton()
+                  
                 } else if (authSetting['scope.userInfo'] === false) {
                     // 用户已拒绝授权，再调用相关 API 或者 wx.authorize 会失败，需要引导用户到设置页面打开授权开关
                     console.log('用户拒绝收授权');
@@ -50,7 +48,10 @@ cc.Class({
                    // self.toAuthPage()
                     self.createAuthButton()
                 }
-            }
+            },
+            fail: function(res) {
+                console.log(res,"res-----------in fail");
+            },
         })
     },
 
@@ -99,7 +100,7 @@ cc.Class({
             }
         })
         self.getUserInfobutton.onTap((res) => {
-             console.log('button res', res)
+             console.log('button res', res);
             // 如果授权成功 就保存信息
             if (res.userInfo) {
                 wx.setStorage({
@@ -108,7 +109,7 @@ cc.Class({
                         userInfo: res.userInfo,
                     }
                 });
-                self.onGetUserInfo(res.userInfo)
+                self.onGetUserInfo(res.userInfo);
                 self.getUserInfobutton.hide();
             }
             else {
@@ -156,6 +157,7 @@ cc.Class({
     },
 
     onGetUserInfo(userInfo) {
+        dataCenter.userInfo = userInfo;
         this.userInfoNode.active = true;
         this.createImage(this.userAvatar, userInfo.avatarUrl);
         this.nickName.string = userInfo.nickName;

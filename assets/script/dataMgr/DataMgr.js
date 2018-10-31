@@ -11,7 +11,7 @@ var buff = require('Buff')
 var Raid = require('Raid')
 var RaidAward = require('RaidAward')
 var RaidShop = require('RaidShop')
-
+var Item = require('Item');
 //heroAttributes
 var dataMgr = {
     index : 0,
@@ -81,6 +81,8 @@ var dataMgr = {
         this.award = RaidAward;
 
         this.shop = RaidShop;
+
+        this.item = Item;
 
 
 

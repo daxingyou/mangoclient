@@ -73,7 +73,6 @@ cc.Class({
             else {
                 self._uimgr.loadUI(constant.UI.SoloRaidSelectHero,data =>{
                     data.initData();
-                   // data.comfirmRaidID(self._curIndex);
                 });
             }
             cc.log("单人副本选择的副本id",soloRaidData.raidId);

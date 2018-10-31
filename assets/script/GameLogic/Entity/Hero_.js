@@ -4,7 +4,7 @@ var Agent = require('Agent')
 var DataMgr = require('DataMgr')
 var gameCenter = require('DataCenter')
 
-function Hero_(data,attributes,pos,teamid,combat,uid){
+function Hero_(data,attributes,pos,teamid,combat,uid,idx){
 
     this.Hp = data.hp;
     this.MaxHp = data.maxHp;
@@ -21,7 +21,7 @@ function Hero_(data,attributes,pos,teamid,combat,uid){
     if(data.hasOwnProperty('scale'))
         scale = data.scale;
 
-    this.agent = new Agent(this.table.HeroModel,pos,teamid,this.Hp,this.MaxHp,this.basePhysical_arm,uid,this.buffs,scale,function(){
+    this.agent = new Agent(this.table.HeroModel,pos,teamid,this.Hp,this.MaxHp,this.basePhysical_arm,uid,this.buffs,scale,idx,function(){
         that.loadok = true;
         gameCenter.curLoadRes++;
     });

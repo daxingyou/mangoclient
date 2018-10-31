@@ -61,8 +61,8 @@ cc.Class({
         this.gameOver = false;
         this.is_chongLian = false;
 
-        
         this.barLabel.string = combatmgr.getSelf().Hp + '/' + combatmgr.getSelf().MaxHp;
+        this.target = combatmgr.getSelf();
 
         if (dataCenter.userName === "于小雪") 
         {
@@ -337,19 +337,23 @@ cc.Class({
         if (this._bMpFull) {
             return;
         }
-        var target = combatmgr.getSelf();
 
-        if(target == null)
-            return;
+        if(this.target == null)
+        {
+            this.target = combatmgr.getSelf();
 
-        if (target && !target.mpRecoverPause && (dataCenter.hp!= 0) ) {
-            this.now_time += dt / target.mpRecoverRate;
-            var per = Math.min(1, this.now_time * 1000 / target.mpRecoverTime);  //百分比
+            if(this.target == null)
+                return;
+        }
+            
+        if (this.target && !this.target.mpRecoverPause && (dataCenter.hp!= 0) ) {
+            this.now_time += dt / this.target.mpRecoverRate;
+            var per = Math.min(1, this.now_time * 1000 / this.target.mpRecoverTime);  //百分比
             this.mpSpire.fillRange = per;
             this.mpRecoverPauseEnd = true;
         }
 
-        if(this.mpRecoverPauseEnd && !target.mpRecoverPause == false && (dataCenter.hp!= 0)) {
+        if(this.mpRecoverPauseEnd && !this.target.mpRecoverPause == false && (dataCenter.hp!= 0)) {
             this._uimgr.showTips('灵力暂停');
             this.mpRecoverPauseEnd = false;
         }
