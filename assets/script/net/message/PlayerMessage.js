@@ -10,13 +10,13 @@ var message = {
 
         pomelo.on('onBagItemsUpdate', function (data) {
             cc.log("背包物品更新", data);
+
         }); 
 
         pomelo.on('onAddMails', function (data) {
             // mailID 与 title, desc互斥，有mailID时读表
             cc.log("新邮件", data);
             emailData.updateMailInfo(data);
-            GlobalEvent.emit("onAddEmail");
         }); 
 
         pomelo.on('onMailsFlagUpdate', function (data) {

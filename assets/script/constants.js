@@ -69,7 +69,6 @@ module.exports = {
         ComfirmCard: {"id":21,"path":'UI/matchTeam/comfirmCard','type':1,'script':'comfirmCard'},
 
         PopupTips: {"id":22,"path":'UI/tips/popupTips','type':3,"script":'popupTips'},
-        WxLogin: {"id":23,"path":'UI/login/wxLogin','type':1,"script":'wxLogin'},
         RaidUI: {"id":24,"path":'UI/raidUI/raidUI','type':1,"script":'raidUI'},
         SoloRaidSelectHero:  {"id":25,"path":'UI/soloRaid/soloRaidSelectHero','type':1,"script":'soloRaidSelectHero'},
         EnterSelectRaid: {"id":26,"path":'UI/soloRaid/enterSelectRaid','type':1,"script":'enterSelectRaid'},

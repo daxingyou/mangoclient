@@ -73,12 +73,18 @@ ability.prototype.Active = function(Target,targets){
 }
 
 ability.prototype.ShowEffect = function(effect,effectType){
+	var offset = cc.v2(0,0);
+	if(effectType.hasOwnProperty('offset'))
+	{
+		offset = cc.v2(effectType.offset.x,effectType.offset.y);
+	}
+
 	///特效播放
 	if(effectType.type == constant.EffectType.Bullt)
 	{
 		if(effectType.origin == constant.EffectOrigin.target)
 		{
-			effectMgr.getMoveEffect(this.arrs.Path,this.owner.agent.go.position.add(new cc.Vec2(3,0)),new cc.Vec2(1010,310),8,effect,this.owner.teamid);
+			effectMgr.getMoveEffect(this.arrs.Path,this.owner.agent.go.position.add(new cc.Vec2(3,0)),this.curTarget.agent.go.position,8,effect,this.owner.teamid,this);
 		}
 		else if(effectType.origin == constant.EffectOrigin.onwer)
 		{
@@ -88,7 +94,7 @@ ability.prototype.ShowEffect = function(effect,effectType){
 			}
 			else
 			{
-				effectMgr.getMoveEffect(this.arrs.Path,this.owner.agent.go.position.add(new cc.Vec2(3,0)),new cc.Vec2(1010,310),8,effect,this.owner.teamid);
+				effectMgr.getMoveEffect(this.arrs.Path,this.owner.agent.go.position.add(new cc.Vec2(3,0)),this.curTarget.agent.go.position,8,effect,this.owner.teamid);
 			}
 		}
 	}
@@ -102,7 +108,7 @@ ability.prototype.ShowEffect = function(effect,effectType){
 				{
 					for(var i in this.targets)
 					{
-						effectMgr.getPosEffect(this.arrs.Path,this.targets[i].agent.go.position,effect,this.owner.teamid);
+						effectMgr.getPosEffect(this.arrs.Path,this.targets[i].agent.go.position,effect,this.owner.teamid,this.EffectCallBack);
 					}
 				}
 				else
@@ -118,7 +124,7 @@ ability.prototype.ShowEffect = function(effect,effectType){
 		}
 		else if(effectType.origin == constant.EffectOrigin.onwer)
 		{
-			var go = effectMgr.getPosEffect(this.arrs.Path,this.owner.agent.go.position,effect,this.owner.teamid);
+			var go = effectMgr.getPosEffect(this.arrs.Path,this.owner.agent.go.position.add(offset),effect,this.owner.teamid);
 			go.node.scale = Math.abs(this.owner.agent.go.scale);
 		}
 		else if(effectType.origin == constant.EffectOrigin.onwerAll)
@@ -309,6 +315,10 @@ ability.prototype.tick = function(dt){
 
 ability.prototype.getTarget = function(){
 	return CombatUtility.getTargets(this.arrs.Target,this.owner.curCombat);
+}
+
+ability.prototype.EffectCallBack = function(){
+
 }
 
 module.exports = ability;

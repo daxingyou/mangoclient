@@ -1,16 +1,23 @@
 var UIBase = require('UIBase')
-
+var constant = require('constants')
+var dataCenter = require('DataCenter')
 cc.Class({
     extends: UIBase,
 
     properties: {
         GoodsContent : cc.Node,
-        GoodsItem : cc.Prefab
+        GoodsItem : cc.Prefab,
+
     },
 
-    // LIFE-CYCLE CALLBACKS:
+     onLoad () {
+        this._uiMgr = cc.find('Canvas').getComponent('UIMgr');
+     },
 
-    // onLoad () {},
+     backMainUI () {
+        this._uiMgr.loadUI(constant.UI.Main,function(data){
+        });
+    },
 
     start () {
         for(var i =0;i<30;i++)
@@ -20,5 +27,24 @@ cc.Class({
         }
     },
 
-    // update (dt) {},
+    clickGoods () {
+        this.GoodsContent.removeAllChildren();
+        for(var i =0;i<5;i++)
+        {
+            var item = cc.instantiate(this.GoodsItem);
+            item.parent = this.GoodsContent;
+        }
+    },
+
+    clickDaoju () {
+        cc.log(dataCenter.allInfo.bagInfo);
+        this.GoodsContent.removeAllChildren();
+        for(var i =0;i<10;i++)
+        {
+            var item = cc.instantiate(this.GoodsItem);
+            item.parent = this.GoodsContent;
+        }
+    },
+
+     update (dt) {},
 });

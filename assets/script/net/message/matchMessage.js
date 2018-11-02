@@ -312,11 +312,9 @@ var fight = {
             cc.log(data,"data");
             gameData.teamInfo = data.teamInfo;
 
-           // combatMgr.initCombat(data);
+            combatMgr.initCombat(data);
 
-            //that._uimgr.getUI(constant.UI.Match).hide();
-
-           that._uimgr.getCurMainUI().hide();
+            that._uimgr.getCurMainUI().hide();
 
             that._uimgr.loadUI(constant.UI.UploadProjess, function (data) {
                 
@@ -340,8 +338,9 @@ var fight = {
 
         pomelo.on('onFightBegin', function (data) {
             cc.log('战斗开始 ', data);
-            var ui = that._uimgr.getCurMainUI();
+            //var ui = that._uimgr.getCurMainUI();
             // ui.selectScr.fightBegin();
+
             gameData.loadBegin = false;
             spawnSummoned.reset();
          
@@ -349,7 +348,8 @@ var fight = {
             that._uimgr.releaseLoading();
             that._uimgr.getUI(constant.UI.Fight).show();
             var ui = that._uimgr.getUI(constant.UI.Fight);
-          
+            
+            ui.initBarHp();
             ui.ShowHandCards();//第一次加载
             ui.schedule(ui.callback,1);
             ui.showNum(gameData);
@@ -447,7 +447,6 @@ var fight = {
 
             var ui = that._uimgr.getCurMainUI();
            
-           
             ui.showNum(gameData);
             gameData.IsLayoutAction = false;
             combatMgr.getSelf().onDrawPile(data.inHands);
@@ -501,7 +500,6 @@ var fight = {
         pomelo.on('onUseSkill', function (data) {
             cc.log('使用技能', data);
             
-
             if(gameData.IsReconnect)
                 return;
 

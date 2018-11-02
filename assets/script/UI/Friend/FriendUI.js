@@ -129,12 +129,7 @@ cc.Class({
         var resIndex = 0;
         var applyIndex = 0;
         let friendInfos = dataCenter.massageList;
-        if (JSON.stringify(friendsInfo)==='{}') {
-            friendsInfo = dataCenter.allInfo.friendsInfo;
-            if (JSON.stringify(friendsInfo)==='{}') {
-                return;
-            }
-        }
+       
          for (let i in friendInfos) {
             if (i == "friends") {//好友列表
                 var friends = friendInfos[i];

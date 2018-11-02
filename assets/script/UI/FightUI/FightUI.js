@@ -61,9 +61,6 @@ cc.Class({
         this.gameOver = false;
         this.is_chongLian = false;
 
-        this.barLabel.string = combatmgr.getSelf().Hp + '/' + combatmgr.getSelf().MaxHp;
-        this.target = combatmgr.getSelf();
-
         if (dataCenter.userName === "于小雪") 
         {
             this.headImg.getComponent(cc.Sprite).spriteFrame = this.heroIcon.getSpriteFrame('yuxiaoxue');
@@ -103,6 +100,11 @@ cc.Class({
         });
     },
 
+    initBarHp(){
+        cc.log('initData en hong ~~~~~~~~~~~~~~~~~~~~~~~');
+        this.barLabel.string = combatmgr.getSelf().Hp + '/' + combatmgr.getSelf().MaxHp;
+        this.target = combatmgr.getSelf();
+    },
 
     updateBarLabel(HP, MaxHp) {
         this.barLabel.string = HP.toString() + '/' + MaxHp.toString();

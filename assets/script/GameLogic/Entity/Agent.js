@@ -19,12 +19,9 @@ var Agent = function (path, pos, teamid, hp, maxHp, armo, uid, buffs, scale,idx,
 
     loadRes.load('UI/hero/hpBar', false, (data) => {
         that.hpbar = cc.instantiate(data).getComponent('hpBar');
-        //cc.log(that.hpbar + "that.hpbar");
         that.hpbar.node.parent = cc.find('Canvas/ui');
         that.hpbar.freshen(hp, maxHp, armo);
         that.hpbar.freshenBuff(buffs);
-
-        //cc.log('~~~~~~~~~~  Model path = ',path);
 
         loadRes.load(path, false, (data) => {
             that.go = cc.instantiate(data);

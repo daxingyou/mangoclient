@@ -50,7 +50,7 @@ PVECombat.prototype.init = function(data){
         var entity = data.teamInfo.teamB[i];
         this.resNum++;
         var uid = entity.uid, idx = entity.pos;
-        var monster = new Monster_(entity,dataMgr.monster[entity.monsterid],this.monsterMatrix.MatrixPos[idx],constant.Team.enemy,this,uid);
+        var monster = new Monster_(entity,dataMgr.monster[entity.monsterid],this.monsterMatrix.MatrixPos[idx],constant.Team.enemy,this,uid,idx);
         this.enemy[idx] = monster;
 
         this.resNum +=Effectmgr.init(dataMgr.monster[entity.monsterid].InitialDrawPile);

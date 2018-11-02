@@ -37,17 +37,12 @@ cc.Class({
 
     onLoad () {
         this._uimgr = cc.find('Canvas').getComponent('UIMgr');
+        this._uimgr.loadUI(constant.UI.Login);
         if (cc.sys.platform == cc.sys.WECHAT_GAME) {
             console.log("微信版本");
             //监听分享是否成功
-            this._uimgr.loadUI(constant.UI.WxLogin);
             GlobalEvent.on("invited",this.invitedResult,this);
         }
-        else {
-            this._uimgr.loadUI(constant.UI.Login);
-        }
-        
-       
 
         scenemgr.init();
 

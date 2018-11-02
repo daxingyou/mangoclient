@@ -40,6 +40,8 @@ cc.Class({
     },
 
     onLoad() {
+        this._bGetServerList = false;
+        this._code = "";
         this.expret.on(cc.Node.EventType.TOUCH_START, function () {
             return true;
         }, this);//阻止往上传递
@@ -52,14 +54,40 @@ cc.Class({
     },
 
     start() {
-        //var uuid = cc.sys.localStorage.getItem("uuid");
-        var uuid = dataCenter.uuid;
-        dataCenter.openid = uuid;
+        if (cc.sys.platform == cc.sys.WECHAT_GAME) {
+            this.wxLogin(this.getServerList.bind(this));
+            return;
+        }
+        else {
+            this.getServerList(dataCenter.uuid);
+        }
+    },
 
+    wxLogin(successCB, failCB) {
+        wx.login({
+            success: (res) => {
+                console.log(res, "res in success");
+                if (res.code) {
+                    if (successCB) {
+                        successCB(res.code);
+                    }
+                }
+            },
+            fail: function (res) {
+                if (failCB) {
+                    failCB();
+                }
+            },
+        });
+    },
+
+    getServerList(code) {
         var self = this;
+        self._code = code;
         cc.log("获取服务器列表");
-        net.HttpRequest('http://203.195.206.97:3003/ServerList?code=' + uuid, (data) => {
+        net.HttpRequest('http://203.195.206.97:3003/ServerList?code=' + code, (data) => {
             cc.log(data);
+            self._bGetServerList = true;
             var serverlist = data.serverlist;
             var serverLast = data.lastLoginSid;
             var roleList = data.ownRoleServers;
@@ -85,11 +113,7 @@ cc.Class({
 
             var resIndex = 0;
             var findLast = false;
-            self.showScore = [];
-            for (let item in roleList) {
-
-                self.showScore.push(item);
-            }
+            self.showScore = roleList;
 
 
             for (var i = 0; i < serverlist.length; i++) {
@@ -147,7 +171,7 @@ cc.Class({
 
                 if (serverLast == self.storeId[i]) {
                     var item2Data = serverlist[i];
-                    cc.loader.loadRes('UI/selectServer/lastItem', function (errorMessage, loadedResource) {
+                    cc.loader.loadRes('UI/selectServer/listItem', function (errorMessage, loadedResource) {
                         if (errorMessage) {
                             cc.log('载入预制资源失败, 原因:' + errorMessage);
                             return;
@@ -165,22 +189,10 @@ cc.Class({
                             ip: item2Data.ip,
                             port: item2Data.port,
                         }, self);
-                        cc.loader.release('UI/selectServer/lastItem');
+                        cc.loader.release('UI/selectServer/listItem');
                     });
                 }
             }//上次登录
-
-            // for(let i=0;i<10;i++){
-            //         cc.loader.loadRes('UI/selectServer/roleItem', function(errorMessage, loadedResource){
-            //             if( errorMessage ) { cc.log( '载入预制资源失败, 原因:' + errorMessage ); return; }
-            //             if( !( loadedResource instanceof cc.Prefab ) ) { cc.log( '你载入的不是预制资源!' ); return; }
-            //             let item3 = cc.instantiate(loadedResource);   
-
-            //             self.exit.addChild(item3);
-
-            //         });   
-
-            // }
 
             for (let item in roleList) {
 
@@ -195,7 +207,7 @@ cc.Class({
                 var roleItem = parseInt(item);
                 let item3Data = serverlist[roleItem - 1];
 
-                cc.loader.loadRes('UI/selectServer/roleItem', function (errorMessage, loadedResource) {
+                cc.loader.loadRes('UI/selectServer/listItem', function (errorMessage, loadedResource) {
 
                     if (errorMessage) {
                         cc.log('载入预制资源失败, 原因:' + errorMessage); return;
@@ -207,7 +219,7 @@ cc.Class({
                     let item3 = cc.instantiate(loadedResource);
                     self.exit.addChild(item3);
 
-                    item3.getComponent('roleItem').init({
+                    item3.getComponent('listItem').init({
                         name: item3Data.name,
                         status: roleList[roleItem],
                         id: item3Data.id,
@@ -232,6 +244,10 @@ cc.Class({
     },//是否同意授权
 
     show_scrollView: function () {
+        if (!this._bGetServerList) {
+            this.start();
+            return;
+        }
         this.serverList.active = true;
         this.showItem.active = false;
         this.start_btn.active = false;
@@ -247,82 +263,37 @@ cc.Class({
     _onSocketError: function () {
         this._loginClicked = false;
     },
-    
-    login () {
-        wx.login({
-            success: function(res) {
-                console.log(res,"res-----------in success");
-                if (res.code) {
-                    wx.request({
-                        url: '',
-                        data: {
-                            code: res.code,
-                        },
-                        method: 'POST',
-                        success : function (res) {
-                            console.log(res,"success------in request");
-                        },
-                        fail : function (res) {
-                            console.log(res,"fail------in request");
-                        },
-                })
-            }
-            },
-            fail: function(res) {
-                console.log(res,"res-----------in fail");
-            },
-            timeout: function(res) {
-                console.log(res,"res-----------in timeout");
-            },
-            // complete: function(res){
-            //     console.log(res,"res-----------in complete");
-            // },
-        })
-    },
 
     loginClick(event) {
         if (this._loginClicked) {
             return;
         }
-        else {
-            this._loginClicked = true;
-        }
-        var uid;
-        var _getUid = function (code) {
-            uid = code;
-        }
+        this._loginClicked = true;
         if (cc.sys.platform == cc.sys.WECHAT_GAME) {
-            wx.login({
-                success: function(res) {
-                    console.log(res,"res in success");
-                    if (res.code) {
-                        _getUid(res.code);
-                    }
-                },
-                fail: function (res) {
-                },
-            });
+            this.wxLogin(this.doLogicLogin.bind(this));
+            return;
         }
-        else {
-             uid = dataCenter.uuid;
-        }
-        console.log(uid + "uid");
-        var that = this;
+        this.doLogicLogin(this._code);
+    },
+
+    doLogicLogin(code) {
+        let self = this;
+        cc.sys.localStorage.setItem("uuid", code);
         pomelo.init({
-            host: that.host,
-            port: that.port,
+            host: self.host,
+            port: self.port,
             log: true
         }, function () {
-            /// 注册获取 uuid 获取逻辑服 地址
-            pomelo.request("gate.gateHandler.queryEntry", { code: uid }, function (data) {
-                that._loginClicked = false;
-                var uuid = data.uuid;
-                that.port = data.port;
-                console.log(that.port + "that.port");
-                console.log("请求登陆地址 = %s 端口： = %i,uuid = %s", that.host, data.port, uuid);
-                cc.sys.localStorage.setItem("uuid", data.uuid);
+            /// 获取逻辑服 地址
+            pomelo.request("gate.gateHandler.queryEntry", { code: code }, function (data) {
+                self._loginClicked = false;
+                if (data.code == consts.Login.MAINTAIN) {
+                    self._handleMaintainState();
+                    return;
+                }
+                console.log("请求登陆地址 = %s 端口： = %i", self.host, data.port);
                 ///连接逻辑服
-                pomelo.disconnect(that._connectToConnector.bind(that, uuid, that.host, data.port));
+                pomelo.disconnect(self._connectToConnector.bind(self, self.host, data.port));
             })
         });
     },
@@ -331,7 +302,12 @@ cc.Class({
         let platform = cc.sys.platform;
         switch (platform) {
             case cc.sys.WECHAT_GAME:
-            userInfo:dataCenter.userInfo
+                let userInfo = dataCenter.userInfo;
+                return {
+                    name: userInfo.nickName,
+                    gender: userInfo.gender,
+                    avatarUrl: userInfo.avatarUrl
+                }
             case cc.sys.DESKTOP_BROWSER:
             default:
                 return {
@@ -342,19 +318,46 @@ cc.Class({
         }
     },
 
-    _connectToConnector(code, host, port) {
+    _getPlatform() {
+        let platform = cc.sys.platform;
+        switch (platform) {
+            case cc.sys.WECHAT_GAME:
+                return consts.Platform.WECHAT;
+            case cc.sys.DESKTOP_BROWSER:
+            default:
+                return consts.Platform.WIN;
+        }
+    },
+
+    _connectToConnector(host, port) {
+        let self = this;
+        self._loginClicked = true;
+        if (cc.sys.platform == cc.sys.WECHAT_GAME) {
+            this.wxLogin(function (code) {
+                self._ActualConnectToConnector(code, host, port);
+            }, function () {
+                self._onLoginFailed();
+            });
+            return;
+        }
+        this._ActualConnectToConnector(this._code, host, port);
+    },
+
+    _ActualConnectToConnector(code, host, port) {
         var that = this;
-        that._loginClicked = true;
         pomelo.init({ host: host, port: port, log: true }, function (data) {
             pomelo.request(
                 "connector.entryHandler.enter",
-                { code: code, userInfo: that._getLoginUserInfo(code) },
-                function (data) {
+                {
+                    code: code,
+                    userInfo: that._getLoginUserInfo(code),
+                    platform: that._getPlatform()
+                }, function (data) {
                     that._loginClicked = false;
                     if (data.code == consts.Login.RELAY) {
                         console.log("重连 ip:%s port:%s", data.host, data.port);
                         // 重定向
-                        pomelo.disconnect(that._connectToConnector.bind(that, data.uuid, data.host, data.port));
+                        pomelo.disconnect(that._connectToConnector.bind(that, data.host, data.port));
                         return;
                     }
                     else if (data.code == consts.Login.OK) {
@@ -366,11 +369,25 @@ cc.Class({
                         that._mgr.release();
                         that._mgr.loadUI(constant.UI.Main);
                     }
+                    else if (data.code == consts.Login.MAINTAIN) {
+                        that._handleMaintainState();
+                    }
                     else {
-
+                        that._onLoginFailed();
                     }
                 });
         });
+    },
+
+    _onLoginFailed() {
+        this._loginClicked = false;
+        this._mgr.showTips('登录失败，请重新登录。');
+    },
+
+    _handleMaintainState() {
+        var uiMgr = cc.find('Canvas').getComponent('UIMgr');
+        uiMgr.showTips("服务器维护中...");
+        pomelo.disconnect();
     }
 
 });

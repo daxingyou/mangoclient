@@ -12,6 +12,7 @@ var Raid = require('Raid')
 var RaidAward = require('RaidAward')
 var RaidShop = require('RaidShop')
 var Item = require('Item');
+var Mail = require('Mail')
 //heroAttributes
 var dataMgr = {
     index : 0,
@@ -44,6 +45,14 @@ var dataMgr = {
 
     //单人副本商店
     shop: [],
+
+    //道具，物品
+    item: [],
+
+    //邮件
+
+    mail: [],
+
     
     load : function (path,callback){
         //var url = cc.url.raw(path);
@@ -83,6 +92,8 @@ var dataMgr = {
         this.shop = RaidShop;
 
         this.item = Item;
+
+        this.mail = Mail;
 
 
 

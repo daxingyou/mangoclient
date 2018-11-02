@@ -658,7 +658,7 @@ cc.Class({
         var sharedCanvas = openDataContext.canvas;
         this.tex.initWithElement(sharedCanvas);
         this.tex.handleLoadedTexture();
-        this.displayWeChat.node.setContentSize(cc.director.getVisibleSize());
+       // this.displayWeChat.node.setContentSize(cc.director.getVisibleSize());
         this.displayWeChat.spriteFrame = new cc.SpriteFrame(this.tex);
     },
 

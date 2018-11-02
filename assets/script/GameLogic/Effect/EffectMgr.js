@@ -85,18 +85,15 @@ var mgr = {
             go.show(effect,callback);
         else
             cc.log('not found effect ',effect);
+
         return go;
-       
     },                  //子弹特效
     getMoveEffect : function(name,pos,end,frame,effect,teamID){
         var go = this.getEffect(name,pos,teamID);
         if(go != null)
             go.showMove(effect,end,frame);
 
-        
-            
         return go;
-      
     },                  //抛物线特效
     geBezierEffect : function(name,pos,end,frame,effect,teamID,callback){
         var go = this.getEffect(name,pos,teamID);

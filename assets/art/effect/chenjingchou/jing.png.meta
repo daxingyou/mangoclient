@@ -7,7 +7,7 @@
   "subMetas": {
     "jing": {
       "ver": "1.0.3",
-      "uuid": "fd80d65d-e29f-4a59-b64c-ab9d5ce3c0ca",
+      "uuid": "f0ece06c-e252-47cc-9b87-f98657c5c387",
       "rawTextureUuid": "b4d4bccd-50ae-4ae2-8315-143d577d31b3",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -16,9 +16,9 @@
       "offsetY": 0,
       "trimX": 0,
       "trimY": 0,
-      "width": 1858,
+      "width": 1776,
       "height": 1030,
-      "rawWidth": 1858,
+      "rawWidth": 1776,
       "rawHeight": 1030,
       "borderTop": 0,
       "borderBottom": 0,

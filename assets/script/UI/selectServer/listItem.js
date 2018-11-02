@@ -25,20 +25,15 @@ cc.Class({
         self.host = data.ip;
         self.port = data.port;
         self._parent = parent;//slectServer
-
-       // cc.log(self._parent.showScore,"dlksfaaaaa");
-      
-        if(self._parent.showScore.length!=0){
-            for(var i=0;i<self._parent.showScore.length;i++){
-              
-                if(self.id==self._parent.showScore[i]){
+       
+        if(Object.keys(self._parent.showScore).length!= 0) {
+            for(let i in self._parent.showScore) {
+                if(self.id == i){
                 self.status.active = true;
+                self.status.getComponent(cc.Label).string = self._parent.showScore[i] + "级";
             }
-
         }
-        
         }
-        
     },
     start(){
        
@@ -46,7 +41,7 @@ cc.Class({
     on_click: function (data) {
         
        this._parent.serverName.string = this.serverName.string;
-       this._parent.status.string = this.status.string;
+       this._parent.status.string = this.status.getComponent(cc.Label).string;
        this._parent.status.string = "新服";
        this._parent.id = this.id;
        this._parent.host = this.host;

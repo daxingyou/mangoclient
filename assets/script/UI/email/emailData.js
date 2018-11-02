@@ -50,11 +50,27 @@ module.exports = {
                 info.guid = guid;
                 list.push(info);
                 res++;
+                if (res == Object.keys(data).length) {
+                    cc.log("循环执行完毕");
+                    if (this.friendMails.length != 0) {
+                        cc.log("刷新好友邮件");
+                        GlobalEvent.emit("onAddFriendMail");
+                    }
+                    else if (this.systemMails.length != 0) {
+                        cc.log("刷新系统邮件");
+                        GlobalEvent.emit("onAddSysMail")
+                    }
+                    else if (this.messages.length != 0) {
+                        cc.log("刷新消息中心");
+                        GlobalEvent.emit("onAddMassageMail")
+                    }
+                }
             }
             list.sort(function (a, b) {
                 return b.time - a.time;
             });
         }
-       // cc.log(this.friendMails,"this.friendMails",this.mailInfo.friendMails,"this.mailInfo.friendMails");
+        
+        cc.log(this.friendMails,"this.friendMails",this.systemMails,"this.systemMails",this.messages,"this.messages");
     }
 };
