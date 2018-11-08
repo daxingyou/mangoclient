@@ -1,17 +1,52 @@
-
+var dataMgr = require('DataMgr')
+var uibase = require('UIBase');
 cc.Class({
-    extends: cc.Component,
+    extends: uibase,
 
     properties: {
        num:cc.Label,
        propName:cc.Label,
+       _parents:null,
+       _curIndex:null,
+       tips:cc.Node,
+       _goodId:null,
+       _cnt:null,
+       _swtich:true,
     },
 
-    initData (num,name) {
+    initData (goodId,num,parent,curIndex) {
+        this._goodId = goodId;
+        this._cnt = num;
         this.num.string = num;
-        this.propName.string = name;
+        this.propName.string = dataMgr.item[goodId].Name;
+        this._parents = parent;
+        this._curIndex = curIndex;
     },
 
+    refreash (cnt) {
+        this._cnt = cnt;
+        this.num.string = cnt;
+    },
+
+    select() {
+        this.tips.active = true;
+    },
+    unSelect () {
+        this.tips.active = false;
+    },
+
+    click () {
+        this.tips.active = true;
+        this._parents._curIndex = this._curIndex;
+        this._parents.showSelectGood(this._curIndex);
+    },
+
+
+
+
+    
+
+   
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {},
@@ -19,6 +54,4 @@ cc.Class({
     start () {
 
     },
-
-    // update (dt) {},
 });

@@ -26,7 +26,6 @@ module.exports = {
 
     beginGame:0,//点击开始游戏的总人数
 
-    userInfo:null,//微信个人信息
     allInfo:null,
     fightType:null,
 }

@@ -6,6 +6,7 @@ var dataCenter = require('DataCenter')
 var teamRaidData = require('teamRaidData')
 var teamRaidSelectRoomProto = require('teamRaidSelectRoomProto')
 var teamRaidIgnoreGetCardProto = require('teamRaidIgnoreGetCardProto')
+var eventMgr = require('eventMgr')
 cc.Class({
     extends: uibase,
 
@@ -44,7 +45,7 @@ cc.Class({
 
       //加载关卡，商店，奖励
       loadRaid (selectList) {
-        cc.log("可选关卡商店奖励",selectList);
+       // cc.log("可选关卡商店奖励",selectList);
         var self = this;
         var resIndex = 0;
         let raidIdx = 0;
@@ -85,13 +86,13 @@ cc.Class({
         if (teamRaidData.selectList != null) {
             this.loadRaid(teamRaidData.selectList);
         }
+        eventMgr.on("selectList",this.loadRaid,this)
 
         //奖励卡牌
         if (teamRaidData.cardsList != null) {
             this.teamerSelectAward(teamRaidData.cardsList);
         }
-
-        GlobalEvent.on("teamSelectAward",this.teamerSelectAward(teamRaidData.cardsList),this);
+      //  eventMgr.on("teamSelectAward",this.teamerSelectAward,this);
        
     },
     start () {

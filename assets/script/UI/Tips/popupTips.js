@@ -8,6 +8,7 @@
 var UIBase = require("UIBase")
 var constant = require('constants')
 var teamData = require('teamData')
+var eventMgr = require('eventMgr')
 
 cc.Class({
     extends: UIBase,
@@ -134,11 +135,11 @@ cc.Class({
     cancel() {
        
         if (this._type == 2)
-        GlobalEvent.emit("TeamInvited");//暂时被挂起,
+        eventMgr.emit("TeamInvited");//暂时被挂起,
        
 
         if (this._type == 3 && teamData.onForTeamInvited !=null) {
-            GlobalEvent.emit("forTeamInvited");//求邀请暂时被挂起,
+            eventMgr.emit("forTeamInvited");//求邀请暂时被挂起,
         }
 
         this.hide();

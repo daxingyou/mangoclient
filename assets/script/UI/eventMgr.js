@@ -1,34 +1,38 @@
-
+let events = {
+    EventAvtPropUpdate: 'EventAvtPropUpdate',
+    
+};
 
 // 全局通知
-window.GlobalEvent = {
+module.exports = {
+    events: events,
+
     _eventMap: [],
 
-    on: function(type, callback, target) {
+    on: function (type, callback, target) {
         if (this._eventMap[type] === undefined) {
             this._eventMap[type] = [];
         }
-       
+
         this._eventMap[type].push({ callback: callback, target: target }); // 事件名为索引值
-        console.log(this._eventMap[type], type);
+
     },
 
-    emit: function(type, parameter) {
+    emit: function (type, parameter) {
         var array = this._eventMap[type];  // 通过事件名type 检索到对应的事件
-        if (array === undefined) 
-        return;
+        if (array === undefined)
+            return;
         for (var i = 0; i < array.length; i++) {
             var element = array[i];
             if (element) element.callback.call(element.target, parameter); // element.target ----> this._eventMap[type].target
         }
     },
 
-    off: function(type, callback) {
+    off: function (type, callback) {
         var array = this._eventMap[type];
         if (array === undefined) return;
         for (var i = 0; i < array.length; i++) {
             var element = array[i];
-            cc.log("关闭事件----------",element);
             if (element && element.callback === callback) {
                 array[i] = undefined;
                 break;
@@ -36,7 +40,7 @@ window.GlobalEvent = {
         }
     },
 
-    offType: function(type) {
+    offType: function (type) {
         this._eventMap[type] = undefined;
     }
 }

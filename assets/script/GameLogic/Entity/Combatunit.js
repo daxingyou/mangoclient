@@ -201,7 +201,7 @@ CombatUnit.prototype.Relive = function(curhp, value, casterID){
 CombatUnit.prototype.onDrawPile = function(ids){
     ids = ids || [];
    // cc.log('服务器下发 手牌 = ',ids);//更新牌的张数
-    cc.log('当前 手牌 = ',this.handsPile);
+    // cc.log('当前 手牌 = ',this.handsPile);
 
     this.handsPile.length = 0;
     for(var i = 0 ;i<ids.length;i++)

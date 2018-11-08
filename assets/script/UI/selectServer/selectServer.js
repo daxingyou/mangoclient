@@ -5,7 +5,8 @@ var constant = require('constants')
 var dataCenter = require('DataCenter')
 var consts = require('consts')
 var emailData = require('emailData')
-
+let LoadRes = require('LoadRes');
+let playerData = require('playerData');
 
 cc.Class({
     extends: UIBase,
@@ -34,6 +35,8 @@ cc.Class({
         listBar: cc.Node,
         expret: cc.Node,
         root_N: cc.Node,
+        statusIcon: cc.Sprite,
+        atlas: cc.SpriteAtlas,
         //    showScore:[],
         _loginClicked: false,
         _socketErrFunc: null,
@@ -44,11 +47,7 @@ cc.Class({
         this._code = "";
         this.expret.on(cc.Node.EventType.TOUCH_START, function () {
             return true;
-        }, this);//阻止往上传递
-        //    this.exit.height = 52 * 5;
-        //             var dis = this.exit.height - 52 * 2;
-        //             this.listBar.y -=dis;
-        //   self.content.height =480;
+        }, this);
         this._socketErrFunc = this._onSocketError.bind(this);
         pomelo.on('io-error', this._socketErrFunc);
     },
@@ -81,11 +80,44 @@ cc.Class({
         });
     },
 
+    _initListItem(item, serverinfo) {
+        item.getComponent('listItem').init(serverinfo, this);
+    },
+
+    _updateServerStatus(status) {
+        switch (status) {
+            case consts.ServerList.STATUS_CLOSED:
+                this.statusIcon.spriteFrame = this.atlas.getSpriteFrame('mantain');
+                this.status.string = "维护";
+                break;
+            case consts.ServerList.STATUS_NEW:
+                this.statusIcon.spriteFrame = this.atlas.getSpriteFrame('new');
+                this.status.string = "新服";
+                break;
+            case consts.ServerList.STATUS_BUSY:
+                this.statusIcon.spriteFrame = this.atlas.getSpriteFrame('busy');
+                this.status.string = "繁忙";
+                break;
+            case consts.ServerList.STATUS_HOT:
+                this.statusIcon.spriteFrame = this.atlas.getSpriteFrame('hot');
+                this.status.string = "火爆";
+                break;
+        }
+    },
+
+    updateSelectedServer(serverinfo) {
+        this._updateServerStatus(serverinfo.status);
+        this.serverName.string = serverinfo.name;
+        this.id = serverinfo.lastLoginSid;
+        this.host = serverinfo.ip;
+        this.port = serverinfo.port;
+    },
+
     getServerList(code) {
         var self = this;
         self._code = code;
         cc.log("获取服务器列表");
-        net.HttpRequest('http://203.195.206.97:3003/ServerList?code=' + code, (data) => {
+        net.HttpRequest('https://mango.haisenyouxi.com/ServerList/?code=' + code, (data) => {
             cc.log(data);
             self._bGetServerList = true;
             var serverlist = data.serverlist;
@@ -111,125 +143,54 @@ cc.Class({
 
             }//动态改变滑动的高度
 
-            var resIndex = 0;
             var findLast = false;
             self.showScore = roleList;
+            var id2ServerInfo = {};
 
-
-            for (var i = 0; i < serverlist.length; i++) {
-                var serverinfo = serverlist[i];
-                let itemData = JSON.stringify(serverinfo);
-                self.storeId.push(serverlist[i].id);
-                cc.loader.loadRes('UI/selectServer/listItem', function (errorMessage, loadedResource) {
-
-                    if (errorMessage) {
-                        cc.log('载入预制资源失败, 原因:' + errorMessage); return;
-                    }
-                    if (!(loadedResource instanceof cc.Prefab)) {
-                        cc.log('你载入的不是预制资源!'); return;
-                    }
+            LoadRes.loadPrefab('UI/selectServer/listItem', true, function (loadedResource) {
+                for (var i = 0; i < serverlist.length; i++) {
+                    var serverinfo = serverlist[i];
+                    id2ServerInfo[serverinfo.id] = serverinfo;
+                    self.storeId.push(serverlist[i].id);
 
                     let item = cc.instantiate(loadedResource);
                     self.list.addChild(item);
-                    itemData = JSON.parse(itemData);
+                    self._initListItem(item, serverinfo);
 
-                    item.getComponent('listItem').init({
-                        id: itemData.id,
-                        name: itemData.name,
-                        status: itemData.status,
-                        ip: itemData.ip,
-                        port: itemData.port,
-                    }, self);
+                    if (serverLast == serverinfo.id) {
+                        self.updateSelectedServer(serverinfo);
+                        findLast = true;
+                    }//默认显示   
+                }
+                var serverinfo = serverlist[0];
+                if (!findLast) {
+                    self.updateSelectedServer(serverinfo);
+                }//服务器列表
 
-                    resIndex++;
-                    if (resIndex == serverlist.length) {
-                        cc.loader.release('UI/selectServer/listItem');
-                    }
-                });
+                for (let i = 0; i < self.storeId.length; i++) {
 
-                if (serverLast == serverinfo.id) {
-                    self.serverName.string = serverinfo.name;
-                    // self.status.string = serverinfo.status;
-                    self.status.string = "新服";
-                    self.id = serverinfo.lastLoginSid;
-                    self.host = serverinfo.ip;
-                    self.port = serverinfo.port;
-                    findLast = true;
-                }//默认显示   
-            }
-            var serverinfo = serverlist[0];
-            if (!findLast) {
-                self.serverName.string = serverinfo.name;
-                // self.status.string = serverinfo.status;
-                self.status.string = "新服";
-                self.id = serverinfo.lastLoginSid;
-                self.host = serverinfo.ip;
-                self.port = serverinfo.port;
-            }//服务器列表
-
-            for (let i = 0; i < self.storeId.length; i++) {
-
-                if (serverLast == self.storeId[i]) {
-                    var item2Data = serverlist[i];
-                    cc.loader.loadRes('UI/selectServer/listItem', function (errorMessage, loadedResource) {
-                        if (errorMessage) {
-                            cc.log('载入预制资源失败, 原因:' + errorMessage);
-                            return;
-                        }
-                        if (!(loadedResource instanceof cc.Prefab)) {
-                            cc.log('你载入的不是预制资源!'); return;
-                        }
+                    if (serverLast == self.storeId[i]) {
+                        var item2Data = serverlist[i];
                         let item2 = cc.instantiate(loadedResource);
                         self.last.addChild(item2);
-                        item2.getComponent('listItem').init({
-                            name: item2Data.name,
-                            status: item2Data.status,
-                            id: item2Data.id,
-                            status: item2Data.status,
-                            ip: item2Data.ip,
-                            port: item2Data.port,
-                        }, self);
-                        cc.loader.release('UI/selectServer/listItem');
-                    });
-                }
-            }//上次登录
-
-            for (let item in roleList) {
+                        self._initListItem(item2, item2Data);
+                    }
+                }//上次登录
 
                 var len = Math.ceil(Object.keys(roleList).length / 2);
-
                 if (len > 2) {
                     this.exit.height = 52 * len;
                     var dis = this.exit.height - 52 * 2;
                     this.listBar.y -= dis;
                 }//下移list
-
-                var roleItem = parseInt(item);
-                let item3Data = serverlist[roleItem - 1];
-
-                cc.loader.loadRes('UI/selectServer/listItem', function (errorMessage, loadedResource) {
-
-                    if (errorMessage) {
-                        cc.log('载入预制资源失败, 原因:' + errorMessage); return;
-                    }
-                    if (!(loadedResource instanceof cc.Prefab)) {
-                        cc.log('你载入的不是预制资源!'); return;
-                    }
-
+                for (let serverId in roleList) {
+                    let item3Data = id2ServerInfo[serverId];
                     let item3 = cc.instantiate(loadedResource);
                     self.exit.addChild(item3);
-
-                    item3.getComponent('listItem').init({
-                        name: item3Data.name,
-                        status: roleList[roleItem],
-                        id: item3Data.id,
-                        ip: item3Data.ip,
-                        port: item3Data.port,
-                    }, self);
-                    //  cc.loader.release('UI/selectServer/roleItem');
-                });
-            }
-        });//已有角色
+                    self._initListItem(item3, item3Data);
+                }//已有角色
+            });
+        });
     },
 
     rootEvent() {
@@ -302,11 +263,10 @@ cc.Class({
         let platform = cc.sys.platform;
         switch (platform) {
             case cc.sys.WECHAT_GAME:
-                let userInfo = dataCenter.userInfo;
                 return {
-                    name: userInfo.nickName,
-                    gender: userInfo.gender,
-                    avatarUrl: userInfo.avatarUrl
+                    name: playerData.name,
+                    gender: playerData.gender,
+                    avatarUrl: playerData.avatarUrl
                 }
             case cc.sys.DESKTOP_BROWSER:
             default:
@@ -355,17 +315,15 @@ cc.Class({
                 }, function (data) {
                     that._loginClicked = false;
                     if (data.code == consts.Login.RELAY) {
-                        console.log("重连 ip:%s port:%s", data.host, data.port);
+                        cc.log("重连 ip:%s port:%s", data.host, data.port);
                         // 重定向
                         pomelo.disconnect(that._connectToConnector.bind(that, data.host, data.port));
                         return;
                     }
                     else if (data.code == consts.Login.OK) {
-                        console.log("连接逻辑服 成功 info: ", data.info);
+                        cc.log("连接逻辑服 成功 info: ", data.info);
                         dataCenter.allInfo = data.info;
-                        emailData.initMainInfo(dataCenter.allInfo.mailInfo);
-                        dataCenter.uuid = data.info.id;
-                        dataCenter.openid = data.info.openid;
+                        playerData.init(data.info);
                         that._mgr.release();
                         that._mgr.loadUI(constant.UI.Main);
                     }

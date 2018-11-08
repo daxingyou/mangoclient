@@ -88,27 +88,18 @@ cc.Class({
                 self._showRaid.push(item.getComponent('raidRoom'));
                 //roomId,raidId,idx,raidName,parent,img,des
                 self._showRaid[resIndex-1].initData(self.roomId,soloRaidData.raidId,resIndex,raidType.Name,raidType.Icon,raidType.Desc,self);
-        //         ID: 3,
-		// Name: '怨鬼',
-		// SceneID: 1,
-		// MonsterGroupID: 4,
-		// WinMode: 0,
-		// TimeLimit: 180,
-		// Icon: 'attack',
-		// Desc: '河洞战斗3描述。
             }
         })
     },
 
-    backMainUI () {
-        cc.log("返回单人副本");
-        this._uimgr.release();
-        this._uimgr.loadUI(constant.UI.RaidUI,function(data) {
+    backRaidUI () {
+        this._uiMgr.release();
+        this._uiMgr.loadUI(constant.UI.RaidUI,function(data) {
         });
     },
     
     onLoad () {
-        this._uimgr = cc.find('Canvas').getComponent('UIMgr');
+        this._uiMgr = cc.find('Canvas').getComponent('UIMgr');
     },
 
     start () {

@@ -1,5 +1,12 @@
 var dataCenter = require('DataCenter')
 
+// let log = cc.log;
+// cc.log = function () {
+//     log('log before', new Error().stack);
+//     log.apply(log, arguments);
+//     log('log end');
+// };
+
 String.prototype.format = function(args) {
     var result = this;
     if (arguments.length > 0) {

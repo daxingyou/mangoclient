@@ -19,13 +19,13 @@ var Agent = function (path, pos, teamid, hp, maxHp, armo, uid, buffs, scale,idx,
 
     loadRes.load('UI/hero/hpBar', false, (data) => {
         that.hpbar = cc.instantiate(data).getComponent('hpBar');
-        that.hpbar.node.parent = cc.find('Canvas/ui');
+        that.hpbar.node.parent = cc.find('Canvas/visibleArea/ui');
         that.hpbar.freshen(hp, maxHp, armo);
         that.hpbar.freshenBuff(buffs);
 
         loadRes.load(path, false, (data) => {
             that.go = cc.instantiate(data);
-            that.go.parent = cc.find('Canvas/pool');
+            that.go.parent = cc.find('Canvas/visibleArea/pool');
             that.go.position = cc.v2(pos.x, pos.y);
 
             var index  = 0;

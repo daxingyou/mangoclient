@@ -63,7 +63,7 @@ cc.Class({
      },
      initData () {
          cc.log("初始化数据");
-        this.uimgr = cc.find('Canvas').getComponent('UIMgr');
+        this._uiMgr = cc.find('Canvas').getComponent('UIMgr');
         this.showLevel(6);
         
         this.showList.active = true;//选择模式
@@ -132,8 +132,8 @@ cc.Class({
     },
 
     backMainUI () {
-        cc.log("返回主界面");
-        this.uimgr.loadUI(constant.UI.Main);
+        this._uiMgr.release();
+        this._uiMgr.loadUI(constant.UI.Main);
     },
 
     onClickState () {

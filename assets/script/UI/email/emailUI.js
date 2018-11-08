@@ -1,6 +1,7 @@
 var uibase = require('UIBase');
 var constant = require('constants')
 var emailData = require('emailData')
+var back = require('backMainUI')
 var dataCenter = require('DataCenter')
 var net = require('NetPomelo')
 var consts = require('consts')
@@ -9,151 +10,196 @@ var mailQuickDelMailsProto = require('mailQuickDelMailsProto')
 var mailGetMailRewardProto = require('mailGetMailRewardProto')
 var mailDelMailProto = require('mailDelMailProto')
 var dataMgr = require('DataMgr')
+var eventMgr = require('eventMgr')
 cc.Class({
     extends: uibase,
 
     properties: {
-       display:cc.Node,
-       _friendMails:[],
-       tips1:cc.Node,
-       tips2:cc.Node,
-       tips3:cc.Node,
+       display: cc.Node,
+       _friendMails: [],
+       tips1: cc.Node,
+       tips2: cc.Node,
+       tips3: cc.Node,
 
-       look:cc.Node,
-       lookTitle:cc.Label,
-       lookContent:cc.Label,
-       lookName:cc.Label,
-       prop0:cc.Node,
-       prop1:cc.Node,
-       prop2:cc.Node,
-       prop3:cc.Node,
-       prop4:cc.Node,
+       look: cc.Node,
+       lookTitle: cc.Label,
+       lookContent: cc.Label,
+       lookName: cc.Label,
+       prop0: cc.Node,
+       prop1: cc.Node,
+       prop2: cc.Node,
+       prop3: cc.Node,
+       prop4: cc.Node,
 
-       _guid:null,
-       _type:null,
-       _index:null,
-       _reward:null,
+       _guid: null,
+       _type: null,
+       _index: null,
+       _reward: null,
        _quickDelType: 1,
        goodsItem : cc.Prefab,
-       getSucceed:cc.Node,
-       showGoods:cc.Node,
-       
+       getSucceed: cc.Node,
+       showGoods: cc.Node,
+       nerverMail: cc.Node,
     },
 
    
 
     onLoad () {
         this._uiMgr = cc.find('Canvas').getComponent('UIMgr');
-        this.friendEamil();
-        GlobalEvent.on("onAddFriendMail",this.friendEamil,this);
-        GlobalEvent.on("onAddSysMail",this.sysEamil,this);
-        GlobalEvent.on("onAddMassageMail",this.massage,this);
+        eventMgr.on("onAddFriendMail",this.friendEamil,this);
+        eventMgr.on("onAddSysMail",this.sysEamil,this);
+        eventMgr.on("onAddMassageMail",this.massage,this);
         this._quickDelType = 1;
+        this.friendEamil();
+    },
+
+    start () {
+       
     },
 
    
     backMainUI () {
-        this._uiMgr.loadUI(constant.UI.Main,function(data){
-        });
+       back.backMainUI();
+    },
+
+    _initMailItem (item,type,mailInfo) {
+        item.getComponent('mailItem').initData(type,mailInfo,this);
     },
 
     friendEamil (event,cust) {
-        let params = parseInt(cust);
-        this._quickDelType = cust;
-        let data = emailData.friendMails;
         var self = this;
         var resIndex = 0;
-        self.display.removeAllChildren();
+        self._quickDelType = parseInt(cust);
+        let data = emailData.friendMails;
+        self.node.getChildByName('quickDel').active = false;
+        self.node.getChildByName('quickGet').active = true;
         self._friendMails = [];
-        cc.loader.loadRes('UI/emailUI/friendEamilItem', function (errorMessage, loadedResource) {
+        if (self.display.childrenCount != 0) {
+            self.display.removeAllChildren();
+        }
+        if (data.length == 0) {
+            self.nerverMail.active = true;
+            self.node.getChildByName('quickGet').getComponent(cc.Button).interactable = false;
+            return;
+        }
+        else {
+            self.node.getChildByName('quickGet').getComponent(cc.Button).interactable = true;
+            self.nerverMail.active = false;
+        }
+        cc.loader.loadRes('UI/emailUI/mailItem', function (loadedResource) {
             for (let i=0;i<data.length;i++) {
                 var itemData = data[i];
-                if (errorMessage) {
-                    cc.log('载入预制资源失败, 原因:' + errorMessage);
-                    return;
-                }
                 let item = cc.instantiate(loadedResource);
                 resIndex++;
                 self.display.addChild(item);
-                self._friendMails.push(item.getComponent('friendEamilItem'));
-                self._friendMails[i].initData(1,itemData,self);
-                //type,itemData,parent
-                if (resIndex == data.length) {
-                    cc.loader.release('UI/emailUI/friendEamilItem');
-                    if (data.length > 5) {
-                        self.display.height = 120 * data.length;
-                    }
+               // self._initMailItem(item,1,itemData); 
+                self._friendMails.push(item.getComponent('mailItem'));
+            }
+            if (resIndex == data.length) {
+                cc.loader.release('UI/emailUI/mailItem');
+                if (data.length > 5) {
+                    self.display.height = 120 * data.length;
                 }
             }
     });
     },
 
     sysEamil (event,cust) {
-        if (this._quickDelType == 3) {
+        if (this._quickDelType == 2) {
             return;
         }
-        let params = parseInt(cust);
-        this._quickDelType = params;
         var self = this;
         var resIndex = 0;
-        self.display.removeAllChildren();
+        self._quickDelType = parseInt(cust);
+        if (self.display.childrenCount != 0) {
+            self.display.removeAllChildren();
+        }
         self._sysMails = [];
         let data = emailData.systemMails;
-        if (data.length == 0)
-        return;
-        cc.loader.loadRes('UI/emailUI/friendEamilItem', function (errorMessage, loadedResource) {
+        self.node.getChildByName('quickDel').active = true;
+        if (data.length == 0) {
+            self.nerverMail.active = true;
+            self.node.getChildByName('quickGet').active = false;
+            self.node.getChildByName('quickDel').active = true;
+            return;
+        }
+        else {
+            self.nerverMail.active = false;
+            self.node.getChildByName('quickGet').getComponent(cc.Button).interactable = true;
+            self.node.getChildByName('quickDel').getComponent(cc.Button).interactable = true;
+            self.node.getChildByName('quickGet').active = false;
+        }
+        cc.loader.loadRes('UI/emailUI/mailItem', function (loadedResource) {
             for (let i=0;i < data.length;i++) {
                 var itemData = data[i];
-                if (errorMessage) {
-                    cc.log('载入预制资源失败, 原因:' + errorMessage);
-                    return;
+                if (Object.keys(itemData.reward).length != 0) {
+                    self.node.getChildByName('quickGet').active = true;
+                }
+                else {
+                    self.node.getChildByName('quickDel').x = 471;
+                    self.node.getChildByName('quickDel').y = -268;
                 }
                 let item = cc.instantiate(loadedResource);
                 resIndex++;
                 self.display.addChild(item);
-                self._sysMails.push(item.getComponent('friendEamilItem'));
-                self._sysMails[i].initData(3,itemData,self);
-                //type,itemData,parent
-                if (resIndex == data.length) {
-                    cc.loader.release('UI/emailUI/friendEamilItem');
-                    if (data.length > 5) {
-                        self.display.height = 120 * data.length;
-                    }
+                self._initMailItem(item,2,itemData); 
+                self._sysMails.push(item.getComponent('mailItem'));
+
+            }
+            if (resIndex == data.length) {
+                cc.loader.release('UI/emailUI/mailItem');
+                if (data.length > 5) {
+                    self.display.height = 120 * data.length;
                 }
             }
          }); 
     },
 
+    //检测系统邮件有无奖励
+    checkSysAward () {
+        // for (let i = 0;i<this._sysMails.length;i++) {
+        //     if (Object.keys(this._sysMails[i]._reward).length != 0) {
+
+        //     }
+        // }
+    },
+
     massage (event,cust) {
-        if (this._quickDelType == 2) 
+        if (this._quickDelType == 3) 
         return;
-        let params = parseInt(cust);
-        this._quickDelType = params;
         var self = this;
         var resIndex = 0;
-        self.display.removeAllChildren();
+        let params = parseInt(cust);
+        self._quickDelType = params;
+        self.node.getChildByName('quickDel').active = false;
+        self.node.getChildByName('quickGet').active = true;
+        if (self.display.childrenCount != 0) {
+            self.display.removeAllChildren();
+        }
         self._massage = [];
         let data = emailData.messages;
-        if (data.length == 0)
-        return;
-        cc.loader.loadRes('UI/emailUI/friendEamilItem', function (errorMessage, loadedResource) {
+        if (data.length == 0) {
+            self.node.getChildByName('quickDel').getComponent(cc.Button).interactable = false;
+            self.nerverMail.active = true;
+            return;
+        }
+        else {
+            self.node.getChildByName('quickDel').getComponent(cc.Button).interactable = true;
+            self.nerverMail.active = false;
+        }
+        cc.loader.loadRes('UI/emailUI/mailItem', function (loadedResource) {
             for (let i=0;i<data.length;i++) {
                 var itemData = data[i];
-                if (errorMessage) {
-                    cc.log('载入预制资源失败, 原因:' + errorMessage);
-                    return;
-                }
                 let item = cc.instantiate(loadedResource);
                 resIndex++;
                 self.display.addChild(item);
-                self._friendMails.push(item.getComponent('friendEamilItem'));
-                self._friendMails[i].initData(2,itemData,self);
-                //type,itemData,parent
-                if (resIndex == data.length) {
-                    cc.loader.release('UI/emailUI/friendEamilItem');
-                    if (data.length > 5) {
-                        self.display.height = 120 * data.length;
-                    }
+                self._friendMails.push(item.getComponent('mailItem'));
+                self._friendMails[i].initData(3,itemData,self);
+            }
+            if (resIndex == data.length) {
+                cc.loader.release('UI/emailUI/mailItem');
+                if (data.length > 5) {
+                    self.display.height = 120 * data.length;
                 }
             }
          }); 
@@ -161,16 +207,19 @@ cc.Class({
 
     //查看邮件，删除邮件
     lookEamil (type,guid,reward,kwargs) {
-        cc.log(type,guid,reward,kwargs,"类型，邮件id,奖励，字段");
-        if (type == 3) {
+        if (type == 2) {
             this.lookTitle.string = "系统邮件";
+        }
+        else if (type == 1){
+            this.lookTitle.string = "好友邮件";
         }
         let mailData =  dataMgr.mail[kwargs.id];
         this.lookName.string = "标题:" + kwargs.PlayerName;
         this.look.active = true;
         this._reward = reward;
+        this._type = type;
+        this._guid = guid;
         let resIndex = 0;
-        //显示宝物
        
         if (Object.keys(reward).length != 0) {
             for (let i in reward) {
@@ -183,7 +232,7 @@ cc.Class({
                 name.getComponent(cc.Label).string = baowu.Name;
              }
         }
-    
+       
         net.Request(new mailReadMailProto(type,guid), (data) => {
             if (data.code == consts.MailCode.OK) {
                 cc.log("读邮件");
@@ -204,15 +253,6 @@ cc.Class({
                 cc.log("有奖励未领取");
             }
         });
-
-        var allChildren = this.display.children;
-        for (let i = 0 ;i < this._friendMails.length;i++) {
-            if (this._friendMails[i]._guid == guid) {
-                this._type = this._friendMails[i]._type;//便于领取时操作id
-                this._guid = this._friendMails[i]._guid;//便于领取时操作id
-                this._index = i;
-            }
-        }
     },
 
     delRead (type,guid) {
@@ -222,11 +262,17 @@ cc.Class({
     },
 
     quickDel () {
-        net.Request(new mailQuickDelMailsProto(this._quickDelType), (data) => {
-            cc.log("快速删除",data);
-        });
-        this.display.removeAllChildren();
-        emailData.friendMails = [];
+        let self = this;
+        var callComfirm = function () {
+            net.Request(new mailQuickDelMailsProto(this._quickDelType), (data) => {
+                cc.log("快速删除",data);
+                if (data.code == 1) {
+                   self.display.removeAllChildren();
+                   emailData.systemMails = [];
+                }
+            });
+        };
+        this._uiMgr.popupTips(1,"确定删除所有已读邮件吗？","快速删除",null,null,callComfirm,this);
     },
 
 
@@ -258,13 +304,14 @@ cc.Class({
                 cc.log("有奖励未领取");
             }
         });
+
         this.look.active = false;
         var allChildren = this.display.children;
         allChildren[this._index].removeFromParent();
         if (this._guid == emailData.friendMails[this._index].guid) {
             emailData.friendMails.splice(i,1);
             this._friendMails.splice(i,1);
-            cc.log("删除后的emailData.friendMails",emailData.friendMails);
+          //  cc.log("删除后的emailData.friendMails",emailData.friendMails);
         }
 
 
@@ -297,23 +344,16 @@ cc.Class({
         let datasLists = [emailData.friendMails,emailData.systemMails, emailData.messages];
         for (let i = 0; i < datasLists.length; i++) {
             let list = datasLists[i];
-            
-
-            
         }
     },
 
-
-
-    
-
     getAwardSucceed() {
         this.getSucceed.active = true;
+        this.showGoods.removeAllChildren();
         for (let i in this._reward) {
-            let baowu = dataMgr.item[i];
             let item = cc.instantiate(this.goodsItem);
             item.parent = this.showGoods;
-            item.getComponent('goodsItem').initData(this._reward[i],baowu.Name);
+            item.getComponent('goodsItem').initData(i,this._reward[i],this);
             }
     },
 
@@ -350,6 +390,13 @@ cc.Class({
         }
     emailData.friendMails = [];
     this.display.removeAllChildren();
+    },
+
+
+    onDestroy() {
+        eventMgr.off("onAddFriendMail",this.friendEamil);
+        eventMgr.off("onAddSysMail",this.sysEamil);
+        eventMgr.off("onAddMassageMail",this.massage);
     },
 
 

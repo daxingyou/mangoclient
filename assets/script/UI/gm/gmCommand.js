@@ -2,7 +2,7 @@
  * @Author: liuguolai 
  * @Date: 2018-08-31 15:41:47 
  * @Last Modified by: liuguolai
- * @Last Modified time: 2018-10-30 11:30:25
+ * @Last Modified time: 2018-11-05 20:07:28
  */
 var consts = require('consts');
 var net = require("NetPomelo");
@@ -80,7 +80,6 @@ cc.Class({
         else {
             this._handleGmCommand(text);
         }
-        cc.log(this._lastCommand)
         this._lastCommand.push(text);
         this._lastCommandIdx = this._lastCommand.length;
         this.editBox.string = "";

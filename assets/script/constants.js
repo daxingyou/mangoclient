@@ -78,6 +78,7 @@ module.exports = {
         BagUI : {"id":30,"path":'UI/bag/BagUI','type':1,'script':'BagUI'},
         EmailUI :  {"id":31,"path":'UI/emailUI/emailUI','type':1,"script":'emailUI'},
         DpsPanel: {"id":999,"path":'UI/Debug/dpsPanel','type':2,'script':'dpsPanel'},
+        GoldStore :  {"id":32,"path":'UI/goldStore/goldStore','type':1,"script":'goldStore'},
     },
     // Prefab: {
     //     selectServerItem: "UI/"
@@ -90,6 +91,7 @@ module.exports = {
         Bullt:'bullt',
         Point:'point',
         SwordWheel:'swordwheel',
+        Bounce:'Bounce'
     },
     EffectOrigin : {
         target:'target',

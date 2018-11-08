@@ -2,6 +2,7 @@ var uiBase = require('UIBase')
 var dataCenter = require('DataCenter')
 var constant = require('constants')
 var dataMgr = require('DataMgr')
+var playerData = require('playerData')
 cc.Class({
     extends: uiBase,
 
@@ -37,9 +38,9 @@ cc.Class({
        
         this._mgr = cc.find('Canvas').getComponent('UIMgr');
         let teamA = dataCenter.teamInfo.teamA;
-        cc.log("加载 teamA",teamA);
+        //cc.log("加载 teamA",teamA);
         let teamB = dataCenter.teamInfo.teamB;
-        cc.log("加载 teamB",teamB);
+        //cc.log("加载 teamB",teamB);
         this._uid2ShowNode = {};
         for (var i in teamA) {
             var uid = teamA[i].uid;
@@ -48,9 +49,8 @@ cc.Class({
             this._uid2ShowNode[uid].getChildByName("user_name").getComponent(cc.Label).string = teamA[i].name;
             var heroData = dataMgr.hero[teamA[i].heroid];
             var icon = this._uid2ShowNode[uid].getChildByName("icon");
-
             icon.getComponent(cc.Sprite).spriteFrame = this.heroIcons.getSpriteFrame(heroData.HeroIcon);
-            if (dataCenter.uuid == teamA[i].uid) {
+            if (playerData.id == teamA[i].uid) {
                 if (teamA[i].heroid == 1000) {
                     this.man.active = true;
                 }

@@ -27,7 +27,6 @@ cc.Class({
         cc.loader.loadRes('UI/buildTeam/ownHero', function (errorMessage, loadedResource) {
             for (let i in hero) {
                 var itemData = hero[i];
-                cc.log("自己拥有的英雄",itemData);
                 if (errorMessage) {
                     cc.log('载入预制资源失败, 原因:' + errorMessage);
                     return;
@@ -45,15 +44,8 @@ cc.Class({
     //默认选择第一个英雄
     onLoad () {
         this.selectHero(1000);
-        this._uimgr = cc.find('Canvas').getComponent('UIMgr');
+        this._uiMgr = cc.find('Canvas').getComponent('UIMgr');
     },
-
-    // //确认进来的房间ID
-    // comfirmRaidID (raidId) {
-    //     this.raidId = raidId;
-    //     cc.log(this.raidId,"this.raidID");
-    // },
-
 
     selectHero (heroid) {
         let heroData = dataMgr.hero[heroid];
@@ -64,7 +56,7 @@ cc.Class({
     },
 
     comfirmHero (heroid) {
-         cc.log(soloRaidData.raidId,"soloRaidData.raidId");
+         //cc.log(soloRaidData.raidId,"soloRaidData.raidId");
          let rooms = null;
          var self = this;
          let heroData = dataMgr.hero[self._heroid];
@@ -74,8 +66,8 @@ cc.Class({
                 if (data.code == consts.SelectHeroCode.OK) {
                 let raidInfo = data.raidInfo;
                 soloRaidData.raidInfo = raidInfo;
-                self._uimgr.release();
-                self._uimgr.loadUI(constant.UI.EnterSelectRaid,data =>{
+                self._uiMgr.release();
+                self._uiMgr.loadUI(constant.UI.EnterSelectRaid,data =>{
                     data.initData(raidInfo);
                 });
                 cc.log("单人副本确认英雄");
@@ -87,8 +79,8 @@ cc.Class({
 
                 else if (data.code == consts.SelectHeroCode.NOT_EXIST) {
                     cc.log("已经确认过英雄",soloRaidData.raidInfo);
-                    self._uimgr.release();
-                    self._uimgr.loadUI(constant.UI.EnterSelectRaid,data =>{
+                    self._uiMgr.release();
+                    self._uiMgr.loadUI(constant.UI.EnterSelectRaid,data =>{
                         data.initData(soloRaidData.raidInfo);
                     });
                 }
@@ -103,9 +95,9 @@ cc.Class({
          });
     },
 
-    backMainUI () {
-        cc.log("返回主界面");
-        this._uimgr.loadUI(constant.UI.Main,function(data){
+    backRainUI () {
+        this._uiMgr.release();
+        this._uiMgr.loadUI(constant.UI.RaidUI,function(data) {
         });
     },
 

@@ -11,6 +11,7 @@ var uimgr = require('UIMgr')
 var scenemgr = require('SceneMgr')
 var dataCenter = require('DataCenter')
 var playerMessage = require('PlayerMessage')
+let teamMessage = require('teamMessage');
 
 cc.Class({
     extends: cc.Component,
@@ -41,7 +42,7 @@ cc.Class({
         if (cc.sys.platform == cc.sys.WECHAT_GAME) {
             console.log("微信版本");
             //监听分享是否成功
-            GlobalEvent.on("invited",this.invitedResult,this);
+           // GlobalEvent.on("invited",this.invitedResult,this);
         }
 
         scenemgr.init();
@@ -57,6 +58,7 @@ cc.Class({
         teamRaidMessage.init();
         debugMessage.init();
         playerMessage.init();
+        teamMessage.init();
 
         // 适配
         //设计分辨率
@@ -106,8 +108,10 @@ cc.Class({
         cc.game.on(cc.game.EVENT_HIDE,function(){
             wxAPI.SetQuitTime();
         });
-       if (cc.sys.platform == cc.sys.WECHAT_GAME)
-       GlobalEvent.emit("invited",1);
+       if (cc.sys.platform == cc.sys.WECHAT_GAME) {
+           
+       }
+     //  GlobalEvent.emit("invited",1);
     },
 
     initShaders() {

@@ -37,6 +37,19 @@ var load = {
             if(release)
                 cc.loader.release(path);
         });
+    },
+
+    loadPrefab: function(path, release, callback) {
+        cc.loader.loadRes(path, cc.Prefab, function(err, res) {
+            if (err) {
+                cc.error('load prefab error.', err.message || err);
+                callback(null);
+                return;
+            }
+            callback(res);
+            if(release)
+                cc.loader.release(path);
+        });
     }
 };
 

@@ -13,6 +13,8 @@ var inviteProto = require("inviteProto")
 // var matchProto = require('matchProto')
 var unmatchProto = require('unmatchProto')
 var teamData = require('teamData')
+var eventMgr = require('eventMgr')
+var playerData = require('playerData')
 cc.Class({
     extends: uibase,
 
@@ -76,22 +78,16 @@ cc.Class({
 
      start () {
         //注册队伍刷新事件
-        GlobalEvent.on("onRefreshTeam",this.RefreshTeam,this);
-        // GlobalEvent.on("onTeamInvited",this.onNewFriend,this);
-        GlobalEvent.on("onTeamBeKicked",this.onTeamBeKicked,this);
-        GlobalEvent.on("onTeamReadyStateChange",this.TeamReadyStateChange,this);
-        GlobalEvent.on("onBeginMatch",this.showFloatWait,this);
-        GlobalEvent.on("TeamInvited",this.teamInvited,this);//暂时被挂起,
-        GlobalEvent.on("forTeamInvited",this.forTeamInvited,this);//求邀请暂时被挂起,
+        eventMgr.on("onRefreshTeam",this.RefreshTeam,this);
+        eventMgr.on("onTeamBeKicked",this.onTeamBeKicked,this);
+        eventMgr.on("onTeamReadyStateChange",this.teamReadyStateChange,this);
+        eventMgr.on("onBeginMatch",this.showFloatWait,this);
+        eventMgr.on("TeamInvited",this.teamInvited,this);//暂时被挂起,
+        eventMgr.on("forTeamInvited",this.forTeamInvited,this);//求邀请暂时被挂起,
 
          let teamInfo = dataCenter.allInfo.teamInfo;//已经创建了队伍
-         if (teamInfo["teamId"] !="") {
-            teamData.refreshTeam = teamInfo;
-         }//重连
 
-        // cc.log(teamData.refreshTeam,"refreshTeam,",teamInfo.teamId,"teamInfo.teamId");
          if (teamData.refreshTeam != null) {
-          //  GlobalEvent.emit("onRefreshTeam");
           this.RefreshTeam();
          }
          if (teamInfo.invitedList.length != 0) {//存在邀请我的列表
@@ -100,7 +96,6 @@ cc.Class({
          }
 
          if (teamData.onTeamInvited.length != 0) {
-           // GlobalEvent.emit("TeamInvited");
            this.teamInvited();
          }
          
@@ -109,7 +104,6 @@ cc.Class({
      //邀请信息提示
      teamInvited() {
         let num  = teamData.onTeamInvited.length;
-        //cc.log(num,"teamData.onTeamInvited.length");
         this.invitedTips.active = true;
         this.invitedTips.getComponent(cc.Label).string = num;
      },
@@ -196,7 +190,6 @@ cc.Class({
      closeApplyList() {
         this.showApplyList.active = false;
         this.showApplyBtn.getComponent(cc.Button).interactable = true;
-
      },
 
      //更新申请列表
@@ -225,24 +218,23 @@ cc.Class({
         cc.log("成员信息",teamData.refreshTeam)
         this._membersData= [];
         this.teamId = teamData.refreshTeam.teamId;
+        if (this.teamId=='') {
+            cc.log("kong=--------------------------");
+            this._uimgr.release();
+            this._uimgr.loadUI(constant.UI.Main);
+            return;
+        }
         let item = teamData.refreshTeam.members;
         let len = item.length;
         let teamType = teamData.refreshTeam.teamType; 
+        cc.log(item,"item")
         for (let i=0;i < 4;i++) {
-            //初始化全部隐藏
-          //  cc.log(this.rolesBar,"-----------this.rolesBar");
-            if (this.rolesBar == null) {
-                cc.log(this.rolesBar,"-----------this.rolesBar");
-                return;
-            }
             this.rolesBar[i].active = false;
-
-            if (item[0].id == dataCenter.uuid) {//  //是队长显示开始匹配按钮
+            if (item[0].id == playerData.id) {//  //是队长显示开始匹配按钮
                 this._header = true;
                 this.beginMatchBtn.active = true;
                 }
             else {
-                cc.log("不是队长");
                 this._header = false;
                 this.beginMatchBtn.active = false;
             }
@@ -269,18 +261,21 @@ cc.Class({
                 this._membersData.push(item[i]);
             
                 //隐藏其他队友准备按钮,踢人按钮
-                if (item[i].id != dataCenter.uuid && i!=0) {
+                if (item[i].id != playerData.id && i!=0) {
                 this.rolesBar[i].getChildByName('prepare').active = false;
                 } 
             }  
         } 
         if (teamType == consts.Team.TYPE_LADDER) {
+
             this.title.string = "天梯队伍";
         }
         else if (teamType == consts.Team.TYPE_PRACTICE) {
+            dataCenter.fightType = 4;
             this.title.string = "练习队伍";
         }
         else if (teamType == consts.Team.TYPE_RAID) {
+            dataCenter.fightType = 2;
             this.title.string = "副本队伍";
         }
         let titleText = this.title.string;
@@ -328,19 +323,21 @@ cc.Class({
      },
 
      //成员状态变更
-     TeamReadyStateChange () {
+     teamReadyStateChange () {
         let id = teamData.TeamReadyState.id;
         let ready = teamData.TeamReadyState.ready;
-        cc.log(this._membersData,"this._membersData",id);
+       // cc.log(this._membersData,"this._membersData",id);
         for (let i=0;i< 4;i++) {
             if (i < this._membersData.length && this._membersData[i].id == id) {
-                cc.log(i,"第几个队友");
                 if (ready == 0) {
+                   
                     this.rolesBar[i].getChildByName('comfirm').active = false;
                 }
                 else {
+                    
                     this.rolesBar[i].getChildByName('comfirm').active = true;
                 }
+                this._membersData[i].ready = ready;
             }
         }
      },
@@ -377,16 +374,8 @@ cc.Class({
         var resIndex = 0;
         var self = this;
         let friendsInfo = dataCenter.massageList;//好友全量信息
-        if (JSON.stringify(friendsInfo)==='{}') {
-            friendsInfo = dataCenter.allInfo.friendsInfo;
-            if (JSON.stringify(friendsInfo)==='{}') {
-                self._refreshFriendState = false;
-                return;
-            }
-        }
         self.showGameFriend.removeAllChildren();
         self._showGameFriend = [];
-        cc.log("加载好友列表",friendsInfo);
         for (let i in friendsInfo) {
             if (i == "friends") {
                 let friends = friendsInfo[i];
@@ -421,11 +410,9 @@ cc.Class({
     },
 
      updateFriendState () {
-        cc.log("刷新队友状态");
-      
         let self = this;
-        net.Request(new getFriendsManageInfoProto(dataCenter.uuid), function (data) {
-            console.log(data,"getFriendsManageInfoProto");
+        net.Request(new getFriendsManageInfoProto(playerData.id), function (data) {
+          //  console.log(data,"getFriendsManageInfoProto");
             let infos = data.infos;
             for (let i =0;i<infos.length;i++) {
                 let itemData = infos[i];
@@ -451,7 +438,6 @@ cc.Class({
    
     //队长点击匹配按钮，队友点击准备按钮
     cancelPrepare (event,cust) {
-        cc.log(this._membersData,"this._membersData")
         let index = parseInt(cust);
         if (this._header) {
             if (this._cancelMatch) {
@@ -507,30 +493,31 @@ cc.Class({
             cc.log("取消匹配",data);
         });
         for (let i =0 ;i<this._membersData.length;i++) {
-            if (i!= 0 && this._membersData[i].id == dataCenter.uuid) {
+            if (i!= 0 && this._membersData[i].id == playerData.id) {
                 this.rolesBar[i].getChildByName('prepare').active = true;
             }
         }
     },
 
     //显示等待浮窗
-    showFloatWait() {
+    showFloatWait(predictTime) {
         this._CDState = true;
         this.showWaitTime.active = true;
-        for (let i =0 ;i<this._membersData.length;i++) {
-            if (i!= 0) {
-                this.rolesBar[i].getChildByName('prepare').active = false;
-            }
+        if (predictTime !=null)
+        this.predictTime.string = predictTime;
+        for (let i = 1 ;i<4;i++) { 
+            cc.log("showFloatWai");
+        this.rolesBar[i].getChildByName('prepare').active = false;  
+        this["role" + i].getChildByName('prepare').active = false;  
         }
     },
 
     //组队匹配成功
     teamMatchSucess(teamData) {
         let teamInfo = teamData;
-        cc.log(teamInfo,"好友信息");
         this._uimgr.release();
         this._uimgr.loadUI(constant.UI.MatchSucess,function(data){
-            data.init(teamData);
+            data.init(teamInfo);
         });
     },
 
@@ -538,10 +525,10 @@ cc.Class({
     changePrepareState(data) {
         let id = data.id;
         let ready = data.ready;
-        cc.log(this._membersData,"this._membersData",id);
+      //  cc.log(this._membersData,"this._membersData",id);
         for (let i=0;i<4;i++) {
             if (this._membersData[i].id == id) {
-                cc.log(i,"第几个队友");
+            
                 if (ready == 0) {
                     this.rolesBar[i].getChildByName('comfirm').active = false;
                     return;
@@ -561,31 +548,10 @@ cc.Class({
         let index = parseInt(cust);
         let kickId = this._membersData[index].id;
         this.rolesBar[index].active = false;
-        cc.log(kickId,this._membersData,"---------------kickID");
+        //cc.log(kickId,this._membersData,"---------------kickID");
         net.Request(new kickTeamMemberProto(kickId), (data) => {
             cc.log("踢出队伍",data);
         });
-        // this.rolesBar[nowIndex].opacity = 0;
-        // if ( nowIndex == this.rolesBar.length - 1) {
-        //     return;
-        // }//踢得是最后一个人
-        // else {
-        //     let firstMovAct = cc.moveTo(0.5,this.rolesBar[nowIndex].x,this.rolesBar[nowIndex].y).easing(cc.easeQuadraticActionOut());
-        //     if (nowIndex == 1 && this.allRole == 4) {
-        //     cc.log("踢得是第一个人");
-        //     this.rolesBar[nowIndex + 1].runAction(firstMovAct);
-        //     let secondMovAct = cc.moveTo(0.5,this.rolesBar[nowIndex +1].x,this.rolesBar[nowIndex +1].y).easing(cc.easeQuadraticActionOut());
-        //     this.rolesBar[nowIndex + 2].runAction(secondMovAct);
-        //     }//踢得是第一个人
-        //    else {
-        //        if (this.allRole!= 4) {
-        //         this.rolesBar[this.allRole].runAction(firstMovAct);
-        //        }
-        //        else {
-        //         this.rolesBar[nowIndex + 1].runAction(firstMovAct);
-        //        }
-        // }
-        // }
     },
 
     //显示邀请列表
@@ -599,12 +565,28 @@ cc.Class({
 
     onDestroy() {
         //   //取消队伍刷新事件
-          GlobalEvent.off("onRefreshTeam");
-        //   GlobalEvent.off("onTeamInvited");
-          GlobalEvent.off("onTeamBeKicked");
-          GlobalEvent.off("onTeamReadyStateChange");
-          GlobalEvent.off("onBeginMatch");
-          GlobalEvent.off("TeamInvited");
+        eventMgr.off("onRefreshTeam",this.RefreshTeam);
+        eventMgr.off("onTeamBeKicked",this.onTeamBeKicked);
+        eventMgr.off("onTeamReadyStateChange",this.teamReadyStateChange);
+        eventMgr.off("onBeginMatch",this.showFloatWait);
+        eventMgr.off("TeamInvited",this.teamInvited);//暂时被挂起,
+        eventMgr.off("forTeamInvited",this.forTeamInvited);//求邀请暂时被挂起,
+       
+    },
+
+    reconnect (time) {
+        if (time == null) {
+            this.cdTime = 0;
+        }
+        else {
+            this.cdTime = parseInt(time/1000);
+        }
+        // for (let i=1;i<4;i++) {
+        //     this.rolesBar[i].getChildByName('prepare').active = false;
+        // }
+        this.beginMatchBtn.getComponent(cc.Button).interactable = false;
+        this.beginMatchBtn.getChildByName('Label').getComponent(cc.Label).string = "取消匹配";
+        this.showFloatWait();
     },
 
 
@@ -613,9 +595,8 @@ cc.Class({
      update (dt) {
         if (this._refreshFriendState) {
             this.refreshUserSteate += dt;
-            var temps = Math.floor(this.refreshUserSteate);
-            var moreSecs = temps % 5;
-            if ( moreSecs == 0 && temps!=0) {
+            // 每30秒刷新一次
+            if (this.refreshUserSteate >= 30) {
                 this.refreshUserSteate = 0;
                 this.updateFriendState();   
             }
@@ -643,7 +624,6 @@ cc.Class({
                 this.waitedTime.string ="0"+ this.minTime + ":" + temp.toString();
             } 
         }
-
      },
 
      _updaetSubDomainCanvas () {
@@ -658,7 +638,7 @@ cc.Class({
         var sharedCanvas = openDataContext.canvas;
         this.tex.initWithElement(sharedCanvas);
         this.tex.handleLoadedTexture();
-       // this.displayWeChat.node.setContentSize(cc.director.getVisibleSize());
+        this.displayWeChat.node.setContentSize(cc.director.getVisibleSize());
         this.displayWeChat.spriteFrame = new cc.SpriteFrame(this.tex);
     },
 

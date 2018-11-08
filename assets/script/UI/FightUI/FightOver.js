@@ -1,7 +1,7 @@
 var uiBase = require('UIBase')
 var constant = require('constants')
 var combatMgr = require('CombatMgr');
-
+var dataCenter = require('DataCenter')
 
 cc.Class({
     extends: uiBase,
@@ -66,11 +66,25 @@ cc.Class({
     again(){
        
          if (this._CDState == false) {
-            this._uimgr.loadUI(constant.UI.RaidUI,function(data){
-                combatMgr.Release();
-                combatMgr.curCombat.UILoadOk = true; 
-            });
+             if (dataCenter.fightType == 4) {
+                this._uimgr.loadUI(constant.UI.BuildTeam,function(data){
+                    combatMgr.Release();
+                    combatMgr.curCombat.UILoadOk = true; 
+                    data.laodFriendList();//加载可以邀请的好友信息
+                });
+                this._uimgr.loadUI(constant.UI.FightTop,function(data){
+                   data.changeTitle('练习队伍');
+                });
+             }
+             else if (dataCenter.fightType == 1) {
+                this._uimgr.loadUI(constant.UI.RaidUI,function(data){
+                    combatMgr.Release();
+                    combatMgr.curCombat.UILoadOk = true; 
+                });
+             }
+            
          }
+
        
     },
 

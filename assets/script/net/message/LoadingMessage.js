@@ -34,9 +34,14 @@ var loading = {
             });
         });
 
-        pomelo.on('onTips', function (text) {
-            uiMgr.showTips(text);
-        })
+        pomelo.on('disconnect', function () {
+            cc.log('掉线了');
+        });
+        
+        pomelo.on('heartbeat timeout', function () {
+            cc.log('心跳超时');
+            // todo: 重连处理
+        });
     }
 }
 

@@ -22,37 +22,18 @@ cc.Class({
 
     
     backMainUI () {
-        if(this._BackCallBack)
-        {
-            cc.log("点击返回了");
+        if(this._BackCallBack) {
             this._BackCallBack.call(this._BackTarget);
         }
         else {
-            var uimgr = cc.find('Canvas').getComponent('UIMgr');
-            uimgr.loadUI(constant.UI.Main,function(data){
-            uimgr.getUI(constant.UI.FightPavTop).hide();
-            });
-        }
-        
-       // this.hide();
-        // var uimgr = cc.find('Canvas').getComponent('UIMgr');
-        // cc.log("返回主界面");
-        // if (type == 1) {
-        //     uimgr.loadUI(constant.UI.Main,function(data){
-        //         uimgr.getUI(constant.UI.FightPavTop).hide();
-        //     });
-        // } 
-        // else if (type == 2) {
-        //     uimgr.loadUI(constant.UI.ShowList,function(data){
-        //         //uimgr.getUI(constant.UI.FightPavTop).hide();
-        //     });
-        // }
+            var uiMgr = cc.find('Canvas').getComponent('UIMgr');
+            uiMgr.release();
+            uiMgr.loadUI(constant.UI.Main);
+        } 
     },
 
-
-
     onClickState () {
-        cc.log("点击说明按钮");
+     
         if (!this.state.active) {
             this.state.active = true;
             var scaleOut = cc.scaleTo(0.4, 1).easing(cc.easeBackOut());

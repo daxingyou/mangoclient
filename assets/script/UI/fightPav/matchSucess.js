@@ -6,6 +6,7 @@ var matchProto = require('matchProto')
 var unmatchProto = require('unmatchProto')
 var consts = require('consts')
 var matchConfirmProto = require('matchConfirmProto')
+var playerData = require('playerData')
 cc.Class({
     extends: uibase,
 
@@ -28,6 +29,7 @@ cc.Class({
         let resIndex = 0;
         self._CDState = true;
         self.cdTime = 30;
+        self._wxImgs = {};
         cc.loader.loadRes('UI/matchTeam/wxImg', function (errorMessage, loadedResource) {
             for (var i = 0; i < data.length; i++) {
                 let itemData = data[i];
@@ -38,12 +40,13 @@ cc.Class({
                 let item = cc.instantiate(loadedResource);
                 resIndex++;
                 self.wxImg.addChild(item);
-                self._eid.push(itemData.id);
                 item.getComponent('wxImg').initData(i,itemData.id,itemData.openid,self);
-                self._wxImgs.push(item.getComponent('wxImg'));
+                self._wxImgs[itemData.id] = item.getComponent('wxImg');;
+        
                 if (resIndex == 8) {
                     cc.loader.release('UI/matchTeam/wxImg');
                     self.matchSucessd();
+                    cc.log(self._wxImgs,"adlkfssssssssssssssssj");
                 } 
             }
         });
@@ -54,31 +57,23 @@ cc.Class({
 
     //匹配成功
     matchSucessd () {
-        this.scheduleOnce(function(){
-            this.onClickEnterGame();
-        },1);
+        // this.scheduleOnce(function(){
+        //     this.onClickEnterGame();
+        // },1);
     },
 
     //点击开始游戏
     onClickEnterGame () {
-        for (let i=0;i<this._eid.length;i++) {
-            if (this._eid[i] == dataCenter.uuid) {
-                this._wxImgs[i].onclickBegin();
-            }
-        }
-        net.Request(new matchConfirmProto(dataCenter.uuid), (data) => {
+        this._wxImgs[playerData.id].onclickBegin();
+        net.Request(new matchConfirmProto(playerData.id), (data) => {
             cc.log("匹配确认",data);
         });
     },
 
     //显示队友准备人数
     showComfirmTeamer (num,data) {
-        cc.log("队友",data,"点击了开始");
-        for (let i= 0;i<this._eid.length;i++) {
-            if (data.id == this._eid[i]) {
-                this._wxImgs[i].onclickBegin();
-            }
-        }
+        cc.log(data.id,this._wxImgs[data.id],this._wxImgs);
+        this._wxImgs[data.id].onclickBegin();
         this.comfirmRole.string = num;
     },
 
@@ -88,9 +83,6 @@ cc.Class({
             var  temp = Math.floor(this.cdTime);
             if (temp == 0 ) {
                 this._CDState = false;
-                var uimgr = cc.find('Canvas').getComponent('UIMgr');
-              //  uimgr.loadUI(constant.UI.PickHero,function(data){
-            //});
             }
             this.count.string = temp + "秒";
             if (this.comfirmCount == undefined)

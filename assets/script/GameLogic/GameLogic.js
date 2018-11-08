@@ -10,7 +10,7 @@ var GameLogic = {
         return combatMgr.getSelf();
     },
     init(){
-        this.fightUI = cc.find('Canvas/ui/FightUI').getComponent('FightUI');
+        this.fightUI = cc.find('Canvas/visibleArea/ui/FightUI').getComponent('FightUI');
     },
     startFight : function(type,dungeonid){
         var dungeon = dataMgr.dungeon[dungeonid];

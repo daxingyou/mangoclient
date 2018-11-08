@@ -1,6 +1,7 @@
 var dataCenter = require('DataCenter')
 var uibase = require('UIBase')
 var constant = require('constants')
+let playerData = require('playerData');
 
 cc.Class({
     extends: uibase,
@@ -18,7 +19,6 @@ cc.Class({
         if (cc.sys.platform == cc.sys.WECHAT_GAME) {
             this.userNameBg.active = false;
             this.loginButton.interactable = false;
-            this.checkAuth();
             return;
         }
         var uuid = cc.sys.localStorage.getItem("uuid");
@@ -154,7 +154,6 @@ cc.Class({
         wx.getUserInfo({
             success: function (res) {
                 self.onGetUserInfo(res.userInfo);
-                console.log(res,res);
             }
         })
     },
@@ -167,7 +166,7 @@ cc.Class({
 
     onGetUserInfo(userInfo) {
         cc.log('userInfo: ', userInfo);
-        dataCenter.userInfo = userInfo;
+        playerData.userInfo = userInfo;
         this.loadSelectServer();
     },
 

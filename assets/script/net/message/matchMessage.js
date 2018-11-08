@@ -9,217 +9,28 @@ var monster = require('Monster_')
 var dataMgr = require('DataMgr')
 var FSMEvent = require('FSMEvent');
 var efferMgr = require('EffectMgr');
-var net = require("NetPomelo")
-var acceptInviteProto = require("acceptInviteProto")
-var refuseTeamInviteProto = require("refuseTeamInviteProto")
-var ignoreTeamInviteProto = require('ignoreTeamInviteProto')
-var teamData = require('teamData')
+var eventMgr = require('eventMgr')
 
 var fight = {
-    _uimgr: null,
-  
+    _uiMgr: null,
     init: function () {
-        this._uimgr = cc.find('Canvas').getComponent('UIMgr');
+        this._uiMgr = cc.find('Canvas').getComponent('UIMgr');
         var that = this;
-        var membersNum = 0;
-        pomelo.on('onRefreshTeam', function (data) {
-            cc.log("队伍信息刷新", data);
-             if (data.members === undefined) {
-               return;
-            }
-            teamData.refreshTeam = data;
-            GlobalEvent.emit("onRefreshTeam");
-            membersNum = data.members.length;
-            cc.log("队伍成员",membersNum);
-            /*
-              "onRefreshTeam": {
-                "required string teamType": 1,
-                "message MemberInfo": {
-                "required string id": 1,
-                "required string openid": 2,
-                "required uInt32 pos": 3,
-                "required uInt32 ready": 4,
-                "required uInt32 punishBeginTime": 5
-                },
-                "repeated MemberInfo members": 2
-            },
-            */
-        });
-
-        pomelo.on('onTeamInvited', function (data) {
-            //加判断未解散，人数已满
-            cc.log("收到组队邀请", data);
-            teamData.onTeamInvited.push(data);
-            let num = teamData.onTeamInvited.length;
-            var callComfirm =  function () {
-                //TeamPattern
-
-                teamData.onTeamInvited.splice(num-1,1);
-                net.Request(new acceptInviteProto(data.id,data.teamId), (data) => {
-                    
-                    if (data.code == consts.TeamCode.OK) {
-                        cc.log("同意组队邀请",data);
-                        that._uimgr.loadUI(constant.UI.BuildTeam,(data) =>{
-                            data.initFriendList();//先移除
-                            data.laodFriendList();//加载可以邀请的好友信息
-                        });   
-                    }
-                    else if (data.code == consts.TeamCode.TYPE_ERR) {
-                        cc.log("类型错误");
-                    }
-                    else if (data.code == consts.TeamCode.IN_TEAM) {
-                        cc.log("队伍中");
-                    }
-                    else if (data.code == consts.TeamCode.NOT_IN_TEAM) {
-                        cc.log("队伍已解散");
-                        that._uimgr.showTips("队伍已解散");
-                    }
-                    else if (data.code == consts.TeamCode.TEAM_FULL) {
-                        cc.log("人满了");
-                        that._uimgr.showTips("人满了");
-                    }
-                    else if (data.code == consts.TeamCode.IN_MY_TEAM) {
-                        cc.log("已经在队伍中");
-                        that._uimgr.showTips("已经在队伍中");
-                    }
-                    else if (data.code == consts.TeamCode.PLAYING) {
-                        cc.log("已经在游戏中");
-                        that._uimgr.showTips("已经在游戏中");
-                    }
-                    else if (data.code == consts.TeamCode.LEVEL_LIMIT) {
-                        cc.log("等级限制");
-                        that._uimgr.showTips("等级限制");
-                    }
-                    else if (data.code == consts.TeamCode.RAND_LIMIT) {
-                        cc.log("段位限制");
-                        that._uimgr.showTips("段位限制");
-                    }
-                    else if (data.code == consts.TeamCode.HERO_NUM_LIMIT) {
-                        cc.log("英雄数量限制");
-                        that._uimgr.showTips("英雄数量限制");
-                    }
-                    
-                    else if (data.code == consts.TeamCode.MEMBER_NOT_EXIST) {
-                        cc.log("没有该成员");
-                        that._uimgr.showTips("没有该成员");
-                    }
-                    else if (data.code == consts.TeamCode.NOT_CAPTAIN) {
-                        cc.log("不是队长");
-                        that._uimgr.showTips("不是队长");
-                    }
-                    else if (data.code == consts.TeamCode.READY_OFF_ALREADY) {
-                        cc.log("已经取消准备");
-                    }
-                    else if (data.code == consts.TeamCode.TEAM_NOT_EXIST) {
-                        cc.log("已经准备");
-                    }
-                    else if (data.code == consts.TeamCode.READY_ON_ALREADY) {
-                        cc.log("没有准备");
-                    }
-                    else if (data.code == consts.TeamCode.READY_OFF_ALREADY) {
-                        cc.log("已经取消准备");
-                    }
-                    else if (data.code == consts.TeamCode.MATCHING) {
-                        cc.log("匹配中");
-                    }
-                    else if (data.code == consts.TeamCode.IN_PUNISH) {
-                        cc.log("超时惩罚");
-                    }
-                });
-            };
-    //         // 队伍错误码
-    // TeamCode: {
-    //     OK: 1,
-    //     TYPE_ERR: 2,  // 类型错误
-    //     IN_TEAM: 3,  // 队伍中
-    //     NOT_IN_TEAM: 4,  // 不在队伍中（队伍解散）
-    //     TEAM_FULL: 5, // 人满了
-    //     IN_MY_TEAM: 6,  // 已经在自己的队伍中
-    //     PLAYING: 7,  // 游戏中
-    //     LEVEL_LIMIT: 8,  // 等级限制
-    //     RAND_LIMIT: 9,  // 段位限制
-    //     HERO_NUM_LIMIT: 10,  // 英雄数量限制
-    //     TEAM_NOT_EXIST: 11,  // 队伍不存在
-    //     MEMBER_NOT_EXIST: 12,  // 没有该成员
-    //     NOT_CAPTAIN: 13,  // 不是队长
-    //     READY_OFF_ALREADY: 14,  // 已经取消准备
-    //     READY_ON_ALREADY: 15,  // 已经准备
-    //     CAPTAIN_LIMIT: 16,  // 队长限制（例如准备）
-    //     NOT_READY: 17,  // 没有准备
-    //     MATCHING: 18,  // 匹配中
-    //     IN_PUNISH: 19,  // 超时惩罚中
-    // },
-
-            var callRefuse = function () {
-                teamData.onTeamInvited.splice(num-1,1);
-                net.Request(new refuseTeamInviteProto(data.id), (data) => {
-                    cc.log("拒绝组队邀请",data);
-                });
-            }
-            var callIgnore = function () {
-                teamData.onTeamInvited.splice(num-1,1);
-                net.Request(new ignoreTeamInviteProto(data.id), (data) => {
-                    cc.log("忽略组队邀请",data);
-                });
-            };
-            that._uimgr.popupTips(2,data.openid+"邀请你一起玩游戏","邀请",callIgnore,callRefuse,callComfirm,that);
-          
-            /*  "onTeamInvited": {
-                "required string id": 1,
-                "required string openid": 2,
-                "required string teamType": 3,
-                "required uInt32 rank": 4
-            },
-            */
-        });
-
-        pomelo.on('onTeamApplyed', function (data) {
-            cc.log("收到求邀申请", data,typeof(data));
-            teamData.onForTeamInvited = data;
-            that._uimgr.popupTips(3,data.openid+"请求加入队伍","求邀请",null,null,null,null,data);
-
-            /*
-              "onTeamApplyed": {
-                "required string id": 1,
-                "required string openid": 2,
-                "required uInt32 rank": 3
-            },
-            */
-
-        });
-
-        pomelo.on('onTeamBeRefused', function (data) {
-            cc.log("组队邀请被拒", data);
-            that._uimgr.showTips(data.name+"拒绝了你的组队邀请");
-            /* "onTeamBeRefused": {
-                "required string name": 1
-            },*/
-
-        });
-
-        pomelo.on('onTeamBeKicked', function (data) {
-            cc.log("被提出队伍", data);
-            that._uimgr.showTips("队长将你请离队伍");
-            GlobalEvent.emit("onTeamBeKicked");
-        });
-
-        pomelo.on('onTeamReadyStateChange', function (data) {
-            cc.log("队员准备状态变更", data);
-            var ui = that._uimgr.getCurMainUI();
-            teamData.TeamReadyState = data;
-            GlobalEvent.emit("onTeamReadyStateChange");
-            //ui.changePrepareState(data);
-            /*"onTeamReadyStateChange": {
-                "required string id": 1,
-                "required uInt32 ready": 2
-            },
-
-            */
-        });
+        let recMatch = 1;
 
         pomelo.on('onBeginMatch', function (data) {
             cc.log("匹配开始", data);
-            GlobalEvent.emit("onBeginMatch");
+            recMatch++;
+            if (recMatch != 1) {
+                that._uiMgr.loadUI(constant.UI.BuildTeam,(data) => {
+                    data.laodFriendList();
+                    data.reconnect();
+                });
+                gameData.beginGame = 0;
+            }
+            else {
+                eventMgr.emit("onBeginMatch",data.predictTime);
+            }
             /*  "onBeginMatch": {
                 "required uInt32 predictTime": 1
             },
@@ -228,27 +39,29 @@ var fight = {
 
         pomelo.on('onUnmatch', function (data) {
             cc.log("匹配取消", data);
+            var ui = that._uiMgr.getCurMainUI();
+            ui.cancelMatch();
         });
 
         pomelo.on('onEnterMatchConfirm', function (data) {
             cc.log("进入匹配成功确认", data);
-            var ui = that._uimgr.getCurMainUI();
+            var ui = that._uiMgr.getCurMainUI();
             ui.teamMatchSucess(data);
         });
 
         pomelo.on('onMatchConfirm', function (data) {
             cc.log("匹配确认", data);
-            var ui = that._uimgr.getCurMainUI();
-            gameData.beginGame +=1;
+            var ui = that._uiMgr.getCurMainUI();
+            gameData.beginGame += 1;
             ui.showComfirmTeamer(gameData.beginGame,data);
         });
 
         pomelo.on('onMatchNoConfirm', function (data) {
+            gameData.beginGame = 0;
             cc.log("匹配未确认，回组队", data);
-           // that._uimgr.release();
-            that._uimgr.loadUI(constant.UI.BuildTeam,(data) =>{
-                data.initFriendList();//先移除
-                data.laodFriendList();//加载可以邀请的好友信息
+            that._uiMgr.release();
+            that._uiMgr.loadUI(constant.UI.BuildTeam,(datas) => {
+                datas.laodFriendList();
             });
         });
 
@@ -264,35 +77,31 @@ var fight = {
 
         
         pomelo.on('onBeginSelect', function (data) {
-            var ui = that._uimgr.getCurMainUI();
-            that._uimgr.showTips('匹配成功');
+            var ui = that._uiMgr.getCurMainUI();
+            that._uiMgr.showTips('匹配成功');
             cc.log('匹配成功, 开始选英雄', data.teamInfo);
             let teamA = data.teamInfo.teamA;
             let teamB = data.teamInfo.teamB;
-            that._uimgr.loadUI(constant.UI.PickHero,function(data){
+            that._uiMgr.loadUI(constant.UI.PickHero,function(data){
                 data.initData(teamA,teamB);    
             });
-            // var teamInfo = data.teamInfo;
-            // var teamA = teamInfo.teamA;
-            // ui.selectScr.initData(teamA);
-            // ui.showSelect();
         });
 
         pomelo.on('onSelectHeroNotify', function (data) {
             cc.log(data.uid, '选择英雄:%s', data.heroid);
-            var ui = that._uimgr.getCurMainUI();
+            var ui = that._uiMgr.getCurMainUI();
             ui.showTeamerSelect(data);
         });
 
         pomelo.on('onConfirmHeroNotify', function (data) {
             cc.log(data.uid, '%s确认英雄:%s', data.heroid);
-            var ui = that._uimgr.getCurMainUI();
+            var ui = that._uiMgr.getCurMainUI();
             ui.showTeamerComfirm(data);
         });
 
         pomelo.on('onEnterLoadCD', function (data) {
             cc.log('加载前倒计时:', data);
-             var ui = that._uimgr.getCurMainUI();
+             var ui = that._uiMgr.getCurMainUI();
              ui.defalutSelect(data);
             // ui.selectScr.beginLoadCD(data);
         });
@@ -314,11 +123,11 @@ var fight = {
 
             combatMgr.initCombat(data);
 
-            that._uimgr.getCurMainUI().hide();
+            that._uiMgr.getCurMainUI().hide();
 
-            that._uimgr.loadUI(constant.UI.UploadProjess, function (data) {
+            that._uiMgr.loadUI(constant.UI.UploadProjess, function (data) {
                 
-                that._uimgr.loadUI(constant.UI.Fight, function (data) {
+                that._uiMgr.loadUI(constant.UI.Fight, function (data) {
                     data.initData(()=>{
                         combatMgr.curCombat.UILoadOk = true;
 
@@ -338,16 +147,16 @@ var fight = {
 
         pomelo.on('onFightBegin', function (data) {
             cc.log('战斗开始 ', data);
-            //var ui = that._uimgr.getCurMainUI();
+            //var ui = that._uiMgr.getCurMainUI();
             // ui.selectScr.fightBegin();
 
             gameData.loadBegin = false;
             spawnSummoned.reset();
          
             gameData.IsLayoutAction = true;
-            that._uimgr.releaseLoading();
-            that._uimgr.getUI(constant.UI.Fight).show();
-            var ui = that._uimgr.getUI(constant.UI.Fight);
+            that._uiMgr.releaseLoading();
+            that._uiMgr.getUI(constant.UI.Fight).show();
+            var ui = that._uiMgr.getUI(constant.UI.Fight);
             
             ui.initBarHp();
             ui.ShowHandCards();//第一次加载
@@ -369,7 +178,7 @@ var fight = {
 
             cc.log('使用卡牌：', data);
             
-            var ui = that._uimgr.getCurMainUI();
+            var ui = that._uiMgr.getCurMainUI();
             ui.showNum(gameData);
 
             combatMgr.curCombat.getSelf().Mp = data.mp;
@@ -396,7 +205,7 @@ var fight = {
 
             player.onDamage(curdata.oriDamage, gameLogic.getCombatUnitForUid(curdata.attackerID), curdata);
 
-            var ui = that._uimgr.getCurMainUI();
+            var ui = that._uiMgr.getCurMainUI();
             
             ui.FreshHp();
 
@@ -445,7 +254,7 @@ var fight = {
             if ("discardsNum" in data)
                 gameData.discardsNum = data.discardsNum;
 
-            var ui = that._uimgr.getCurMainUI();
+            var ui = that._uiMgr.getCurMainUI();
            
             ui.showNum(gameData);
             gameData.IsLayoutAction = false;
@@ -465,7 +274,7 @@ var fight = {
                 return;
 
             combatMgr.getSelf().Mp = data.mp;
-            var ui = that._uimgr.getCurMainUI();
+            var ui = that._uiMgr.getCurMainUI();
             ui.onFreshMp(data.mp, true);
         });
 
@@ -497,6 +306,10 @@ var fight = {
             spawnSummoned.create(data);
         })
 
+        pomelo.on('onRemoveSpawnSummon', function (data) {
+            cc.log('移除召唤物', data);
+        })
+
         pomelo.on('onUseSkill', function (data) {
             cc.log('使用技能', data);
             
@@ -522,7 +335,7 @@ var fight = {
             var num =   combatMgr.getSelf().handsPile.length;
             cc.log('指定抽卡','指订抽卡后的牌的张数', data,num);
             gameData.IsLayoutAction = false;
-            var ui = that._uimgr.getCurMainUI();
+            var ui = that._uiMgr.getCurMainUI();
             combatMgr.getSelf().onDrawPile(data.inHands);
             ui.ShowHandCards();
         });
@@ -530,14 +343,14 @@ var fight = {
         ///他人接收指定抽卡 更新手牌数
         pomelo.on('onSpecificDrawCardNotify', function (data) {
             cc.log('别人指定抽卡', data);
-            var ui = that._uimgr.getCurMainUI();
+            var ui = that._uiMgr.getCurMainUI();
             combatMgr.getSelf().onDrawPile(data.inHands);
             ui.ShowHandCards();
         });
 
         pomelo.on('onCreateCard', function (data) {
             cc.log('生成卡牌', data);
-            var ui = that._uimgr.getCurMainUI();
+            var ui = that._uiMgr.getCurMainUI();
             combatMgr.getSelf().onDrawPile(data.inHands);
             var num =   combatMgr.getSelf().handsPile.length;
             cc.log("生成卡牌时当前卡牌的张数",num);
@@ -594,9 +407,9 @@ var fight = {
             cc.log('治疗', data);
 
             var player = gameLogic.getCombatUnitForUid(data.targetID);
-            player.onHeal(data.toHP, data.toHP - data.fromHp, data.casterID);
+            player.onHeal(data.toHp, data.toHp - data.fromHp, data.casterID);
 
-            var ui = that._uimgr.getCurMainUI();
+            var ui = that._uiMgr.getCurMainUI();
             ui.FreshHp();
         });
 
@@ -614,7 +427,7 @@ var fight = {
         });
 
         pomelo.on('onBuffUpdate', function (data) {
-          //  cc.log("Buff更新", data);
+           cc.log("Buff更新", data);
             if(gameData.IsReconnect)
                 return;
             var player = gameLogic.getCombatUnitForUid(data.targetID);
@@ -627,9 +440,9 @@ var fight = {
             if(gameData.IsReconnect)
                 return;
             var player = gameLogic.getCombatUnitForUid(data.targetID);
-            player.onHeal(data.toHP, data.val, data.casterID);
+            player.onHeal(data.toHp, data.val, data.casterID);
 
-            var ui = that._uimgr.getCurMainUI();
+            var ui = that._uiMgr.getCurMainUI();
             ui.FreshHp();
         });
 
@@ -657,7 +470,7 @@ var fight = {
                     gameData.exhaustsNum++;
                 }
             }
-            var ui = that._uimgr.getCurMainUI();
+            var ui = that._uiMgr.getCurMainUI();
             ui.showNum(gameData);
         });
 
@@ -670,7 +483,7 @@ var fight = {
             cc.log('战斗结束', data);
             gameData.fightEnd = true;
             var res = data.result;
-            var ui = that._uimgr.getCurMainUI();
+            var ui = that._uiMgr.getCurMainUI();
             if (gameData.fightType == 2)
             return;
             ui.loadFightOver(res);
@@ -684,7 +497,7 @@ var fight = {
 
         pomelo.on('onDungeonReconnect', function (data) {
             cc.log('副本顶号重连', data);
-            var ui = that._uimgr.getCurMainUI();
+            var ui = that._uiMgr.getCurMainUI();
             gameData.IsReconnect = true;
 
             var teamInfo = data.teamInfo;
@@ -700,7 +513,7 @@ var fight = {
             {
                 
                 case consts.DungeonStatus.END:  // 已经完结
-                that._uimgr.loadUI(constant.UI.FightOver,function(data){
+                that._uiMgr.loadUI(constant.UI.FightOver,function(data){
                     combatMgr.Release();
                     combatMgr.curCombat.UILoadOk = true; 
                 });
@@ -733,15 +546,15 @@ var fight = {
                     gameData.userName = heroData.HeroName;
                 }
                 }              
-                that._uimgr.loadUI(constant.UI.loadProjess,function(res){
-                    that._uimgr.loadUI(constant.UI.Fight,function(res){
+                that._uiMgr.loadUI(constant.UI.loadProjess,function(res){
+                    that._uiMgr.loadUI(constant.UI.Fight,function(res){
                         combatMgr.curCombat.UILoadOk = true;
                         gameData.IsReconnect = false;
                     })
                 });
-                that._uimgr.loadUI(constant.UI.loadProjess,function(res){
+                that._uiMgr.loadUI(constant.UI.loadProjess,function(res){
                     combatMgr.initCombat(data);
-                    that._uimgr.loadUI(constant.UI.Fight,function(res){
+                    that._uiMgr.loadUI(constant.UI.Fight,function(res){
                     res.initData(()=>{
                         combatMgr.curCombat.UILoadOk = true;
                         gameData.IsReconnect = false;});
@@ -751,12 +564,12 @@ var fight = {
 
                 case consts.DungeonStatus.IN_FIGHT:    // 战斗中
                 var mp = myInfo.mp;
-                that._uimgr.loadUI(constant.UI.loadProjess,function(res){
+                that._uiMgr.loadUI(constant.UI.loadProjess,function(res){
                     combatMgr.initCombat(data);
-                    that._uimgr.loadUI(constant.UI.Fight,function(res){
+                    that._uiMgr.loadUI(constant.UI.Fight,function(res){
                       
                     res.initData(()=>{
-                        var ui = that._uimgr.getUI(constant.UI.loadProjess);
+                        var ui = that._uiMgr.getUI(constant.UI.loadProjess);
                         ui.hide();
                             res.is_chongLian = true;
                             res.min_time = parseInt(selectLeftTime/60000);
@@ -879,7 +692,7 @@ var fight = {
             var player = combatMgr.getSelf();
             if(player != null)
                 player.Mp = data.mp;
-            var ui = that._uimgr.getUI(constant.UI.Fight);
+            var ui = that._uiMgr.getUI(constant.UI.Fight);
             if(ui != null)
                 ui.onFreshMp(data.mp);
         });
@@ -894,6 +707,7 @@ var fight = {
         });
 
         pomelo.on('onBounce', function (data) {
+            cc.log("onBounce", data)
             /*
             "onBounce": {
                 "required uInt32 sid": 1,

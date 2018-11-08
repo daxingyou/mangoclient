@@ -60,8 +60,7 @@ cc.Class({
         var resIndex = 0;
         this.gameOver = false;
         this.is_chongLian = false;
-
-        if (dataCenter.userName === "于小雪") 
+        if (dataCenter.userName == "于小雪") 
         {
             this.headImg.getComponent(cc.Sprite).spriteFrame = this.heroIcon.getSpriteFrame('yuxiaoxue');
         }
@@ -200,8 +199,8 @@ cc.Class({
 
     start() {
         var self = this;
-        var inputMgr = cc.find('Canvas/ui/FightUI/targetTips').getComponent('InputMgr');
-        var ctx = cc.find('Canvas/tips').getComponent(cc.Graphics);  //获取组件
+        var inputMgr = cc.find('Canvas/visibleArea/ui/FightUI/targetTips').getComponent('InputMgr');
+        var ctx = cc.find('Canvas/visibleArea/tips').getComponent(cc.Graphics);  //获取组件
         self.CardChildrenCount = self.HandsCardRoot.children;
       
         self.HandsCardRoot.on(cc.Node.EventType.TOUCH_START, function (e) {

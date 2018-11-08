@@ -12,6 +12,7 @@ var datamgr = require('DataMgr')
 //var combatMgr = require('CombatMgr')
 var constant = require('Constant')
 //var constants = require('constants')
+var playerData = require('playerData')
 cc.Class({
     extends: UIBase,
 
@@ -94,7 +95,7 @@ cc.Class({
                     icon.getComponent(cc.Sprite).spriteFrame = this.heroIcons.getSpriteFrame(heroData.HeroIcon);
                     this.enter.active = false;
 
-                    if (dataCenter.uuid == uid) {
+                    if (playerData.id == uid) {
                         var curInfo = this._heros[teamA[i].heroid];
                         ShaderUtils.setShader(curInfo.sk, "normal");
                         curInfo.light.active = true;

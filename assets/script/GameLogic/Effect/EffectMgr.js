@@ -30,7 +30,7 @@ var mgr = {
                             for(var z =0;z<20;z++)
                             {
                                 var go = cc.instantiate(data);
-                                go.parent = cc.find('Canvas/fightEffect');
+                                go.parent = cc.find('Canvas/visibleArea/fightEffect');
                                 go.position = new cc.Vec2(0,-1000);
                                 var src = go.getComponent('EffectListen')
                                 src.init(effect);
@@ -53,7 +53,7 @@ var mgr = {
             for(var a =0;a<30;a++)
             {
                 var go = cc.instantiate(data);
-                go.parent = cc.find('Canvas/frontEffect');
+                go.parent = cc.find('Canvas/visibleArea/frontEffect');
                 go.position = new cc.Vec2(0,-1000);
                 var src = go.getComponent('EffectListen')
 
@@ -66,7 +66,7 @@ var mgr = {
             for(var z =0;z<30;z++)
             {
                 var go = cc.instantiate(data);
-                go.parent = cc.find('Canvas/fightEffect');
+                go.parent = cc.find('Canvas/visibleArea/fightEffect');
                 go.position = new cc.Vec2(0,-1000);
                 var src = go.getComponent('EffectListen')
                 src.init(effect);
@@ -112,6 +112,12 @@ var mgr = {
         var go = this.getEffect(name,pos,teamID);
         if(go != null)
             go.showSword();
+        return go;
+    },
+    getBounceEffect : function(name,pos,teamID,ability,callback){
+        var go = this.getEffect(name,pos,teamID);
+        if(go != null)
+            go.showBounce(ability,callback);
         return go;
     },
     getEffect : function(name,pos,teamID){

@@ -9,42 +9,40 @@ cc.Class({
     },
 
     start () {
-        this._mgr = cc.find('Canvas').getComponent('UIMgr');
+        this._uiMgr = cc.find('Canvas').getComponent('UIMgr');
     },
 
     Match () {
-        this._mgr.release();
-        this._mgr.loadUI(constant.UI.Match);
+        this._uiMgr.release();
+        this._uiMgr.loadUI(constant.UI.Match);
     },
 
     Friend() {
-        this._mgr.release();
-        this._mgr.loadUI(constant.UI.Friend);
+        this._uiMgr.release();
+        this._uiMgr.loadUI(constant.UI.Friend);
     },
 
     Fuben () {
-        this._mgr.release();
-        this._mgr.loadUI(constant.UI.RaidUI);
+        this._uiMgr.release();
+        this._uiMgr.loadUI(constant.UI.RaidUI);
     },
+
     bag(){
-        this._mgr.loadUI(constant.UI.BagUI);
+        this._uiMgr.release();
+        this._uiMgr.loadUI(constant.UI.BagUI);
     },
 
     Email () {
-        this._mgr.loadUI(constant.UI.EmailUI);
+        this._uiMgr.release();
+        this._uiMgr.loadUI(constant.UI.EmailUI);
     },
 
     enterFightPav () {
         var self = this;
-        let backMainUI = function () {
-            self._mgr.loadUI(constant.UI.Main,function(data){
-                 self._mgr.getUI(constant.UI.FightPavTop).hide();
-            });
-        };
-        self._mgr.loadUI(constant.UI.FightPavTop,(data) =>{
-            data.initBackBtn(backMainUI,self);
+        self._uiMgr.loadUI(constant.UI.FightPavTop,(data) =>{
+          
         });
-        self._mgr.loadUI(constant.UI.ShowList,data => {
+        self._uiMgr.loadUI(constant.UI.ShowList,data => {
             data.init();
         });
     },

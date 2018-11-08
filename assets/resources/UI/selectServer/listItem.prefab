@@ -749,7 +749,13 @@
     "_parent": null,
     "id": null,
     "host": null,
-    "port": null
+    "port": null,
+    "statusIcon": {
+      "__id__": 15
+    },
+    "atlas": {
+      "__uuid__": "41368f89-2abd-4ed8-924c-575cc8a96957"
+    }
   },
   {
     "__type__": "cc.PrefabInfo",

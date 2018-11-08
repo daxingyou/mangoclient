@@ -11,6 +11,7 @@ cc.Class({
         _active : false,
         _curAni : '',
         _MoveAni : false,
+        _BounceAni : false,
         _duration : 0,
     },
 
@@ -33,11 +34,6 @@ cc.Class({
 
         if(spine == null)
             return;
-
-        //var track = spine.getCurrent(0);
-        //if(track != null)
-        //    cc.log('animation.name = ',track.animation.name,' animation.duration =',track.animation.duration);
-
 
         spine.setCompleteListener((trackEntry, loopCount) => {
             var animationName = trackEntry.animation ? trackEntry.animation.name : "";
@@ -137,6 +133,29 @@ cc.Class({
         this.frame = 10;
         this.points = utility.ComputeCardsBezier(start,end,10,result);
     },
+    showBounce(frame,ability,callback)
+    {
+        this._BounceAni = true;
+
+        this.callBack = callback;
+
+        this.step = dir.div(frame);
+        this.frame = frame;
+        var end = ability.curTarget.node.position;
+        var dir = end.sub(this.node.position);
+        this.step = dir.div(frame);
+        this.frame = frame;
+
+        var temp = end.x - this.node.position.x;
+
+        if(temp < 0)
+        {
+            this.node.scaleX = -1;
+        }
+        else{
+            this.node.scaleX = 1;
+        }
+    },
     update(dt){
         if(this._MoveAni && this._active && this.points == undefined)
         {
@@ -171,6 +190,19 @@ cc.Class({
                     this.callBack = null;
                 } 
                 this.node.position = new cc.v2(0,-1000);
+            }
+        }
+        else if(this._BounceAni)
+        {
+            this.frame -- ;
+            this.node.position = this.node.position.add(this.step);
+
+            if(this.frame == 0)
+            {
+                this._BounceAni = false;
+                this._active = false;
+                this.node.position = new cc.v2(0,-1000);
+                this.callBack();
             }
         }
 

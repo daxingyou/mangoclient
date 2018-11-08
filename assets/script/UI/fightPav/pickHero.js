@@ -12,6 +12,7 @@ var dataCenter = require('DataCenter')
 var hero = require('Hero')
 var teamRaidSelectHeroProto = require('teamRaidSelectHeroProto')
 var teamRaidConfirmHeroProto = require('teamRaidConfirmHeroProto')
+var playerData = require('playerData')
 
 cc.Class({
     extends: uibase,
@@ -70,7 +71,7 @@ cc.Class({
     storeShowNode (uid4ShowNode) {
         this._uid4ShowNode = {};
         this._uid4ShowNode = uid4ShowNode;
-        cc.log(this._uid4ShowNode,"-------------this._uid4ShowNode");
+        // cc.log(this._uid4ShowNode,"-------------this._uid4ShowNode");
         this.showSelect.active = false;
         this.cdTime = 60;
         this._CDState = true;
@@ -82,13 +83,13 @@ cc.Class({
         
         for (let i=0;i<teamA.length;i++) {
            
-            if (teamA[i].uid == dataCenter.uuid) {
+            if (teamA[i].uid == playerData.id) {
                 self.isTeamA = true;
                 self.comfirmTeam(teamA);
             }  
         }
         for (let j=0;j < teamB.length;j++) {
-            if (teamB[j].uid == dataCenter.uuid) {
+            if (teamB[j].uid == playerData.id) {
                 self.isTeamA = false;
                 self.comfirmTeam(teamB);
             }  
@@ -124,7 +125,7 @@ cc.Class({
         this.heroName.string = heroData.HeroName;
         dataCenter.userName = heroData.HeroName;
         this._heroid = heroid;
-        var showNode = this._uid4ShowNode[dataCenter.uuid];
+        var showNode = this._uid4ShowNode[playerData.id];
         let heroName =  showNode.getChildByName("heroName");
         var icon = showNode.getChildByName("heroImg");
         heroName.getComponent(cc.Label).string = heroData.HeroName;
@@ -154,14 +155,14 @@ cc.Class({
                 cc.log("4V4组队确认英雄",data);
             });
         }
-        let showNode = this._uid4ShowNode[dataCenter.uuid];
+        let showNode = this._uid4ShowNode[playerData.id];
         let comfirmTips = showNode.getChildByName("comfirm");
         comfirmTips.active = true;
         this._CDState = false;
     },
 
     defalutSelect (data) {
-        cc.log(data,"-------------------默认");
+      
         for (let uid in data) {
             if (this._uid4ShowNode[uid] != undefined) {
                 var showNode = this._uid4ShowNode[uid];
@@ -173,6 +174,9 @@ cc.Class({
                 icon.getComponent(cc.Sprite).spriteFrame = this.heroIconAtlas.getSpriteFrame(heroIcon);
                 heroName.getComponent(cc.Label).string = heroData.HeroName; 
                 comfirmTips.active = true;
+                if (uid == playerData.id) {
+                    dataCenter.userName = heroData.HeroName; 
+                }
             }
         }
     },

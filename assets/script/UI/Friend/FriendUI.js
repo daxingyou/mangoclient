@@ -1,12 +1,14 @@
 var uiBase = require('UIBase')
 var constant = require('constants')
 var net = require("NetPomelo")
+var back = require('backMainUI')
 var addFriendProto = require("addFriendProto")
 var acceptFriendProto = require("acceptFriendProto")
 var confirmHeroProto = require("confirmHeroProto")
 var getFriendsManageInfoProto = require("getFriendsManageInfoProto")
 var dataCenter = require("DataCenter")
 var friendData = require('FriendData')
+var eventMgr = require('eventMgr')
 cc.Class({
     extends: uiBase,
 
@@ -34,9 +36,9 @@ cc.Class({
      onLoad() {
          this._uiMgr = cc.find('Canvas').getComponent('UIMgr');
          this.accepetMassage();
-         GlobalEvent.on("onAddInviter",this.onAddInviter,this);
-         GlobalEvent.on("onNewFriend",this.onNewFriend,this);
-         GlobalEvent.on("onDeleteFriend",this.onDelteFriend,this);
+         eventMgr.on("onAddInviter",this.onAddInviter,this);
+         eventMgr.on("onNewFriend",this.onNewFriend,this);
+         eventMgr.on("onDeleteFriend",this.onDelteFriend,this);
      },
 
      start () {
@@ -51,7 +53,7 @@ cc.Class({
         }
         
         if (friendData.AddInviter != null) {
-            GlobalEvent.emit("onAddInviter");
+            eventMgr.emit("onAddInviter");
             //friendData.AddInviter = null;
         } 
     },
@@ -116,7 +118,7 @@ cc.Class({
         allChildren[curIndex].removeFromParent();
         self.showApplyBar.height -=60;
         let itemCom;
-        for(let i=0;i< allChildren.length;i++) {
+        for(let i=0;i<allChildren.length;i++) {
             itemCom = allChildren[i].getComponent('applyItem');
             itemCom._curIndex = i;
         }
@@ -188,11 +190,10 @@ cc.Class({
     onEnable(){
         this._curState = true;
     },
+
     backMainUI () {
-        cc.log("返回主界面");
-        this._uiMgr.loadUI(constant.UI.Main,function(data){
-        });
-    },
+        back.backMainUI();
+     },
 
     editingDidBegan : function() {
         this._inputContent = this.inputContent.string;
@@ -213,7 +214,7 @@ cc.Class({
     }, 
 
     onclickSelect () {
-        var uid = "5bd66a5d4235b14a78b54106";//m
+        var uid = "5be3a27ffb2cd90ac03b4421";//m
         //5bd66a5d4235b14a78b54106 
         //"5b7a6051ce71253d40bf7167";//name 11
        //5b6ab81a9f96ef630891ccf4 name 12;
@@ -266,25 +267,6 @@ cc.Class({
     update (dt) {
         if(cc.sys.platform == cc.sys.WECHAT_GAME)
             this._updaetSubDomainCanvas();
-
-        // //检测好友同意回复,两秒检测一次
-        // this.count++;
-        // if (this.count %60 == 0 && dataCenter.receivedReply) {
-        //     this.addGameFriend(dataCenter.friendDispose.eid,dataCenter.friendDispose.openid);
-        //     dataCenter.receivedReply = false;
-        // }
-
-        // // //检测好友删除
-        // // if (this.count %60 == 0 && dataCenter.friendDelete) {
-        // //     this.deleteGameFriend(dataCenter.deleteEid);
-        // //     dataCenter.friendDelete = false;
-        // // }
-
-        // //在线收到好友请求
-        // if (this.count %60 == 0 && dataCenter.onlineCtr){
-        //     this.onlineAcceptMsg(dataCenter.onlineMsg);
-        //     dataCenter.onlineCtr = false;
-        // } 
 },
 
     
@@ -304,16 +286,7 @@ cc.Class({
         this.gameFriendScrollView.spriteFrame = new cc.SpriteFrame(this.tex);
 
         let obj = wx.getLaunchOptionsSync();
-        if (Object.keys(obj.query).length === 0) {
-
-            return;
-        }
-        else {
-            console.log("邀请成功----------启动相应执行");
-        }
-        // if (obj.query) {
-        //     console.log("邀请成功----------启动相应执行");
-        // }
+       
     },
     
     WeChatclick(){
@@ -329,7 +302,7 @@ cc.Class({
     },
     invitedWechatGame () {
         if(cc.sys.platform == cc.sys.WECHAT_GAME)
-        {   console.log("微信版本---------");
+        {   
             wx.showShareMenu(true);
             window.wx.shareAppMessage({
                 title: "come on bb！",
@@ -338,5 +311,11 @@ cc.Class({
                 });
         }
      },
+
+     onDestroy() {
+        eventMgr.off("onAddInviter",this.onAddInviter);
+         eventMgr.off("onNewFriend",this.onNewFriend);
+         eventMgr.off("onDeleteFriend",this.onDelteFriend);
+    },
    
 });

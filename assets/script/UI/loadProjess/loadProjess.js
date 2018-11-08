@@ -2,6 +2,7 @@ var uiBase = require('UIBase')
 var dataCenter = require('DataCenter')
 var constant = require('constants')
 var dataMgr = require('DataMgr')
+var playerData = require('playerData')
 cc.Class({
     extends: uiBase,
 
@@ -51,7 +52,7 @@ cc.Class({
                 icon.getComponent(cc.Sprite).spriteFrame = this.heroIcons.getSpriteFrame(heroData.HeroIcon);
                 icon.active = true;
 
-                if (dataCenter.teamA[i].heroid == 1000 && dataCenter.uuid == dataCenter.teamA[i].uid) {
+                if (dataCenter.teamA[i].heroid == 1000 && playerData.id == dataCenter.teamA[i].uid) {
                     this.woman.active = false;
                 }
                 else {
@@ -66,7 +67,7 @@ cc.Class({
                 icon.getComponent(cc.Sprite).spriteFrame = this.heroIcons.getSpriteFrame('chenjingchou');
                 icon.active = true;
                 
-                if (dataCenter.uuid == j) {
+                if (playerData.id == j) {
                     this.woman.active = false;
                     this.man.active = true;
                 }
@@ -78,7 +79,7 @@ cc.Class({
             else {
                 icon.getComponent(cc.Sprite).spriteFrame = this.heroIcons.getSpriteFrame('yuxiaoxue');
                 icon.active = true;
-                if (dataCenter.uuid == j) {
+                if (playerData.id == j) {
                     this.woman.active = true;
                     this.man.active = false;
                 }

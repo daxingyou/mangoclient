@@ -1,6 +1,7 @@
 var uibase = require('UIBase')
 var constant = require('constants')
 var net = require('NetPomelo')
+var back = require('backMainUI')
 var raid = require('Raid')
 var consts = require('consts')
 var dataMgr = require('DataMgr')
@@ -15,11 +16,10 @@ cc.Class({
     },
 
     start () {
-        this._uimgr =cc.find('Canvas').getComponent('UIMgr');
+        this._uiMgr =cc.find('Canvas').getComponent('UIMgr');
         this.soloRaid();
     },
     soloRaid() {
-
         var self = this;
         var resIndex = 0;
         let blongSolo = 0;
@@ -78,9 +78,7 @@ cc.Class({
 
     },
     backMainUI () {
-        cc.log("返回主界面");
-        this._uimgr.loadUI(constant.UI.Main,function(data){
-        });
+       back.backMainUI();
     },
 
     // update (dt) {},

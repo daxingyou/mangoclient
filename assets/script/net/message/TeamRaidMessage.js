@@ -2,6 +2,7 @@ var constant = require('constants')
 var teamRaidData = require('teamRaidData')
 var combatMgr = require('CombatMgr')
 var dataCenter = require('DataCenter')
+var eventMgr = require('eventMgr')
 var teamRaid = {
     init: function () {
         this._uiMgr = cc.find('Canvas').getComponent('UIMgr');
@@ -79,7 +80,7 @@ var teamRaid = {
         pomelo.on('onTeamRaidShowRoomList', function (data) {
             cc.log("组队副本点选关卡列表", data);
             teamRaidData.selectList = data.selectList;
-            GlobalEvent.emit("teamSelectAward");
+            eventMgr.emit("selectList",teamRaidData.selectList);
             // var ui = that._uiMgr.getCurMainUI();
             // ui.loadRaid(data);
             /*  "onTeamRaidShowRoomList": {
@@ -105,7 +106,8 @@ var teamRaid = {
             cc.log("组队副本进入奖励卡牌选择", data);
             let cardsList = data.cardsList;
             teamRaidData.cardsList = cardsList;
-       
+            teamRaidData.selectList = null;
+            eventMgr.emit("teamSelectAward",cardsList);
             // that._uiMgr.loadUI(constant.UI.TeamAwardCard,function(data){
             //    data.initData(cardsList);
             // });

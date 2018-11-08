@@ -6,6 +6,70 @@
 module.exports = {
 	1: {
 		ID: 1,
+		Name: '元宝',
+		Type: 99,
+		Icon: 9000,
+		UseLevel: 0,
+		Price: 0,
+		Button: [],
+		Priority: 0,
+		Quality: 0,
+		Describe: '',
+		Broadcast: '',
+		Obtain: [],
+		UseLogic: 'OpenYuanBaoView',
+		UseInfo: {}
+	},
+	2: {
+		ID: 2,
+		Name: '银两',
+		Type: 99,
+		Icon: 9001,
+		UseLevel: 0,
+		Price: 0,
+		Button: [],
+		Priority: 0,
+		Quality: 0,
+		Describe: '稀有货币，用于购买道具和英雄升阶',
+		Broadcast: '',
+		Obtain: [1,2],
+		UseLogic: '',
+		UseInfo: {}
+	},
+	3: {
+		ID: 3,
+		Name: '体力',
+		Type: 99,
+		Icon: 9002,
+		UseLevel: 0,
+		Price: 0,
+		Button: [],
+		Priority: 0,
+		Quality: 0,
+		Describe: '英雄行动需要体力，记得及时补充体！\n当前每5分钟恢复：1点体力\n体力达到100,将停止自动恢复',
+		Broadcast: '',
+		Obtain: [3],
+		UseLogic: '',
+		UseInfo: {}
+	},
+	4: {
+		ID: 4,
+		Name: '代币',
+		Type: 99,
+		Icon: 9003,
+		UseLevel: 0,
+		Price: 0,
+		Button: [],
+		Priority: 0,
+		Quality: 0,
+		Describe: '',
+		Broadcast: '',
+		Obtain: [],
+		UseLogic: '',
+		UseInfo: {}
+	},
+	20: {
+		ID: 20,
 		Name: '道具1',
 		Type: 1,
 		Icon: 1000,
@@ -16,11 +80,12 @@ module.exports = {
 		Quality: 1,
 		Describe: '描述',
 		Broadcast: '',
+		Obtain: [],
 		UseLogic: '',
 		UseInfo: {}
 	},
-	2: {
-		ID: 2,
+	21: {
+		ID: 21,
 		Name: '道具2',
 		Type: 1,
 		Icon: 1001,
@@ -31,11 +96,12 @@ module.exports = {
 		Quality: 2,
 		Describe: '描述',
 		Broadcast: '',
+		Obtain: [],
 		UseLogic: '',
 		UseInfo: {id:100,cnt:10}
 	},
-	3: {
-		ID: 3,
+	22: {
+		ID: 22,
 		Name: '道具3',
 		Type: 1,
 		Icon: 1002,
@@ -46,11 +112,12 @@ module.exports = {
 		Quality: 3,
 		Describe: '描述',
 		Broadcast: '',
+		Obtain: [],
 		UseLogic: '',
 		UseInfo: {}
 	},
-	4: {
-		ID: 4,
+	23: {
+		ID: 23,
 		Name: '道具4',
 		Type: 1,
 		Icon: 1003,
@@ -61,6 +128,7 @@ module.exports = {
 		Quality: 4,
 		Describe: '描述',
 		Broadcast: '',
+		Obtain: [],
 		UseLogic: 'openFriendView',
 		UseInfo: {}
 	},
@@ -76,6 +144,7 @@ module.exports = {
 		Quality: 1,
 		Describe: '描述',
 		Broadcast: '{PlayName}获得了<color=#efc851>{GoodsName}</color>',
+		Obtain: [],
 		UseLogic: '',
 		UseInfo: {}
 	},
@@ -91,6 +160,7 @@ module.exports = {
 		Quality: 2,
 		Describe: '描述',
 		Broadcast: '',
+		Obtain: [],
 		UseLogic: '',
 		UseInfo: {}
 	},
@@ -106,6 +176,7 @@ module.exports = {
 		Quality: 3,
 		Describe: '描述',
 		Broadcast: '',
+		Obtain: [],
 		UseLogic: '',
 		UseInfo: {}
 	},
@@ -121,6 +192,7 @@ module.exports = {
 		Quality: 4,
 		Describe: '描述',
 		Broadcast: '{PlayName}获得了<color=#efc851>{GoodsName}</color>',
+		Obtain: [],
 		UseLogic: '',
 		UseInfo: {}
 	},

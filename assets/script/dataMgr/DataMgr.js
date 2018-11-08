@@ -50,7 +50,6 @@ var dataMgr = {
     item: [],
 
     //邮件
-
     mail: [],
 
     
