@@ -25,18 +25,7 @@ cc.Class({
 
     onclickBegin () {
         this.comfirmImg.active = true;
-        cc.log(this._index,"点击开始游戏");
+        //cc.log(this._index,"点击开始游戏");
     },
-  
 
-    //  update (dt) {
-    //      if (this._parents!=null) {
-    //          if (this._parents.selfEnterGame) {
-    //              this.comfirmImg.active = true;
-    //          }
-    //          else {
-    //             this.comfirmImg.active = false; 
-    //          }
-    //      }
-    //  },
 });

@@ -33,8 +33,6 @@ cc.Class({
         this._state = state;
         this.userName.string = state;
         this._parents = parent;
-        if (this._state != null)
-        this.is_online = true;
     },
     userState(state,id) {
         this.state.string = state;
@@ -59,13 +57,6 @@ cc.Class({
                 cc.log("发送组队邀请 ",data,"邀请的id",self._eid);
             });
         }
-        self.invited.string = "已发送";
+       // self.invited.string = "已发送";
     },
-
-     update (dt) {
-        // if (this.is_online) {
-        //     this.invitedBtn.getComponent(cc.Button).interactable = true;
-        //     this.is_online = false;
-        // }
-     },
 });

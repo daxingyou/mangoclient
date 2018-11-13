@@ -1,5 +1,6 @@
 
 var uibase = require('UIBase')
+
 cc.Class({
     extends: uibase,
 

@@ -187,8 +187,11 @@ cc.Class({
             self.node.getChildByName('quickDel').getComponent(cc.Button).interactable = true;
             self.nerverMail.active = false;
         }
-        cc.loader.loadRes('UI/emailUI/mailItem', function (loadedResource) {
+        cc.loader.loadRes('UI/emailUI/mailItem', function (errorMessage,loadedResource) {
             for (let i=0;i<data.length;i++) {
+                if (errorMessage) {
+                    cc.log(errorMessage,"载入失败");
+                }
                 var itemData = data[i];
                 let item = cc.instantiate(loadedResource);
                 resIndex++;

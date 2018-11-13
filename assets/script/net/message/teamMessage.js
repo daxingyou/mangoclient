@@ -31,15 +31,14 @@ module.exports = {
             playerData.teamData.onTeamInvited.push(data);
             let num = playerData.teamData.onTeamInvited.length;
             var callComfirm =  function () {
-                //TeamPattern
                 playerData.teamData.onTeamInvited.splice(num-1,1);
                 net.Request(new acceptInviteProto(data.id,data.teamId), (data) => {
                     
                     if (data.code == consts.TeamCode.OK) {
                         cc.log("同意组队邀请",data);
                         that._uimgr.loadUI(constant.UI.BuildTeam,(data) =>{
-                            data.initFriendList();//先移除
-                            data.laodFriendList();//加载可以邀请的好友信息
+                            data.initFriendList();
+                            data.laodFriendList();
                         });   
                     }
                     else if (data.code == consts.TeamCode.TYPE_ERR) {
@@ -56,14 +55,8 @@ module.exports = {
                         cc.log("人满了");
                         that._uimgr.showTips("人满了");
                     }
-                    else if (data.code == consts.TeamCode.IN_MY_TEAM) {
-                        cc.log("已经在队伍中");
-                        that._uimgr.showTips("已经在队伍中");
-                    }
-                    else if (data.code == consts.TeamCode.PLAYING) {
-                        cc.log("已经在游戏中");
-                        that._uimgr.showTips("已经在游戏中");
-                    }
+                   
+                  
                     else if (data.code == consts.TeamCode.LEVEL_LIMIT) {
                         cc.log("等级限制");
                         that._uimgr.showTips("等级限制");
@@ -131,8 +124,8 @@ module.exports = {
 
         pomelo.on('onTeamApplyed', function (data) {
             cc.log("收到求邀申请", data,typeof(data));
-            playerData.teamData.onForTeamInvited = data;
-            that._uimgr.popupTips(3,data.openid+"请求加入队伍","求邀请",null,null,null,null,data);
+            playerData.teamData.onForTeamInvited[data.id] = data;
+            that._uimgr.popupTips(3,data.openid+"请求加入队伍","求邀请",null,null,null,null,playerData.teamData.onForTeamInvited);
 
             /*
               "onTeamApplyed": {

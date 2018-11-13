@@ -59,15 +59,15 @@ module.exports = {
             if (res == Object.keys(data).length) {
               
                 if (this.friendMails.length != 0) {
-                    cc.log("刷新好友邮件");
+                    
                     eventMgr.emit("onAddFriendMail");
                 }
                 else if (this.systemMails.length != 0) {
-                    cc.log("刷新系统邮件");
+                    
                     eventMgr.emit("onAddSysMail")
                 }
                 else if (this.messages.length != 0) {
-                    cc.log("刷新消息中心");
+                  
                     eventMgr.emit("onAddMassageMail")
                 }
             }

@@ -52,9 +52,9 @@ cc.Class({
             this.GameFriendClick();
         }
         
-        if (friendData.AddInviter != null) {
+        if (friendData.addInviter != null) {
             eventMgr.emit("onAddInviter");
-            //friendData.AddInviter = null;
+            // friendData.AddInviter = null;
         } 
     },
     
@@ -62,7 +62,7 @@ cc.Class({
     onAddInviter() {
         var self = this;
         self.applyTips.active = true;
-        let data = friendData.AddInviter;
+        let data = friendData.addInviter;
         console.log("好友申请列表----",data);
         if (data == null) 
         return;
@@ -84,7 +84,7 @@ cc.Class({
      onNewFriend() {
         var self = this;
         var lastIndex = self.showGameFriend.childrenCount;
-        let data = friendData.NewFriend;
+        let data = friendData.newFriend;
         console.log("新增的游戏好友---",data);
         cc.loader.loadRes('UI/Friend/gameFriendItem', function (errorMessage, loadedResource) {
                 let item = cc.instantiate(loadedResource);
@@ -100,7 +100,7 @@ cc.Class({
      //点击删除后双方刷新游戏好友列表
      onDelteFriend () {
         var self = this;
-        let eid = friendData.DeleteFriend;
+        let eid = friendData.deleteFriend;
         for (let i = 0;i< self._eidBar.length;i++) {
             if (self._eidBar[i] === eid) {
               let allGameFriend = self.showGameFriend.children;
@@ -122,6 +122,8 @@ cc.Class({
             itemCom = allChildren[i].getComponent('applyItem');
             itemCom._curIndex = i;
         }
+       friendData.AddInviter = null;
+       // cc.log("shsdlkafffffffffffffffff",friendData.AddInviter);
     },
 
 
@@ -130,7 +132,7 @@ cc.Class({
         var self = this;
         var resIndex = 0;
         var applyIndex = 0;
-        let friendInfos = dataCenter.massageList;
+        let friendInfos = friendData.allFriend;
        
          for (let i in friendInfos) {
             if (i == "friends") {//好友列表
@@ -175,8 +177,9 @@ cc.Class({
                         self._showApplyList[i].initData(i,itemData.eid,itemData.openid,self);
                         if (applyIndex == invitedList.length) {
                             cc.loader.release('UI/Friend/applyItem');
-                            if (invitedList.length > 5) 
-                            self.showApplyBar.height = invitedList.length * 60;
+                            if (invitedList.length > 5) {
+                                self.showApplyBar.height = invitedList.length * 60;
+                            }
                         }
                     }
             })
@@ -207,18 +210,14 @@ cc.Class({
 
     deleteInputContent () {
         cc.log("清空搜索框");
-        this.inputContent.Placeholder = "请输入关键词";
+        this.inputContent.placeholder = "请输入关键词";
         this.inputContent.string = '';
         this._inputContent = null;
         this.deleteBtn.active = false;
     }, 
 
     onclickSelect () {
-        var uid = "5be3a27ffb2cd90ac03b4421";//m
-        //5bd66a5d4235b14a78b54106 
-        //"5b7a6051ce71253d40bf7167";//name 11
-       //5b6ab81a9f96ef630891ccf4 name 12;
-       //5b911230713af49284a85068 name 103
+        var uid = "5bd66a5d4235b14a78b54106";//m
        var self = this;
         cc.log("点击搜索");
         if (self.inputContent.string.length <=0) {

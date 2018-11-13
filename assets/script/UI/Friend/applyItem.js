@@ -5,6 +5,7 @@ var ignoreInviterProto = require('ignoreInviterProto')
 var refuseInviterProto = require('refuseInviterProto')
 var acceptFriendProto = require('acceptFriendProto')
 var confirmHeroProto = require("confirmHeroProto")
+var friendData = require('FriendData');
 
 cc.Class({
     extends: uibase,
@@ -99,7 +100,8 @@ cc.Class({
                } 
             });
         }
-   self._parents._updateApplyList(self._curIndex);
+        friendData.addInviter = null;
+        self._parents._updateApplyList(self._curIndex);
     },
     // update (dt) {},
 });

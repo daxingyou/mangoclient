@@ -11,7 +11,7 @@ cc.Class({
        tips:cc.Node,
        _goodId:null,
        _cnt:null,
-       _swtich:true,
+       _isRead:false,
     },
 
     initData (goodId,num,parent,curIndex) {
@@ -36,7 +36,10 @@ cc.Class({
     },
 
     click () {
-        this.tips.active = true;
+        if (this.tips.active)
+        return;
+        this.select();
+        this._isRead = true;
         this._parents._curIndex = this._curIndex;
         this._parents.showSelectGood(this._curIndex);
     },

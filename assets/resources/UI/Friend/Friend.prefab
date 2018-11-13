@@ -938,7 +938,7 @@
     "_N$startAxis": 0,
     "_N$paddingLeft": 0,
     "_N$paddingRight": 0,
-    "_N$paddingTop": 50,
+    "_N$paddingTop": 10,
     "_N$paddingBottom": 0,
     "_N$spacingX": 0,
     "_N$spacingY": 10,
@@ -2384,7 +2384,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 153.31000000000006
+      "y": 128
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -2441,8 +2441,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -37,
-      "y": -40.99999999999994
+      "x": 4,
+      "y": 0
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -2500,7 +2500,7 @@
     "_N$startAxis": 0,
     "_N$paddingLeft": 0,
     "_N$paddingRight": 0,
-    "_N$paddingTop": 100,
+    "_N$paddingTop": 50,
     "_N$paddingBottom": 0,
     "_N$spacingX": 0,
     "_N$spacingY": 20,

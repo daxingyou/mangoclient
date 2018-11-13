@@ -1,7 +1,8 @@
 
 module.exports = {
-    AddInviter:null,
-    NewFriend:null,
-    AcceptFriendNotify:null,
-    DeleteFriend:null,
+    addInviter:null,
+    newFriend:null,
+    acceptFriendNotify:null,
+    deleteFriend:null,
+    allFriend:{},
 };

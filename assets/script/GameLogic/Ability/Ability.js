@@ -7,7 +7,6 @@ var CombatUtility = require('CombatUtility')
 var effectMgr = require('EffectMgr')
 var constant = require('constants')
 var utility = require('utility')
-var gamedata = require('DataCenter')
 var FSMEvent = require('FSMEvent')
 var effect = require('Effect')
 
@@ -118,23 +117,23 @@ ability.prototype.ShowEffect = function(effect,effectType){
 				{
 					for(var i in this.targets)
 					{
-						effectMgr.getPosEffect(this.arrs.Path,this.targets[i].agent.go.position,effect,this.owner.teamid,this.EffectCallBack);
+						effectMgr.getPosEffect(this.arrs.Path,this.targets[i].agent.go.position,effect,this.owner.teamid,this.EffectCallBack.bind(this));
 					}
 				}
 				else
 				{
-					effectMgr.getPosEffect(this.arrs.Path,this.curTarget.agent.go.position,effect,this.owner.teamid,this.EffectCallBack);
+					effectMgr.getPosEffect(this.arrs.Path,this.curTarget.agent.go.position,effect,this.owner.teamid,this.EffectCallBack.bind(this));
 				}
 			}
 			else
 			{
-				effectMgr.getPosEffect(this.arrs.Path,this.curTarget.agent.go.position,effect,this.owner.teamid,this.EffectCallBack);
+				effectMgr.getPosEffect(this.arrs.Path,this.curTarget.agent.go.position,effect,this.owner.teamid,this.EffectCallBack.bind(this));
 			}
 			
 		}
 		else if(effectType.origin == constant.EffectOrigin.onwer)
 		{
-			var go = effectMgr.getPosEffect(this.arrs.Path,this.owner.agent.go.position.add(offset),effect,this.owner.teamid,this.EffectCallBack);
+			var go = effectMgr.getPosEffect(this.arrs.Path,this.owner.agent.go.position.add(offset),effect,this.owner.teamid,this.EffectCallBack.bind(this));
 			go.node.scale = Math.abs(this.owner.agent.go.scale);
 		}
 		else if(effectType.origin == constant.EffectOrigin.onwerAll)
@@ -143,7 +142,7 @@ ability.prototype.ShowEffect = function(effect,effectType){
 			{
 				if(this.owner.curCombat.units[i].teamid == this.owner.teamid)
 				{
-					effectMgr.getPosEffect(this.arrs.Path,this.owner.curCombat.units[i].agent.go.position,effect,this.owner.teamid,this.EffectCallBack);
+					effectMgr.getPosEffect(this.arrs.Path,this.owner.curCombat.units[i].agent.go.position,effect,this.owner.teamid,this.EffectCallBack.bind(this));
 				}
 			}
 		}
@@ -153,7 +152,7 @@ ability.prototype.ShowEffect = function(effect,effectType){
 			{
 				if(this.owner.curCombat.units[i].teamid != this.owner.teamid)
 				{
-					effectMgr.getPosEffect(this.arrs.Path,this.owner.curCombat.units[i].agent.go.position,effect,this.owner.curCombat.units[i].teamid,this.EffectCallBack);
+					effectMgr.getPosEffect(this.arrs.Path,this.owner.curCombat.units[i].agent.go.position,effect,this.owner.curCombat.units[i].teamid,this.EffectCallBack.bind(this));
 				}
 			}
 		}
@@ -167,16 +166,16 @@ ability.prototype.ShowEffect = function(effect,effectType){
 
 			if(length == 1)
 			{
-				effectMgr.getPosEffect(this.arrs.Path,this.owner.curCombat.own[1].agent.go.position,effect,0,this.EffectCallBack);
+				effectMgr.getPosEffect(this.arrs.Path,this.owner.curCombat.own[1].agent.go.position,effect,0,this.EffectCallBack.bind(this));
 			}
 			else if(length == 2)
 			{
 				effectMgr.getPosEffect(this.arrs.Path,cc.v2((this.owner.curCombat.own[1].agent.go.position.x + this.owner.curCombat.own[2].agent.go.position.x)/2,
-				(this.owner.curCombat.own[1].agent.go.position.y + this.owner.curCombat.own[2].agent.go.position.y)/2),effect,0,this.EffectCallBack);
+				(this.owner.curCombat.own[1].agent.go.position.y + this.owner.curCombat.own[2].agent.go.position.y)/2),effect,0,this.EffectCallBack.bind(this));
 			}
 			else if(length == 3)
 			{
-				effectMgr.getPosEffect(this.arrs.Path,this.owner.curCombat.own[2].agent.go.position,effect,0,this.EffectCallBack);
+				effectMgr.getPosEffect(this.arrs.Path,this.owner.curCombat.own[2].agent.go.position,effect,0,this.EffectCallBack.bind(this));
 			}
 		}
 		else if(effectType.origin == constant.EffectOrigin.targetCenter)
@@ -189,22 +188,22 @@ ability.prototype.ShowEffect = function(effect,effectType){
 
 			if(length == 1)
 			{
-				effectMgr.getPosEffect(this.arrs.Path,this.owner.curCombat.own[1].agent.go.position,effect,0,this.EffectCallBack);
+				effectMgr.getPosEffect(this.arrs.Path,this.owner.curCombat.own[1].agent.go.position,effect,0,this.EffectCallBack.bind(this));
 			}
 			else if(length == 2)
 			{
 				effectMgr.getPosEffect(this.arrs.Path,cc.v2((this.owner.curCombat.own[1].agent.go.position.x + this.owner.curCombat.own[2].agent.go.position.x)/2,
-				(this.owner.curCombat.own[1].agent.go.position.y + this.owner.curCombat.own[2].agent.go.position.y)/2),effect,0,this.EffectCallBack);
+				(this.owner.curCombat.own[1].agent.go.position.y + this.owner.curCombat.own[2].agent.go.position.y)/2),effect,0,this.EffectCallBack.bind(this));
 			}
 			else if(length == 3)
 			{
-				effectMgr.getPosEffect(this.arrs.Path,this.owner.curCombat.own[2].agent.go.position,effect,0,this.EffectCallBack);
+				effectMgr.getPosEffect(this.arrs.Path,this.owner.curCombat.own[2].agent.go.position,effect,0,this.EffectCallBack.bind(this));
 			}
 		}
 	}			///弹弹特效表现
 	else if(effectType.type == constant.EffectType.Bounce)
 	{
-		effectMgr.getBounceEffect(this.arrs.Path,this.owner.agent.go.position,effect,this.owner.teamid,this,this.EffectCallBack);
+		effectMgr.getBounceEffect(this.arrs.Path,this.owner.agent.go.position,effect,this.owner.teamid,this,this.EffectCallBack.bind(this));
 	}
 }
 
@@ -278,7 +277,7 @@ ability.prototype.tick = function(dt){
 			else if(this.effectFrame >frame[frame.length - 1])
 			{
 				if(this.owner.curCombat.summonedMgr != null)
-					this.owner.curCombat.summonedMgr.collectAll();
+					this.owner.curCombat.summonedMgr.collectAll(this.curTarget);
 				this.swordShow = false;
 			}
 		}
@@ -294,17 +293,18 @@ ability.prototype.tick = function(dt){
 				effectMgr.getPosEffect(this.arrs.HitEffectPath,new cc.Vec2(1000+x,310+y),this.arrs.HitEffect,this.owner.teamid);
 				this.hurtEffectIndex++;
 	
-				if(gamedata.fightDamage != null)
+				let combatMgr = require('CombatMgr');
+				if(combatMgr.fightDamage != null)
 				{
-					if(gamedata.fightDamage.hasOwnProperty(this.owner.uid))
+					if(combatMgr.fightDamage.hasOwnProperty(this.owner.uid))
 					{
-						if(gamedata.fightDamage[this.owner.uid].hasOwnProperty(this.ID))
+						if(combatMgr.fightDamage[this.owner.uid].hasOwnProperty(this.ID))
 						{
-							var damagelist = gamedata.fightDamage[this.owner.uid][this.ID];
+							var damagelist = combatMgr.fightDamage[this.owner.uid][this.ID];
 							if(damagelist.length > 0)
 							{
 								this.owner.curCombat.UIMgr.loadDmg(this.curTarget, damagelist[0], true, this.owner.uid);
-								this.curTarget, gamedata.fightDamage[this.owner.uid][this.ID].splice(0,1);
+								this.curTarget, combatMgr.fightDamage[this.owner.uid][this.ID].splice(0,1);
 							}
 						}
 					}

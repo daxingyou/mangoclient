@@ -23,13 +23,13 @@ HandCard.prototype.ability = null;
 ///检测是否能够释放技能
 HandCard.prototype.Enable = function(){
 
-    if(this.data.CastMP > this.owner.Mp)
+    if(this.data.CastMP > this.owner.mp)
     {
         this.owner.curCombat.UIMgr.showTips('灵力不足',cc.v2(0,65));
         return false;
     }
 
-    if(this.data.CastThew > this.owner.Thew)
+    if(this.data.CastThew > this.owner.thew)
     {
         this.owner.curCombat.UIMgr.showTips('体力不足',cc.v2(0,65));
         return false;

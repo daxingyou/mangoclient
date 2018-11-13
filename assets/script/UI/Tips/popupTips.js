@@ -65,13 +65,11 @@ cc.Class({
     initCancelBtn(callBack, target) {
         this._ingoreCallBack = callBack;
         this._ingoreTarget = target;
-       // this.closeParameter = parameter;
     },//取消+忽略
 
     initConfirmBtn(callBack,target) {
         this._confirmCallBack = callBack;
         this._comfirmTarget = target;
-      //  this.comfirmParameter = parameter;
     },
 
     initRefuseBtn(callBack,target) {
@@ -81,51 +79,58 @@ cc.Class({
     },
 
     start () {
-      //  if (this._type == 3) 
-     //   this.initParams();
+     
     },
 
     initParams (params) {
         if (params == null) 
         return;
-        cc.log("params",params,"加载头像",params.id,params.openid);
         var self = this;
+        let resIndex = 0;
+        self._forInvitedMe = [];
+        self.loadData.removeAllChildren();
         cc.loader.loadRes('UI/buildTeam/forInvitedMe', function (errorMessage, loadedResource) {
-            // for (var i = 0; i < params.length; i++) {
-             //  var itemData = params[i];
+            for (let id in params) {
+                var itemData = params[id];
                 if (errorMessage) {
                     cc.log('载入预制资源失败, 原因:' + errorMessage);
                     return;
                 }
+                resIndex++;
                 let item = cc.instantiate(loadedResource);
-               // resIndex++;
                 self.loadData.addChild(item);
-                item.getComponent('forInvitedMe').initData(params.id,params.openid,self);
+                self._forInvitedMe.push(item.getComponent('forInvitedMe'));
+                self._forInvitedMe[resIndex - 1].initData(resIndex-1,itemData.id,itemData.openid,self);
+            }
         });
     },
 
+    _remove (index) {
+        let childCount = this.loadData.children;
+        childCount[index].removeFromParent();
+        this._forInvitedMe.splice(index,1);
+        for (let i = 0; i<childCount.length; i++) {
+            this._forInvitedMe[i]._curIndex = i;
+        }
+    },
+
     confirm() {
-        if(this._confirmCallBack)
-        {
-            cc.log("点击确定了");
+        if (this._confirmCallBack) {
             this._confirmCallBack.call(this._comfirmTarget);
         }
         this.hide();
     },
 
     ingore() {
-        if(this._ingoreCallBack)
-        {
-            cc.log("点击忽略了");
+        
+        if (this._ingoreCallBack) {
             this._ingoreCallBack.call(this.__ingoreTarget);
         }
         this.hide();
     },
 
     refuse() {
-        if(this._refuseCallBack)
-        {
-            cc.log("点击拒绝了");
+        if (this._refuseCallBack) {
             this._refuseCallBack.call(this._refuseTarget);
         }
         this.hide();
@@ -144,9 +149,4 @@ cc.Class({
 
         this.hide();
     },
-
-
-
-
-    // update (dt) {},
 });

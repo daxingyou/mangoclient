@@ -1,10 +1,10 @@
 var UIBase = require('UIBase')
-var combatmgr = require('CombatMgr')
+var combatMgr = require('CombatMgr')
 var dataCenter = require('DataCenter')
 var datamgr = require('DataMgr')
 var consts = require('consts')
 var constants = require('constants')
-//var GameLogic = require('GameLogic')
+let eventMgr = require('eventMgr');
 
 cc.Class({
     extends: UIBase,
@@ -50,17 +50,39 @@ cc.Class({
     onLoad() {
     },
     onEnable(){
+        eventMgr.on(eventMgr.events.EventUseCard, this.onUseCard, this);
+    },
+
+    onDisable() {
+        eventMgr.off(eventMgr.events.EventUseCard, this.onUseCard);
+    },
+
+    onUseCard() {
+        this.showNum();
+        this.ShowHandCards();
+    },
+
+    show() {
+        this._super();
+        this.initData(() => {
+            combatMgr.curCombat.UILoadOk = true;
+            this.initBarHp();
+            this.ShowHandCards();//第一次加载
+            this.schedule(this.callback,1);
+            this.showNum();
+            this.onFreshMp(combatMgr.getSelf().mp, true);
+        })
     },
 
     initData(callback) {
         this._uimgr = cc.find('Canvas').getComponent('UIMgr');
-        this.userName.string = dataCenter.userName;
+        this.userName.string = datamgr.hero[combatMgr.getSelf().heroid].HeroName;
         this.mp_fill.active = false;
         this.thew_fill.active = false;
         var resIndex = 0;
         this.gameOver = false;
         this.is_chongLian = false;
-        if (dataCenter.userName == "于小雪") 
+        if (combatMgr.getSelf().name == "于小雪") 
         {
             this.headImg.getComponent(cc.Sprite).spriteFrame = this.heroIcon.getSpriteFrame('yuxiaoxue');
         }
@@ -101,13 +123,12 @@ cc.Class({
 
     initBarHp(){
         cc.log('initData en hong ~~~~~~~~~~~~~~~~~~~~~~~');
-        this.barLabel.string = combatmgr.getSelf().Hp + '/' + combatmgr.getSelf().MaxHp;
-        this.target = combatmgr.getSelf();
+        this.barLabel.string = combatMgr.getSelf().hp + '/' + combatMgr.getSelf().maxHp;
+        this.target = combatMgr.getSelf();
     },
 
-    updateBarLabel(HP, MaxHp) {
-        this.barLabel.string = HP.toString() + '/' + MaxHp.toString();
-        dataCenter.hp = HP;
+    updateBarLabel(hp, maxHp) {
+        this.barLabel.string = hp.toString() + '/' + maxHp.toString();
     },
 
     layout() {
@@ -115,7 +136,7 @@ cc.Class({
         this._y = [];
         this._rot = [];
 
-        var num = combatmgr.getSelf().handsPile.length;
+        var num = combatMgr.getSelf().handsPile.length;
         var count = num / 2;
 
         var a = 1;//x方向偏心率
@@ -147,7 +168,7 @@ cc.Class({
 
     cardReturnAni(noAni, resetOrigPos=true) {
         var self = this;
-        //var num = combatmgr.getSelf().handsPile.length;
+        //var num = combatMgr.getSelf().handsPile.length;
         if (self.now_index != -1) {
             let cardItem = self.CardChildrenCount[self.now_index];
             cardItem.stopAllActions();
@@ -207,7 +228,7 @@ cc.Class({
             var j;
             var touch_point = self.HandsCardRoot.convertToNodeSpaceAR(e.getLocation());
             var is_contained = false;
-            var player = combatmgr.getSelf();
+            var player = combatMgr.getSelf();
 
             for (j = player.handsPile.length - 1; j >= 0; j--)
             {
@@ -248,7 +269,7 @@ cc.Class({
             var j;
             var pos = e.getLocation();
             var touch_point = self.HandsCardRoot.convertToNodeSpaceAR(pos);
-            var player = combatmgr.getSelf();
+            var player = combatMgr.getSelf();
 
             if (pos.y < 150) {  // 只能选中不能使用
                 dataCenter.returnAniEnd = false;
@@ -341,20 +362,20 @@ cc.Class({
 
         if(this.target == null)
         {
-            this.target = combatmgr.getSelf();
+            this.target = combatMgr.getSelf();
 
             if(this.target == null)
                 return;
         }
             
-        if (this.target && !this.target.mpRecoverPause && (dataCenter.hp!= 0) ) {
+        if (this.target && !this.target.mpRecoverPause && (combatMgr.getSelf().hp!= 0) ) {
             this.now_time += dt / this.target.mpRecoverRate;
             var per = Math.min(1, this.now_time * 1000 / this.target.mpRecoverTime);  //百分比
             this.mpSpire.fillRange = per;
             this.mpRecoverPauseEnd = true;
         }
 
-        if(this.mpRecoverPauseEnd && !this.target.mpRecoverPause == false && (dataCenter.hp!= 0)) {
+        if(this.mpRecoverPauseEnd && !this.target.mpRecoverPause == false && (combatMgr.getSelf().hp!= 0)) {
             this._uimgr.showTips('灵力暂停');
             this.mpRecoverPauseEnd = false;
         }
@@ -384,7 +405,7 @@ cc.Class({
                 this.time.string = "" + this.min_time + ":" + "" + this.sec_time;
             }
 
-            if (dataCenter.hp == 0) {
+            if (combatMgr.getSelf().hp == 0) {
                 this.gameOver = true;
             }
             else {
@@ -462,15 +483,16 @@ cc.Class({
             this.thew_fill.active = false;
         }
     },
-    showNum(data) {
-        this.onFreshMp(data.mp);
-        this.DiscardPile.string = data.discardsNum;
-        this.onFreshThew(data.thew);
-        this.ExhaustedPile.string = data.exhaustsNum;
-        this.cards.string = data.cardsNum;
+    showNum() {
+        let player = combatMgr.getSelf();
+        this.onFreshMp(player.mp);
+        this.DiscardPile.string = player.discardsNum;
+        this.onFreshThew(player.thew);
+        this.ExhaustedPile.string = player.exhaustsNum;
+        this.cards.string = player.cardsNum;
     },
     ShowHandCards: function () {
-        var player = combatmgr.getSelf();
+        var player = combatMgr.getSelf();
         if (player.handsPile.length == 8) {
             this._uimgr.showTips('手牌已满');
         }
@@ -481,7 +503,7 @@ cc.Class({
                 var data = datamgr.card[pile];
                 var isCanUse = 0;
 
-                if (data.CastMP <= player.Mp) {
+                if (data.CastMP <= player.mp) {
                     isCanUse = 1;
                 }
                 this._HandsCards[i].initData(i, data.CardName, data.CardQuality, data.CardImage, data.CardDescription, data.CardType, data.CastThew, data.CastMP, data.CardAttributes, isCanUse, pile);
@@ -499,14 +521,14 @@ cc.Class({
         this._HandsCards[index].hide();
     },
     FreshHp: function () {
-        var player = combatmgr.getSelf();
-        this.playerHpBar.progress = player.Hp / player.MaxHp;
-        this.updateBarLabel(player.Hp, player.MaxHp);
+        var player = combatMgr.getSelf();
+        this.playerHpBar.progress = player.hp / player.maxHp;
+        this.updateBarLabel(player.hp, player.maxHp);
     },
     loadFightOver: function (res) {
         var resss = res;
         this.scheduleOnce(function () {
-            combatmgr.Release();
+            combatMgr.Release();
             this._uimgr.loadUI(constants.UI.FightOver,function(data) {
                 data.reslut(resss); 
             })

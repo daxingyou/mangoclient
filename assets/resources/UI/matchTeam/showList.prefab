@@ -3427,7 +3427,9 @@
     "practiceBtn": {
       "__id__": 65
     },
-    "teamKind": 1
+    "teamKind": 1,
+    "_CDState": false,
+    "cdTime": 0
   },
   {
     "__type__": "cc.PrefabInfo",

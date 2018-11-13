@@ -3,6 +3,8 @@ var dataCenter = require('DataCenter')
 var constant = require('constants')
 var dataMgr = require('DataMgr')
 var playerData = require('playerData')
+let combatMgr = require('CombatMgr');
+
 cc.Class({
     extends: uiBase,
 
@@ -112,7 +114,7 @@ cc.Class({
     },
 
      update (dt) {
-        if (dataCenter.loadBegin) {
+        if (combatMgr.loadBegin) {
             this.loadProjess();
         }
      },

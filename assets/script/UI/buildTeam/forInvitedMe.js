@@ -12,13 +12,11 @@ cc.Class({
        _eid:null,
        _parents:null,
        _hide:null,
+       _curIndex:null,
     },
 
-
-
-
-    // onLoad () {},
-    initData (id,openid,parent,hide) {
+    initData (index,id,openid,parent,hide) {
+        this._curIndex = index;
         this._eid = id;
         this.userName.string = openid;
         this._parents = parent;
@@ -102,24 +100,24 @@ cc.Class({
         
 
         });
-        this._parents.hide();
-        teamData.onForTeamInvited = null;
-        if (this._hide != null) {
-            this._parents.clearBeinvitedTips();
+        this.checkObjLen(self._eid);
+    },
+    checkObjLen (id) {
+        delete(teamData.onForTeamInvited[id]);
+        this._parents._remove(this._curIndex);
+        if (Object.keys(teamData.onForTeamInvited).length == 0 && this._hide == null) {
+            this._parents.hide();
         }
-        this._parents.hide();
-
+        if (this._hide != null) {
+            this._parents.forTeamInvited();
+        }
     },
 
     ignore () {
         net.Request(new inviteProto(this._eid), (data) => {
             cc.log("忽略 ",data,"邀请的id",this._eid);
         });
-        teamData.onForTeamInvited = null;
-        if (this._hide != null) {
-            this._parents.clearBeinvitedTips();
-        }
-        this._parents.hide();
+        this.checkObjLen(this._eid);
     },
 
 

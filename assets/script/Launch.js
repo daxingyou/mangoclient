@@ -1,5 +1,5 @@
 var dataMgr = require("DataMgr")
-var gameLogic = require("GameLogic")
+var combatMgr = require("CombatMgr")
 var matchMessage = require("matchMessage")
 var loadingMessage = require('LoadingMessage')
 var friendMessage = require('FriendMessage')
@@ -12,6 +12,7 @@ var scenemgr = require('SceneMgr')
 var dataCenter = require('DataCenter')
 var playerMessage = require('PlayerMessage')
 let teamMessage = require('teamMessage');
+let fightMessage = require('fightMessage');
 
 cc.Class({
     extends: cc.Component,
@@ -59,6 +60,7 @@ cc.Class({
         debugMessage.init();
         playerMessage.init();
         teamMessage.init();
+        fightMessage.init();
 
         // 适配
         //设计分辨率
@@ -124,6 +126,6 @@ cc.Class({
 
     update (dt) {
        //cc.log('random = ',utility.rand(10));
-        gameLogic.Tick(dt);
+       combatMgr.Tick(dt);
     }
 });

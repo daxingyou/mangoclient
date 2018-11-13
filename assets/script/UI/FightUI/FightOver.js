@@ -2,6 +2,7 @@ var uiBase = require('UIBase')
 var constant = require('constants')
 var combatMgr = require('CombatMgr');
 var dataCenter = require('DataCenter')
+var fightData = require('fightData')
 
 cc.Class({
     extends: uiBase,
@@ -54,9 +55,6 @@ cc.Class({
                 var s = cc.scaleTo(0.4, 1).easing(cc.easeBackOut());
                 this.lose.runAction(s);
             }
-      
-
-       
     },
 
     onEnable() {
@@ -66,7 +64,7 @@ cc.Class({
     again(){
        
          if (this._CDState == false) {
-             if (dataCenter.fightType == 4) {
+             if (fightData.fightType == 4) {
                 this._uimgr.loadUI(constant.UI.BuildTeam,function(data){
                     combatMgr.Release();
                     combatMgr.curCombat.UILoadOk = true; 
@@ -76,7 +74,7 @@ cc.Class({
                    data.changeTitle('练习队伍');
                 });
              }
-             else if (dataCenter.fightType == 1) {
+             else if (fightData.fightType == 1) {
                 this._uimgr.loadUI(constant.UI.RaidUI,function(data){
                     combatMgr.Release();
                     combatMgr.curCombat.UILoadOk = true; 

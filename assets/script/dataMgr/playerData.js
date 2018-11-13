@@ -5,6 +5,8 @@ let constant = require('constants')
 let teamData = require('teamData')
 let leaveTeamProto = require('leaveTeamProto')   
 let dataCenter = require('DataCenter')
+let teamRaidData= require('teamRaidData')
+let soloRaidData = require('soloRaidData')
 let playerData = {
     userInfo: null,
     logined: false, // 是否已经登录
@@ -35,6 +37,10 @@ let playerData = {
         let allGold = info.freeGold + info.gold;
         this.emailData = emailData;
         this.teamData = teamData;
+        this.soloRaidData = soloRaidData;
+        teamData.onTeamInvited = info.teamInfo.invitedList;
+        soloRaidData.soloRaidInfo = info.raidsInfo.raids;
+        
         this.emailData.initMainInfo(info.mailInfo);
         bagData.initInfo(info.bagInfo,info.silver,allGold,info.power);
         this._checkMatch(info.matchInfo,info.teamInfo);

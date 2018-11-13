@@ -69,7 +69,6 @@ cc.Class({
     },
       // 监听事件
       onPageEvent (sender, eventType) {
-        // 翻页事件
         if (eventType !== cc.PageView.EventType.PAGE_TURNING) {
             return;
         }
@@ -84,20 +83,27 @@ cc.Class({
             var curPage = this.target.getCurrentPageIndex() + 1;
             this.target.scrollToPage(curPage);
         }
+        this._updatePageIndex();
     },
 
     onClickPrevPage () {
-        if (this.target.getCurrentPageIndex() == 0)
-        return;
-
+        if (this.target.getCurrentPageIndex() == 0) {
+            this.node.getChildByName('prev').active = false;
+            return;
+        }
         else {
+            this.node.getChildByName('prev').active = true;
             var curPage = this.target.getCurrentPageIndex() - 1;
             this.target.scrollToPage(curPage);
         }
+        this._updatePageIndex();
+    },
+
+    _updatePageIndex() {
+        this.pageIndex.string = "第" + (this.target.getCurrentPageIndex() + 1) + "页";
     },
 
     update () {
         // 当前页面索引
-        this.pageIndex.string = "第" + (this.target.getCurrentPageIndex() + 1) + "页";
     },
 });

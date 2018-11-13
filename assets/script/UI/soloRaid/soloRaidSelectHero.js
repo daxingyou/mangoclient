@@ -9,6 +9,7 @@ var dataMgr = require('DataMgr')
 var dataCenter = require('DataCenter')
 var raidSelectHeroProto = require('raidSelectHeroProto')
 var soloRaidData = require('soloRaidData')
+var fightData = require('fightData')
 cc.Class({
     extends: uibase,
     properties: {
@@ -18,6 +19,7 @@ cc.Class({
             showSelectHero:cc.Sprite,
             heroName:cc.Label,
             _heroid:null,
+            _CDState:true,
     },
 
     //加载自己拥有的英雄
@@ -38,7 +40,7 @@ cc.Class({
                 self._ownHeroBar[resIndex-1].initData(itemData.ID,itemData.HeroName,itemData.HeroIcon,self);
                 //heroid,heroName,heroIcon,parents
             }
-        })
+        });
     },
 
     //默认选择第一个英雄
@@ -60,7 +62,8 @@ cc.Class({
          let rooms = null;
          var self = this;
          let heroData = dataMgr.hero[self._heroid];
-         dataCenter.userName = heroData.HeroName;
+         fightData.userName = heroData.HeroName;
+         self._CDState = false;
          net.Request(new raidSelectHeroProto(soloRaidData.raidId,self._heroid), function (data) {
             {    
                 if (data.code == consts.SelectHeroCode.OK) {
@@ -89,6 +92,7 @@ cc.Class({
                     cc.log("已经确认了");
                 }
             }
+        
                 //else{
                 //    cc.log("单人副本确认异常");
                 //}

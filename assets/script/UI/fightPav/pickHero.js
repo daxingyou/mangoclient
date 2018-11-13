@@ -13,6 +13,7 @@ var hero = require('Hero')
 var teamRaidSelectHeroProto = require('teamRaidSelectHeroProto')
 var teamRaidConfirmHeroProto = require('teamRaidConfirmHeroProto')
 var playerData = require('playerData')
+var fightData = require('fightData')
 
 cc.Class({
     extends: uibase,
@@ -71,7 +72,6 @@ cc.Class({
     storeShowNode (uid4ShowNode) {
         this._uid4ShowNode = {};
         this._uid4ShowNode = uid4ShowNode;
-        // cc.log(this._uid4ShowNode,"-------------this._uid4ShowNode");
         this.showSelect.active = false;
         this.cdTime = 60;
         this._CDState = true;
@@ -81,7 +81,7 @@ cc.Class({
         var self = this;
         self.isTeamA = false;//默认队B
         
-        for (let i=0;i<teamA.length;i++) {
+        for (let i=0;i< teamA.length;i++) {
            
             if (teamA[i].uid == playerData.id) {
                 self.isTeamA = true;
@@ -106,14 +106,7 @@ cc.Class({
             this.teamer3.active = false;
             this.teamer2.active = false;
             this._isRaid = true;
-        }
-         if (this.isTeamA) {
-            cc.log("属于队A/或者副本",this._uid4ShowNode);
-        }
-        else {
-            cc.log("属于队B",this._uid4ShowNode);
-        }
-        
+        } 
     },
 
     //自己选择得英雄
@@ -123,7 +116,7 @@ cc.Class({
         let heroIcon = heroData.HeroIcon;
         this.showSelectHero.spriteFrame = this.heroIconAtlas.getSpriteFrame(heroIcon);
         this.heroName.string = heroData.HeroName;
-        dataCenter.userName = heroData.HeroName;
+        fightData.userName = heroData.HeroName;
         this._heroid = heroid;
         var showNode = this._uid4ShowNode[playerData.id];
         let heroName =  showNode.getChildByName("heroName");
@@ -175,7 +168,7 @@ cc.Class({
                 heroName.getComponent(cc.Label).string = heroData.HeroName; 
                 comfirmTips.active = true;
                 if (uid == playerData.id) {
-                    dataCenter.userName = heroData.HeroName; 
+                    fightData.userName = heroData.HeroName; 
                 }
             }
         }
@@ -210,7 +203,6 @@ cc.Class({
         cc.log("选择英雄属性");
         let index = parseInt(cust);
         this.heroAttribute = index;
-        cc.log(this._uid4ShowNode,"-------------this.uid4ShowNode");
     },
 
     enterPileKu () {
@@ -227,21 +219,8 @@ cc.Class({
 
     //存副本队伍信息
     storeRaidTeamInfo (data) {
-       // cc.log("组队副本队伍信息",data);
         this.comfirmTeam(data);
     },
-
-    //组队副本选择英雄
-    teamRaidSelectHero () {
-       // this._uid4ShowNode
-
-    },
-
-    //组队副本显示队友选择英雄
-    showTeamRaidSelect () {
-
-    },
-
      
 
     update (dt) {
@@ -250,9 +229,6 @@ cc.Class({
             var  temp = Math.floor(this.cdTime);
             if (temp == 0 ) {
                 this._CDState = false;
-            //     var uimgr = cc.find('Canvas').getComponent('UIMgr');
-            //     uimgr.loadUI(constant.UI.Load,function(data){
-            // });
             }
             if (this.comfirmCount == undefined)
             return;

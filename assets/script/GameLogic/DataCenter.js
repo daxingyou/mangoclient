@@ -16,16 +16,9 @@ module.exports = {
     swordNum:0,
     fightEnd:false,
     hp:null,
-    loadProjessData:{},
-    teamInfo:{},
+   
     loadBegin:true,
     IsReconnect: false,
     curFightTime:0,     ///当前战斗结束时间
-
-    massageList:{},//好友全量消息
-
-    beginGame:0,//点击开始游戏的总人数
-
-    allInfo:null,
     fightType:null,
 }

@@ -29,7 +29,7 @@ cc.Class({
     },
     onTouchHero(event,heroid) {
         var self = this;
-        if (self._parents!=null) {
+        if (self._parents!=null && self._parents._CDState) {
            self._parents.selectHero(this.heroid);   
         }
     },

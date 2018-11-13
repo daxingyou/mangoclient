@@ -6,6 +6,7 @@ var consts = require('consts')
 var net = require('NetPomelo')
 var soloRaidData = require('soloRaidData')
 var teamRaidData = require('teamRaidData')
+var fightData = require('fightData')
 cc.Class({
     extends: uibase,
 
@@ -30,7 +31,7 @@ cc.Class({
         this._requirePlayers = data.RequirePlayers;
      //   this.icon.spriteFrame = this.raidIcon.getSpriteFrame(data.Icon);
         this._parents = parent;
-        cc.log("this._curIndex",this._curIndex,this.raidId,"this.raidId");
+      //  cc.log("this._curIndex",this._curIndex,this.raidId,"this.raidId");
     },//名称，图标，状态
     //玩家还未开启的副本，显示开启等级。
     //该副本的当前状态为“已开启且无进度”，进入单人英雄选择界面。	
@@ -43,14 +44,12 @@ cc.Class({
 
     loadSoloSelectHero() {
         var self = this;
-        let obj = dataCenter.allInfo.raidsInfo.raids;
-         // cc.log(dataCenter.allInfo.raidsInfo.raids,"dataCenter.allInfo.raidsInfo.raids");
+        let raidData = soloRaidData.soloRaidInfo;
         if (self._requirePlayers == 1) {
             soloRaidData.raidId = self._curIndex;
-            dataCenter.fightType = 1;
-            if (Object.keys(obj).length != 0) {
-                cc.log("已经存在单人副本",obj);
-                let raidData = dataCenter.allInfo.raidsInfo.raids;
+            fightData.fightType = 1;
+            if (Object.keys(raidData).length != 0) {
+              //  cc.log("已经存在单人副本",obj);
                 for (let raidId in raidData) {
                     let itemData = raidData[raidId];
                     self._uiMgr.loadUI(constant.UI.EnterSelectRaid,data =>{
@@ -68,11 +67,7 @@ cc.Class({
         }
         else {
             teamRaidData.teamRaidTitle = self.raidName.string;
-          
-
-          
-
-            dataCenter.fightType = 2;
+            fightData.fightType = 2;
 
             net.Request(new buildTeamProto(consts.Team.TYPE_RAID,self.raidId), (data) => {
                

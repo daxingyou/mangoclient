@@ -6,7 +6,8 @@
 var loadRes = require('LoadRes')
 var constant = require('constants')
 
-var Agent = function (path, pos, teamid, hp, maxHp, armo, uid, buffs, scale,idx, loadok) {
+var Agent = function (path, position, bInLeft, owner, loadok) {
+    this.owner = owner;
     this.go = null;
     this.hpbar = null;
     this.spData = null;
@@ -14,34 +15,34 @@ var Agent = function (path, pos, teamid, hp, maxHp, armo, uid, buffs, scale,idx,
     this.height = 0;
     this.contentSize = null;
     this.aniMgr = null;
-    this.teamid = teamid;
+    this.bInLeft = bInLeft;  // 在左边
     var that = this;
 
     loadRes.load('UI/hero/hpBar', false, (data) => {
         that.hpbar = cc.instantiate(data).getComponent('hpBar');
         that.hpbar.node.parent = cc.find('Canvas/visibleArea/ui');
-        that.hpbar.freshen(hp, maxHp, armo);
-        that.hpbar.freshenBuff(buffs);
+        that.hpbar.freshen(owner.hp, owner.maxHp, owner.armor);
+        that.hpbar.freshenBuff(owner.buffs);
 
         loadRes.load(path, false, (data) => {
             that.go = cc.instantiate(data);
             that.go.parent = cc.find('Canvas/visibleArea/pool');
-            that.go.position = cc.v2(pos.x, pos.y);
+            that.go.position = cc.v2(position.x, position.y);
 
-            var index  = 0;
-            cc.log('cur idx == ',idx,' cur pos  == ',pos.y);
-            if(idx == 1 || idx == 2)
+            var index  = 0, pos = owner.pos;
+            if(pos == 1 || pos == 2)
             {
                 index = 1;
             }
-            else if(idx == 3 || idx == 4)
+            else if(pos == 3 || pos == 4)
             {
                 index = 2;
             }
 
             that.go.zIndex = index;
 
-            if (this.teamid == constant.Team.own)
+            let scale = owner.scale;
+            if (this.bInLeft)
                 this.go.scaleX = scale;
             else
                 this.go.scaleX = -scale;
@@ -50,17 +51,17 @@ var Agent = function (path, pos, teamid, hp, maxHp, armo, uid, buffs, scale,idx,
             var spData = that.go.getChildByName('body').getComponent(sp.Skeleton);
             that.height = Math.ceil(spData.skeletonData.skeletonJson.skeleton.height);
             that.width = Math.ceil(spData.skeletonData.skeletonJson.skeleton.width);
-            var worldPos = that.go.parent.convertToWorldSpaceAR(pos);
+            var worldPos = that.go.parent.convertToWorldSpaceAR(position);
             that.contentSize = new cc.Rect(worldPos.x - that.width / 2, worldPos.y, that.width, that.height);
             that.aniMgr = that.go.getChildByName('body').getComponent('AnimationMgr');
 
             if(that.go.name == 'head')
             {
-                that.hpbar.node.position = cc.v2(pos.x - 667, pos.y + that.height + 80 - 375);
+                that.hpbar.node.position = cc.v2(position.x - 667, position.y + that.height + 80 - 375);
             }
             else
             {
-                that.hpbar.node.position = cc.v2(pos.x - 667, pos.y + that.height + 20 - 375);
+                that.hpbar.node.position = cc.v2(position.x - 667, position.y + that.height + 20 - 375);
             }
 
             loadok();
@@ -89,7 +90,7 @@ Agent.prototype.setPos = function (pos) {
 }
 
 Agent.prototype.setScale = function (scale) {
-    if (this.teamid == constant.Team.own)
+    if (this.bInLeft)
         this.go.scaleX = scale;
     else
         this.go.scaleX = -scale;

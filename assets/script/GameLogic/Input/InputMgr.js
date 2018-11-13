@@ -5,10 +5,10 @@
  */
 
 var constant = require('constants')
-var GameLogic = require('GameLogic')
 var UIBase = require('UIBase')
 var CombatUtility = require('CombatUtility')
 var utility = require('utility');
+let combatMgr = require('CombatMgr')
 
 cc.Class({
     extends: UIBase,
@@ -159,8 +159,8 @@ cc.Class({
         this._startPoint = startPoint;
         //cc.log('cur point = ',startPoint);
         ///显示可攻击目标
-        var targets =  GameLogic.player.handsPile[this._curCard].ability.getTarget();
-        var card = GameLogic.player.handsPile[this._curCard];
+        var targets =  combatMgr.getSelf().handsPile[this._curCard].ability.getTarget();
+        var card = combatMgr.getSelf().handsPile[this._curCard];
 
         this.curCardId = card.id;
         this.curObjective = card.ability.arrs.Target;
@@ -190,13 +190,13 @@ cc.Class({
             {
                 if(this._canUseSkill)
                 {
-                    GameLogic.UsePile(GameLogic.player,this._curCard,'','',this.curCardId,this.curObjective.type);
+                    combatMgr.UsePile(combatMgr.getSelf(),this._curCard,'','',this.curCardId,this.curObjective.type);
                 }
             }
             else
             {
                 if(this.checkSelectedTarget(point))
-                    GameLogic.UsePile(GameLogic.player,this._curCard,this._target,this.target,this.curCardId,this.curObjective.type);
+                    combatMgr.UsePile(combatMgr.getSelf(),this._curCard,this._target,this.target,this.curCardId,this.curObjective.type);
             }
         }
 
@@ -216,6 +216,7 @@ cc.Class({
     },
     ShowTips(target){
         var index = 0;
+        cc.log('xxxxxxxxxaaa', target)
         if(target instanceof Array)
         {
             for(var i in target){
@@ -238,7 +239,7 @@ cc.Class({
 
         if(this.curObjective.team == constant.Team.own)
         {
-            if(GameLogic.player.pos == 0)
+            if(combatMgr.getSelf().groupId == 'groupA')
             {
                 this._targetTips[0].showRect(cc.rect(55,247,550,320));
             }
@@ -249,7 +250,7 @@ cc.Class({
         }
         else
         {
-            if(GameLogic.player.pos == 1)
+            if(combatMgr.getSelf().groupId == 'groupB')
             {
                 this._targetTips[0].showRect(cc.rect(55,247,550,320));
             }
@@ -274,10 +275,10 @@ cc.Class({
     },      ///判断当前是否选中目标
     checkSelectedTarget(point){
         ///获取可释放目标
-        this.target =  GameLogic.player.handsPile[this._curCard].ability.getTarget();
+        this.target =  combatMgr.getSelf().handsPile[this._curCard].ability.getTarget();
                
         ///判断是否选中目标
-        this._target =  CombatUtility.getTargetForPoint(point,GameLogic.player.curCombat);
+        this._target =  CombatUtility.getTargetForPoint(point,combatMgr.curCombat);
 
         //判断当前选中目标是否可以释放技能
         if(this._target != null)

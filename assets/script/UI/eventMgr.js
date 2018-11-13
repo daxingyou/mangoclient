@@ -1,4 +1,8 @@
 let events = {
+    // 战斗相关事件
+    EventUseCard: 'EventUseCard',
+    EventSpawnSummonChanged: 'EventSpawnSummonChanged',
+    // 玩法相关事件
     EventAvtPropUpdate: 'EventAvtPropUpdate',
     
 };

@@ -6,7 +6,6 @@
  var buff = require('AbilityBuff')
  var ability = require('Ability') 
  var dataMgr = require('DataMgr') 
- var gameCenter = require('DataCenter')
 
  var FSM = require('FSM');
  var FSMEvent = require('FSMEvent');
@@ -17,14 +16,27 @@
  var SwoonState = require('SwoonState');
  var ReliveState = require('ReliveState');
  
- var constant = require('constants');
+ var constants = require('constants');
+ let combatMgr = require('CombatMgr');
 
-var CombatUnit = function(data,attrs,pos,teamid,combat,uid){
-    this.Pos = data.pos;
-    this.teamid = teamid;
-    this.curCombat = combat;
-    this.uid = uid;
+var CombatUnit = function(data, combat){
+    this.uid = data.uid;
+    this.inHandsNum = data.inHandsNum;
+    this.lv = data.lv;
+    this.hp = data.hp;
+    this.maxHp = data.maxHp;
+    this.mp = data.mp;
+    this.maxMp = data.maxMp;
+    this.thew = data.thew;
+    this.maxThew = data.maxThew;
+    this.armor = data.armor;
+    this.pos = data.pos;
     this.scale = data.scale;
+    this.groupId = data.groupId;
+    this.name = data.name;
+
+    this.curCombat = combat;
+    this.teamid = combat.curPlayerGroupId === this.groupId ? constants.Team.own : constants.Team.enemy;
 
     this.uimgr = cc.find('Canvas').getComponent('UIMgr');
 
@@ -39,6 +51,16 @@ var CombatUnit = function(data,attrs,pos,teamid,combat,uid){
     }
 
     this._initFSM();
+
+    Object.defineProperty(this, 'fightUI', {
+        get: function () {
+            if (!this._fightUI) {
+                let uiMgr = cc.Canvas.instance.getComponent('UIMgr');
+                this._fightUI = uiMgr.getUI(constants.UI.Fight);
+            }
+            return this._fightUI;
+        }
+    })
 };
 
 CombatUnit.prototype._initFSM = function () {
@@ -64,24 +86,22 @@ CombatUnit.prototype.uid = 0;
 CombatUnit.prototype.sid = 0;
 ///队伍id 区分敌我
 CombatUnit.prototype.teamid = 0;
-///站位  
-CombatUnit.prototype.Pos = 0;
 ////角色实体
 CombatUnit.prototype.agent = null;
 ///当前血量
-CombatUnit.prototype.Hp = 0;
+CombatUnit.prototype.hp = 0;
 ///最大血量
-CombatUnit.prototype.MaxHp = 0;
+CombatUnit.prototype.maxHp = 0;
 ///当前灵力
-CombatUnit.prototype.Mp = 0;
+CombatUnit.prototype.mp = 0;
 ///最大灵力
-CombatUnit.prototype.MaxMp = 0;
+CombatUnit.prototype.maxMp = 0;
 ///体力
-CombatUnit.prototype.Thew = 0;
+CombatUnit.prototype.thew = 0;
 ///最大体力
-CombatUnit.prototype.MaxThew = 0;
+CombatUnit.prototype.maxThew = 0;
 ///基础物理防御,该数据不能修改
-CombatUnit.prototype.basePhysical_arm = 0;
+CombatUnit.prototype.armor = 0;
 ///附加防御供计算
 CombatUnit.prototype.addtional_Physical_arm = 0;
 // MP恢复基础时间
@@ -102,47 +122,43 @@ CombatUnit.prototype.abilitys = [];
 //////~~~~~~~~~~~~~~~~~~~~~~~~~~~Get function ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~///////
 
 CombatUnit.prototype.GetPhysical = function(){
-    return this.basePhysical_arm + this.addtional_Physical_arm;
+    return this.armor + this.addtional_Physical_arm;
 }
 
 //////~~~~~~~~~~~~~~~~~~On function~~~~~~~~~~~~~~~~~~~~~~~~~~~////// 
-CombatUnit.prototype.onDie = function(){
-    for(var i =0;i<this.abilitys.length;i++)
-    {
-        this.abilitys[i].onDie();
-    }
+CombatUnit.prototype.isPlayer = function () {
+    return this == this.curCombat.getSelf();
 };
+
 CombatUnit.prototype.onDot = function(){
 
 };
 ////伤害监听
-CombatUnit.prototype.onDamage = function(dmg,from,data = null){
-    this.Hp = data.hp;
-    this.basePhysical_arm = data.armor;
-    this.agent.hpbar.freshen(this.Hp,this.MaxHp,this.basePhysical_arm);
-
+CombatUnit.prototype.onDamage = function(data){
+    this.hp = data.hp;
+    if (data.hasOwnProperty('armor'))
+        this.armor = data.armor;
+    this.agent.hpbar.freshen(this.hp,this.maxHp,this.armor);
+    let dmg = data.oriDamage;
     this.uimgr.loadDmg(this, dmg, true, data.attackerID);
 
-    if(this.Hp <= 0)
-        // this.onDie();
-        this.fsm.handleEvent(FSMEvent.DIE);
+    if(this.hp <= 0)
+        this.onDie();
     else
         this.fsm.handleEvent(FSMEvent.HIT);
 
-    if(this.uid == this.curCombat.getSelf().uid)
+    if(this.isPlayer())
     {
-        if(this.ui == null  || this.ui == undefined)
-            this.ui = this.curCombat.UIMgr.getCurMainUI();
-          // this.ui = this.uimgr.getUI(constant.UI.Fight) 
-        this.ui.updateBarLabel(this.Hp,this.MaxHp);
+        this.fightUI.updateBarLabel(this.hp,this.maxHp);
+        this.fightUI.FreshHp();
     }
 };
 
 // spawnSummon伤害
 CombatUnit.prototype.onSpawnSummonDamage = function (damageData, casterID) {
-    this.Hp = damageData.curHp;
-    this.basePhysical_arm = damageData.curArmor;
-    this.agent.hpbar.freshen(this.Hp, this.MaxHp, this.basePhysical_arm);
+    this.hp = damageData.curHp;
+    this.armor = damageData.curArmor;
+    this.agent.hpbar.freshen(this.hp, this.maxHp, this.armor);
 
     for (var damageItem of damageData.damageList) {
         var deltaHp = damageItem[0] - damageItem[1];
@@ -159,41 +175,33 @@ CombatUnit.prototype.freshAttri = function (data) {
             this[k] = data[k];
         }
     }
-    this.agent.hpbar.freshen(this.Hp, this.MaxHp, this.basePhysical_arm);
+    this.agent.hpbar.freshen(this.hp, this.maxHp, this.armor);
 
-    if(this.uid == this.curCombat.getSelf().uid)
+    if(this == this.curCombat.getSelf())
     {
-        if(this.ui == null  || this.ui == undefined)
-            this.ui = this.curCombat.UIMgr.getCurMainUI();
-        this.ui.updateBarLabel(this.Hp,this.MaxHp);
+        this.fightUI.updateBarLabel(this.hp,this.maxHp);
     }
 };
 
 CombatUnit.prototype.onHeal = function(curhp, value, casterID){
-    this.Hp = curhp;
-    this.agent.hpbar.freshen(this.Hp,this.MaxHp,this.basePhysical_arm);
-    this.uimgr.loadDmg(this,value,false, casterID);
+    this.hp = curhp;
+    this.agent.hpbar.freshen(this.hp,this.maxHp,this.armor);
+    this.uimgr.loadDmg(this, value, false, casterID);
 
-    if(this.uid == this.curCombat.getSelf().uid)
+    if(this == this.curCombat.getSelf())
     {
-        if(this.ui == null  || this.ui == undefined)
-            this.ui = this.curCombat.UIMgr.getCurMainUI();
-        this.ui.updateBarLabel(this.Hp,this.MaxHp);
+        this.fightUI.FreshHp(this.hp, this.maxHp);
     }
 }
 
-CombatUnit.prototype.Relive = function(curhp, value, casterID){
-    this.Hp = curhp;
-    this.agent.hpbar.freshen(this.Hp, this.MaxHp, this.basePhysical_arm);
-    this.uimgr.loadDmg(this,value,false, casterID);
+CombatUnit.prototype.Relive = function(curhp, casterID){
+    this.hp = curhp;
+    this.agent.hpbar.freshen(this.hp, this.maxHp, this.armor);
+    this.uimgr.loadDmg(this,curhp,false, casterID);
 
-    this.fsm.handleEvent(FSMEvent.RELIVE);
-
-    if(this.uid == this.curCombat.getSelf().uid)
+    if(this == this.curCombat.getSelf())
     {
-        if(this.ui == null  || this.ui == undefined)
-            this.ui = this.curCombat.UIMgr.getCurMainUI();
-        this.ui.updateBarLabel(this.Hp,this.MaxHp);
+        this.fightUI.updateBarLabel(this.hp, this.maxHp);
     }
 }
 
@@ -211,7 +219,7 @@ CombatUnit.prototype.onDrawPile = function(ids){
 };
 
 ///刷新数据
-CombatUnit.prototype.onUsePile = function(ids){
+CombatUnit.prototype.onUseCard = function(ids){
     this.handsPile.length = 0;
     for(var i =0;i<ids.length;i++)
     {
@@ -240,23 +248,23 @@ CombatUnit.prototype.skillEffective = function(){
 }
 
 ///基础属性改变
-CombatUnit.prototype.porpUpdate = function(data){
+CombatUnit.prototype.onPropUpdate = function(data){
     if(data.hasOwnProperty('armor'))
     {
         ///护甲
-        this.basePhysical_arm = data.armor;
-        this.agent.hpbar.freshen(this.Hp,this.MaxHp,this.basePhysical_arm);
+        this.armor = data.armor;
+        this.agent.hpbar.freshen(this.hp,this.maxHp,this.armor);
     }
     else if(data.hasOwnProperty('hp'))
     {
-        ///护甲
-        this.Hp = data.hp;
-        this.agent.hpbar.freshen(this.Hp,this.MaxHp,this.basePhysical_arm);
+        this.hp = data.hp;
+        this.agent.hpbar.freshen(this.hp,this.maxHp,this.armor);
+        this.fightUI.FreshHp();
     }
     else if(data.hasOwnProperty('scale'))
     {
         this.scale = data.scale;
-        if (this.IsDie || gameCenter.fightEnd)
+        if (this.IsDie || combatMgr.fightEnd)
             return;
         ///模型缩放
         this.agent.setScale(data.scale);
@@ -275,6 +283,24 @@ CombatUnit.prototype.buffUpdate = function(realID, info){
     }
     this.agent.hpbar.freshenBuff(this.buffs);
 }
+
+// buff影响hp
+CombatUnit.prototype.onBuffModHp = function (data) {
+    let fromHp = data.fromHp, toHp = data.toHp, val = data.val, casterID = data.casterID;
+    if (fromHp < toHp) {
+        this.onHeal(toHp, val, casterID);
+    }
+    else {
+        this.onDamage({
+            hp: toHp,
+            oriDamage: -val,
+            attackerID: casterID
+        })
+    }
+    if (this.isPlayer()) {
+        this.fightUI.FreshHp();
+    }
+};
 
 CombatUnit.prototype.onReverse = function(data){
 
@@ -295,22 +321,28 @@ CombatUnit.prototype.OnAbilityExit = function(ability){
 }
 
 CombatUnit.prototype.onDie = function(){
-    this.IsDie = true;
-    this.agent.PlayAnimation('die',false);
+    this.fsm.handleEvent(FSMEvent.DIE);
 }
 
-CombatUnit.prototype.onAddSummon = function(pos){
-    this.Pos = pos;
+CombatUnit.prototype.updatePos = function(pos){
+    this.pos = pos;
     ///设置当前位置
-    if(this.teamid == this.curCombat.getSelf().teamid)
+    if(this.heroid)
     {
-        //this.curCombat.ow
         this.agent.setPos(this.curCombat.matrix.MatrixPos[pos]);
     }
-    else{
+    else
+    {
         this.agent.setPos(this.curCombat.monsterMatrix.MatrixPos[pos]);
     }
 }
+
+// 主动恢复灵力
+CombatUnit.prototype.onGetMp = function (data) {
+    this.mp = data.mp;
+    if (this == this.curCombat.getSelf())
+        this.fightUI.onFreshMp(this.mp);
+};
 
 CombatUnit.prototype.tick = function(dt){
     for(var i =0;i<this.abilitys.length;i++)

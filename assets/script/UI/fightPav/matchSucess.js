@@ -41,12 +41,10 @@ cc.Class({
                 resIndex++;
                 self.wxImg.addChild(item);
                 item.getComponent('wxImg').initData(i,itemData.id,itemData.openid,self);
-                self._wxImgs[itemData.id] = item.getComponent('wxImg');;
+                self._wxImgs[itemData.id] = item.getComponent('wxImg');
         
                 if (resIndex == 8) {
                     cc.loader.release('UI/matchTeam/wxImg');
-                    self.matchSucessd();
-                    cc.log(self._wxImgs,"adlkfssssssssssssssssj");
                 } 
             }
         });
@@ -72,8 +70,10 @@ cc.Class({
 
     //显示队友准备人数
     showComfirmTeamer (num,data) {
-        cc.log(data.id,this._wxImgs[data.id],this._wxImgs);
-        this._wxImgs[data.id].onclickBegin();
+       // cc.log(data.id,this._wxImgs[data.id],this._wxImgs);
+        if (this._wxImgs[data.id] != undefined) {
+            this._wxImgs[data.id].onclickBegin();
+        }
         this.comfirmRole.string = num;
     },
 

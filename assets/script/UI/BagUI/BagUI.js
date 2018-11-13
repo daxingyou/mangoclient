@@ -101,8 +101,7 @@ cc.Class({
         this.powerNum.string = bagData.power;
         this._ownSilver = bagData.silver;
         this._ownGold = bagData.gold;
-        this._ownPower = bagData.power
-
+        this._ownPower = bagData.power;
         if (Object.keys(bagData.refreshBag).length != 0) {
             this.refreshBag();
         }
@@ -114,6 +113,7 @@ cc.Class({
      },
 
      refreshBag() {
+         let list = [];
         let data = bagData.refreshBag;
         for (let i in data) {
             this.goodsInfo[i] = data[i];
@@ -126,7 +126,7 @@ cc.Class({
         else if (this._curButton == 2) {
             this.clickTreasure();
         }
-        cc.log(this.goodsInfo,"this.goodsInfo");
+
      },
 
      refreshSilver (data) {
@@ -153,71 +153,57 @@ cc.Class({
 
     clickPro () {
         this._curButton = 1;
-        this.goods = [];
+        this._updateGoods(this._curButton);
+    },
+
+
+    clickTreasure () {
+        this._curButton = 2;
+        this._updateGoods(this._curButton);
+    },
+
+    _updateGoods (goodType) {
         this._goodsScr = [];
         let resIndex = 0;
-        this.goodsContent.removeAllChildren();
         this._selectedIdx = -1;
-        let list = [];
+        this.goodsContent.removeAllChildren();
         if (Object.keys(this.goodsInfo).length == 0) {
             this._emptyGood();
         }
-        for (let i in this.goodsInfo) {
+
+        var sortedObj = Object.keys(this.goodsInfo).sort(function(a, b) {
+            return dataMgr.item[b].Priority - dataMgr.item[a].Priority;
+        });
+
+        for (let j in sortedObj) {
+            let i = sortedObj[j];
             if (this.goodsInfo[i].cnt !=0 ) {
             let goods = dataMgr.item[i];
-            if (goods.Type == 1) {
+            if (goods.Type == goodType) {
                 var item = cc.instantiate(this.goodsItem);
                 item.parent = this.goodsContent;
                 let itemCom = item.getComponent('goodsItem');
                 this._goodsScr.push(itemCom);
                 resIndex++;
-                list.push(goods);
                 this._goodsScr[resIndex - 1].initData(i,this.goodsInfo[i].cnt,this,resIndex-1);
             }   
             }
         }
-        list.sort(function (a, b) {
-            return b.Priority - a.Priority;
-        });
+      
         if (resIndex > 0) {
             this._hadGoods();
-            this.burn.active = false;
-        }
-        else {
-            this._emptyGood();
-        }
-    },
-
-    clickTreasure () {
-        this._curButton = 2;
-        this.goods = [];
-        this._goodsScr = [];
-        let resIndex = 0;
-        this._selectedIdx = -1;
-        this.goodsContent.removeAllChildren();
-        if (Object.keys(this.goodsInfo).length == 0) {
-            this._emptyGood();
-        }
-        for (let i in this.goodsInfo) {
-            if (this.goodsInfo[i].cnt != 0) {
-                let goods = dataMgr.item[i];
-                if (goods.Type == 2) {
-                    var item = cc.instantiate(this.goodsItem);
-                    item.parent = this.goodsContent;
-                    let itemCom = item.getComponent('goodsItem');
-                    this._goodsScr.push(itemCom);
-                    resIndex++;
-                    this._goodsScr[resIndex - 1].initData(i,this.goodsInfo[i].cnt,this,resIndex-1);
-                }
+            if (goodType == 1) {
+                this.burn.active = false;
             }
-        }
-        if (resIndex > 0) {
-            this._hadGoods();
-            this.burn.active = true;
+            else {
+                this.burn.active = true;
+            }
+           
         }
         else {
-           this._emptyGood();
+            this._emptyGood();
         }
+
     },
 
     _emptyGood () {
@@ -362,7 +348,6 @@ cc.Class({
     },
 
     comfrimSell () {
-      // cc.log(this._type,this._selectGoodId,this._sellCnt,"type,goodid,sellCnt");
         let self = this;
         if (self._type == 1) {
             net.Request(new bagSellProto(self._selectGoodId,self._sellCnt), (data) => {
@@ -386,16 +371,13 @@ cc.Class({
     _updateSellNum (progress) {
         if (progress < 0 || progress > 1) 
         return;
-        
-        this.sellNum.getComponent(cc.Label).string = "数量:" + parseInt(progress * this._ownCnt) + "/" +this._ownCnt;
-        this.sellPrice.getComponent(cc.Label).string = "获得银两:" + parseInt(progress * this._ownCnt) * this._singlePrice;
         this._sellCnt =  Math.floor(progress * this._ownCnt);
+        this._curCnt = this._sellCnt;
+        this.sellNum.getComponent(cc.Label).string = "数量:" + this._curCnt + "/" +this._ownCnt;
+        this.sellPrice.getComponent(cc.Label).string = "获得银两:" + this._curCnt * this._singlePrice;
     },
 
     addSellNum () {
-      
-        // this._curCnt++;
-        // this._curCnt / this._ownCnt;
         let per = 1/this._ownCnt;
         this.slider_sell.progress += per;
         let pro = this.slider_sell.progress;
@@ -407,7 +389,6 @@ cc.Class({
     },
 
     subSellNum () {
-    
         let per = 1/this._ownCnt;
         this.slider_sell.progress -= per;
         let pro = this.slider_sell.progress;
@@ -431,10 +412,24 @@ cc.Class({
         let obtArr = itemData.Obtain;
         this.exchangeTit.string = "获得" + itemData.Name;
         this.get.getChildByName('title').getComponent(cc.Label).string = "获得" + itemData.Name;
+        if (this._ownGold == 0) {
+            this.get.getChildByName('num').getComponent(cc.Label).string = 0;
+            this.input.placeholder = 0;
+        }
+        else {
+            if (index == 2) {
+                this.get.getChildByName('num').getComponent(cc.Label).string = 100;
+            }
+            else if (index == 3) {
+                this.get.getChildByName('num').getComponent(cc.Label).string = 10;
+            }
+        }
+        
        // this.exIcon.spriteFrame = this.heroIconAtlas.getSpriteFrame(itemData.Icon);
        this.exIconName.string = itemData.Name;
        this.exDes.string = itemData.Describe;
        this.showGold.string = this._ownGold;
+
        for (let i = 0; i < obtArr.length; i++) {
            if (obtArr[i] == 1) {
                this["obtain" + i].active = true;

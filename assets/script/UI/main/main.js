@@ -17,7 +17,7 @@ cc.Class({
         this._uiMgr.loadUI(constant.UI.Match);
     },
 
-    Friend() {
+    Friend () {
         this._uiMgr.release();
         this._uiMgr.loadUI(constant.UI.Friend);
     },
@@ -27,7 +27,7 @@ cc.Class({
         this._uiMgr.loadUI(constant.UI.RaidUI);
     },
 
-    bag(){
+    bag () {
         this._uiMgr.release();
         this._uiMgr.loadUI(constant.UI.BagUI);
     },
@@ -36,6 +36,16 @@ cc.Class({
         this._uiMgr.release();
         this._uiMgr.loadUI(constant.UI.EmailUI);
     },
+
+    cardGroup () {
+        this._uiMgr.release();
+        this._uiMgr.loadUI(constant.UI.CardGroup);
+        this._uiMgr.loadUI(constant.UI.FightPavTop,(data) =>{
+            data.changeTitle("卡牌");
+          });
+    },
+
+
 
     enterFightPav () {
         var self = this;
@@ -46,6 +56,13 @@ cc.Class({
             data.init();
         });
     },
-
+    shop () {
+        this._uiMgr.release();
+        this._uiMgr.loadUI(constant.UI.Shop);
+    },
+    Hero(){
+        this._uiMgr.release();
+        this._uiMgr.loadUI(constant.UI.Hero);
+    },
     // update (dt) {},
 });

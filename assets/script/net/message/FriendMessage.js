@@ -9,7 +9,7 @@ var friend = {
         var that = this;
         pomelo.on('onAllFriendsInfo', function (data) {
             cc.log("好友全量信息", data);
-            dataCenter.massageList = data;
+            friendData.allFriend = data;
             /*
             "onAllFriendsInfo": {
                 "message FriendData": {
@@ -30,7 +30,7 @@ var friend = {
         pomelo.on('onAddInviter', function (data) {
             cc.log("收到好友请求", data);
             that._uiMgr.showTips("收到好友请求");
-            friendData.AddInviter = data;
+            friendData.addInviter = data;
             eventMgr.emit("onAddInviter");
             /*
             "onAddInviter": {
@@ -51,7 +51,7 @@ var friend = {
 
         pomelo.on('onNewFriend', function (data) {
             cc.log("新增好友", data);
-            friendData.NewFriend = data; 
+            friendData.newFriend = data; 
             eventMgr.emit("onNewFriend");
             // dataCenter.receivedReply = true;
             // dataCenter.friendDispose = data;
@@ -76,7 +76,7 @@ var friend = {
         pomelo.on('onDeleteFriend', function (data) {
             cc.log("删除好友", data);
             that._uiMgr.showTips(data.eid+"删除了你");
-            friendData.DeleteFriend = data.eid;
+            friendData.deleteFriend = data.eid;
             eventMgr.emit("onDeleteFriend");
             // dataCenter.friendDelete = true;
             // dataCenter.deleteEid = data.eid;

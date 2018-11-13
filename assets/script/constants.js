@@ -79,6 +79,10 @@ module.exports = {
         EmailUI :  {"id":31,"path":'UI/emailUI/emailUI','type':1,"script":'emailUI'},
         DpsPanel: {"id":999,"path":'UI/Debug/dpsPanel','type':2,'script':'dpsPanel'},
         GoldStore :  {"id":32,"path":'UI/goldStore/goldStore','type':1,"script":'goldStore'},
+        Shop :  {"id":33,"path":'UI/shop/ShopUI','type':1,"script":'ShopUI'},
+        Hero :  {"id":34,"path":'UI/HeroUI/HeroUI','type':1,"script":'HeroUI'},
+        CardGroup :  {"id":35,"path":'UI/cardGroup/cardGroup','type':1,"script":'cardGroup'},
+        SelectCard : {"id":35,"path":'UI/cardGroup/selectCard','type':1,"script":'selectCard'},
     },
     // Prefab: {
     //     selectServerItem: "UI/"

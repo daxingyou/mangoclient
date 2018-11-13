@@ -6,6 +6,7 @@ var raidEnterRoomProto = require('raidEnterRoomProto')
 var dataCenter = require('DataCenter')
 var net = require('NetPomelo')
 var soloRaidData = require('soloRaidData')
+var fightData = require('fightData')
 
 cc.Class({
     extends:uibase,
@@ -31,9 +32,9 @@ cc.Class({
         this.heroName.string = heroData.HeroName;
         let raidData = dataMgr.raid[raidInfo.raidID];
         this.raidName.string = raidData.Name;
-        dataCenter.userName = heroData.HeroName;
+        fightData.userName = heroData.HeroName;
 
-        let raidsInfo = dataCenter.allInfo.raidsInfo.raids;//已经存在副本信息
+        let raidsInfo = soloRaidData.soloRaidInfo;//已经存在副本信息
         for (let i in rooms) {//遍历房间
            // cc.log(rooms[i],"------------rooms[i]",i,"----------rooid");
             for (let j in rooms[i]) {//房间里的关卡
@@ -73,11 +74,6 @@ cc.Class({
                 let raidId = itemData.id;
                 let type = itemData.type;
                 raidType = dataMgr[type][raidId];
-                // if (type == "dungeon") {
-                //     cc.log("是副本");
-                // }
-                //cc.log(raidType,"raidType")
-                // cc.log(itemData,"-------selectList",itemData.type,"itemData.type",itemData.id,"itemData.id");
                 if (errorMessage) {
                     cc.log('载入预制资源失败, 原因:' + errorMessage);
                     return;

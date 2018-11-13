@@ -3,6 +3,7 @@ var dataCenter = require('DataCenter')
 var constant = require('constants')
 var dataMgr = require('DataMgr')
 var playerData = require('playerData')
+let combatMgr = require('CombatMgr')
 cc.Class({
     extends: uiBase,
 
@@ -37,9 +38,9 @@ cc.Class({
         }
        
         this._mgr = cc.find('Canvas').getComponent('UIMgr');
-        let teamA = dataCenter.teamInfo.teamA;
+        let teamA = combatMgr.teamInfo.teamA;
         //cc.log("加载 teamA",teamA);
-        let teamB = dataCenter.teamInfo.teamB;
+        let teamB = combatMgr.teamInfo.teamB;
         //cc.log("加载 teamB",teamB);
         this._uid2ShowNode = {};
         for (var i in teamA) {
@@ -77,73 +78,12 @@ cc.Class({
             //     }
             // }//重连
         }
-        for (var i in teamB) {
-         //   cc.log(teamB[i]);
-            var uid = teamB[i].uid;
+        // for (var i in teamB) {
+       
+        //     var uid = teamB[i].uid;
+        // }
 
-            // this["showNode" + i].active = true;
-            // this._uid2ShowNode[uid] = this["showNode" + i];
-            // this._uid2ShowNode[uid].getChildByName("user_name").getComponent(cc.Label).string = teamA[i].name;
-            // var heroData = dataMgr.hero[teamA[i].heroid];
-            // var icon = this._uid2ShowNode[uid].getChildByName("icon");
-            // icon.getComponent(cc.Sprite).spriteFrame = this.heroIcons.getSpriteFrame(heroData.HeroIcon);
-            // if (dataCenter.uuid == teamA[i].uid) {
-            //     if (teamA[i].heroid == 1000) {
-            //         this.man.active = true;
-            //     }
-            //     else {
-            //         this.woman.active = true;
-            //     }
-            // }  
-
-
-
-            // if (teamA[i].heroid!=null) {
-            //     var heroData = dataMgr.hero[teamA[i].heroid];
-
-            //     var showNode = this._uid2ShowNode[uid];
-            //     var icon = showNode.getChildByName("icon");
-            //     icon.getComponent(cc.Sprite).spriteFrame = this.heroIcons.getSpriteFrame(heroData.HeroIcon);
-            //     icon.active = true;
-
-            //     if (teamA[i].heroid == 1000 && dataCenter.uuid == teamA[i].uid) {
-            //         this.woman.active = false;
-            //     }
-            //     else {
-            //         this.man.active = false;
-            //     }
-            // }//重连
-        }
-
-        // for (var j in dataCenter.loadProjess) {
-        //     var showNode = this._uid2ShowNode[j];
-        //     var icon = showNode.getChildByName("icon");
-        //     if (dataCenter.loadProjess[j] == 1000) {
-        //         icon.getComponent(cc.Sprite).spriteFrame = this.heroIcons.getSpriteFrame('chenjingchou');
-        //         icon.active = true;
-                
-        //         if (dataCenter.uuid == j) {
-        //             this.woman.active = false;
-        //             this.man.active = true;
-        //         }
-        //         else {
-        //             this.woman.active = true;
-        //             this.man.active = false;
-        //         }
-        //     }
-        //     else {
-        //         icon.getComponent(cc.Sprite).spriteFrame = this.heroIcons.getSpriteFrame('yuxiaoxue');
-        //         icon.active = true;
-        //         if (dataCenter.uuid == j) {
-        //             this.woman.active = true;
-        //             this.man.active = false;
-        //         }
-        //         else {
-        //             this.woman.active = false;
-        //             this.man.active = true;
-        //         }
-        //     }
-        // }//显示所选角色
+      
     },
 
      loadProjess() {
@@ -167,7 +107,7 @@ cc.Class({
     },
 
      update (dt) {
-        if (dataCenter.loadBegin) {
+        if (combatMgr.loadBegin) {
             this.loadProjess();
         }
      },

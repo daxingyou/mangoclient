@@ -539,7 +539,7 @@ module.exports = {
 			Animation: '',
 			CriticalTime: 0,
 			Effect: 'ricochet_ice,ws_ricochet_ice',
-			EffectType: [{"type":"point","origin":"owner","offset":{"x":100,"y":300}},{"event":"onFinish","beforeName":"ricochet_ice","type":"bullt","origin":"owner","offset":{"x":100,"y":300}}],
+			EffectType: [{"type":"point","origin":"owner","offset":{"x":100,"y":300}},{"event":"onFinish","beforeName":"ricochet_ice","type":"bounce","origin":"owner","offset":{"x":100,"y":300}}],
 			EffectiveTime: 0,
 			Path: 'chenjinchou',
 			HitEffect: '',

@@ -1,9 +1,10 @@
 var UIBase = require('UIBase');
 var dataCenter = require('DataCenter')
 var combatmgr = require('CombatMgr')
-var spawnSummoned = require('SpawnSummoned');
 const constant = require('constants');
 var datamgr = require('DataMgr');
+var fightData = require('fightData')
+let eventMgr = require('eventMgr');
 
 cc.Class({
     extends: UIBase,
@@ -32,11 +33,12 @@ cc.Class({
 
         _canUse: false,
         _willingUse: false,
+        _cid: null,
         cardMask:cc.Node,
 
         buleFrame:cc.Node,
         _parents:null,
-        moveCard:null,
+        _isCardGroup: false,
 
     },
     onLoad () {
@@ -46,21 +48,21 @@ cc.Class({
     }, 
     onSpawnSummonChange () {
         this.cardDes.getComponent(cc.RichText).string = this._desc.format({
-            SwordNum: spawnSummoned.getSummonNum(constant.SummonedType.wSword)});
+            SwordNum: combatmgr.getSummonMgr().getSummonNum(constant.SummonedType.wSword)});
     },
     _addEventListener (eventName) {
-        if (eventName === "spawnSummonChange") {
-            var func = this.onSpawnSummonChange.bind(this);
-            spawnSummoned.event.on(eventName, func);
-            this._listeners[eventName] = func;
+        if (eventName === eventMgr.events.EventSpawnSummonChanged) {
+            eventMgr.on(eventName, this.onSpawnSummonChange, this);
+            this._listeners[eventName] = true;
         }
     },
     _removeEventListener (eventName) {
-        if (eventName === "spawnSummonChange") {
-            spawnSummoned.event.removeListener(eventName, this._listeners[eventName]);
+        if (eventName === eventMgr.events.EventSpawnSummonChanged) {
+            eventMgr.off(eventName, this.onSpawnSummonChange);
+            delete this._listeners[eventName];
         }
     },
-    initData(index,cardName,CardQuality,cardImage,CardDescription,cardType,thew,mp,cardAttr,canUse, cid,parents) {
+    initData(index,cardName,CardQuality,cardImage,CardDescription,cardType,thew,mp,cardAttr,canUse, cid,parents,isCardGroup) {
         if (this._listeners) {
             for (var eventName in this._listeners) {
                 this._removeEventListener(eventName);
@@ -85,11 +87,9 @@ cc.Class({
 
         this._index = index;
         this.mp = mp;
+        this._cid = cid;
         this._canUse = canUse;
         this.cardName.getComponent(cc.Label).string = cardName;
-    
-       
-        
         this.cardImage.spriteFrame = this.cardAtlas.getSpriteFrame(cardImage);
 
         if (CardQuality == 1)
@@ -173,7 +173,7 @@ cc.Class({
                 this._desc = CardDescription + des;
 
                 this.cardDes.getComponent(cc.RichText).string = this._desc.format({
-                    SwordNum: spawnSummoned.getSummonNum(constant.SummonedType.wSword)});
+                    SwordNum: combatmgr.getSummonMgr().getSummonNum(constant.SummonedType.wSword)});
 
         }
        
@@ -205,6 +205,7 @@ cc.Class({
            this.cardType.color = baowu;
         }  
        this._parents = parents;
+       this._isCardGroup = isCardGroup;
     //    cc.log(this._parents,"this._parents");
     //    cc.log(this._parents.moveCard,"this._parents.moveCard")
        if (this._parents!=null || this._parents!=undefined)
@@ -218,92 +219,41 @@ cc.Class({
         this.resetPos();
     },
    
-    start () {
-        cc.view.enableAntiAlias
-     //   cc.log('is Anti Alias Enabled =',cc.view.isAntiAliasEnabled());
-      
-        
-            // let item = this.moveCard;
-            // cc.log(item,"item");
-      
-        //let item = this._parents.moveCard;
-        
-      
-        var showSelectCard = new cc.Rect(545, 0, 400, 750);//右边展示的矩阵400 750
-        let bule =new cc.Color(0,0,0);
-        showSelectCard.color = bule;
-       // showSelectCard.zIndex = 8888;
-       // cc.log(showSelectCard,"距正");
-        if (this._parents!= null || this._parents!=undefined) {
-             let item = this.moveCard;
-            this.node.on(cc.Node.EventType.TOUCH_START, function (event) {//节点区域时   
-                cc.log("暂时无操作");
-            }, this);
-
-           
-            this.node.on(cc.Node.EventType.TOUCH_MOVE, function (event) {//节点区域时  
-               // cc.log("物体的拖动"); 
+    // start () {
+    //     cc.view.enableAntiAlias
+    //     var self = this;
+    //     let x = self.node.x;
+    //     let y = self.node.y;
+    //  //   cc.log('is Anti Alias Enabled =',cc.view.isAntiAliasEnabled();
+    //  self._parents.followCardMove(x,y);
+    //  self.node.on(cc.Node.EventType.TOUCH_MOVE, function (event) {//节点区域时  
+    //      cc.log("实现物体的拖动");
+    //      var delta = event.touch.getDelta();
+    //      self.node.x += delta.x;
+    //      self.node.y += delta.y;
+    //      cc.log(self.node.x,self.node.y,"x,y");
+    //      self._parents.followCardMove(self.node.x,self.node.y,self.node);
+    //     //  item.parent.convertToNodeSpaceAR(this.node);
+    //     //  item.active = true;
+    //     //  item.parent = this.node;
+    //     //  item.x = this.node.x;
+    //     //  item.y = this.node.y;
+    //     // cc.log(item.x,item.y,"item.x,item.y",this.node.x,this.node.y,"this.node.x,this.node.y");
+         
+    //  }, this);
               
-                var delta = event.touch.getDelta();
-                this.node.x += delta.x;
-                this.node.y += delta.y;
-                item.parent.convertToNodeSpaceAR(this.node);
-                item.active = true;
-                item.parent = this.node;
-               
-                // var pos = event.getLocation();
-                // var touch_point = this.node.convertToNodeSpaceAR(pos);
-                // this.node.convertToWorldSpaceAR(cc.v2(0,0));
-                // item.parent.convertToNodeSpaceAR(ent.touch_pointev);
-                item.x = this.node.x;
-                item.y = this.node.y;
-               // cc.log(item.x,item.y,"item.x,item.y",this.node.x,this.node.y,"this.node.x,this.node.y");
-                
-            }, this);
-            
-    
-            this.node.on(cc.Node.EventType.TOUCH_END, function (event) {//节点区域时   
-                if (cc.rectContainsPoint(showSelectCard, event.getLocation())) {
-                    cc.log("包含");
-                    item.active = false;
-                 }
-                else {
-                    cc.log("不包含");
-                }
-               
-            }, this);
-            this.node.on(cc.Node.EventType.TOUCH_CANCEL, function (event) {//节点区域时   
-                var self = this;
-                if (cc.rectContainsPoint(showSelectCard, event.getLocation())) {
-                    cc.log("包含");
+    // },
 
-                    // var uiMgr = cc.find('Canvas').getComponent('UIMgr');
-                    // var item = uiMgr.loadUI(constant.UI.ComfirmCard,function(data){
-
-                    // });
-                    cc.loader.loadRes('UI/matchTeam/comfirmCard', function (errorMessage, loadedResource) {
-                       
-                        if (errorMessage) {
-                            cc.log('载入预制资源失败, 原因:' + errorMessage);
-                            return;
-                        }
-                        if (!(loadedResource instanceof cc.Prefab)) {
-                            cc.log('你载入的不是预制资源!');
-                            return;
-                        }
-                      
-                        let showItem = cc.instantiate(loadedResource);
-                        self._parents.showSelectCard.addChild(showItem);
-                        item.active = false;
-                    });
-                 }
-                else {
-                    cc.log("不包含");
-                }
-            }, this);
+    lookCardDes () {
+        if (this._isCardGroup) {
+            this._parents.lookCardDes(this._cid);
         }
-              
     },
+
+    closeCardDes () {
+        this._isCardGroup = false;
+    },
+
     addItem () {
         
     },
@@ -318,25 +268,19 @@ cc.Class({
        
 
         if (this._canUse) {
-         //   this.canUseCard.active = true;
             var sprite = this.canUseCard.getComponent(cc.Sprite);
             if (this._willingUse) {
                 // 蓝色
-              //  sprite.spriteFrame = this.cardAtlas.getSpriteFrame("card_select_effect");
                 this.buleFrame.active = true;
                 this.canUseCard.active = false;
             }
             else {
                 // 绿色
-               // sprite.spriteFrame = this.cardAtlas.getSpriteFrame("card_select_effect2");
-
                this.buleFrame.active = false;
                this.canUseCard.active = true;
             }
         }
         else {
-         
-           // this.sprite.spriteFrame = this.cardAtlas.getSpriteFrame("card_select_effect2");
             this.canUseCard.active = false;
             this.buleFrame.active = false;
         }
@@ -348,14 +292,14 @@ cc.Class({
             if (player == undefined) {
                 return;
             }
-            if ((this.mp < player.Mp+1)) {
+            if ((this.mp < player.mp+1)) {
                 this.canUseCard.active = true;
             }
         }
 
        
 
-        if (dataCenter.hp == 0) {
+        if (fightData.hp == 0) {
             this.canUseCard.active = false;
             this.cardMask.active = true;
         }
@@ -375,20 +319,17 @@ cc.Class({
             this.node.stopAllActions();
             if(dataCenter.IsLayoutAction){
                 this.node.stopAllActions();
-                var rot_action = cc.rotateTo(0.5,this.rotation).easing(cc.easeQuadraticActionOut());//缓动
-                var mov_action = cc.moveTo(0.5,this.x,this.y).easing(cc.easeQuadraticActionOut());//缓动
+                var rot_action = cc.rotateTo(0.5,this.rotation).easing(cc.easeQuadraticActionOut());
+                var mov_action = cc.moveTo(0.5,this.x,this.y).easing(cc.easeQuadraticActionOut());
                 var  spa = cc.spawn(rot_action,mov_action);
                 this.node.runAction(spa);
             }
-            else{
+            else { 
                 this.node.stopAllActions();
-                var rot_action = cc.rotateTo(0.2,this.rotation).easing(cc.easeQuadraticActionOut());//缓动
-                var mov_action = cc.moveTo(0.2,this.x,this.y).easing(cc.easeQuadraticActionOut());//缓动
+                var rot_action = cc.rotateTo(0.2,this.rotation).easing(cc.easeQuadraticActionOut());
+                var mov_action = cc.moveTo(0.2,this.x,this.y).easing(cc.easeQuadraticActionOut());
                 var  spa = cc.spawn(rot_action,mov_action);
                 this.node.runAction(spa);
-                // this.node.x = this.x;
-                // this.node.y = this.y;
-                // this.node.rotation = this.rotation;
             }
         }
     },

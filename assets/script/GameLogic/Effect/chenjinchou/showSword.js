@@ -1,6 +1,5 @@
 var effectListen = require('EffectListen')
 var utility = require('utility')
-var spawnSummoned = require('SpawnSummoned')
 const constant = require('constants')
 
 cc.Class({
