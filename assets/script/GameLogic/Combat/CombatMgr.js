@@ -91,7 +91,6 @@ var CombatMgr = {
                 uimgr.loadUI(constant.UI.loadProjess, function (res) {
                     self.initCombat(data);
                     uimgr.loadUI(constant.UI.Fight, function (res) {
-
                         res.initData(() => {
                             var ui = uimgr.getUI(constant.UI.loadProjess);
                             ui.hide();

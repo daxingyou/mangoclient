@@ -3,6 +3,8 @@ var constant = require('constants')
 var dataMgr = require('DataMgr')
 var hero = require('Hero')
 var fightData = require('fightData')
+let eventMgr = require('eventMgr');
+
 cc.Class({
     extends: uibase,
 
@@ -11,13 +13,13 @@ cc.Class({
         pageIndex:cc.Label,
         pageContent:cc.Node,
         _page:[],
-        moveCard:cc.Node,
+        
         showSelectCard:cc.Node,
         heroContent: cc.Node,
         heroNameItem : cc.Prefab,
         _heroNameSrc : [],
         _selectedIdx: -1,
-        _curIndex: 0,
+        Hero: 0,
         _firstInitCard: true,
         desCard: cc.Node,
         selectCard: cc.Node,
@@ -30,7 +32,12 @@ cc.Class({
         heroName: cc.Label,
         _CDState:true,
         _ownHeroBar:[],
-
+        _comfrimCardNum: 0,
+        comfrimCard: cc.Label,
+        _cid: [],
+        _curPage: 0,
+        _copyCardSrc : [],
+        _moveCard: false,
     },
 
 
@@ -45,7 +52,7 @@ cc.Class({
          this._mp7 = [];
          this._mp8 = [];
          this._mp = [this._mp0,this._mp1,this._mp2,this._mp3,this._mp4,this._mp5,this._mp6,this._mp7,this._mp8]
-       
+    //   /  eventMgr.on("closeCardDes",this.closeCardDes,this);
         this.node.getChildByName('prev').active = false;
         this.loadHero();
         for (let i =0;i < this.pageContent.childrenCount;i++) {
@@ -53,6 +60,8 @@ cc.Class({
              this._page.push(item);
          }
         this.initCard();
+        this.close = this.node.getChildByName('close');
+       
 
      },
 
@@ -60,8 +69,9 @@ cc.Class({
      initCard () {
         var self = this;
         var resIndex = 0;
-        cc.loader.loadRes('UI/fightUI/Card', function (errorMessage, loadedResource) {
-            for (var i = 0; i < 20; i++) {
+        self._cardSrc = [];
+        cc.loader.loadRes('UI/cardGroup/cardItem', function (errorMessage, loadedResource) {
+            for (var i = 0; i < 10; i++) {
                 if (errorMessage) {
                     cc.log('载入预制资源失败, 原因:' + errorMessage);
                     return;
@@ -72,7 +82,6 @@ cc.Class({
                 }
             
                 let item = cc.instantiate(loadedResource);
-                item.setScale(0.8);
                 resIndex++;
                 if (resIndex <= 8) {
                     self._page[0].addChild(item);
@@ -94,16 +103,18 @@ cc.Class({
                         self._mp8.push(index);
                     }
                 }
-                self._cardSrc.push(item.getComponent('CardItem'));
+                self._cardSrc.push(item.getComponent('moveCard'));
+                self._cid.push(itemData.ID);
              // initData(index,cardName,CardQuality,cardImage,CardDescription,cardType,thew,mp,cardAttr,canUse, cid)
                 self._cardSrc[i].initData(i,itemData.CardName,itemData.CardQuality,itemData.CardImage,
                     itemData.CardDescription,itemData.CardType,itemData.CastThew,itemData.CastMP,itemData.CardAttributes,0,itemData.ID,self,true);
-                if (resIndex == 20) {
-                    cc.loader.release('UI/fightUI/Card');
+                if (resIndex == 10) {
+                    cc.loader.release('UI/cardGroup/cardItem');
                     self._firstInitCard = false;
                 }
             }
         });
+
      },
 
     //
@@ -113,6 +124,7 @@ cc.Class({
     });
     },
 
+    //翻页
     onPageEvent (sender, eventType) {
     if (eventType !== cc.PageView.EventType.PAGE_TURNING) {
         return;
@@ -121,24 +133,32 @@ cc.Class({
     },
 
     onClickNextPage () {
-        if (this.target.getCurrentPageIndex() == 2) {
-            this._heroNameSrc[this._curIndex + 1].click();
+        let lastPage = this.target.getCurrentPageIndex();
+        if (lastPage == 2) {
+            this._heroNameSrc[this.Hero + 1].click();
             return;
         }
         else {
-            var curPage = this.target.getCurrentPageIndex() + 1;
+            let curPage = lastPage + 1;
             this.target.scrollToPage(curPage);
+            if (this._moveCard) {
+                this._updateMoveCardData(curPage);
+            }
         }
         this._updatePageIndex();
     },
 
     onClickPrevPage () {
-        if (this.target.getCurrentPageIndex() == 0) {
+        let lastPage = this.target.getCurrentPageIndex();
+        if (lastPage == 0) {
             return;
         }
         else {
-            var curPage = this.target.getCurrentPageIndex() - 1;
+            let curPage = lastPage - 1;
             this.target.scrollToPage(curPage);
+            if (this._moveCard) {
+                this._updateMoveCardData(curPage);
+            }
         }
         this._updatePageIndex();
     },
@@ -152,6 +172,7 @@ cc.Class({
             this.node.getChildByName('prev').active = true; 
         }
         this.pageIndex.string = "第" + (index + 1) + "页";
+        this._curPage = index;
     },
 
 
@@ -165,7 +186,6 @@ cc.Class({
         if (i == 6) {
             this._heroNameSrc[0].click();
         }
-
     },
 
     _heroName (item,params) {
@@ -183,7 +203,7 @@ cc.Class({
         if (this._selectedIdx >= 0) {
             this._heroNameSrc[this._selectedIdx].unSelect();
         }
-        this._curIndex = index;
+        this._curHeroIndex = index;
         this._selectedIdx = index;
     },
 
@@ -230,11 +250,9 @@ cc.Class({
         }
         let resIndex = 0;
         var self = this;
-        cc.loader.loadRes('UI/fightUI/Card', function (errorMessage, loadedResource) {
+        cc.loader.loadRes('UI/cardGroup/cardItem', function (errorMessage, loadedResource) {
         for (var i = 0; i < arr.length; i++) {
             let item = cc.instantiate(loadedResource);
-            item.setScale(0.8);
-            
             if (resIndex <= 8) {
                 self._page[0].addChild(item);
             }
@@ -249,40 +267,46 @@ cc.Class({
             let itemData = dataMgr.card[index];
             self._mp[itemData.CastMP] = index;
             // initData(index,cardName,CardQuality,cardImage,CardDescription,cardType,thew,mp,cardAttr,canUse, cid)
-            item.getComponent('CardItem').initData(i,itemData.CardName,itemData.CardQuality,itemData.CardImage,
+            item.getComponent('moveCard').initData(i,itemData.CardName,itemData.CardQuality,itemData.CardImage,
                 itemData.CardDescription,itemData.CardType,itemData.CastThew,itemData.CastMP,itemData.CardAttributes,0,itemData.ID,self,true);
             if (resIndex == arr.length) {
-                cc.loader.release('UI/fightUI/Card');
+                cc.loader.release('UI/cardGroup/cardItem');
             }
         }
-    });
+        });
     },
 
     lookCardDes (cid) {
         this.desCard.active = true;
+        let close = this.node.getChildByName('close');
+        close.active = true;
         let itemData = dataMgr.card[cid];
-        this.desCard.getComponent('CardItem').initData(i,itemData.CardName,itemData.CardQuality,itemData.CardImage,
+        this.desCard.getComponent('moveCard').initData(i,itemData.CardName,itemData.CardQuality,itemData.CardImage,
             itemData.CardDescription,itemData.CardType,itemData.CastThew,itemData.CastMP,itemData.CardAttributes,0,itemData.ID,self);
     },
 
+    
+
     closeCardDes () {
         if (this.desCard.active) {
-            this.desCard.zIndex = 999;
             this.desCard.active = false;
+            this.node.getChildByName('close').active = false;
         }
-        else {
-            this.desCard.zIndex = -1;
+        else if (!this.desCard.active) {
             return;
+        }
+        else if (!this.close.active){
+            return false;
         }
     },
 
 
 
-    CardGroup () {
+    clickCardGroup () {
        this.selectCard.active = true;
        this._loadOwnHero();
        this.selectHero(1000);
-
+       this._moveCard = true;
     },
 
     _loadOwnHero () {
@@ -322,18 +346,77 @@ cc.Class({
         this.node.getChildByName('organizationCard').active = false;
         this.node.getChildByName('comfirmSelect').getChildByName('selectHeroName').getComponent(cc.Label).string = fightData.userName;
         this.heroContent.removeAllChildren();
+        this._closeCardStartEvent();
+        this.target.scrollToPage(0);
+        this._updatePageIndex();
+        this.copyCard();
+    },
+
+    _closeCardStartEvent () {
+        for (let i =0 ;i< this._cardSrc.length;i++) {
+            this._cardSrc[i].closeCardDes();
+        }
+    },
+
+    copyCard (index,cid) {
+        let arr = [];
+        let child = this._page[0].children;
+        let pos;
+        for (let i = 0;i< 8;i++) {
+            let pos = child[i].getPosition();
+            let name = 'card' + i;
+            let item = this.node.getChildByName(name);
+            item.active = true;
+            item.x = child[i].x - 75;
+            item.y = child[i].y - 20;
+            let itemData = dataMgr.card[this._cid[i]];
+            this._copyCardSrc.push(item.getComponent('moveCard')); 
+            this._copyCardSrc[i].initData(i,itemData.CardName,itemData.CardQuality,itemData.CardImage,
+                     itemData.CardDescription,itemData.CardType,itemData.CastThew,itemData.CastMP,itemData.CardAttributes,0,itemData.ID,this,false,pos);
+        }
+    },
+
+    _updateMoveCardData (curPage) {
+        for (let i = 0;i< 8;i++) {
+            let name = 'card' + i;
+            let item = this.node.getChildByName(name);
+            item.active = false;
+        }
+        let len = this._page[curPage].childrenCount;
+        let index = 8 * curPage;
+        for(let i = 0;i < len;i++) {
+            let name = 'card' + i;
+            let item = this.node.getChildByName(name);
+            item.active = true;
+            let itemData = dataMgr.card[this._cid[(i+index)]];
+            this._copyCardSrc[i].initData(i,itemData.CardName,itemData.CardQuality,itemData.CardImage,
+                itemData.CardDescription,itemData.CardType,itemData.CastThew,itemData.CastMP,itemData.CardAttributes,0,itemData.ID,this,false);
+        }
     },
 
 
-    followCardMove (x,y,parent) {
-       let card =  this.node.getChildByName('followCard');
-
-        // let card = this.node.getChildByName('followCard');
-         cc.log(card,"card");
-         card.x = x;
-         card.y = y;
-         //card.parent = parent;
+    addCard (name) {
+        let self = this;
+        cc.loader.loadRes('UI/cardGroup/comfirmCard', function (errorMessage, loadedResource) {       
+            if (errorMessage) {
+                cc.log('载入预制资源失败, 原因:' + errorMessage);
+                return;
+            }
+            if (!(loadedResource instanceof cc.Prefab)) {
+                cc.log('你载入的不是预制资源!');
+                return;
+            }
+            let showItem = cc.instantiate(loadedResource);
+            showItem.getComponent('comfirmCard').initData(self._comfrimCardNum,name,1);
+            self.heroContent.addChild(showItem);
+            self._comfrimCardNum +=1;
+            self.comfrimCard.string = self._comfrimCardNum + "/100 完成";
+        });          
     },
+
+
+
+    
 
     update () {
      

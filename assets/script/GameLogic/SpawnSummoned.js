@@ -87,10 +87,35 @@ var SpawnSummoned = {
         let summons = this._getSummons(groupId, opposite);
 
         if (!summons[type].hasOwnProperty(Area)) {
-            delete summons[type][Area];
+            //delete summons[type][Area];
+            if(delete summons[type][Area].length <= Num)
+            {
+                for(var item in summons[type][Area])
+                {
+                    if (item.node.position.y >= 300) {
+                        effectMgr.putEffect('swordf', item);
+                    }
+                    else {
+                        effectMgr.putEffect('swordb', item);
+                    }
+                    //this.summoneds.splice(0, 1);
+                }
+                delete summons[type][Area];
+            }
+            else
+            {
+                for(var i = 0 ;i < Num ;i++)
+                {
+                    if (summons[type][Area][i].node.position.y >= 300) {
+                        effectMgr.putEffect('swordf', summons[type][Area][i]);
+                    }
+                    else {
+                        effectMgr.putEffect('swordb', summons[type][Area][i]);
+                    }
+                }
+                summons[type][Area].splice(0, Num);
+            }
         }
-
-        //delete summons[type];
     },
 
     _getGroup: function (groupId, opposite = false) {

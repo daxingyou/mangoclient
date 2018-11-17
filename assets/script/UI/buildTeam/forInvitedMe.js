@@ -114,7 +114,7 @@ cc.Class({
     },
 
     ignore () {
-        net.Request(new inviteProto(this._eid), (data) => {
+        net.Request(new ignoreTeamInviteProto(this._eid), (data) => {
             cc.log("忽略 ",data,"邀请的id",this._eid);
         });
         this.checkObjLen(this._eid);

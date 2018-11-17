@@ -11,10 +11,9 @@ function Hero_(data, position, combat) {
 
     this.heroid = data.heroid;
 
-    this.teamid = 0;
     var that = this;
     this.table = DataMgr.hero[data.heroid];
-
+    this.teamid = this.groupId;
     let bInLeft = combat.curPlayerGroupId === this.groupId ? true : false;
     this.agent = new Agent(this.table.HeroModel, position, bInLeft, this, function () {
         that.loadok = true;
@@ -42,7 +41,6 @@ pro.InitMyInfo = function (myInfo) {
     this.discardsNum = myInfo.discardsNum;
     this.exhaustsNum = myInfo.exhaustsNum;
     this.mpRecoverTime = myInfo.mpRecoverTime;
-    this.cardsLv = myInfo.cardsLv;
     this.inHands = myInfo.inHands || [];
     this.RefreshHandCard();
     this.SetMpRecoverRate(myInfo.mpRecoverRate, myInfo.stopMpRecoverBuffCnt);

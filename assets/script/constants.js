@@ -83,6 +83,8 @@ module.exports = {
         Hero :  {"id":34,"path":'UI/HeroUI/HeroUI','type':1,"script":'HeroUI'},
         CardGroup :  {"id":35,"path":'UI/cardGroup/cardGroup','type':1,"script":'cardGroup'},
         SelectCard : {"id":35,"path":'UI/cardGroup/selectCard','type':1,"script":'selectCard'},
+        Tutorial : {"id":36,"path":'UI/tutorial/Tutorial','type':5,"script":'TutorialUI'},
+        
     },
     // Prefab: {
     //     selectServerItem: "UI/"

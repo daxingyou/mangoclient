@@ -3,7 +3,6 @@ var constant = require('constants')
 var eventMgr = require('eventMgr');
 var teamData = require('teamData')
 
-
 var fight = {
     _uiMgr: null,
     init: function () {

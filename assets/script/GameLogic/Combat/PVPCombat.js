@@ -40,7 +40,6 @@ PVPCombat.prototype.init = function (data) {
         }
     }
 
-
     cc.log('cur res = ', this.resNum);
     gameCenter.resNum = this.resNum;
     this.checkLoadRes = true;

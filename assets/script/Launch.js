@@ -13,11 +13,13 @@ var dataCenter = require('DataCenter')
 var playerMessage = require('PlayerMessage')
 let teamMessage = require('teamMessage');
 let fightMessage = require('fightMessage');
+var tutorial = require('TutorialMgr')
 
 cc.Class({
     extends: cc.Component,
 
     properties: {
+        IsTutorial : false,
     },
        invitedResult (mass) {
         if (cc.sys.platform == cc.sys.WECHAT_GAME) {
@@ -61,6 +63,9 @@ cc.Class({
         playerMessage.init();
         teamMessage.init();
         fightMessage.init();
+
+        if(this.IsTutorial)
+            tutorial.init()
 
         // 适配
         //设计分辨率

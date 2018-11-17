@@ -77,7 +77,7 @@ module.exports = {
 		Logic: {dmgCount:15},
 		Stack: 0,
 		StackLimit: 0,
-		SkillID: 1115,
+		SkillID: 1105,
 		IsHide: 0,
 		Image: 'buff3',
 		Effect: ''
@@ -90,7 +90,7 @@ module.exports = {
 		Logic: {dmgCount:1},
 		Stack: 0,
 		StackLimit: 0,
-		SkillID: 1117,
+		SkillID: 1107,
 		IsHide: 0,
 		Image: 'buff3',
 		Effect: ''
@@ -108,8 +108,8 @@ module.exports = {
 		Image: 'buff2',
 		Effect: ''
 	},
-	2004: {
-		ID: 2004,
+	4004: {
+		ID: 4004,
 		BuffName: '万物复苏',
 		Description: '每秒恢复80点生命，持续4秒',
 		Type: 'heal',
@@ -121,47 +121,47 @@ module.exports = {
 		Image: 'buff2',
 		Effect: ''
 	},
-	2005: {
-		ID: 2005,
+	4005: {
+		ID: 4005,
 		BuffName: '女娲体质',
 		Description: '受到单次超过150点伤害的攻击，则抽1张卡牌',
 		Type: 'onDamageListener',
 		Logic: {onDmg:150},
 		Stack: 0,
 		StackLimit: 0,
-		SkillID: 2105,
+		SkillID: 4105,
 		IsHide: 0,
 		Image: 'buff3',
 		Effect: ''
 	},
-	2007: {
-		ID: 2007,
+	4007: {
+		ID: 4007,
 		BuffName: '地灵庇护',
 		Description: '如果有友方死亡，把自身一半的血量给予对方，此效果存在10秒消失',
 		Type: 'dieListener',
 		Logic: {target:"friend",count:1},
 		Stack: 0,
 		StackLimit: 0,
-		SkillID: 2107,
+		SkillID: 4107,
 		IsHide: 0,
 		Image: 'buff1',
 		Effect: ''
 	},
-	2008: {
-		ID: 2008,
+	4008: {
+		ID: 4008,
 		BuffName: '女娲转世',
 		Description: '每使用5张技能卡牌，为自己恢复2点灵力',
 		Type: 'useCardListener',
 		Logic: {num:5,cardType:2},
 		Stack: 0,
 		StackLimit: 0,
-		SkillID: 2108,
+		SkillID: 4108,
 		IsHide: 0,
 		Image: 'buff2',
 		Effect: ''
 	},
-	2010: {
-		ID: 2010,
+	4010: {
+		ID: 4010,
 		BuffName: '陨石',
 		Description: '增加50%受到的伤害',
 		Type: 'modProp',
@@ -173,8 +173,8 @@ module.exports = {
 		Image: 'buff3',
 		Effect: ''
 	},
-	2011: {
-		ID: 2011,
+	4011: {
+		ID: 4011,
 		BuffName: '朱雀之印',
 		Description: '于小雪的攻击，对拥有朱雀之印的目标造成共鸣伤害，每层朱雀之印增加5点伤害，持续15秒',
 		Type: 'fireMark',
@@ -186,34 +186,34 @@ module.exports = {
 		Image: 'buff3',
 		Effect: ''
 	},
-	2014: {
-		ID: 2014,
+	4014: {
+		ID: 4014,
 		BuffName: '火焰外衣',
 		Description: '每3秒对1个随机敌人造成20点伤害',
 		Type: 'timeListener',
 		Logic: {time:3},
 		Stack: 0,
 		StackLimit: 0,
-		SkillID: 2114,
+		SkillID: 4114,
 		IsHide: 0,
 		Image: 'buff3',
 		Effect: ''
 	},
-	2015: {
-		ID: 2015,
+	4015: {
+		ID: 4015,
 		BuffName: '烈焰共鸣',
 		Description: '每当抽取1张攻击卡牌，对1个随机敌人施加1层朱雀之印',
 		Type: 'drawCardListener',
 		Logic: {num:1,cardType:1},
 		Stack: 0,
 		StackLimit: 0,
-		SkillID: 2115,
+		SkillID: 4115,
 		IsHide: 0,
 		Image: 'buff3',
 		Effect: ''
 	},
-	10002: {
-		ID: 10002,
+	100002: {
+		ID: 100002,
 		BuffName: '猛击',
 		Description: '增加40%受到的伤害',
 		Type: 'modProp',
@@ -225,8 +225,8 @@ module.exports = {
 		Image: 'buff3',
 		Effect: ''
 	},
-	10003: {
-		ID: 10003,
+	100003: {
+		ID: 100003,
 		BuffName: '巨浪',
 		Description: '无法获取灵力，持续5秒',
 		Type: 'recoverMpRate',
@@ -238,8 +238,8 @@ module.exports = {
 		Image: 'buff1',
 		Effect: ''
 	},
-	10005: {
-		ID: 10005,
+	100005: {
+		ID: 100005,
 		BuffName: '幻象',
 		Description: '增加400%受到的伤害',
 		Type: 'modProp',
@@ -251,8 +251,8 @@ module.exports = {
 		Image: '',
 		Effect: ''
 	},
-	10105: {
-		ID: 10105,
+	100105: {
+		ID: 100105,
 		BuffName: '模型缩小',
 		Description: '',
 		Type: 'modPropPct',
@@ -264,8 +264,8 @@ module.exports = {
 		Image: '',
 		Effect: ''
 	},
-	10102: {
-		ID: 10102,
+	100102: {
+		ID: 100102,
 		BuffName: '鳄鱼撕咬',
 		Description: '每秒受到30点伤害，持续5秒',
 		Type: 'dot',

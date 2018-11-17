@@ -7,13 +7,13 @@ function Monster_(data, position, combat) {
     CombatUnit.call(this, data, combat);
 
     this.monsterid = data.monsterid;
-    this.teamid = 1;
     var that = this;
 
     this.table = DataMgr.monster[data.monsterid];
     ///蛟精分身
     this.summoned = DataMgr.monster[10002];
 
+    this.teamid = this.groupId;
     let bInLeft = combat.curPlayerGroupId === this.groupId ? true : false;
     this.agent = new Agent(this.table.Model, position, bInLeft, this, function () {
         that.loadok = true;

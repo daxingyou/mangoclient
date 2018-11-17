@@ -79,6 +79,7 @@ Combat.prototype._initPlayerGroupId = function (data) {
         let entityData = data.teamInfo.teamA[i];
         if (entityData.uid === playerData.id) {
             this.curPlayerGroupId = entityData.groupId;
+            gameCenter.curTeamID = entityData.groupId;
             bDone = true;
             break;
         }
@@ -88,6 +89,7 @@ Combat.prototype._initPlayerGroupId = function (data) {
             let entityData = data.teamInfo.teamB[i];
             if (entityData.uid === playerData.id) {
                 this.curPlayerGroupId = entityData.groupId;
+                gameCenter.curTeamID = entityData.groupId;
             }
         }
     }
@@ -112,6 +114,7 @@ Combat.prototype._initData = function (data) {
         groupB: []
     }
     this.curPlayerGroupId = 'groupA';
+    gameCenter.curTeamID = 'groupA';
     this._initPlayerGroupId(data);
 }
 

@@ -129,7 +129,7 @@ var mgr = {
             {
                 go.node.position = pos;
 
-                if(teamID == constant.Team.own)
+                if(teamID == gameCenter.curTeamID)
                 {
                     go.node.Scale = 1;
                 }

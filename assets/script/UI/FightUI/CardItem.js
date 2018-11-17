@@ -62,7 +62,16 @@ cc.Class({
             delete this._listeners[eventName];
         }
     },
-    initData(index,cardName,CardQuality,cardImage,CardDescription,cardType,thew,mp,cardAttr,canUse, cid,parents,isCardGroup) {
+    initData(index, cardInfo, canUse, parents,isCardGroup) {
+        let configData = cardInfo.data, cid = cardInfo.id;
+        let cardName = configData.CardName,
+            CardQuality = configData.CardQuality,
+            cardImage = configData.CardImage,
+            CardDescription = configData.CardDescription,
+            cardType = configData.CardType,
+            thew = configData.CastThew,
+            mp = cardInfo.mp,
+            cardAttr = configData.CardAttributes;
         if (this._listeners) {
             for (var eventName in this._listeners) {
                 this._removeEventListener(eventName);
@@ -89,6 +98,7 @@ cc.Class({
         this.mp = mp;
         this._cid = cid;
         this._canUse = canUse;
+        cc.log(this._canUse,"this._canUse");
         this.cardName.getComponent(cc.Label).string = cardName;
         this.cardImage.spriteFrame = this.cardAtlas.getSpriteFrame(cardImage);
 
@@ -205,11 +215,8 @@ cc.Class({
            this.cardType.color = baowu;
         }  
        this._parents = parents;
-       this._isCardGroup = isCardGroup;
-    //    cc.log(this._parents,"this._parents");
-    //    cc.log(this._parents.moveCard,"this._parents.moveCard")
-       if (this._parents!=null || this._parents!=undefined)
-       this.moveCard = this._parents.moveCard;
+       // this._updateCardState();
+        
 
     },
     change(x,y,rotation) {
@@ -218,45 +225,29 @@ cc.Class({
         this.x = x;
         this.resetPos();
     },
-   
-    // start () {
-    //     cc.view.enableAntiAlias
-    //     var self = this;
-    //     let x = self.node.x;
-    //     let y = self.node.y;
-    //  //   cc.log('is Anti Alias Enabled =',cc.view.isAntiAliasEnabled();
-    //  self._parents.followCardMove(x,y);
-    //  self.node.on(cc.Node.EventType.TOUCH_MOVE, function (event) {//节点区域时  
-    //      cc.log("实现物体的拖动");
-    //      var delta = event.touch.getDelta();
-    //      self.node.x += delta.x;
-    //      self.node.y += delta.y;
-    //      cc.log(self.node.x,self.node.y,"x,y");
-    //      self._parents.followCardMove(self.node.x,self.node.y,self.node);
-    //     //  item.parent.convertToNodeSpaceAR(this.node);
-    //     //  item.active = true;
-    //     //  item.parent = this.node;
-    //     //  item.x = this.node.x;
-    //     //  item.y = this.node.y;
-    //     // cc.log(item.x,item.y,"item.x,item.y",this.node.x,this.node.y,"this.node.x,this.node.y");
-         
-    //  }, this);
-              
-    // },
 
-    lookCardDes () {
-        if (this._isCardGroup) {
-            this._parents.lookCardDes(this._cid);
+    _updateCardState() {
+        if (this._canUse == 1) {
+            var sprite = this.canUseCard.getComponent(cc.Sprite);
+            if (this._willingUse) {
+                // 蓝色
+
+                this.buleFrame.active = true;
+                this.canUseCard.active = false;
+            }
+            else {
+                // 绿色
+               this.buleFrame.active = false;
+               this.canUseCard.active = true;
+            }
+        }
+        else {
+            this.canUseCard.active = false;
+            this.buleFrame.active = false;
         }
     },
 
-    closeCardDes () {
-        this._isCardGroup = false;
-    },
 
-    addItem () {
-        
-    },
     temp : 0,
     update (dt) {
         if(this.temp != this.node.scale)
@@ -266,8 +257,8 @@ cc.Class({
         }
 
        
-
-        if (this._canUse) {
+        // cc.log(this._canUse,"this._canUse");
+        if (this._canUse == 1) {
             var sprite = this.canUseCard.getComponent(cc.Sprite);
             if (this._willingUse) {
                 // 蓝色

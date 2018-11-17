@@ -106,7 +106,6 @@ cc.Class({
                 let item = cc.instantiate(loadedResource);
                 resIndex++;
                 self.HandsCardRoot.addChild(item);
-
                 self._HandsCards.push(item.getComponent('CardItem'));
                 if (resIndex == 8) {
                     cc.loader.release('UI/fightUI/Card');
@@ -249,13 +248,10 @@ cc.Class({
             self.now_index = j;
             self.centerCard.active = true;
             cc.log(self.now_index);
-            var pile = player.handsPile[self.now_index].id;
-            var data = datamgr.card[pile];
             var isCanUse = 0;
-           // cc.log( self.now_index, data.CardName, data.CardQuality, data.CardImage, data.CardDescription, data.CardType, data.CastThew, data.CastMP, data.CardAttributes, isCanUse, pile);
 
-            self.centerCard.getComponent('CardItem').initData(
-                self.now_index, data.CardName, data.CardQuality, data.CardImage, data.CardDescription, data.CardType, data.CastThew, data.CastMP, data.CardAttributes, isCanUse, pile);
+           self.centerCard.getComponent('CardItem').initData(
+                self.now_index, player.handsPile[self.now_index], isCanUse);
             var item = self.CardChildrenCount[self.now_index];
             item.opacity = 0;
             self._curSelectedIdx = item.getComponent('CardItem')._index;
@@ -292,11 +288,9 @@ cc.Class({
 
                     self.now_index = j;
                     self.centerCard.active = true;
-                    var pile = player.handsPile[self.now_index].id;
-                    var data = datamgr.card[pile];
                     var isCanUse = 0;
                     self.centerCard.getComponent('CardItem').initData(
-                        self.now_index, data.CardName, data.CardQuality, data.CardImage, data.CardDescription, data.CardType, data.CastThew, data.CastMP, data.CardAttributes, isCanUse, pile);
+                        self.now_index, player.handsPile[self.now_index], isCanUse);
                     var item = self.CardChildrenCount[self.now_index];
                     item.opacity = 0;
                     if (!this.gameOver) {
@@ -499,14 +493,13 @@ cc.Class({
         
         for (var i = 0; i < 8; i++) {
             if (i < player.handsPile.length) {
-                var pile = player.handsPile[i].id;
-                var data = datamgr.card[pile];
+                var cardInfo = player.handsPile[i];
                 var isCanUse = 0;
 
-                if (data.CastMP <= player.mp) {
+                if (cardInfo.mp <= player.mp) {
                     isCanUse = 1;
                 }
-                this._HandsCards[i].initData(i, data.CardName, data.CardQuality, data.CardImage, data.CardDescription, data.CardType, data.CastThew, data.CastMP, data.CardAttributes, isCanUse, pile);
+                this._HandsCards[i].initData(i, cardInfo, isCanUse);
                 this._HandsCards[i].show();
                 if (i == player.handsPile.length - 1) {
                     this.layout();

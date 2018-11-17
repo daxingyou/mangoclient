@@ -21,4 +21,5 @@ module.exports = {
     IsReconnect: false,
     curFightTime:0,     ///当前战斗结束时间
     fightType:null,
+    curTeamID:0,
 }

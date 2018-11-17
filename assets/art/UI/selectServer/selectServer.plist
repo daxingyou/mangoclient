@@ -213,7 +213,7 @@
             <key>size</key>
             <string>{1080,128}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:65f65213d2a53bd869666bb0d0caceb6:d196a1953f0fbb1f3fe82f901208f1e5:4e92c2e43319a854b72b9b08e99f8eb8$</string>
+            <string>$TexturePacker:SmartUpdate:f48d4610ede523c8f569edb890eaa8f1:d196a1953f0fbb1f3fe82f901208f1e5:4e92c2e43319a854b72b9b08e99f8eb8$</string>
             <key>textureFileName</key>
             <string>selectServer.png</string>
         </dict>

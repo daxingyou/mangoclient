@@ -88,10 +88,10 @@ module.exports = {
 		1: {
 			ID: 1001,
 			Index: 1,
-			SkillName: '桃木刃',
+			SkillName: '乌雪刃',
 			Target: {"type":"single","team":1,"singing":0.7},
-			Actions: {damage:{"dmg":25}},
-			ActionCount: 0,
+			Actions: {damage:{"dmg":100},addBuff:{"buffID":1001,"count":1}},
+			ActionCount: 2,
 			Animation: 'attack_02',
 			CriticalTime: 66,
 			Effect: 'wsword',
@@ -106,7 +106,7 @@ module.exports = {
 		2: {
 			ID: 1001,
 			Index: 2,
-			SkillName: '桃木刃',
+			SkillName: '乌雪刃',
 			Target: {},
 			Actions: {spawnSummoned:{"type":"wSword","num":1,"area":"random"}},
 			ActionCount: 0,
@@ -126,14 +126,14 @@ module.exports = {
 		1: {
 			ID: 1002,
 			Index: 1,
-			SkillName: '木藤刺',
+			SkillName: '冰刃锥',
 			Target: {"type":"single","team":1,"singing":0.7},
-			Actions: {damage:{"dmg":60}},
+			Actions: {damage:{"dmg":90}},
 			ActionCount: 0,
 			Animation: 'attack_02',
 			CriticalTime: 66,
-			Effect: 'wsword',
-			EffectType: [{"type":"bullt","origin":"owner","delay":1.7}],
+			Effect: 'ice_shoot',
+			EffectType: [{"type":"point","origin":"owner"}],
 			EffectiveTime: 151,
 			Path: 'chenjinchou',
 			HitEffect: 'hiteffect',
@@ -144,9 +144,27 @@ module.exports = {
 		2: {
 			ID: 1002,
 			Index: 2,
-			SkillName: '木藤刺',
+			SkillName: '冰刃锥',
+			Target: {"type":"self","team":0},
+			Actions: {normalDrawCard:{"num":1}},
+			ActionCount: 0,
+			Animation: '',
+			CriticalTime: 0,
+			Effect: '',
+			EffectType: [],
+			EffectiveTime: 0,
+			Path: '',
+			HitEffect: '',
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
+		},
+		3: {
+			ID: 1002,
+			Index: 3,
+			SkillName: '冰刃锥',
 			Target: {},
-			Actions: {spawnSummoned:{"type":"wSword","num":2,"area":"random"}},
+			Actions: {spawnSummoned:{"type":"wSword","num":1,"area":"random"}},
 			ActionCount: 0,
 			Animation: '',
 			CriticalTime: 0,
@@ -164,14 +182,14 @@ module.exports = {
 		1: {
 			ID: 1003,
 			Index: 1,
-			SkillName: '木剑雨',
+			SkillName: '冰雨霏霏',
 			Target: {"type":"all","team":1,"singing":0.7},
-			Actions: {damage:{"dmg":60}},
+			Actions: {damage:{"dmg":80},addBuff:{"buffID":1001,"count":1}},
 			ActionCount: 0,
 			Animation: 'attack_04',
 			CriticalTime: 66,
-			Effect: 'rainofsword',
-			EffectType: [{"type":"point","origin":"target"}],
+			Effect: 'frozenrain',
+			EffectType: [{"type":"point","origin":"targetCenter"}],
 			EffectiveTime: 151,
 			Path: 'chenjinchou',
 			HitEffect: 'hiteffect',
@@ -182,9 +200,9 @@ module.exports = {
 		2: {
 			ID: 1003,
 			Index: 2,
-			SkillName: '木剑雨',
+			SkillName: '冰雨霏霏',
 			Target: {},
-			Actions: {spawnSummoned:{"type":"wSword","numType":"hit","area":"random"}},
+			Actions: {spawnSummoned:{"type":"wSword","num":5,"area":"random"}},
 			ActionCount: 0,
 			Animation: '',
 			CriticalTime: 0,
@@ -202,36 +220,16 @@ module.exports = {
 		1: {
 			ID: 1004,
 			Index: 1,
-			SkillName: '剑灵乱舞',
-			Target: {"type":"self","team":0,"singing":0.57},
-			Actions: {addBuff:{"buffID":1004}},
-			ActionCount: 0,
-			Animation: 'talent_01',
-			CriticalTime: 66,
-			Effect: 'ghostcard',
-			EffectType: [{"type":"point","origin":"owner"}],
-			EffectiveTime: 0,
-			Path: 'chenjinchou',
-			HitEffect: '',
-			HitEffectPath: '',
-			HitTime: [],
-			DmgFlag: ""
-		}
-	},
-	1104: {
-		1: {
-			ID: 1104,
-			Index: 1,
-			SkillName: '剑灵乱舞',
-			Target: {"type":"random","team":1},
-			Actions: {damage:{"dmg":20}},
+			SkillName: '冰石乱坠',
+			Target: {"type":"single","team":1,"singing":0.7},
+			Actions: {bounce:{dmg:70,"buffID":1001,"count":1,"bounce":2}},
 			ActionCount: 0,
 			Animation: '',
 			CriticalTime: 0,
-			Effect: '',
-			EffectType: [],
+			Effect: 'ricochet_ice,ws_ricochet_ice',
+			EffectType: [{"type":"point","origin":"owner","offset":{"x":100,"y":300}},{"event":"onFinish","beforeName":"ricochet_ice","type":"bounce","origin":"owner","offset":{"x":100,"y":300}}],
 			EffectiveTime: 0,
-			Path: '',
+			Path: 'chenjinchou',
 			HitEffect: '',
 			HitEffectPath: '',
 			HitTime: [],
@@ -242,7 +240,7 @@ module.exports = {
 		1: {
 			ID: 1005,
 			Index: 1,
-			SkillName: '横剑摆渡',
+			SkillName: '纳灵诀',
 			Target: {"type":"self","team":0,"singing":0.57},
 			Actions: {addBuff:{"buffID":1005}},
 			ActionCount: 0,
@@ -262,316 +260,6 @@ module.exports = {
 		1: {
 			ID: 1105,
 			Index: 1,
-			SkillName: '横剑摆渡',
-			Target: {"type":"self","team":0},
-			Actions: {normalDrawCard:{"num":1}},
-			ActionCount: 0,
-			Animation: '',
-			CriticalTime: 0,
-			Effect: '',
-			EffectType: [],
-			EffectiveTime: 0,
-			Path: '',
-			HitEffect: '',
-			HitEffectPath: '',
-			HitTime: [],
-			DmgFlag: ""
-		}
-	},
-	1006: {
-		1: {
-			ID: 1006,
-			Index: 1,
-			SkillName: '桃木刃匣',
-			Target: {"type":"self","team":0,"singing":0.7},
-			Actions: {create:{"cardID":1001,"num":3}},
-			ActionCount: 0,
-			Animation: 'skill_01',
-			CriticalTime: 66,
-			Effect: 'ghostcard',
-			EffectType: [{"type":"point","origin":"owner"}],
-			EffectiveTime: 0,
-			Path: 'chenjinchou',
-			HitEffect: '',
-			HitEffectPath: '',
-			HitTime: [],
-			DmgFlag: ""
-		}
-	},
-	1007: {
-		1: {
-			ID: 1007,
-			Index: 1,
-			SkillName: '枯木逢春',
-			Target: {"type":"self","team":0,"singing":0.7},
-			Actions: {normalDrawCard:{"num":2}},
-			ActionCount: 0,
-			Animation: 'skill_01',
-			CriticalTime: 66,
-			Effect: 'ghostcard',
-			EffectType: [{"type":"point","origin":"owner"}],
-			EffectiveTime: 0,
-			Path: 'chenjinchou',
-			HitEffect: '',
-			HitEffectPath: '',
-			HitTime: [],
-			DmgFlag: ""
-		}
-	},
-	1008: {
-		1: {
-			ID: 1008,
-			Index: 1,
-			SkillName: '取竹成剑',
-			Target: {"type":"self","team":0,"singing":0.7},
-			Actions: {normalDrawCard:{"num":1}},
-			ActionCount: 0,
-			Animation: 'skill_01',
-			CriticalTime: 66,
-			Effect: 'ghostcard',
-			EffectType: [{"type":"point","origin":"owner"}],
-			EffectiveTime: 0,
-			Path: 'chenjinchou',
-			HitEffect: '',
-			HitEffectPath: '',
-			HitTime: [],
-			DmgFlag: ""
-		},
-		2: {
-			ID: 1008,
-			Index: 2,
-			SkillName: '取竹成剑',
-			Target: {"type":"self","team":0},
-			Actions: {create:{"cardID":1002,"num":1}},
-			ActionCount: 0,
-			Animation: '',
-			CriticalTime: 0,
-			Effect: '',
-			EffectType: [],
-			EffectiveTime: 0,
-			Path: '',
-			HitEffect: '',
-			HitEffectPath: '',
-			HitTime: [],
-			DmgFlag: ""
-		}
-	},
-	1009: {
-		1: {
-			ID: 1009,
-			Index: 1,
-			SkillName: '秋镰游刃',
-			Target: {"type":"all","team":1,"singing":0.7},
-			Actions: {reverse:{"type":"wSword","dmg":45,"consume":1}},
-			ActionCount: 0,
-			Animation: 'attack_02',
-			CriticalTime: 66,
-			Effect: '',
-			EffectType: [],
-			EffectiveTime: 33,
-			Path: '',
-			HitEffect: '',
-			HitEffectPath: '',
-			HitTime: [],
-			DmgFlag: ""
-		}
-	},
-	1010: {
-		1: {
-			ID: 1010,
-			Index: 1,
-			SkillName: '映日剑轮',
-			Target: {"type":"single","team":1,"singing":1.17},
-			Actions: {swordWheel:{"type":"wSword","dmg":25,"consume":0}},
-			ActionCount: 0,
-			Animation: 'attack_03',
-			CriticalTime: 66,
-			Effect: 'swordwheel',
-			EffectType: [{"type":"point","origin":"owner"}],
-			EffectiveTime: 484,
-			Path: 'chenjinchou',
-			HitEffect: 'hiteffect',
-			HitEffectPath: 'chenjinchou',
-			HitTime: [4.4,4.5,4.6,4.7,4.9,5.1,5.3],
-			DmgFlag: 1
-		}
-	},
-	1011: {
-		1: {
-			ID: 1011,
-			Index: 1,
-			SkillName: '乌雪刃',
-			Target: {"type":"single","team":1,"singing":0.7},
-			Actions: {damage:{"dmg":100},addBuff:{"buffID":1011,"count":1}},
-			ActionCount: 2,
-			Animation: 'attack_02',
-			CriticalTime: 66,
-			Effect: 'wsword',
-			EffectType: [{"type":"bullt","origin":"owner","delay":1.7}],
-			EffectiveTime: 151,
-			Path: 'chenjinchou',
-			HitEffect: 'hiteffect',
-			HitEffectPath: 'chenjinchou',
-			HitTime: [],
-			DmgFlag: ""
-		},
-		2: {
-			ID: 1011,
-			Index: 2,
-			SkillName: '乌雪刃',
-			Target: {},
-			Actions: {spawnSummoned:{"type":"wSword","num":1,"area":"random"}},
-			ActionCount: 0,
-			Animation: '',
-			CriticalTime: 0,
-			Effect: '',
-			EffectType: [],
-			EffectiveTime: 0,
-			Path: '',
-			HitEffect: '',
-			HitEffectPath: '',
-			HitTime: [],
-			DmgFlag: ""
-		}
-	},
-	1012: {
-		1: {
-			ID: 1012,
-			Index: 1,
-			SkillName: '冰刃锥',
-			Target: {"type":"single","team":1,"singing":0.7},
-			Actions: {damage:{"dmg":90}},
-			ActionCount: 0,
-			Animation: 'attack_02',
-			CriticalTime: 66,
-			Effect: 'ice_shoot',
-			EffectType: [{"type":"point","origin":"owner"}],
-			EffectiveTime: 151,
-			Path: 'chenjinchou',
-			HitEffect: 'hiteffect',
-			HitEffectPath: 'chenjinchou',
-			HitTime: [],
-			DmgFlag: ""
-		},
-		2: {
-			ID: 1012,
-			Index: 2,
-			SkillName: '冰刃锥',
-			Target: {"type":"self","team":0},
-			Actions: {normalDrawCard:{"num":1}},
-			ActionCount: 0,
-			Animation: '',
-			CriticalTime: 0,
-			Effect: '',
-			EffectType: [],
-			EffectiveTime: 0,
-			Path: '',
-			HitEffect: '',
-			HitEffectPath: '',
-			HitTime: [],
-			DmgFlag: ""
-		},
-		3: {
-			ID: 1012,
-			Index: 3,
-			SkillName: '冰刃锥',
-			Target: {},
-			Actions: {spawnSummoned:{"type":"wSword","num":1,"area":"random"}},
-			ActionCount: 0,
-			Animation: '',
-			CriticalTime: 0,
-			Effect: '',
-			EffectType: [],
-			EffectiveTime: 0,
-			Path: '',
-			HitEffect: '',
-			HitEffectPath: '',
-			HitTime: [],
-			DmgFlag: ""
-		}
-	},
-	1013: {
-		1: {
-			ID: 1013,
-			Index: 1,
-			SkillName: '冰雨霏霏',
-			Target: {"type":"all","team":1,"singing":0.7},
-			Actions: {damage:{"dmg":80},addBuff:{"buffID":1011,"count":1}},
-			ActionCount: 0,
-			Animation: 'attack_04',
-			CriticalTime: 66,
-			Effect: 'frozenrain',
-			EffectType: [{"type":"point","origin":"targetCenter"}],
-			EffectiveTime: 151,
-			Path: 'chenjinchou',
-			HitEffect: 'hiteffect',
-			HitEffectPath: 'chenjinchou',
-			HitTime: [3.5,3.6,3.7,3.8,4.0,4.3,4.5],
-			DmgFlag: ""
-		},
-		2: {
-			ID: 1013,
-			Index: 2,
-			SkillName: '冰雨霏霏',
-			Target: {},
-			Actions: {spawnSummoned:{"type":"wSword","num":5,"area":"random"}},
-			ActionCount: 0,
-			Animation: '',
-			CriticalTime: 0,
-			Effect: '',
-			EffectType: [],
-			EffectiveTime: 0,
-			Path: '',
-			HitEffect: '',
-			HitEffectPath: '',
-			HitTime: [],
-			DmgFlag: ""
-		}
-	},
-	1014: {
-		1: {
-			ID: 1014,
-			Index: 1,
-			SkillName: '冰石乱坠',
-			Target: {"type":"single","team":1,"singing":0.7},
-			Actions: {bounce:{dmg:70,"buffID":1011,"count":1,"bounce":2}},
-			ActionCount: 0,
-			Animation: '',
-			CriticalTime: 0,
-			Effect: 'ricochet_ice,ws_ricochet_ice',
-			EffectType: [{"type":"point","origin":"owner","offset":{"x":100,"y":300}},{"event":"onFinish","beforeName":"ricochet_ice","type":"bounce","origin":"owner","offset":{"x":100,"y":300}}],
-			EffectiveTime: 0,
-			Path: 'chenjinchou',
-			HitEffect: '',
-			HitEffectPath: '',
-			HitTime: [],
-			DmgFlag: ""
-		}
-	},
-	1015: {
-		1: {
-			ID: 1015,
-			Index: 1,
-			SkillName: '纳灵诀',
-			Target: {"type":"self","team":0,"singing":0.57},
-			Actions: {addBuff:{"buffID":1015}},
-			ActionCount: 0,
-			Animation: 'talent_01',
-			CriticalTime: 66,
-			Effect: 'ghostcard',
-			EffectType: [{"type":"point","origin":"owner"}],
-			EffectiveTime: 0,
-			Path: 'chenjinchou',
-			HitEffect: '',
-			HitEffectPath: '',
-			HitTime: [],
-			DmgFlag: ""
-		}
-	},
-	1115: {
-		1: {
-			ID: 1115,
-			Index: 1,
 			SkillName: '纳灵诀',
 			Target: {"type":"self","team":0},
 			Actions: {getMP:{"MP":1}},
@@ -588,9 +276,9 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	1016: {
+	1006: {
 		1: {
-			ID: 1016,
+			ID: 1006,
 			Index: 1,
 			SkillName: '符灵术',
 			Target: {"type":"self","team":0,"singing":0.57},
@@ -608,7 +296,7 @@ module.exports = {
 			DmgFlag: ""
 		},
 		2: {
-			ID: 1016,
+			ID: 1006,
 			Index: 2,
 			SkillName: '符灵术',
 			Target: {"type":"self","team":0},
@@ -626,13 +314,13 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	1017: {
+	1007: {
 		1: {
-			ID: 1017,
+			ID: 1007,
 			Index: 1,
 			SkillName: '乌雪之灵',
 			Target: {"type":"self","team":0,"singing":0.57},
-			Actions: {addBuff:{"buffID":1017}},
+			Actions: {addBuff:{"buffID":1007}},
 			ActionCount: 0,
 			Animation: 'talent_01',
 			CriticalTime: 66,
@@ -646,13 +334,13 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	1117: {
+	1107: {
 		1: {
-			ID: 1117,
+			ID: 1107,
 			Index: 1,
 			SkillName: '乌雪之灵',
 			Target: {"type":"self","team":0},
-			Actions: {create:{"cardID":1011,"rate":0.02,"num":1}},
+			Actions: {create:{"cardID":1001,"rate":0.02,"num":1}},
 			ActionCount: 0,
 			Animation: '',
 			CriticalTime: 0,
@@ -666,13 +354,13 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	1018: {
+	1008: {
 		1: {
-			ID: 1018,
+			ID: 1008,
 			Index: 1,
 			SkillName: '冰灵劲',
 			Target: {"type":"self","team":0},
-			Actions: {addBuff:{"buffID":1018}},
+			Actions: {addBuff:{"buffID":1008}},
 			ActionCount: 0,
 			Animation: '',
 			CriticalTime: 0,
@@ -686,7 +374,7 @@ module.exports = {
 			DmgFlag: ""
 		},
 		2: {
-			ID: 1018,
+			ID: 1008,
 			Index: 2,
 			SkillName: '冰灵劲',
 			Target: {},
@@ -704,13 +392,13 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	1019: {
+	1009: {
 		1: {
-			ID: 1019,
+			ID: 1009,
 			Index: 1,
 			SkillName: '碎冰',
 			Target: {"type":"all","team":1,"singing":0.7},
-			Actions: {crushedIce:{"type":"wSword","buffID":1011,"time":5,"consume":1}},
+			Actions: {crushedIce:{"type":"wSword","buffID":1001,"time":5,"consume":1}},
 			ActionCount: 0,
 			Animation: 'attack_02',
 			CriticalTime: 66,
@@ -724,13 +412,13 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	1020: {
+	1010: {
 		1: {
-			ID: 1020,
+			ID: 1010,
 			Index: 1,
 			SkillName: '乌雪焚天',
 			Target: {"type":"all","team":1,"singing":0.7},
-			Actions: {blackSnow:{buffID:1011,times:2}},
+			Actions: {blackSnow:{buffID:1001,times:2}},
 			ActionCount: 0,
 			Animation: 'attack_02',
 			CriticalTime: 66,
@@ -744,9 +432,9 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	2001: {
+	4001: {
 		1: {
-			ID: 2001,
+			ID: 4001,
 			Index: 1,
 			SkillName: '气疗术',
 			Target: {"type":"single","team":0,"singing":1.3},
@@ -764,9 +452,9 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	2002: {
+	4002: {
 		1: {
-			ID: 2002,
+			ID: 4002,
 			Index: 1,
 			SkillName: '风沙甘霖术',
 			Target: {"type":"single","team":0,"singing":1.3},
@@ -784,7 +472,7 @@ module.exports = {
 			DmgFlag: ""
 		},
 		2: {
-			ID: 2002,
+			ID: 4002,
 			Index: 2,
 			SkillName: '风沙甘霖术',
 			Target: {"type":"self","team":0},
@@ -802,9 +490,9 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	2003: {
+	4003: {
 		1: {
-			ID: 2003,
+			ID: 4003,
 			Index: 1,
 			SkillName: '唤魂咒',
 			Target: {"type":"single","team":0,"dead":1,"singing":1.3},
@@ -822,13 +510,13 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	2004: {
+	4004: {
 		1: {
-			ID: 2004,
+			ID: 4004,
 			Index: 1,
 			SkillName: '万物复苏',
 			Target: {"type":"all","team":0,"singing":1.3},
-			Actions: {addBuff:{"buffID":2004}},
+			Actions: {addBuff:{"buffID":4004}},
 			ActionCount: 0,
 			Animation: 'skill_03',
 			CriticalTime: 66,
@@ -842,11 +530,11 @@ module.exports = {
 			DmgFlag: ""
 		},
 		2: {
-			ID: 2004,
+			ID: 4004,
 			Index: 2,
 			SkillName: '万物复苏',
 			Target: {"type":"lowHP","team":0},
-			Actions: {addBuff:{"buffID":2004}},
+			Actions: {addBuff:{"buffID":4004}},
 			ActionCount: 0,
 			Animation: '',
 			CriticalTime: 0,
@@ -860,13 +548,13 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	2005: {
+	4005: {
 		1: {
-			ID: 2005,
+			ID: 4005,
 			Index: 1,
 			SkillName: '女娲体质',
 			Target: {"type":"self","team":0,"singing":1.3},
-			Actions: {addBuff:{"buffID":2005}},
+			Actions: {addBuff:{"buffID":4005}},
 			ActionCount: 0,
 			Animation: 'talent_01',
 			CriticalTime: 66,
@@ -880,9 +568,9 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	2105: {
+	4105: {
 		1: {
-			ID: 2105,
+			ID: 4105,
 			Index: 1,
 			SkillName: '女娲体质',
 			Target: {"type":"self","team":0},
@@ -900,9 +588,9 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	2006: {
+	4006: {
 		1: {
-			ID: 2006,
+			ID: 4006,
 			Index: 1,
 			SkillName: '释放灵力',
 			Target: {"type":"self","team":0,"singing":1.3},
@@ -920,7 +608,7 @@ module.exports = {
 			DmgFlag: ""
 		},
 		2: {
-			ID: 2006,
+			ID: 4006,
 			Index: 2,
 			SkillName: '释放灵力',
 			Target: {"type":"self","team":0},
@@ -938,13 +626,13 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	2007: {
+	4007: {
 		1: {
-			ID: 2007,
+			ID: 4007,
 			Index: 1,
 			SkillName: '地灵庇护',
 			Target: {"type":"self","team":0,"singing":1.3},
-			Actions: {addBuff:{"buffID":2007,"time":10}},
+			Actions: {addBuff:{"buffID":4007,"time":10}},
 			ActionCount: 0,
 			Animation: 'talent_01',
 			CriticalTime: 66,
@@ -958,9 +646,9 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	2107: {
+	4107: {
 		1: {
-			ID: 2107,
+			ID: 4107,
 			Index: 1,
 			SkillName: '地灵庇护',
 			Target: {"type":"single","team":0},
@@ -978,13 +666,13 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	2008: {
+	4008: {
 		1: {
-			ID: 2008,
+			ID: 4008,
 			Index: 1,
 			SkillName: '女娲转世',
 			Target: {"type":"self","team":0,"singing":1.3},
-			Actions: {addBuff:{"buffID":2008}},
+			Actions: {addBuff:{"buffID":4008}},
 			ActionCount: 0,
 			Animation: 'talent_01',
 			CriticalTime: 66,
@@ -998,9 +686,9 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	2108: {
+	4108: {
 		1: {
-			ID: 2108,
+			ID: 4108,
 			Index: 1,
 			SkillName: '女娲转世',
 			Target: {"type":"self","team":0},
@@ -1018,9 +706,9 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	2009: {
+	4009: {
 		1: {
-			ID: 2009,
+			ID: 4009,
 			Index: 1,
 			SkillName: '涛澜动地',
 			Target: {"type":"single","team":1,"singing":1.3},
@@ -1038,7 +726,7 @@ module.exports = {
 			DmgFlag: ""
 		},
 		2: {
-			ID: 2009,
+			ID: 4009,
 			Index: 2,
 			SkillName: '涛澜动地',
 			Target: {"type":"self","team":0},
@@ -1056,9 +744,9 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	2010: {
+	4010: {
 		1: {
-			ID: 2010,
+			ID: 4010,
 			Index: 1,
 			SkillName: '石破天惊',
 			Target: {"type":"single","team":1,"singing":1.3},
@@ -1076,11 +764,11 @@ module.exports = {
 			DmgFlag: ""
 		},
 		2: {
-			ID: 2010,
+			ID: 4010,
 			Index: 2,
 			SkillName: '石破天惊',
 			Target: {"type":"single","team":1},
-			Actions: {addBuff:{"buffID":2010,"time":8}},
+			Actions: {addBuff:{"buffID":4010,"time":8}},
 			ActionCount: 0,
 			Animation: '',
 			CriticalTime: 0,
@@ -1094,9 +782,9 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	2011: {
+	4011: {
 		1: {
-			ID: 2011,
+			ID: 4011,
 			Index: 1,
 			SkillName: '烈火术',
 			Target: {"type":"single","team":1,"singing":1.3},
@@ -1114,11 +802,11 @@ module.exports = {
 			DmgFlag: ""
 		},
 		2: {
-			ID: 2011,
+			ID: 4011,
 			Index: 2,
 			SkillName: '烈火术',
 			Target: {"type":"single","team":1},
-			Actions: {addBuff:{"buffID":2011,"time":15}},
+			Actions: {addBuff:{"buffID":4011,"time":15}},
 			ActionCount: 0,
 			Animation: '',
 			CriticalTime: 0,
@@ -1132,13 +820,13 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	2012: {
+	4012: {
 		1: {
-			ID: 2012,
+			ID: 4012,
 			Index: 1,
 			SkillName: '日薄西山入',
 			Target: {"type":"single","team":1,"singing":1.3},
-			Actions: {bounce:{dmg:30,"buffID":2011,"count":1,"time":15,"bounce":2}},
+			Actions: {bounce:{dmg:30,"buffID":4011,"count":1,"time":15,"bounce":2}},
 			ActionCount: 0,
 			Animation: 'attack_02',
 			CriticalTime: 66,
@@ -1152,13 +840,13 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	2013: {
+	4013: {
 		1: {
-			ID: 2013,
+			ID: 4013,
 			Index: 1,
 			SkillName: '火凤落霞',
 			Target: {"type":"single","team":1,"singing":1.3},
-			Actions: {bounce:{dmg:20,"buffID":2011,"count":1,"time":15,"bounce":4}},
+			Actions: {bounce:{dmg:20,"buffID":4011,"count":1,"time":15,"bounce":4}},
 			ActionCount: 0,
 			Animation: 'attack_02',
 			CriticalTime: 66,
@@ -1172,13 +860,13 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	2014: {
+	4014: {
 		1: {
-			ID: 2014,
+			ID: 4014,
 			Index: 1,
 			SkillName: '火焰外衣',
 			Target: {"type":"self","team":0,"singing":1.3},
-			Actions: {addBuff:{"buffID":2014}},
+			Actions: {addBuff:{"buffID":4014}},
 			ActionCount: 0,
 			Animation: 'talent_01',
 			CriticalTime: 66,
@@ -1192,9 +880,9 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	2114: {
+	4114: {
 		1: {
-			ID: 2114,
+			ID: 4114,
 			Index: 1,
 			SkillName: '火焰外衣',
 			Target: {"type":"random","team":1},
@@ -1212,9 +900,9 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	2015: {
+	4015: {
 		1: {
-			ID: 2015,
+			ID: 4015,
 			Index: 1,
 			SkillName: '烈焰共鸣',
 			Target: {"type":"self","team":0,"singing":1.3},
@@ -1232,13 +920,13 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	2115: {
+	4115: {
 		1: {
-			ID: 2115,
+			ID: 4115,
 			Index: 1,
 			SkillName: '烈焰共鸣',
 			Target: {"type":"random","team":1},
-			Actions: {addBuff:{"buffID":2011,"time":15}},
+			Actions: {addBuff:{"buffID":4011,"time":15}},
 			ActionCount: 0,
 			Animation: '',
 			CriticalTime: 0,
@@ -1252,9 +940,9 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	2016: {
+	4016: {
 		1: {
-			ID: 2016,
+			ID: 4016,
 			Index: 1,
 			SkillName: '星火燎原',
 			Target: {"type":"self","team":0,"singing":1.3},
@@ -1272,9 +960,9 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	2017: {
+	4017: {
 		1: {
-			ID: 2017,
+			ID: 4017,
 			Index: 1,
 			SkillName: '火中取栗',
 			Target: {"type":"self","team":0,"singing":1.3},
@@ -1292,13 +980,13 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	2018: {
+	4018: {
 		1: {
-			ID: 2018,
+			ID: 4018,
 			Index: 1,
 			SkillName: '凤鸣法阵',
 			Target: {"type":"random","team":1},
-			Actions: {addBuff:{"buffID":2011,"time":15}},
+			Actions: {addBuff:{"buffID":4011,"time":15}},
 			ActionCount: 5,
 			Animation: '',
 			CriticalTime: 0,
@@ -1312,13 +1000,13 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	2019: {
+	4019: {
 		1: {
-			ID: 2019,
+			ID: 4019,
 			Index: 1,
 			SkillName: '化灵天炎',
 			Target: {"type":"all","team":1,"singing":1.3},
-			Actions: {buffTime:{buffID:2011,addTime:10}},
+			Actions: {buffTime:{buffID:4011,addTime:10}},
 			ActionCount: 0,
 			Animation: 'attack_02',
 			CriticalTime: 66,
@@ -1332,13 +1020,13 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	2020: {
+	4020: {
 		1: {
-			ID: 2020,
+			ID: 4020,
 			Index: 1,
 			SkillName: '朱雀展翅',
 			Target: {"type":"all","team":1,"singing":1.3},
-			Actions: {addBuff:{"buffID":2011,"time":15}},
+			Actions: {addBuff:{"buffID":4011,"time":15}},
 			ActionCount: 3,
 			Animation: '',
 			CriticalTime: 0,
@@ -1352,9 +1040,321 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	10001: {
+	18001: {
 		1: {
-			ID: 10001,
+			ID: 18001,
+			Index: 1,
+			SkillName: '桃木刃',
+			Target: {"type":"single","team":1,"singing":0.7},
+			Actions: {damage:{"dmg":25}},
+			ActionCount: 0,
+			Animation: 'attack_02',
+			CriticalTime: 66,
+			Effect: 'wsword',
+			EffectType: [{"type":"bullt","origin":"owner","delay":1.7}],
+			EffectiveTime: 151,
+			Path: 'chenjinchou',
+			HitEffect: 'hiteffect',
+			HitEffectPath: 'chenjinchou',
+			HitTime: [],
+			DmgFlag: ""
+		},
+		2: {
+			ID: 18001,
+			Index: 2,
+			SkillName: '桃木刃',
+			Target: {},
+			Actions: {spawnSummoned:{"type":"wSword","num":1,"area":"random"}},
+			ActionCount: 0,
+			Animation: '',
+			CriticalTime: 0,
+			Effect: '',
+			EffectType: [],
+			EffectiveTime: 0,
+			Path: '',
+			HitEffect: '',
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
+		}
+	},
+	18002: {
+		1: {
+			ID: 18002,
+			Index: 1,
+			SkillName: '木藤刺',
+			Target: {"type":"single","team":1,"singing":0.7},
+			Actions: {damage:{"dmg":60}},
+			ActionCount: 0,
+			Animation: 'attack_02',
+			CriticalTime: 66,
+			Effect: 'wsword',
+			EffectType: [{"type":"bullt","origin":"owner","delay":1.7}],
+			EffectiveTime: 151,
+			Path: 'chenjinchou',
+			HitEffect: 'hiteffect',
+			HitEffectPath: 'chenjinchou',
+			HitTime: [],
+			DmgFlag: ""
+		},
+		2: {
+			ID: 18002,
+			Index: 2,
+			SkillName: '木藤刺',
+			Target: {},
+			Actions: {spawnSummoned:{"type":"wSword","num":2,"area":"random"}},
+			ActionCount: 0,
+			Animation: '',
+			CriticalTime: 0,
+			Effect: '',
+			EffectType: [],
+			EffectiveTime: 0,
+			Path: '',
+			HitEffect: '',
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
+		}
+	},
+	18003: {
+		1: {
+			ID: 18003,
+			Index: 1,
+			SkillName: '木剑雨',
+			Target: {"type":"all","team":1,"singing":0.7},
+			Actions: {damage:{"dmg":60}},
+			ActionCount: 0,
+			Animation: 'attack_04',
+			CriticalTime: 66,
+			Effect: 'rainofsword',
+			EffectType: [{"type":"point","origin":"target"}],
+			EffectiveTime: 151,
+			Path: 'chenjinchou',
+			HitEffect: 'hiteffect',
+			HitEffectPath: 'chenjinchou',
+			HitTime: [3.5,3.6,3.7,3.8,4.0,4.3,4.5],
+			DmgFlag: ""
+		},
+		2: {
+			ID: 18003,
+			Index: 2,
+			SkillName: '木剑雨',
+			Target: {},
+			Actions: {spawnSummoned:{"type":"wSword","numType":"hit","area":"random"}},
+			ActionCount: 0,
+			Animation: '',
+			CriticalTime: 0,
+			Effect: '',
+			EffectType: [],
+			EffectiveTime: 0,
+			Path: '',
+			HitEffect: '',
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
+		}
+	},
+	18004: {
+		1: {
+			ID: 18004,
+			Index: 1,
+			SkillName: '剑灵乱舞',
+			Target: {"type":"self","team":0,"singing":0.57},
+			Actions: {addBuff:{"buffID":18004}},
+			ActionCount: 0,
+			Animation: 'talent_01',
+			CriticalTime: 66,
+			Effect: 'ghostcard',
+			EffectType: [{"type":"point","origin":"owner"}],
+			EffectiveTime: 0,
+			Path: 'chenjinchou',
+			HitEffect: '',
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
+		}
+	},
+	18104: {
+		1: {
+			ID: 18104,
+			Index: 1,
+			SkillName: '剑灵乱舞',
+			Target: {"type":"random","team":1},
+			Actions: {damage:{"dmg":20}},
+			ActionCount: 0,
+			Animation: '',
+			CriticalTime: 0,
+			Effect: '',
+			EffectType: [],
+			EffectiveTime: 0,
+			Path: '',
+			HitEffect: '',
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
+		}
+	},
+	18005: {
+		1: {
+			ID: 18005,
+			Index: 1,
+			SkillName: '横剑摆渡',
+			Target: {"type":"self","team":0,"singing":0.57},
+			Actions: {addBuff:{"buffID":18005}},
+			ActionCount: 0,
+			Animation: 'talent_01',
+			CriticalTime: 66,
+			Effect: 'ghostcard',
+			EffectType: [{"type":"point","origin":"owner"}],
+			EffectiveTime: 0,
+			Path: 'chenjinchou',
+			HitEffect: '',
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
+		}
+	},
+	18105: {
+		1: {
+			ID: 18105,
+			Index: 1,
+			SkillName: '横剑摆渡',
+			Target: {"type":"self","team":0},
+			Actions: {normalDrawCard:{"num":1}},
+			ActionCount: 0,
+			Animation: '',
+			CriticalTime: 0,
+			Effect: '',
+			EffectType: [],
+			EffectiveTime: 0,
+			Path: '',
+			HitEffect: '',
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
+		}
+	},
+	18006: {
+		1: {
+			ID: 18006,
+			Index: 1,
+			SkillName: '桃木刃匣',
+			Target: {"type":"self","team":0,"singing":0.7},
+			Actions: {create:{"cardID":1001,"num":3}},
+			ActionCount: 0,
+			Animation: 'skill_01',
+			CriticalTime: 66,
+			Effect: 'ghostcard',
+			EffectType: [{"type":"point","origin":"owner"}],
+			EffectiveTime: 0,
+			Path: 'chenjinchou',
+			HitEffect: '',
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
+		}
+	},
+	18007: {
+		1: {
+			ID: 18007,
+			Index: 1,
+			SkillName: '枯木逢春',
+			Target: {"type":"self","team":0,"singing":0.7},
+			Actions: {normalDrawCard:{"num":2}},
+			ActionCount: 0,
+			Animation: 'skill_01',
+			CriticalTime: 66,
+			Effect: 'ghostcard',
+			EffectType: [{"type":"point","origin":"owner"}],
+			EffectiveTime: 0,
+			Path: 'chenjinchou',
+			HitEffect: '',
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
+		}
+	},
+	18008: {
+		1: {
+			ID: 18008,
+			Index: 1,
+			SkillName: '取竹成剑',
+			Target: {"type":"self","team":0,"singing":0.7},
+			Actions: {normalDrawCard:{"num":1}},
+			ActionCount: 0,
+			Animation: 'skill_01',
+			CriticalTime: 66,
+			Effect: 'ghostcard',
+			EffectType: [{"type":"point","origin":"owner"}],
+			EffectiveTime: 0,
+			Path: 'chenjinchou',
+			HitEffect: '',
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
+		},
+		2: {
+			ID: 18008,
+			Index: 2,
+			SkillName: '取竹成剑',
+			Target: {"type":"self","team":0},
+			Actions: {create:{"cardID":18002,"num":1}},
+			ActionCount: 0,
+			Animation: '',
+			CriticalTime: 0,
+			Effect: '',
+			EffectType: [],
+			EffectiveTime: 0,
+			Path: '',
+			HitEffect: '',
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
+		}
+	},
+	18009: {
+		1: {
+			ID: 18009,
+			Index: 1,
+			SkillName: '秋镰游刃',
+			Target: {"type":"all","team":1,"singing":0.7},
+			Actions: {reverse:{"type":"wSword","dmg":45,"consume":1}},
+			ActionCount: 0,
+			Animation: 'attack_02',
+			CriticalTime: 66,
+			Effect: '',
+			EffectType: [],
+			EffectiveTime: 33,
+			Path: '',
+			HitEffect: '',
+			HitEffectPath: '',
+			HitTime: [],
+			DmgFlag: ""
+		}
+	},
+	18010: {
+		1: {
+			ID: 18010,
+			Index: 1,
+			SkillName: '映日剑轮',
+			Target: {"type":"single","team":1,"singing":1.17},
+			Actions: {swordWheel:{"type":"wSword","dmg":25,"consume":0}},
+			ActionCount: 0,
+			Animation: 'attack_03',
+			CriticalTime: 66,
+			Effect: 'swordwheel',
+			EffectType: [{"type":"point","origin":"owner"}],
+			EffectiveTime: 484,
+			Path: 'chenjinchou',
+			HitEffect: 'hiteffect',
+			HitEffectPath: 'chenjinchou',
+			HitTime: [4.4,4.5,4.6,4.7,4.9,5.1,5.3],
+			DmgFlag: 1
+		}
+	},
+	100001: {
+		1: {
+			ID: 100001,
 			Index: 1,
 			SkillName: '蛟精普攻',
 			Target: {"type":"single","team":1,"singing":0.4},
@@ -1372,9 +1372,9 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	10002: {
+	100002: {
 		1: {
-			ID: 10002,
+			ID: 100002,
 			Index: 1,
 			SkillName: '蛟精猛击',
 			Target: {"type":"single","team":1,"singing":1},
@@ -1392,11 +1392,11 @@ module.exports = {
 			DmgFlag: ""
 		},
 		2: {
-			ID: 10002,
+			ID: 100002,
 			Index: 2,
 			SkillName: '蛟精猛击',
 			Target: {"type":"single","team":1},
-			Actions: {addBuff:{"buffID":10002,"time":8}},
+			Actions: {addBuff:{"buffID":100002,"time":8}},
 			ActionCount: 0,
 			Animation: '',
 			CriticalTime: 0,
@@ -1410,9 +1410,9 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	10003: {
+	100003: {
 		1: {
-			ID: 10003,
+			ID: 100003,
 			Index: 1,
 			SkillName: '蛟精巨浪',
 			Target: {"type":"all","team":1,"singing":0.83},
@@ -1430,11 +1430,11 @@ module.exports = {
 			DmgFlag: ""
 		},
 		2: {
-			ID: 10003,
+			ID: 100003,
 			Index: 2,
 			SkillName: '蛟精巨浪',
 			Target: {"type":"all","team":1},
-			Actions: {addBuff:{"buffID":10003,"time":5}},
+			Actions: {addBuff:{"buffID":100003,"time":5}},
 			ActionCount: 0,
 			Animation: '',
 			CriticalTime: 0,
@@ -1448,9 +1448,9 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	10004: {
+	100004: {
 		1: {
-			ID: 10004,
+			ID: 100004,
 			Index: 1,
 			SkillName: '蛟精狂风',
 			Target: {"type":"single","team":1,"singing":0.2},
@@ -1468,7 +1468,7 @@ module.exports = {
 			DmgFlag: ""
 		},
 		2: {
-			ID: 10004,
+			ID: 100004,
 			Index: 2,
 			SkillName: '蛟精狂风',
 			Target: {"type":"single","team":1},
@@ -1486,13 +1486,13 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	10005: {
+	100005: {
 		1: {
-			ID: 10005,
+			ID: 100005,
 			Index: 1,
 			SkillName: '蛟精幻象',
 			Target: {"type":"self","team":0,"singing":1.1},
-			Actions: {monsterSummoned:{"monsterID":"10002","num":1,"matrixType":"random","time":12}},
+			Actions: {monsterSummoned:{"monsterID":"100002","num":1,"matrixType":"random","time":12}},
 			ActionCount: 0,
 			Animation: 'skill_04',
 			CriticalTime: 0,
@@ -1506,11 +1506,11 @@ module.exports = {
 			DmgFlag: ""
 		},
 		2: {
-			ID: 10005,
+			ID: 100005,
 			Index: 2,
 			SkillName: '蛟精幻象',
 			Target: {"type":"self","team":0},
-			Actions: {addBuff:{"buffID":10105,"time":12}},
+			Actions: {addBuff:{"buffID":100105,"time":12}},
 			ActionCount: 0,
 			Animation: '',
 			CriticalTime: 0,
@@ -1524,9 +1524,9 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	10101: {
+	100101: {
 		1: {
-			ID: 10101,
+			ID: 100101,
 			Index: 1,
 			SkillName: '鳄鱼普攻',
 			Target: {"type":"single","team":1,"singing":1},
@@ -1544,9 +1544,9 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	10102: {
+	100102: {
 		1: {
-			ID: 10102,
+			ID: 100102,
 			Index: 1,
 			SkillName: '鳄鱼撕咬',
 			Target: {"type":"single","team":1,"singing":1},
@@ -1564,11 +1564,11 @@ module.exports = {
 			DmgFlag: ""
 		},
 		2: {
-			ID: 10102,
+			ID: 100102,
 			Index: 2,
 			SkillName: '鳄鱼撕咬',
 			Target: {"type":"single","team":1},
-			Actions: {addBuff:{"buffID":10102}},
+			Actions: {addBuff:{"buffID":100102}},
 			ActionCount: 0,
 			Animation: '',
 			CriticalTime: 0,
@@ -1582,9 +1582,9 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	10201: {
+	100201: {
 		1: {
-			ID: 10201,
+			ID: 100201,
 			Index: 1,
 			SkillName: '飞颅攻击',
 			Target: {"type":"single","team":1},
@@ -1602,9 +1602,9 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	10202: {
+	100202: {
 		1: {
-			ID: 10202,
+			ID: 100202,
 			Index: 1,
 			SkillName: '飞颅地震',
 			Target: {"type":"all","team":1},
@@ -1622,9 +1622,9 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	10301: {
+	100301: {
 		1: {
-			ID: 10301,
+			ID: 100301,
 			Index: 1,
 			SkillName: '怨鬼攻击',
 			Target: {"type":"single","team":1,"singing":1},
@@ -1642,9 +1642,9 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	10302: {
+	100302: {
 		1: {
-			ID: 10302,
+			ID: 100302,
 			Index: 1,
 			SkillName: '怨鬼诅咒',
 			Target: {"type":"single","team":1,"singing":1},
@@ -1662,11 +1662,11 @@ module.exports = {
 			DmgFlag: ""
 		},
 		2: {
-			ID: 10302,
+			ID: 100302,
 			Index: 2,
 			SkillName: '怨鬼诅咒',
 			Target: {"type":"single","team":1},
-			Actions: {create:{"cardID":10303,"num":1}},
+			Actions: {create:{"cardID":100303,"num":1}},
 			ActionCount: 0,
 			Animation: '',
 			CriticalTime: 0,
@@ -1680,9 +1680,9 @@ module.exports = {
 			DmgFlag: ""
 		}
 	},
-	10303: {
+	100303: {
 		1: {
-			ID: 10303,
+			ID: 100303,
 			Index: 1,
 			SkillName: '怨鬼诅咒',
 			Target: {"type":"self","team":0},

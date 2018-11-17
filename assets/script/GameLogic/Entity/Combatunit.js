@@ -205,34 +205,6 @@ CombatUnit.prototype.Relive = function(curhp, casterID){
     }
 }
 
-////抽牌       服务器会将所有手牌下发，这里需要做校验
-CombatUnit.prototype.onDrawPile = function(ids){
-    ids = ids || [];
-   // cc.log('服务器下发 手牌 = ',ids);//更新牌的张数
-    // cc.log('当前 手牌 = ',this.handsPile);
-
-    this.handsPile.length = 0;
-    for(var i = 0 ;i<ids.length;i++)
-    {
-        this.handsPile[i] = new HandCard(ids[i],this);
-    }
-};
-
-///刷新数据
-CombatUnit.prototype.onUseCard = function(ids){
-    this.handsPile.length = 0;
-    for(var i =0;i<ids.length;i++)
-    {
-        this.handsPile[i] = new HandCard(ids[i],this);
-    }
-}
-
-CombatUnit.prototype.useCard = function(data)
-{
-    var card = new HandCard(data.cid,this);
-    card.Active(this.curCombat.units[data.tid]);
-}
-
 CombatUnit.prototype.useSkill = function(data,targets)
 {
     var skilldata = dataMgr.skill[data.sid];

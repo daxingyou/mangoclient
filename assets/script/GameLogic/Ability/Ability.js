@@ -86,6 +86,7 @@ ability.prototype.ShowEffect = function(effect,effectType){
 	if(effectType.hasOwnProperty('offset'))
 	{
 		offset = cc.v2(effectType.offset.x,effectType.offset.y);
+		//cc.log('offset  == ',offset);
 	}
 
 	///特效播放
