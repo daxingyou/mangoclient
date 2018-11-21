@@ -18,6 +18,8 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 1,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	2: {
@@ -34,6 +36,8 @@ module.exports = {
 		CardType: 2,
 		CardQuality: 1,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'defence'
 	},
 	3: {
@@ -50,6 +54,8 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 1,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	4: {
@@ -66,6 +72,8 @@ module.exports = {
 		CardType: 2,
 		CardQuality: 1,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'defence'
 	},
 	1001: {
@@ -82,6 +90,8 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 2,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	1002: {
@@ -98,6 +108,8 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 1,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	1003: {
@@ -114,6 +126,8 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 1,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	1004: {
@@ -130,6 +144,8 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 2,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	1005: {
@@ -146,6 +162,8 @@ module.exports = {
 		CardType: 3,
 		CardQuality: 4,
 		CardAttributes: [2],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	1006: {
@@ -162,6 +180,8 @@ module.exports = {
 		CardType: 2,
 		CardQuality: 3,
 		CardAttributes: [2],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	1007: {
@@ -178,6 +198,8 @@ module.exports = {
 		CardType: 3,
 		CardQuality: 3,
 		CardAttributes: [2],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	1008: {
@@ -194,6 +216,8 @@ module.exports = {
 		CardType: 2,
 		CardQuality: 3,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	1009: {
@@ -210,6 +234,8 @@ module.exports = {
 		CardType: 2,
 		CardQuality: 3,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	1010: {
@@ -226,6 +252,134 @@ module.exports = {
 		CardType: 2,
 		CardQuality: 4,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
+		CardImage: 'attack'
+	},
+	1011: {
+		ID: 1011,
+		CardName: '拨云见日',
+		CardDescription: 'test',
+		Event: '',
+		UseLimit: {},
+		HeroID: 1000,
+		SkillID: 1011,
+		Treasure: 0,
+		CastMP: 3,
+		CastThew: 0,
+		CardType: 3,
+		CardQuality: 4,
+		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
+		CardImage: 'attack'
+	},
+	1012: {
+		ID: 1012,
+		CardName: '探囊取物',
+		CardDescription: 'test',
+		Event: '',
+		UseLimit: {},
+		HeroID: 1000,
+		SkillID: 1012,
+		Treasure: 0,
+		CastMP: 5,
+		CastThew: 0,
+		CardType: 2,
+		CardQuality: 3,
+		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
+		CardImage: 'attack'
+	},
+	1013: {
+		ID: 1013,
+		CardName: '碎石觅玉',
+		CardDescription: 'test',
+		Event: '',
+		UseLimit: {},
+		HeroID: 1000,
+		SkillID: 1013,
+		Treasure: 0,
+		CastMP: 5,
+		CastThew: 0,
+		CardType: 2,
+		CardQuality: 2,
+		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
+		CardImage: 'attack'
+	},
+	1014: {
+		ID: 1014,
+		CardName: '窃玉留香',
+		CardDescription: 'test',
+		Event: '',
+		UseLimit: {},
+		HeroID: 1000,
+		SkillID: 1014,
+		Treasure: 0,
+		CastMP: 4,
+		CastThew: 0,
+		CardType: 3,
+		CardQuality: 1,
+		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
+		CardImage: 'attack'
+	},
+	1015: {
+		ID: 1015,
+		CardName: '盗帅流芳',
+		CardDescription: 'test',
+		Event: '',
+		UseLimit: {},
+		HeroID: 1000,
+		SkillID: 1015,
+		Treasure: 0,
+		CastMP: 2,
+		CastThew: 0,
+		CardType: 2,
+		CardQuality: 2,
+		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
+		CardImage: 'attack'
+	},
+	1016: {
+		ID: 1016,
+		CardName: '抛金引玉',
+		CardDescription: 'test',
+		Event: '',
+		UseLimit: {},
+		HeroID: 1000,
+		SkillID: 1016,
+		Treasure: 0,
+		CastMP: 1,
+		CastThew: 0,
+		CardType: 2,
+		CardQuality: 1,
+		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
+		CardImage: 'attack'
+	},
+	1017: {
+		ID: 1017,
+		CardName: '郁金香',
+		CardDescription: 'test',
+		Event: '',
+		UseLimit: {},
+		HeroID: 1000,
+		SkillID: 1017,
+		Treasure: 0,
+		CastMP: 0,
+		CastThew: 0,
+		CardType: 2,
+		CardQuality: 3,
+		CardAttributes: [2,5],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	4001: {
@@ -242,6 +396,8 @@ module.exports = {
 		CardType: 2,
 		CardQuality: 1,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'qiliaoshu'
 	},
 	4002: {
@@ -258,6 +414,8 @@ module.exports = {
 		CardType: 2,
 		CardQuality: 2,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'fengshaganlinshu'
 	},
 	4003: {
@@ -274,6 +432,8 @@ module.exports = {
 		CardType: 2,
 		CardQuality: 2,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'huanhunzhou'
 	},
 	4004: {
@@ -290,6 +450,8 @@ module.exports = {
 		CardType: 2,
 		CardQuality: 4,
 		CardAttributes: [2],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'wanwufusu'
 	},
 	4005: {
@@ -306,6 +468,8 @@ module.exports = {
 		CardType: 3,
 		CardQuality: 3,
 		CardAttributes: [2],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'nvwatizhi'
 	},
 	4006: {
@@ -322,6 +486,8 @@ module.exports = {
 		CardType: 2,
 		CardQuality: 1,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'linglishifang'
 	},
 	4007: {
@@ -338,6 +504,8 @@ module.exports = {
 		CardType: 3,
 		CardQuality: 3,
 		CardAttributes: [2],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'dilingbiyou'
 	},
 	4008: {
@@ -354,6 +522,8 @@ module.exports = {
 		CardType: 3,
 		CardQuality: 3,
 		CardAttributes: [2,4],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'nvwazhuanshi'
 	},
 	4009: {
@@ -370,6 +540,8 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 1,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'taolandongdi'
 	},
 	4010: {
@@ -386,6 +558,8 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 4,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'shipojingtian'
 	},
 	4011: {
@@ -402,6 +576,8 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 2,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	4012: {
@@ -418,6 +594,8 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 1,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	4013: {
@@ -434,6 +612,8 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 1,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	4014: {
@@ -450,6 +630,8 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 2,
 		CardAttributes: [2],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	4015: {
@@ -466,6 +648,8 @@ module.exports = {
 		CardType: 3,
 		CardQuality: 4,
 		CardAttributes: [2],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	4016: {
@@ -482,6 +666,8 @@ module.exports = {
 		CardType: 2,
 		CardQuality: 3,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	4017: {
@@ -498,6 +684,8 @@ module.exports = {
 		CardType: 3,
 		CardQuality: 3,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	4018: {
@@ -514,6 +702,8 @@ module.exports = {
 		CardType: 2,
 		CardQuality: 3,
 		CardAttributes: [2],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	4019: {
@@ -530,6 +720,8 @@ module.exports = {
 		CardType: 2,
 		CardQuality: 3,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	4020: {
@@ -546,6 +738,8 @@ module.exports = {
 		CardType: 2,
 		CardQuality: 4,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	18001: {
@@ -562,6 +756,8 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 2,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	18002: {
@@ -578,6 +774,8 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 2,
 		CardAttributes: [2],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	18003: {
@@ -594,6 +792,8 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 1,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	18004: {
@@ -610,6 +810,8 @@ module.exports = {
 		CardType: 3,
 		CardQuality: 3,
 		CardAttributes: [2,4],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	18005: {
@@ -626,6 +828,8 @@ module.exports = {
 		CardType: 3,
 		CardQuality: 4,
 		CardAttributes: [2],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	18006: {
@@ -642,6 +846,8 @@ module.exports = {
 		CardType: 2,
 		CardQuality: 3,
 		CardAttributes: [2],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	18007: {
@@ -658,6 +864,8 @@ module.exports = {
 		CardType: 2,
 		CardQuality: 1,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'heal'
 	},
 	18008: {
@@ -674,6 +882,8 @@ module.exports = {
 		CardType: 2,
 		CardQuality: 3,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	18009: {
@@ -690,6 +900,8 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 1,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	18010: {
@@ -706,6 +918,8 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 4,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	100001: {
@@ -722,6 +936,8 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 2,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	100002: {
@@ -738,6 +954,8 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 2,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	100003: {
@@ -754,6 +972,8 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 3,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	100004: {
@@ -770,6 +990,8 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 3,
 		CardAttributes: [2,4],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	100005: {
@@ -786,6 +1008,8 @@ module.exports = {
 		CardType: 2,
 		CardQuality: 4,
 		CardAttributes: [2,4],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'defence'
 	},
 	100101: {
@@ -802,6 +1026,8 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 2,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	100102: {
@@ -818,6 +1044,8 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 2,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	100201: {
@@ -834,6 +1062,8 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 2,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	100202: {
@@ -850,6 +1080,8 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 2,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	100301: {
@@ -866,6 +1098,8 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 2,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	100302: {
@@ -882,6 +1116,8 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 2,
 		CardAttributes: [1],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 	100303: {
@@ -898,6 +1134,8 @@ module.exports = {
 		CardType: 1,
 		CardQuality: 2,
 		CardAttributes: [5,6],
+		CardMaxLevel: 1,
+		CardLimit: 2,
 		CardImage: 'attack'
 	},
 };

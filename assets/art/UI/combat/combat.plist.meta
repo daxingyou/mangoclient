@@ -10,7 +10,7 @@
   "subMetas": {
     "0.png": {
       "ver": "1.0.3",
-      "uuid": "92f56118-3aca-4183-9c9e-d5ebc261dda1",
+      "uuid": "8d12985b-8c9a-4f68-b94e-52d0f5491c41",
       "rawTextureUuid": "45bd16cb-2d6a-4f58-9838-f187f9d0a716",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -32,7 +32,7 @@
     },
     "1.png": {
       "ver": "1.0.3",
-      "uuid": "fad87dfc-b763-4625-b03b-7cd62b9c3a4c",
+      "uuid": "4079f560-4105-4546-86e5-1c56f40ec1b2",
       "rawTextureUuid": "45bd16cb-2d6a-4f58-9838-f187f9d0a716",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -54,7 +54,7 @@
     },
     "2.png": {
       "ver": "1.0.3",
-      "uuid": "100ed6e4-0479-4625-a3c6-fd447378e41d",
+      "uuid": "5f0c9be9-4180-4386-9f89-455a538fef55",
       "rawTextureUuid": "45bd16cb-2d6a-4f58-9838-f187f9d0a716",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -76,7 +76,7 @@
     },
     "3.png": {
       "ver": "1.0.3",
-      "uuid": "5218cd64-32f5-4877-8c1a-b549ce1dd7d8",
+      "uuid": "b9c77480-0ecc-4fe1-ae6d-7ea08d74c915",
       "rawTextureUuid": "45bd16cb-2d6a-4f58-9838-f187f9d0a716",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -98,7 +98,7 @@
     },
     "4.png": {
       "ver": "1.0.3",
-      "uuid": "ae68db5f-1370-4df1-82c6-a78d8149f179",
+      "uuid": "8d1634ee-5691-4dc9-b98b-fb0f038f10dd",
       "rawTextureUuid": "45bd16cb-2d6a-4f58-9838-f187f9d0a716",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -120,7 +120,7 @@
     },
     "5.png": {
       "ver": "1.0.3",
-      "uuid": "0751d342-a00e-4887-a2c3-fff094be2c56",
+      "uuid": "db672a83-474a-47bc-b1fd-c4ebc65ecc61",
       "rawTextureUuid": "45bd16cb-2d6a-4f58-9838-f187f9d0a716",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -142,7 +142,7 @@
     },
     "6.png": {
       "ver": "1.0.3",
-      "uuid": "f2d89005-2321-45b7-b320-f12f7d66bfec",
+      "uuid": "82c675f8-35b0-496b-b246-a6a1836ba8a0",
       "rawTextureUuid": "45bd16cb-2d6a-4f58-9838-f187f9d0a716",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -164,7 +164,7 @@
     },
     "7.png": {
       "ver": "1.0.3",
-      "uuid": "44a86034-c690-47f6-b75a-e37ed49a3b7d",
+      "uuid": "0bbfb681-311b-46f6-a970-334046014e47",
       "rawTextureUuid": "45bd16cb-2d6a-4f58-9838-f187f9d0a716",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -186,7 +186,7 @@
     },
     "8.png": {
       "ver": "1.0.3",
-      "uuid": "399ae79d-851f-4f61-a062-e28ba3dc1d04",
+      "uuid": "dad53a7d-670d-4578-9693-ec55e70bd0c6",
       "rawTextureUuid": "45bd16cb-2d6a-4f58-9838-f187f9d0a716",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -208,7 +208,7 @@
     },
     "9.png": {
       "ver": "1.0.3",
-      "uuid": "bd13dd46-c808-4c41-9237-fa727586ca78",
+      "uuid": "aaf90ddf-56eb-43dd-b0f1-8a1453e76b63",
       "rawTextureUuid": "45bd16cb-2d6a-4f58-9838-f187f9d0a716",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -318,7 +318,7 @@
     },
     "card_bg.png": {
       "ver": "1.0.3",
-      "uuid": "2c4af1b7-f4e5-405f-8309-612357c85272",
+      "uuid": "29c63491-0164-4116-b5db-4c3ec64178f4",
       "rawTextureUuid": "45bd16cb-2d6a-4f58-9838-f187f9d0a716",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -340,7 +340,7 @@
     },
     "card_bottom.png": {
       "ver": "1.0.3",
-      "uuid": "fea8696b-670f-4708-97b5-6d272859dbbf",
+      "uuid": "c144790f-8ced-428e-bef8-dbbf0bb0815d",
       "rawTextureUuid": "45bd16cb-2d6a-4f58-9838-f187f9d0a716",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -362,7 +362,7 @@
     },
     "card_level_frame.png": {
       "ver": "1.0.3",
-      "uuid": "3451b48e-1ed6-444d-89db-e22f403d9ae9",
+      "uuid": "3b959147-f2f4-4acc-bac5-314bfd7c766b",
       "rawTextureUuid": "45bd16cb-2d6a-4f58-9838-f187f9d0a716",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -384,7 +384,7 @@
     },
     "card_select_effect.png": {
       "ver": "1.0.3",
-      "uuid": "f8091160-3e24-4432-b412-1ba0eda5ccd6",
+      "uuid": "96a8afe0-8b93-4cae-9e58-277106cef87f",
       "rawTextureUuid": "45bd16cb-2d6a-4f58-9838-f187f9d0a716",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -758,7 +758,7 @@
     },
     "mp2.png": {
       "ver": "1.0.3",
-      "uuid": "f03a0708-fcaa-4752-a458-05eda1bf730f",
+      "uuid": "4f673d78-3f7f-4a47-8d7c-f9c8f9829916",
       "rawTextureUuid": "45bd16cb-2d6a-4f58-9838-f187f9d0a716",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1022,7 +1022,7 @@
     },
     "thew2.png": {
       "ver": "1.0.3",
-      "uuid": "272209a3-0841-4c4c-8480-fea1e7c572d1",
+      "uuid": "0a8b85bf-3cb1-4b21-a0c4-dbb28b9ec61b",
       "rawTextureUuid": "45bd16cb-2d6a-4f58-9838-f187f9d0a716",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1110,7 +1110,7 @@
     },
     "type_artifact.png": {
       "ver": "1.0.3",
-      "uuid": "95b52981-4aed-4f5d-9451-9996878de7a8",
+      "uuid": "8c718c88-a0b2-4244-803d-72ef4b24b580",
       "rawTextureUuid": "45bd16cb-2d6a-4f58-9838-f187f9d0a716",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1132,7 +1132,7 @@
     },
     "type_attack.png": {
       "ver": "1.0.3",
-      "uuid": "3d4a3c85-20f2-4f5d-bedf-c62827255b7b",
+      "uuid": "19c28301-1f67-4907-86c5-adfcd7874089",
       "rawTextureUuid": "45bd16cb-2d6a-4f58-9838-f187f9d0a716",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1154,7 +1154,7 @@
     },
     "type_skill.png": {
       "ver": "1.0.3",
-      "uuid": "daa3acd9-826d-42bb-a85c-187e515b175a",
+      "uuid": "53685758-ff13-4b9c-9a1c-104ec9a02305",
       "rawTextureUuid": "45bd16cb-2d6a-4f58-9838-f187f9d0a716",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1176,7 +1176,7 @@
     },
     "type_talent.png": {
       "ver": "1.0.3",
-      "uuid": "66703aed-b3df-4586-a03f-4663357149ac",
+      "uuid": "522368d2-ee95-44b0-8292-f47a6ef276ca",
       "rawTextureUuid": "45bd16cb-2d6a-4f58-9838-f187f9d0a716",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -1198,7 +1198,7 @@
     },
     "、.png": {
       "ver": "1.0.3",
-      "uuid": "1789adb0-e58f-4c8b-9f88-c14ae5657876",
+      "uuid": "9f4bf6df-3e2d-40cb-ae51-40dcdbe9d6cf",
       "rawTextureUuid": "45bd16cb-2d6a-4f58-9838-f187f9d0a716",
       "trimType": "auto",
       "trimThreshold": 1,

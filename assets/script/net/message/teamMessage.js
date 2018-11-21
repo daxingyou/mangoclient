@@ -55,47 +55,6 @@ module.exports = {
                         cc.log("人满了");
                         that._uimgr.showTips("人满了");
                     }
-                   
-                  
-                    else if (data.code == consts.TeamCode.LEVEL_LIMIT) {
-                        cc.log("等级限制");
-                        that._uimgr.showTips("等级限制");
-                    }
-                    else if (data.code == consts.TeamCode.RAND_LIMIT) {
-                        cc.log("段位限制");
-                        that._uimgr.showTips("段位限制");
-                    }
-                    else if (data.code == consts.TeamCode.HERO_NUM_LIMIT) {
-                        cc.log("英雄数量限制");
-                        that._uimgr.showTips("英雄数量限制");
-                    }
-                    
-                    else if (data.code == consts.TeamCode.MEMBER_NOT_EXIST) {
-                        cc.log("没有该成员");
-                        that._uimgr.showTips("没有该成员");
-                    }
-                    else if (data.code == consts.TeamCode.NOT_CAPTAIN) {
-                        cc.log("不是队长");
-                        that._uimgr.showTips("不是队长");
-                    }
-                    else if (data.code == consts.TeamCode.READY_OFF_ALREADY) {
-                        cc.log("已经取消准备");
-                    }
-                    else if (data.code == consts.TeamCode.TEAM_NOT_EXIST) {
-                        cc.log("已经准备");
-                    }
-                    else if (data.code == consts.TeamCode.READY_ON_ALREADY) {
-                        cc.log("没有准备");
-                    }
-                    else if (data.code == consts.TeamCode.READY_OFF_ALREADY) {
-                        cc.log("已经取消准备");
-                    }
-                    else if (data.code == consts.TeamCode.MATCHING) {
-                        cc.log("匹配中");
-                    }
-                    else if (data.code == consts.TeamCode.IN_PUNISH) {
-                        cc.log("超时惩罚");
-                    }
                 });
             };
 
@@ -111,6 +70,7 @@ module.exports = {
                     cc.log("忽略组队邀请",data);
                 });
             };
+            
             that._uimgr.popupTips(2,data.openid+"邀请你一起玩游戏","邀请",callIgnore,callRefuse,callComfirm,that);
           
             /*  "onTeamInvited": {

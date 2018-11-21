@@ -16,6 +16,9 @@ cc.Class({
        _level:null,
        state:cc.Label,
        _forId:null,
+       stateBg: cc.Sprite,
+       stateAltas: cc.SpriteAtlas,
+       _click: false,
     },
 
    
@@ -36,8 +39,18 @@ cc.Class({
     },
     userState(state,id) {
         this.state.string = state;
+        if (state == "在线") {
+            this.stateBg.spriteFrame = this.stateAltas.getSpriteFrame('omline_bg');
+        }
+        else if (state == "离线") {
+            this.stateBg.spriteFrame = this.stateAltas.getSpriteFrame('offline_bg');
+        }
+        else if (state == "游戏中") {
+            this.stateBg.spriteFrame = this.stateAltas.getSpriteFrame('games_bg');
+        }
         if (state == "组队中") {
             this.invited.string = "求邀请";
+            this.stateBg.spriteFrame = this.stateAltas.getSpriteFrame('omline_bg');
             this._forId = id;
         }
     },
@@ -47,16 +60,21 @@ cc.Class({
         //玩家等级达到RequireLelve 才能邀请	----4v4
         //等级，段位，拥有英雄 ---- 组队天梯	
         var self = this;
+        if (self._click)
+        return;
         if (self.invited.string == "求邀请") {
             net.Request(new applyForJoinProto(self._forId), (data) => {
+                self._click = true;
                 cc.log("发送申请入队邀请 ",data,"向申请入队",self._forId);
             });
         }		
         else {
             net.Request(new inviteProto(self._eid), (data) => {
+                self._click = true;
                 cc.log("发送组队邀请 ",data,"邀请的id",self._eid);
             });
         }
+        self.invited.string == "已发送";
        // self.invited.string = "已发送";
     },
 });

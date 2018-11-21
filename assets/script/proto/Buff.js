@@ -17,8 +17,8 @@ module.exports = {
 		Image: 'buff1',
 		Effect: ''
 	},
-	1002: {
-		ID: 1002,
+	18002: {
+		ID: 18002,
 		BuffName: '护甲',
 		Description: '增加15点护甲，持续15秒',
 		Type: 'addArm',
@@ -30,34 +30,34 @@ module.exports = {
 		Image: 'buff2',
 		Effect: ''
 	},
-	1004: {
-		ID: 1004,
+	18004: {
+		ID: 18004,
 		BuffName: '剑灵乱舞',
 		Description: '每使用1张卡牌，对随机一个敌方单位造成20点伤害',
 		Type: 'useCardListener',
 		Logic: {num:1,cardType:1},
 		Stack: 0,
 		StackLimit: 0,
-		SkillID: 1104,
+		SkillID: 18104,
 		IsHide: 0,
 		Image: 'buff3',
 		Effect: ''
 	},
-	1005: {
-		ID: 1005,
+	18005: {
+		ID: 18005,
 		BuffName: '横剑摆渡',
 		Description: '每使用5张攻击牌，则抽取1张牌',
 		Type: 'useCardListener',
 		Logic: {num:5,cardType:1},
 		Stack: 0,
 		StackLimit: 0,
-		SkillID: 1105,
+		SkillID: 18105,
 		IsHide: 0,
 		Image: 'buff1',
 		Effect: ''
 	},
-	1011: {
-		ID: 1011,
+	1001: {
+		ID: 1001,
 		BuffName: '冻伤',
 		Description: '每秒受到6点伤害，持续5秒',
 		Type: 'dot',
@@ -69,8 +69,8 @@ module.exports = {
 		Image: 'buff2',
 		Effect: ''
 	},
-	1015: {
-		ID: 1015,
+	1005: {
+		ID: 1005,
 		BuffName: '纳灵诀',
 		Description: '敌人每受到15次来自陈靖仇的伤害，陈靖仇获得1点灵力',
 		Type: 'damageListener',
@@ -82,8 +82,8 @@ module.exports = {
 		Image: 'buff3',
 		Effect: ''
 	},
-	1017: {
-		ID: 1017,
+	1007: {
+		ID: 1007,
 		BuffName: '纳灵诀',
 		Description: '敌人每次受到伤害，2%概率增加一张乌雪刃卡牌',
 		Type: 'damageListener',
@@ -95,8 +95,8 @@ module.exports = {
 		Image: 'buff3',
 		Effect: ''
 	},
-	1018: {
-		ID: 1018,
+	1008: {
+		ID: 1008,
 		BuffName: '冰灵劲',
 		Description: '每秒恢复1点灵力，持续5秒',
 		Type: 'getMP',
@@ -106,6 +106,45 @@ module.exports = {
 		SkillID: 0,
 		IsHide: 0,
 		Image: 'buff2',
+		Effect: ''
+	},
+	1011: {
+		ID: 1011,
+		BuffName: '拨云见日',
+		Description: '提升眼力，看穿敌人弱点，给所有敌人附加易伤效果',
+		Type: 'modProp',
+		Logic: {powerUp:0.25},
+		Stack: 0,
+		StackLimit: 0,
+		SkillID: 0,
+		IsHide: 0,
+		Image: 'buff2',
+		Effect: ''
+	},
+	1014: {
+		ID: 1014,
+		BuffName: '窃玉留香',
+		Description: '每次成功偷取（复制）敌方手牌，则在对方抽牌堆留下1枝郁金香',
+		Type: 'copyCardListener',
+		Logic: {num:1,cardType:1},
+		Stack: 0,
+		StackLimit: 0,
+		SkillID: 1114,
+		IsHide: 0,
+		Image: 'buff3',
+		Effect: ''
+	},
+	1017: {
+		ID: 1017,
+		BuffName: '郁金香',
+		Description: '有着浓郁花香的郁金香，抽到卡牌时，角色眩晕0.5秒',
+		Type: 'dizzy',
+		Logic: {},
+		Stack: 1,
+		StackLimit: 1,
+		SkillID: 0,
+		IsHide: 0,
+		Image: 'buff1',
 		Effect: ''
 	},
 	4004: {

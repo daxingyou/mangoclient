@@ -21,9 +21,6 @@ cc.Class({
         typeAttack:cc.Sprite,
     },
     
-
-
-
     // onLoad () {},
 
     start () {

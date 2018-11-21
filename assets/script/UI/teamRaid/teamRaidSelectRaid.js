@@ -92,8 +92,6 @@ cc.Class({
         if (teamRaidData.cardsList != null) {
             this.teamerSelectAward(teamRaidData.cardsList);
         }
-      //  eventMgr.on("teamSelectAward",this.teamerSelectAward,this);
-       
     },
     start () {
     
@@ -146,6 +144,10 @@ cc.Class({
 
     start () {
        
+    },
+
+    onDestroy() {
+        eventMgr.off("selectList",this.loadRaid);
     },
 
     update (dt) {

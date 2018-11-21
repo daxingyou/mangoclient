@@ -40,7 +40,9 @@ cc.Class({
         _membersData:[],
 
         invitedTips:cc.Node,//邀请我
+        invitedHotNode: cc.Node,
         beInvitedTips:cc.Node,//求邀我
+        beInvitedHotNode: cc.Node,
         showApplyList:cc.Node,//
         _invitedBar:[],
         showApplyBtn:cc.Node,
@@ -78,7 +80,6 @@ cc.Class({
      },
 
      start () {
-        //注册队伍刷新事件
         eventMgr.on("onRefreshTeam",this.refreshTeam,this);
         eventMgr.on("onTeamBeKicked",this.onTeamBeKicked,this);
         eventMgr.on("onTeamReadyStateChange",this.teamReadyStateChange,this);
@@ -89,8 +90,7 @@ cc.Class({
          if (teamData.refreshTeam != null) {
           this.refreshTeam();
          }
-        
-
+    
          if (teamData.onTeamInvited.length != 0) {////存在邀请我的列表
            this.teamInvited();
          }
@@ -101,6 +101,7 @@ cc.Class({
      teamInvited() {
         let num  = teamData.onTeamInvited.length;
         this.invitedTips.active = true;
+        this.invitedHotNode.active = true;
         this.invitedTips.getComponent(cc.Label).string = num;
      },
 
@@ -110,10 +111,12 @@ cc.Class({
         if (num == 0) {
             this.showApplyList.active = false;
             this.beInvitedTips.active = false;
+            this.beInvitedHotNode.active = false;
             this.showApplyBtn.getComponent(cc.Button).interactable = true;
         }
         else {
             this.beInvitedTips.active = true;
+            this.beInvitedHotNode.active = true;
             this.beInvitedTips.getComponent(cc.Label).string = num;
         }
      },
@@ -211,10 +214,10 @@ cc.Class({
     
         self.invitedTips.getComponent(cc.Label).string = len;
         if (len == 0) {
+            self.invitedHotNode.active = false;
             self.invitedTips.active = false;
             self.showApplyList.active = false;
         }
-
     },
 
       //刷新队友成员
@@ -436,8 +439,6 @@ cc.Class({
                 }
             } 
         });
-      
- 
     },
 
    
@@ -583,7 +584,7 @@ cc.Class({
             this.cdTime = parseInt(time/1000);
         }
         this.beginMatchBtn.getComponent(cc.Button).interactable = false;
-        this.beginMatchBtn.getChildByName('Label').getComponent(cc.Label).string = "取消匹配";
+        this.beginMatchBtn.getChildByName('Label').getComponent(cc.Label).string = "匹配中...";
         this.showFloatWait();
     },
 

@@ -28,7 +28,7 @@ var Tutorial = {
             });
         }
         else{
-            this.tutorialUI.init(this.curData,this);
+            this.tutorialUI.initTutorial(this.curData,this);
         }
     },
     NextStep(){

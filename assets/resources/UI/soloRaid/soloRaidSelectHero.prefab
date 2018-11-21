@@ -197,9 +197,7 @@
       "__id__": 3
     },
     "_enabled": true,
-    "_spriteFrame": {
-      "__uuid__": "a23235d1-15db-4b95-8439-a2e005bfff91"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 0,
     "_fillType": 0,
@@ -925,9 +923,7 @@
       "__id__": 23
     },
     "_enabled": true,
-    "_spriteFrame": {
-      "__uuid__": "17730a00-e8f6-47f9-85bd-037c6e7f3f05"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 0,
     "_fillType": 0,
@@ -941,9 +937,7 @@
     "_isTrimmedMode": false,
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_atlas": {
-      "__uuid__": "bffdc12e-71b0-47fa-b65b-b5ebb85ea5fb"
-    }
+    "_atlas": null
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -1248,9 +1242,7 @@
       "__id__": 33
     },
     "_enabled": true,
-    "_spriteFrame": {
-      "__uuid__": "17730a00-e8f6-47f9-85bd-037c6e7f3f05"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 2,
     "_fillType": 0,
@@ -1264,9 +1256,7 @@
     "_isTrimmedMode": false,
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_atlas": {
-      "__uuid__": "bffdc12e-71b0-47fa-b65b-b5ebb85ea5fb"
-    }
+    "_atlas": null
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -1571,9 +1561,7 @@
       "__id__": 43
     },
     "_enabled": true,
-    "_spriteFrame": {
-      "__uuid__": "64a65a32-eb03-499d-8d17-996ec1e4095a"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 2,
     "_fillType": 0,
@@ -1587,9 +1575,7 @@
     "_isTrimmedMode": false,
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_atlas": {
-      "__uuid__": "bffdc12e-71b0-47fa-b65b-b5ebb85ea5fb"
-    }
+    "_atlas": null
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -2955,7 +2941,7 @@
       "__id__": 13
     },
     "heroIconAtlas": {
-      "__uuid__": "a745a576-8f6b-4064-8ad7-569110e645c9"
+      "__uuid__": "d7e0a127-dceb-4029-83a5-67471c1ad6b9"
     },
     "_ownHeroBar": [],
     "showSelectHero": {
@@ -2964,7 +2950,9 @@
     "heroName": {
       "__id__": 55
     },
-    "_heroid": null
+    "_heroid": null,
+    "_CDState": true,
+    "_selectedIdx": -1
   },
   {
     "__type__": "cc.Widget",

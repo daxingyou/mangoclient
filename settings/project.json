@@ -11,14 +11,12 @@
   "excluded-modules": [
     "Mask",
     "CCSpriteDistortion",
-    "ParticleSystem",
     "TiledMap",
     "PageView",
     "PageViewIndicator",
     "VideoPlayer",
     "WebView",
     "AudioSource",
-    "Animation",
     "MotionStreak",
     "Collider",
     "Audio",
@@ -26,7 +24,6 @@
     "Physics",
     "StudioComponent",
     "RenderTexture",
-    "Chipmunk",
     "Camera",
     "Native NetWork"
   ],
@@ -36,6 +33,5 @@
   "simulator-orientation": false,
   "simulator-resolution": {},
   "use-customize-simulator": true,
-  "use-project-simulator-setting": false,
-  "start-scene": "current"
+  "use-project-simulator-setting": false
 }

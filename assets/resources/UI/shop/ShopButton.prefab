@@ -262,7 +262,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "6ec97450-9bda-4e99-bdcf-8cc6c567dace"
+      "__uuid__": "c78e0712-7cd7-4f40-85de-c472606f0556"
     },
     "_type": 1,
     "_sizeMode": 0,
@@ -278,7 +278,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_atlas": {
-      "__uuid__": "ef28c0b2-a5f3-4874-8296-2267ad91fdc5"
+      "__uuid__": "4ad25b9c-5c18-4f0c-b832-da4372c377c0"
     }
   },
   {
@@ -326,7 +326,7 @@
       "a": 255
     },
     "_N$normalSprite": {
-      "__uuid__": "6ec97450-9bda-4e99-bdcf-8cc6c567dace"
+      "__uuid__": "c78e0712-7cd7-4f40-85de-c472606f0556"
     },
     "_N$pressedSprite": {
       "__uuid__": "e9ec654c-97a2-4787-9325-e6a10375219a"

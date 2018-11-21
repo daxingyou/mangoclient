@@ -237,7 +237,6 @@ cc.Class({
         this.node.getChildByName('limit').active = true;
         this.node.getChildByName('limitMp').active = false;
         this.initCard();
-
     },
 
     _loadLimitCard (index) {
@@ -352,6 +351,10 @@ cc.Class({
         this.copyCard();
     },
 
+    closeSelectCardGroup () {
+        this.selectCard.active = false;
+    },
+
     _closeCardStartEvent () {
         for (let i =0 ;i< this._cardSrc.length;i++) {
             this._cardSrc[i].closeCardDes();
@@ -367,8 +370,8 @@ cc.Class({
             let name = 'card' + i;
             let item = this.node.getChildByName(name);
             item.active = true;
-            item.x = child[i].x - 75;
-            item.y = child[i].y - 20;
+            item.x = child[i].x - 140;
+            item.y = child[i].y - 45;
             let itemData = dataMgr.card[this._cid[i]];
             this._copyCardSrc.push(item.getComponent('moveCard')); 
             this._copyCardSrc[i].initData(i,itemData.CardName,itemData.CardQuality,itemData.CardImage,
@@ -377,10 +380,14 @@ cc.Class({
     },
 
     _updateMoveCardData (curPage) {
+        let child = this._page[0].children;
         for (let i = 0;i< 8;i++) {
+            let pos = child[i].getPosition();
             let name = 'card' + i;
             let item = this.node.getChildByName(name);
             item.active = false;
+            item.x = child[i].x - 140;
+            item.y = child[i].y - 45;
         }
         let len = this._page[curPage].childrenCount;
         let index = 8 * curPage;
@@ -395,7 +402,7 @@ cc.Class({
     },
 
 
-    addCard (name) {
+    addCard (name,mp) {
         let self = this;
         cc.loader.loadRes('UI/cardGroup/comfirmCard', function (errorMessage, loadedResource) {       
             if (errorMessage) {
@@ -407,11 +414,16 @@ cc.Class({
                 return;
             }
             let showItem = cc.instantiate(loadedResource);
-            showItem.getComponent('comfirmCard').initData(self._comfrimCardNum,name,1);
+            //index,cardName,cardNum,mpNum
+            showItem.getComponent('comfirmCard').initData(self._comfrimCardNum,name,1,mp);
             self.heroContent.addChild(showItem);
             self._comfrimCardNum +=1;
-            self.comfrimCard.string = self._comfrimCardNum + "/100 完成";
-        });          
+            self.comfrimCard.string = self._comfrimCardNum + "/100 卡牌";
+        });  
+        let len = self.heroContent.childrenCount;
+        if (len >= 5) {
+            self.heroContent.height = len * 85; 
+        }        
     },
 
 

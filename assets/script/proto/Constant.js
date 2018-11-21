@@ -12,4 +12,5 @@ module.exports = {
 	DungeonArtifactLevel: 1,
 	SilverExchange: 100,
 	PowerExchange: 10,
+	TutorialDungeon: [11, 12, 13, 14],
 };

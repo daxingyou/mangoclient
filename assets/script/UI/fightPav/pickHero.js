@@ -40,6 +40,10 @@ cc.Class({
         raidTeamInfo:null,
         _isRaid:false,
         heroAtt: cc.SpriteAtlas,
+        attLight1:cc.Node,
+        attLight2:cc.Node,
+        attLight3:cc.Node,
+        _selectedIdx: -1,
        
     },
 
@@ -58,7 +62,7 @@ cc.Class({
                resIndex++;
                self.showOwnHero.addChild(item);
                self._ownHeroBar.push(item.getComponent('ownHero'));
-               self._ownHeroBar[resIndex-1].initData(itemData.ID,itemData.HeroName,itemData.HeroIcon,self);
+               self._ownHeroBar[resIndex-1].initData(resIndex-1,itemData.ID,itemData.HeroName,itemData.HeroIcon,self);
                //heroid,heroName,heroIcon,parents
            }
        });
@@ -110,7 +114,11 @@ cc.Class({
     },
 
     //自己选择得英雄
-    selectHero (heroid) {//传英雄id
+    selectHero (heroid,index) {
+        if (this._selectedIdx >= 0) {
+            this._ownHeroBar[this._selectedIdx].unSelect();
+        }
+        this._selectedIdx = index;
         this.showSelect.active = true;
         let heroData = dataMgr.hero[heroid];
         let heroIcon = heroData.HeroIcon;
@@ -154,8 +162,8 @@ cc.Class({
         this._CDState = false;
     },
 
+    //超时默认服务器选择英雄
     defalutSelect (data) {
-      
         for (let uid in data) {
             if (this._uid4ShowNode[uid] != undefined) {
                 var showNode = this._uid4ShowNode[uid];
@@ -203,6 +211,23 @@ cc.Class({
         cc.log("选择英雄属性");
         let index = parseInt(cust);
         this.heroAttribute = index;
+
+        if (index == 1) {
+            this.attLight1.active = true;
+            this.attLight2.active = false;
+            this.attLight3.active = false;
+        }
+        else if (index == 2) {
+            this.attLight1.active = false;
+            this.attLight2.active = true;
+            this.attLight3.active = false;
+        }
+        else if (index == 3) {
+            this.attLight1.active = false;
+            this.attLight2.active = false;
+            this.attLight3.active = true;
+        }
+
     },
 
     enterPileKu () {

@@ -1,14 +1,17 @@
 var uiBase = require('UIBase')
 var constant = require('constants')
 var net = require("NetPomelo")
+var consts = require('consts')
 var back = require('backMainUI')
 var addFriendProto = require("addFriendProto")
 var acceptFriendProto = require("acceptFriendProto")
 var confirmHeroProto = require("confirmHeroProto")
 var getFriendsManageInfoProto = require("getFriendsManageInfoProto")
+var getRecommendListProto = require("getRecommendListProto")
 var dataCenter = require("DataCenter")
 var friendData = require('FriendData')
 var eventMgr = require('eventMgr')
+var playerData = require('playerData')
 cc.Class({
     extends: uiBase,
 
@@ -29,6 +32,8 @@ cc.Class({
         showGameFriend:cc.Node,
         _showGameFriend:[],
         _eidBar:[],
+        _limitRecom: 0,
+
 
 
     },
@@ -52,9 +57,9 @@ cc.Class({
             this.GameFriendClick();
         }
         
+        //一登录就有好友申请
         if (friendData.addInviter != null) {
             eventMgr.emit("onAddInviter");
-            // friendData.AddInviter = null;
         } 
     },
     
@@ -63,7 +68,6 @@ cc.Class({
         var self = this;
         self.applyTips.active = true;
         let data = friendData.addInviter;
-        console.log("好友申请列表----",data);
         if (data == null) 
         return;
         var lastIndex = self.showApplyBar.childrenCount;
@@ -90,11 +94,11 @@ cc.Class({
                 let item = cc.instantiate(loadedResource);
                 self.showGameFriend.addChild(item);
                 self._showGameFriend.push(item.getComponent('gameFriendItem'));
-                self._showGameFriend[lastIndex].initData(lastIndex,data.eid,data.openid,1,self);
+                self._showGameFriend[lastIndex].initData(lastIndex,data,self,1);
                 self._eidBar.push(data.eid);//删除查找索引
                 self.showGameFriend.height += 160;
                 cc.loader.release('UI/Friend/gameFriendItem');
-            });
+        });
     },
 
      //点击删除后双方刷新游戏好友列表
@@ -116,14 +120,13 @@ cc.Class({
         var self = this;
         var allChildren = self.showApplyBar.children;
         allChildren[curIndex].removeFromParent();
-        self.showApplyBar.height -=60;
+        self.showApplyBar.height -= 60;
         let itemCom;
         for(let i=0;i<allChildren.length;i++) {
             itemCom = allChildren[i].getComponent('applyItem');
             itemCom._curIndex = i;
         }
        friendData.AddInviter = null;
-       // cc.log("shsdlkafffffffffffffffff",friendData.AddInviter);
     },
 
 
@@ -148,15 +151,16 @@ cc.Class({
                         resIndex++;
                         self.showGameFriend.addChild(item);
                         self._showGameFriend.push(item.getComponent('gameFriendItem'));
-                        self._showGameFriend[i].initData(i,itemData.eid,itemData.openid,itemData.relation,self);
+                        self._showGameFriend[i].initData(i,itemData,self,1);
                         self._eidBar.push(itemData.eid);//方便删除查找
                         if (resIndex == friends.length) {
                             cc.loader.release('UI/Friend/gameFriendItem');
+                            self._updateFriendState();
                             if (friends.length > 5)
                             self.showGameFriend.height = friends.length * 160;
                         }
                     }
-            });
+                });
             }
             else if (i == "invitedList") {//申请列表
                 if (friendInfos[i].length === 0 || friendInfos[i].length === undefined )
@@ -182,9 +186,21 @@ cc.Class({
                             }
                         }
                     }
-            })
+                })
             }
          }
+    },
+
+    _updateFriendState () {
+        let self = this;
+        net.Request(new getFriendsManageInfoProto(playerData.id), function (data) {
+            let infos = data.infos;
+            for (let i =0;i<infos.length;i++) {
+                let itemData = infos[i];
+                let id = itemData.id;
+                self._showGameFriend[i].userState(itemData.state);
+            } 
+        });
     },
 
     
@@ -208,18 +224,18 @@ cc.Class({
         }
     },
 
+    //清空搜索框
     deleteInputContent () {
-        cc.log("清空搜索框");
         this.inputContent.placeholder = "请输入关键词";
         this.inputContent.string = '';
         this._inputContent = null;
         this.deleteBtn.active = false;
     }, 
 
+    //点击搜索
     onclickSelect () {
         var uid = "5bd66a5d4235b14a78b54106";//m
        var self = this;
-        cc.log("点击搜索");
         if (self.inputContent.string.length <=0) {
             self._uiMgr.showTips('请输入搜索关键词');
         }
@@ -249,16 +265,66 @@ cc.Class({
         }
     },
 
+    //点击查看申请列表
     lookApplyList () {
-        cc.log("点击查看申请列表");
         this.applyView.active = true;
         this.applyTips.active = false;
         this.showGameFriend.active = false;
     },
+    
     closeApplyList () {
-        cc.log("关闭申请面板");
         this.applyView.active = false;
         this.showGameFriend.active = true;
+    },
+
+    //推荐好友
+    recommendFriend () {
+        this.node.getChildByName('bottomLeft').active = false;
+        this.node.getChildByName('game').active = false;
+        this.node.getChildByName('invitedWechatGame').active = false;
+        this.node.getChildByName('applyListBtn').active = false;
+        this.node.getChildByName('recommend').active = false;
+        this.node.getChildByName('recommondLimit').active = true;
+        this.node.getChildByName('changeBtn').active = true;
+        this.node.getChildByName('wechat').getComponent(cc.Button).interactable = false;
+        this.node.getChildByName('wechat').getChildByName('Label').getComponent(cc.Label).string  = "推荐好友";
+        this.showGameFriend.removeAllChildren();
+        let self = this;
+        net.Request(new getRecommendListProto(self._limitRecom), function (data) {
+            cc.log(data,"data-----getRecommendListProto");
+            self.addRecommonFriend(data.res);
+        });
+    },
+
+    limitRecommend (event,cust) {
+        let limit = parseInt(cust);
+        this._limitRecom = limit;
+    },
+
+    addRecommonFriend (data) {
+        let resIndex = 0;
+        let self = this;
+        self._showGameFriend = [];
+        cc.loader.loadRes('UI/Friend/gameFriendItem', function (errorMessage, loadedResource) {
+            for (var i = 0; i < data.length; i++) {
+                var itemData = data[i];
+                if (errorMessage) {
+                    cc.log('载入预制资源失败, 原因:' + errorMessage);
+                    return;
+                }
+                let item = cc.instantiate(loadedResource);
+                resIndex++;
+                self.showGameFriend.addChild(item);
+                self._showGameFriend.push(item.getComponent('gameFriendItem'));
+                self._showGameFriend[i].initData(i,itemData,self,2);
+                self._eidBar.push(itemData.eid);//方便删除查找
+                if (resIndex == data.length) {
+                    cc.loader.release('UI/Friend/gameFriendItem');
+                    if (data.length > 5)
+                    self.showGameFriend.height = friends.length * 160;
+                }
+            }
+        });
     },
 
 
@@ -266,7 +332,7 @@ cc.Class({
     update (dt) {
         if(cc.sys.platform == cc.sys.WECHAT_GAME)
             this._updaetSubDomainCanvas();
-},
+    },
 
     
     _updaetSubDomainCanvas () {
@@ -276,7 +342,6 @@ cc.Class({
 
         // if(!this._isShow)
         //     return;
-
         var openDataContext = wx.getOpenDataContext();
         var sharedCanvas = openDataContext.canvas;
         this.tex.initWithElement(sharedCanvas);

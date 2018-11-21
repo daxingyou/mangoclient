@@ -316,6 +316,20 @@ CombatUnit.prototype.onGetMp = function (data) {
         this.fightUI.onFreshMp(this.mp);
 };
 
+CombatUnit.prototype.updatePileNum = function (pileType, deltaNum) {
+    switch (pileType) {
+        case consts.PileType.CARDS:
+            this.cardsNum += deltaNum;
+            break;
+        case consts.PileType.DISCARDS:
+            this.discardsNum += deltaNum;
+            break;
+        case consts.PileType.EXHAUSTS:
+            this.exhaustsNum += deltaNum;
+            break;
+    }
+};
+
 CombatUnit.prototype.tick = function(dt){
     for(var i =0;i<this.abilitys.length;i++)
     {

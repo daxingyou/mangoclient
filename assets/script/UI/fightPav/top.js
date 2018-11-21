@@ -33,7 +33,6 @@ cc.Class({
     },
 
     onClickState () {
-     
         if (!this.state.active) {
             this.state.active = true;
             var scaleOut = cc.scaleTo(0.4, 1).easing(cc.easeBackOut());

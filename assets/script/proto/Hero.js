@@ -13,7 +13,7 @@ module.exports = {
 		TargetFrame: {"x1":-60,"y1":-20,"x2":60,"y2":-20,"x3":-60,"y3":180,"x4":60,"y4":180},
 		InitialCard: 3,
 		InitialMP: 6,
-		InitialDrawPile: [1,2,1,2,1,2,1,2,1,2,1,2],
+		InitialDrawPile: [1011,1012,1013,1014,1015,1016,1011,1012,1013,1014,1015,1016,4010],
 		PosPriority: 100,
 		HeroIcon: 'chenjingchou'
 	},

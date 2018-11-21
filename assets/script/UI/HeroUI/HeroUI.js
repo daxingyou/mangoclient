@@ -1,6 +1,6 @@
 var uiBase = require('UIBase')
 var heroData = require('Hero')
-
+var back = require('backMainUI')
 cc.Class({
     extends: uiBase,
 
@@ -73,8 +73,7 @@ cc.Class({
     backClick(){
         if(this._state == 0)
         {
-            this._mgr.loadUI(constant.UI.Main,function(data){
-            });
+            back.backMainUI();
         }
         else{
             this._state = 0;

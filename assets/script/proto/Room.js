@@ -47,4 +47,24 @@ module.exports = {
 		Name: '月河河洞房间7',
 		Rooms: [{"type":"dungeon","id":1,"weight":1}]
 	},
+	11: {
+		ID: 11,
+		Name: '西门',
+		Rooms: [{"type":"dungeon","id":11,"weight":1}]
+	},
+	12: {
+		ID: 12,
+		Name: '万无敌',
+		Rooms: [{"type":"dungeon","id":12,"weight":1}]
+	},
+	13: {
+		ID: 13,
+		Name: '金伴花',
+		Rooms: [{"type":"dungeon","id":13,"weight":1}]
+	},
+	14: {
+		ID: 14,
+		Name: '英万里',
+		Rooms: [{"type":"dungeon","id":14,"weight":1}]
+	},
 };

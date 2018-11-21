@@ -37,35 +37,34 @@ cc.Class({
         if (type == 1) {
             this.cancelLabel.string = "取消";
             this.refuseBtn.active = false;
-            this.showNode(true);
+            this.showNode(true,false);
         }
 
         //显示拒绝，忽略，接受
         else if (type == 2) {
         this.cancelLabel.string = "忽略";
         this._type == 2;
-        this.showNode(true);
+        this.showNode(true,true);
         }
 
         //邀请，求邀请信息被挂起
         else if (type == 3) {
-            this.showNode(false);
+            this.showNode(false,false);
             this._type = 3;
         }
        
 
         this.text.getComponent(cc.RichText).string = text;
-        // this.text.string = text;
         if ( title == undefined )
         return;
         this.title.string = title;
     },
 
-    showNode (param) {
-        this.text.active = param;
-        this.cancelBtn.active = param;
-        this.refuseBtn.active = param;
-        this.comfirmBtn.active = param;
+    showNode (param1,param2) {
+        this.text.active = param1;
+        this.cancelBtn.active = param1;
+        this.refuseBtn.active = param2;
+        this.comfirmBtn.active = param1;
     },
 
     initCancelBtn(callBack, target) {

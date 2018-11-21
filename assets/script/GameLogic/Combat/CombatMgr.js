@@ -8,6 +8,7 @@ var consts = require('consts')
 var constant = require('constants')
 var PVECombat = require('PVECombat')
 var PVPCombat = require('PVPCombat')
+var TutorialCombat = require('TutorialCombat')
 var playCardMessage = require('playCardProto')
 let net = require('NetPomelo')
 var gameData = require('DataCenter')
@@ -21,15 +22,20 @@ var CombatMgr = {
 
     initCombat: function (data) {
         let teamType = data.teamType;
+        this.curCombat = new TutorialCombat(data);
+        /*
         switch (teamType) {
             case consts.Team.TYPE_LADDER:
             case consts.Team.TYPE_PRACTICE:
                 this.curCombat = new PVPCombat(data);
                 break;
             case consts.Team.TYPE_RAID:
+            default: 
                 this.curCombat = new PVECombat(data);
-                break;
-        }
+            //case consts.Team.TYPE_RAID:
+            //    this.curCombat = new TutorialCombat(data);
+            //    break;
+        }*/
         this.fightEnd = false;
         this.teamInfo = data.teamInfo;
         this.fightDamage = {};
@@ -55,6 +61,7 @@ var CombatMgr = {
     onFightEnd: function (data) {
         this.fightEnd = true;
         let result = data.result;
+        gameData.fightEnd = true;
         this.curCombat.onFightEnd(result);
     },
     onDungeonReconnect: function (data) {
@@ -78,7 +85,7 @@ var CombatMgr = {
                 for (let i in projess) {
                     gameData.otherLoadRes[i] = projess[i];
                 }
-                uimgr.loadUI(constant.UI.loadProjess, function (res) {
+                uimgr.loadUI(constant.UI.UploadProjess, function (res) {
                     self.initCombat(data);
                     uimgr.loadUI(constant.UI.Fight, function (res) {
                         res.initData(() => {
@@ -88,12 +95,13 @@ var CombatMgr = {
                     });
                 });
             case consts.DungeonStatus.IN_FIGHT:    // 战斗中
-                uimgr.loadUI(constant.UI.loadProjess, function (res) {
+                uimgr.loadUI(constant.UI.UploadProjess, function (res) {
                     self.initCombat(data);
                     uimgr.loadUI(constant.UI.Fight, function (res) {
                         res.initData(() => {
-                            var ui = uimgr.getUI(constant.UI.loadProjess);
+                            var ui = uimgr.getUI(constant.UI.UploadProjess);
                             ui.hide();
+                            
                             res.is_chongLian = true;
                             res.min_time = parseInt(data.leftTime / 60000);
                             res.sec_time = parseInt(data.leftTime / 1000) % 60;

@@ -2,7 +2,7 @@
  * @Author: liuguolai 
  * @Date: 2018-11-07 10:10:50 
  * @Last Modified by: liuguolai
- * @Last Modified time: 2018-11-12 16:08:38
+ * @Last Modified time: 2018-11-19 15:00:43
  */
 let combatMgr = require('CombatMgr');
 let constants = require('constants');
@@ -193,6 +193,7 @@ module.exports = {
             cc.log('弃牌广播', data);
             var player = combatMgr.getEntity(data.targetID);
             player.inHandsNum = data.inHandsNum;
+            player.updatePileNum(data.toPile, data.num);
         });
 
         pomelo.on('onDie', function (data) {
@@ -309,6 +310,57 @@ module.exports = {
         pomelo.on('onDungeonReconnect', function (data) {
             cc.log('副本顶号重连', data);
             combatMgr.onDungeonReconnect(data);
+        });
+
+        pomelo.on('onCardPowerUp', function (data) {
+            cc.log('卡牌威力增加', data);
+            /*
+            "onCardPowerUp": {
+                "required uInt32 pileType": 1,
+                "optional uInt32 idx": 2,
+                "optional CardInfo card": 3
+            }
+            pileType 为手牌时有idx和card
+            */
+        });
+
+        pomelo.on('onCopyCard', function (data) {
+            cc.log('复制对手卡牌', data);
+            /*
+            "onCopyCard": {
+                "required string from": 1,
+                "repeated CardInfo inHands": 2
+            }
+            */
+        });
+
+        pomelo.on('onCopyCardNotify', function (data) {
+            cc.log('复制卡牌通知', data);
+            /*
+            "onCopyCardNotify": {
+                "required string from": 1,
+                "required string to": 2,
+                "required uInt32 pileType": 3,
+                "required uInt32 inHandsNum": 4
+            }
+            */
+        });
+
+        // 见consts.FeatureOpt
+        pomelo.on('onFeatureUpdate', function (data) {
+            cc.log('功能点更新', data);
+        });
+
+        pomelo.on('onUseCardWhenGet', function (data) {
+            cc.log('获得卡牌马上使用', data);
+            /*
+            "onUseCardWhenGet": {
+                "required CardInfo card": 1,
+                "required uInt32 cardsNum": 2,
+                "required uInt32 exhaustsNum": 3,
+                "required uInt32 discardsNum": 4
+            }
+            */
         });
     }
 };

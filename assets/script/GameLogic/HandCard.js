@@ -27,12 +27,12 @@ HandCard.prototype.ability = null;
 HandCard.prototype.Enable = function () {
 
     if (this.mp > this.owner.mp) {
-        this.owner.curCombat.UIMgr.showTips('灵力不足', cc.v2(0, 65));
+        this.owner.curCombat.uiMgr.showTips('灵力不足', cc.v2(0, 65));
         return false;
     }
 
     if (this.data.CastThew > this.owner.thew) {
-        this.owner.curCombat.UIMgr.showTips('体力不足', cc.v2(0, 65));
+        this.owner.curCombat.uiMgr.showTips('体力不足', cc.v2(0, 65));
         return false;
     }
 

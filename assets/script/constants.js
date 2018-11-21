@@ -54,7 +54,7 @@ module.exports = {
         FightCard : {"id":6,"path":'UI/fightUI/Card','type':2,'script':'CardItem'},
         SelectServer : {"id":7,"path":'UI/selectServer/selectServer','type':1,'script':'selectServer'},
         FightOver : {"id":8,"path":'UI/FightOver/FightOverUI','type':1,'script':'FightOver'},
-        loadProjess: {"id":9,"path":'UI/loadProjess/loadProjess','type':5,'script':'loadProjess'},
+        //loadProjess: {"id":9,"path":'UI/loadProjess/loadProjess','type':5,'script':'loadProjess'},
         Main: {"id":10,"path":'UI/mainUI/mainUI','type':1,'script':'main'},
         Friend : {"id":11,"path":'UI/Friend/Friend','type':1,'script':'FriendUI'},
         FightPavTop: {"id":12,"path":'UI/matchTeam/top','type':2,'script':'top'},

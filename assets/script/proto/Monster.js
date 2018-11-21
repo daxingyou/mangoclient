@@ -4,8 +4,8 @@
 
 // Generate From Monster.xlsx
 module.exports = {
-	10001: {
-		ID: 10001,
+	100001: {
+		ID: 100001,
 		Name: '鲛精',
 		Type: 'Boss',
 		Model: 'Hero/shark',
@@ -25,8 +25,8 @@ module.exports = {
 		InitialMP: 6,
 		InitialDrawPile: [100001,100001,100001,100001,100001,100001,100002,100002,100003,100003,100004,100004,100005]
 	},
-	10002: {
-		ID: 10002,
+	100002: {
+		ID: 100002,
 		Name: '鲛精',
 		Type: 'Boss',
 		Model: 'Hero/shark',
@@ -46,8 +46,8 @@ module.exports = {
 		InitialMP: 6,
 		InitialDrawPile: [100001,100001,100001,100001,100001,100001,100002,100002,100003,100003,100004,100004]
 	},
-	10003: {
-		ID: 10003,
+	100003: {
+		ID: 100003,
 		Name: '鳄鱼',
 		Type: 'Normal',
 		Model: 'Hero/crocodile',
@@ -67,8 +67,8 @@ module.exports = {
 		InitialMP: 6,
 		InitialDrawPile: [100101,100101,100101,100101,100101,100101,100102,100102]
 	},
-	10004: {
-		ID: 10004,
+	100004: {
+		ID: 100004,
 		Name: '飞颅',
 		Type: 'Normal',
 		Model: 'Hero/head',
@@ -88,8 +88,8 @@ module.exports = {
 		InitialMP: 6,
 		InitialDrawPile: [100201,100201,100201,100201,100201,100201,100202,100202]
 	},
-	10005: {
-		ID: 10005,
+	100005: {
+		ID: 100005,
 		Name: '怨鬼',
 		Type: 'Normal',
 		Model: 'Hero/spcetre',
@@ -108,5 +108,89 @@ module.exports = {
 		InitialCard: 3,
 		InitialMP: 6,
 		InitialDrawPile: [100301,100301,100301,100301,100301,100301,100302,100302]
+	},
+	100011: {
+		ID: 100011,
+		Name: '西门',
+		Type: 'Normal',
+		Model: 'Hero/crocodile',
+		Shadow: [340,30],
+		HitPoint: [50,50],
+		TargetFrame: {"x1":-120,"y1":-20,"x2":120,"y2":-20,"x3":-120,"y3":320,"x4":120,"y4":320},
+		Level: 1,
+		MaxHP: 1000,
+		MaxMP: 10,
+		MaxThew: 10,
+		BaseArmor: 1000,
+		BaseStrength: 0,
+		BaseStamina: 0,
+		BaseIntellect: 0,
+		BaseAgile: 0,
+		InitialCard: 3,
+		InitialMP: 6,
+		InitialDrawPile: [100101,100101,100101,100101,100101,100101,100102,100102]
+	},
+	100012: {
+		ID: 100012,
+		Name: '万无敌',
+		Type: 'Normal',
+		Model: 'Hero/crocodile',
+		Shadow: [340,30],
+		HitPoint: [50,50],
+		TargetFrame: {"x1":-120,"y1":-20,"x2":120,"y2":-20,"x3":-120,"y3":320,"x4":120,"y4":320},
+		Level: 1,
+		MaxHP: 1000,
+		MaxMP: 10,
+		MaxThew: 10,
+		BaseArmor: 1000,
+		BaseStrength: 0,
+		BaseStamina: 0,
+		BaseIntellect: 0,
+		BaseAgile: 0,
+		InitialCard: 3,
+		InitialMP: 6,
+		InitialDrawPile: [100101,100101,100101,100101,100101,100101,100102,100102]
+	},
+	100013: {
+		ID: 100013,
+		Name: '金伴花',
+		Type: 'Normal',
+		Model: 'Hero/crocodile',
+		Shadow: [340,30],
+		HitPoint: [50,50],
+		TargetFrame: {"x1":-120,"y1":-20,"x2":120,"y2":-20,"x3":-120,"y3":320,"x4":120,"y4":320},
+		Level: 1,
+		MaxHP: 1000,
+		MaxMP: 10,
+		MaxThew: 10,
+		BaseArmor: 1000,
+		BaseStrength: 0,
+		BaseStamina: 0,
+		BaseIntellect: 0,
+		BaseAgile: 0,
+		InitialCard: 3,
+		InitialMP: 6,
+		InitialDrawPile: [100101,100101,100101,100101,100101,100101,100102,100102]
+	},
+	100014: {
+		ID: 100014,
+		Name: '英万里',
+		Type: 'Boss',
+		Model: 'Hero/crocodile',
+		Shadow: [340,30],
+		HitPoint: [50,50],
+		TargetFrame: {"x1":-120,"y1":-20,"x2":120,"y2":-20,"x3":-120,"y3":320,"x4":120,"y4":320},
+		Level: 1,
+		MaxHP: 1000,
+		MaxMP: 10,
+		MaxThew: 10,
+		BaseArmor: 1000,
+		BaseStrength: 0,
+		BaseStamina: 0,
+		BaseIntellect: 0,
+		BaseAgile: 0,
+		InitialCard: 3,
+		InitialMP: 6,
+		InitialDrawPile: [100101,100101,100101,100101,100101,100101,100102,100102]
 	},
 };

@@ -12,7 +12,7 @@ cc.Class({
 
     // onLoad () {},
 
-    init(data,mgr){
+    initTutorial(data,mgr){
         this.data = data;
         this._curIndex = 0;
         this._Tutorialmgr = mgr;

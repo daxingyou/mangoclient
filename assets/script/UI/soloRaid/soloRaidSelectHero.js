@@ -20,6 +20,7 @@ cc.Class({
             heroName:cc.Label,
             _heroid:null,
             _CDState:true,
+            _selectedIdx: -1,
     },
 
     //加载自己拥有的英雄
@@ -37,7 +38,7 @@ cc.Class({
                 resIndex++;
                 self.showOwnHero.addChild(item);
                 self._ownHeroBar.push(item.getComponent('ownHero'));
-                self._ownHeroBar[resIndex-1].initData(itemData.ID,itemData.HeroName,itemData.HeroIcon,self);
+                self._ownHeroBar[resIndex-1].initData(resIndex-1,itemData.ID,itemData.HeroName,itemData.HeroIcon,self);
                 //heroid,heroName,heroIcon,parents
             }
         });
@@ -49,7 +50,11 @@ cc.Class({
         this._uiMgr = cc.find('Canvas').getComponent('UIMgr');
     },
 
-    selectHero (heroid) {
+    selectHero (heroid,index) {
+        if (this._selectedIdx >= 0) {
+            this._ownHeroBar[this._selectedIdx].unSelect();
+        }
+        this._selectedIdx = index;
         let heroData = dataMgr.hero[heroid];
         let heroIcon = heroData.HeroIcon;
         this.showSelectHero.spriteFrame = this.heroIconAtlas.getSpriteFrame(heroIcon);

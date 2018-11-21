@@ -1,0 +1,91 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "fire_ground",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 0.7666666666666667,
+  "sample": 30,
+  "speed": 1,
+  "wrapMode": "1",
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "a1174e94-1542-415c-ad5c-dd4fe8cbd2f2"
+            }
+          },
+          {
+            "frame": 0.06666666666666667,
+            "value": {
+              "__uuid__": "ca962919-a196-4028-b70e-b1006aee3ed1"
+            }
+          },
+          {
+            "frame": 0.13333333333333333,
+            "value": {
+              "__uuid__": "9e7417a7-b79c-40f4-a63b-43f960f7de98"
+            }
+          },
+          {
+            "frame": 0.2,
+            "value": {
+              "__uuid__": "18d74aca-5d42-4ccf-ab83-1fe5e7735a83"
+            }
+          },
+          {
+            "frame": 0.26666666666666666,
+            "value": {
+              "__uuid__": "c205d82a-fc0d-4d84-8ef1-a4fe9e778e62"
+            }
+          },
+          {
+            "frame": 0.3333333333333333,
+            "value": {
+              "__uuid__": "20af7e35-afc3-4f95-9376-f111181ba546"
+            }
+          },
+          {
+            "frame": 0.43333333333333335,
+            "value": {
+              "__uuid__": "b9120c4c-8af3-43a2-a330-4e26ea051ec9"
+            }
+          },
+          {
+            "frame": 0.5333333333333333,
+            "value": {
+              "__uuid__": "95a80c66-3b34-4f26-9512-9a82fb9550b8"
+            }
+          },
+          {
+            "frame": 0.6333333333333333,
+            "value": {
+              "__uuid__": "2c369fd6-2138-4b30-b46f-2e8c7c276bd4"
+            }
+          },
+          {
+            "frame": 0.7333333333333333,
+            "value": {
+              "__uuid__": "79f5a230-f086-4e37-8969-db498b54bc45"
+            }
+          }
+        ]
+      }
+    },
+    "props": {
+      "opacity": [
+        {
+          "frame": 0.6666666666666666,
+          "value": 255
+        },
+        {
+          "frame": 0.7666666666666667,
+          "value": 0
+        }
+      ]
+    }
+  },
+  "events": []
+}

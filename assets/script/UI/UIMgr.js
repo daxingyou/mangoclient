@@ -118,6 +118,9 @@ cc.Class({
         loadRes.load(ui.path, true, (data) => {
             var go = cc.instantiate(data);
 
+            if(go == null)
+                cc.log('cur go === null ,path = ',path);            
+
             if (ui.type == 3) {
                 go.parent = this.tips;
             }

@@ -19,6 +19,9 @@ cc.Class({
 
     Friend () {
         this._uiMgr.release();
+        this._uiMgr.loadUI(constant.UI.FightPavTop,(data) =>{
+            data.changeTitle("好友");
+          });
         this._uiMgr.loadUI(constant.UI.Friend);
     },
 

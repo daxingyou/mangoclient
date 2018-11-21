@@ -972,9 +972,7 @@
       "__id__": 1
     },
     "_enabled": true,
-    "_spriteFrame": {
-      "__uuid__": "6ec97450-9bda-4e99-bdcf-8cc6c567dace"
-    },
+    "_spriteFrame": null,
     "_type": 1,
     "_sizeMode": 0,
     "_fillType": 0,
@@ -988,9 +986,7 @@
     "_isTrimmedMode": true,
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_atlas": {
-      "__uuid__": "ef28c0b2-a5f3-4874-8296-2267ad91fdc5"
-    }
+    "_atlas": null
   },
   {
     "__type__": "8af17QIUa9NS7G9SgWJMODj",
@@ -1004,7 +1000,10 @@
     "userName": {
       "__id__": 6
     },
-    "_eid": null
+    "_eid": null,
+    "_parents": null,
+    "_hide": null,
+    "_curIndex": null
   },
   {
     "__type__": "cc.PrefabInfo",

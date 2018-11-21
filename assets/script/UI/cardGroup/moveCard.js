@@ -196,27 +196,27 @@ cc.Class({
         
             this.node.on(cc.Node.EventType.TOUCH_END, function (event) {
                 let x = this.x;
-                if (x >420) {
+                if (x >400) {
                     let cardName =  self.cardName.getComponent(cc.Label).string;
-                    self._parents.addCard(cardName);
+                    self._parents.addCard(cardName,self.mp);
                     this.active = false;
                 }
                 else {
-                    this.x = self._pos.x -75;
-                    this.y = self._pos.y- 20;
+                    this.x = self._pos.x -140;
+                    this.y = self._pos.y- 45;
                 }
             }, this.node);
         
             this.node.on(cc.Node.EventType.TOUCH_CANCEL, function (event) {
                 let x = this.x;
-                if (x >420) {
+                if (x >400) {
                     let cardName =  self.cardName.getComponent(cc.Label).string;
-                    self._parents.addCard(cardName);
+                    self._parents.addCard(cardName,self.mp);
                     this.active = false;
                 }
                 else {
-                    this.x = self._pos.x -75;
-                    this.y = self._pos.y -20;
+                    this.x = self._pos.x -140;
+                    this.y = self._pos.y -45;
                 }
             }, this.node);       
         }

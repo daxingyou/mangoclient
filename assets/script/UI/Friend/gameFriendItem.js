@@ -2,6 +2,7 @@ var uibase = require('UIBase')
 var constant = require('constants')
 var net = require("NetPomelo")
 var deleteFriendProto = require("deleteFriendProto")
+var addFriendProto= require('addFriendProto')
 cc.Class({
     extends: uibase,
     properties: {
@@ -10,7 +11,11 @@ cc.Class({
        state:cc.Label,
        deleteFriend:cc.Node,
        _curIndex:null,
-       _relation:null
+       _relation:null,
+       _type:null,
+       _gender: 1,
+       genderImg: cc.Sprite,
+       genderAltas: cc.SpriteAtlas,
     },
 
 
@@ -21,30 +26,67 @@ cc.Class({
     start () {
         this._uiMgr = cc.find('Canvas').getComponent('UIMgr');
     },
-    initData(index,eid,openid,relation,parent){
+    //type == 1 好友 / 2 推荐好友
+    initData(index,data,parent,type){
         this._curIndex = index;
-        this._eid = eid;
-        this.userName.string = openid;
-        this._relation = relation;
-        if (relation == 1) {
+        this.userName.string = data.openid;
+        this._gender = data.gender;
+        if (this._gender == 0) {
+            this.genderImg.spriteFrame = this.genderAltas.getSpriteFrame('women');
+        } 
+        else {
+            this.genderImg.spriteFrame = this.genderAltas.getSpriteFrame('male');
+        }
+        this._parents = parent;
+        this._type = type;
+        if (this._type == 1) {
+            this.node.getChildByName('addFriend').active = false;
+            this.node.getChildByName('btnGroup').active = true;
+            this._eid = data.eid;
+        }
+        else {
+            this._eid = data.id;
+            this.level.string = data.level;
+            this.node.getChildByName('btnGroup').active = false;
+            this.node.getChildByName('addFriend').active = true;
+            this.userState(data.state);
+        }
+    },
+  
+    userState(state,id) {
+        if (state == 101) {
             this.state.string = "在线";
         }
-        else if(relation == 2) {
+        else if (state == 102) {
             this.state.string = "离线";
         }
-        else if(relation == 3) {
-            this.state.string = "组队";
+        else if (state == 103) {
+            this.state.string = "组队中";
         }
-        else if(relation == 4) {
+        if (state == 104) {
             this.state.string = "游戏中";
+            
         }
-       // this.level.string = level;
-        this._parents = parent;
     },
+    addUser () {
+        let self = this;
+        let comfirm = function () {
+            net.Request(new addFriendProto(self._eid), (data) => {
+                cc.log("发送组队邀请 ",data,"邀请的id",self._eid);
+            });
+        } 
+        self._uiMgr.popupTips(1,"少侠，江湖险恶，你我结伴而行，可好？","添加好友",null,null,comfirm,self);
+    },
+
+
+        
+    
+    
     popupTips () {
         var self = this;
         self._uiMgr.popupTips(1,"确定要删除好友吗","提示",null,null,self.comfirm,self);
     },
+
     comfirm() {
         var self = this;
         net.Request(new deleteFriendProto(self._eid), function (data) {

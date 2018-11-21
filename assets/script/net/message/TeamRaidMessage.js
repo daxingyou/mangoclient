@@ -54,7 +54,6 @@ var teamRaid = {
             if (dataCenter.fightEnd) {
                 combatMgr.Release();
                 that._uiMgr.release();
-              //  combatMgr.curCombat.UILoadOk = true; 
             }
             let teamInfo = data.teamInfo;
             teamRaidData.teamInfo = teamInfo;

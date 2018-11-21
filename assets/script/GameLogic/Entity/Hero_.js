@@ -44,7 +44,7 @@ pro.InitMyInfo = function (myInfo) {
     this.inHands = myInfo.inHands || [];
     this.RefreshHandCard();
     this.SetMpRecoverRate(myInfo.mpRecoverRate, myInfo.stopMpRecoverBuffCnt);
-}
+};
 
 ///初始化当前玩家初始手牌
 pro.RefreshHandCard = function () {
@@ -52,9 +52,11 @@ pro.RefreshHandCard = function () {
     for (var i = 0; i < this.inHands.length; i++) {
         this.handsPile.push(new HandCard(this.inHands[i], this));
     }
-    if (this.fightUI)
+    if (this.fightUI) {
         this.fightUI.ShowHandCards();
-}
+        this.fightUI.showNum();
+    }
+};
 
 pro.SetMpRecoverRate = function (mpRecoverRate, stopMpRecoverBuffCnt) {
     this.mpRecoverRate = mpRecoverRate;
@@ -72,14 +74,12 @@ pro.onUseCard = function (data) {
     }
     this.inHands = data.inHands || [];
     this.RefreshHandCard();
-    this.fightUI.showNum();
 };
 
 pro.onDrawCard = function (data) {
     for (let key in data) {
         this[key] = data[key];
     }
-    this.fightUI.showNum();
     this.RefreshHandCard();
 };
 
@@ -112,28 +112,27 @@ pro.onSpecificDrawCard = function (data) {
 };
 
 pro.onCreateCard = function (data) {
-    this.inHands = data.inHands || [];
+    let pileType = data.pileType, num = data.num;
+    switch (pileType) {
+        case consts.PileType.CARDS:
+            this.cardsNum += num;
+            break;
+        case consts.PileType.DISCARDS:
+            this.discardsNum += num;
+            break;
+        case consts.PileType.EXHAUSTS:
+            this.exhaustsNum += num;
+            break;
+        case consts.PileType.IN_HANDS:
+            this.inHands = data.inHands || [];
+            break;
+    }
     this.RefreshHandCard();
 };
 
 pro.onDropCard = function (data) {
     this.inHands = data.inHands || [];
-    let dropInfo = data.dropInfo;
-    if (dropInfo) {
-        for (var info of dropInfo) {
-            let pileType = info.toPile;
-            switch (pileType) {
-                case consts.PileType.CARDS:
-                    this.cardsNum++;
-                    break;
-                case consts.PileType.DISCARDS:
-                    this.discardsNum++;
-                    break;
-                case consts.PileType.EXHAUSTS:
-                    this.exhaustsNum++;
-                    break;
-            }
-        }
-    }
+    let pileType = data.toPile, num = data.num;
+    this.updatePileNum(pileType, num);
     this.RefreshHandCard();
 };

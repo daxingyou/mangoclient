@@ -243,15 +243,21 @@ cc.Class({
             this.goodNum.string = curGood._cnt;
             this.goodDes.string = dataMgr.item[this._selectGoodId].Describe;
             let buttonArr = dataMgr.item[this._selectGoodId].Button;
-            
+            let use = this.node.getChildByName('information').getChildByName('use');
+            let sell =  this.node.getChildByName('information').getChildByName('sell');
+            if (buttonArr.length == 1) {
+                sell.x = 413;
+                sell.active = true;
+                use.active = false;
+            }
+            else {
+                sell.x = 274;
+                sell.active = true;
+                use.active = true;
+            }
+
             for (let i = 0;i<buttonArr.length;i++) {
                 let j = buttonArr[i];
-                if (buttonArr.length == 1) {
-                    this.node.getChildByName('information').getChildByName('use').active = false;
-                }
-                else {
-                    this.node.getChildByName('information').getChildByName('use').active = true;
-                }
                 let k = i+1;
                 if (j == consts.Bag.FUNC_SELL) {
                     this["button"+ k].getComponent(cc.Label).string = "出售";
@@ -262,8 +268,9 @@ cc.Class({
                     this["button"+ k].getComponent(cc.Label).string = "使用";
                 }
                 else if (j == consts.Bag.FUNC_SEE) {
-                    this.priceTips.active = false;
-                    this["button" + k].getComponent(cc.Label).string = "查看";
+                    sell.active = false;
+                    this.priceTips.active = true;
+                    this.priceTips.getComponent(cc.Label).string = "该道具不可售";
                 }
                 else if (j == consts.Bag.FUNC_EQUIPMENT) {
                     this.priceTips.active = false;
@@ -396,7 +403,6 @@ cc.Class({
             this.slider_sell.progress = 0;
         }
         this._updateSellNum(pro);
-       
     },
 
     onSliderHEvent (sender, eventType) {

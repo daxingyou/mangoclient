@@ -7,8 +7,9 @@ cc.Class({
         heroName :cc.Label,
         heroid:null,
         _parents:null,
-        selected:cc.Node,
         _heroName:null,
+        tips: cc.Node,
+        _curIndex: null,
 
     },
      onLoad () {},
@@ -16,7 +17,8 @@ cc.Class({
     start () {
 
     },
-    initData (heroid,heroName,heroIcon,parents) {
+    initData (index,heroid,heroName,heroIcon,parents) {
+        this._curIndex = index;
         this.heroid = heroid;
         this.heroName.string = heroName;
         this._heroName = heroName;
@@ -27,11 +29,20 @@ cc.Class({
     start () {
         this.heroImg.on('touchstart',this.onTouchHero,this);
     },
+
+    select() {
+        this.tips.active = true;
+    },
+    unSelect () {
+        this.tips.active = false;
+    },
+
     onTouchHero(event,heroid) {
         var self = this;
         if (self._parents!=null && self._parents._CDState) {
-           self._parents.selectHero(this.heroid);   
+           self._parents.selectHero(this.heroid,this._curIndex);   
         }
+        this.select();
     },
    
      update (dt) {

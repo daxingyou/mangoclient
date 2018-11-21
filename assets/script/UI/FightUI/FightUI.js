@@ -76,21 +76,14 @@ cc.Class({
 
     initData(callback) {
         this._uimgr = cc.find('Canvas').getComponent('UIMgr');
+        let heroIcon = datamgr.hero[combatMgr.getSelf().heroid].HeroIcon;
         this.userName.string = datamgr.hero[combatMgr.getSelf().heroid].HeroName;
+        this.headImg.getComponent(cc.Sprite).spriteFrame = this.heroIcon.getSpriteFrame(heroIcon);
         this.mp_fill.active = false;
         this.thew_fill.active = false;
         var resIndex = 0;
         this.gameOver = false;
         this.is_chongLian = false;
-        if (combatMgr.getSelf().name == "于小雪") 
-        {
-            this.headImg.getComponent(cc.Sprite).spriteFrame = this.heroIcon.getSpriteFrame('yuxiaoxue');
-        }
-        else 
-        {
-            this.headImg.getComponent(cc.Sprite).spriteFrame = this.heroIcon.getSpriteFrame('chenjingchou');
-        }
-
         var self = this;
         cc.loader.loadRes('UI/fightUI/Card', function (errorMessage, loadedResource) {
             for (var i = 0; i < 8; i++) {

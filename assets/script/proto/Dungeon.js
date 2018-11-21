@@ -84,4 +84,44 @@ module.exports = {
 		Icon: 'attack',
 		Desc: '河洞战斗8描述。'
 	},
+	11: {
+		ID: 11,
+		Name: '西门',
+		SceneID: 1,
+		MonsterGroupID: 11,
+		WinMode: 0,
+		TimeLimit: 180,
+		Icon: 'attack',
+		Desc: '与西门战斗。'
+	},
+	12: {
+		ID: 12,
+		Name: '万无敌',
+		SceneID: 1,
+		MonsterGroupID: 12,
+		WinMode: 0,
+		TimeLimit: 180,
+		Icon: 'attack',
+		Desc: '与万无敌战斗。'
+	},
+	13: {
+		ID: 13,
+		Name: '金伴花',
+		SceneID: 1,
+		MonsterGroupID: 13,
+		WinMode: 0,
+		TimeLimit: 180,
+		Icon: 'attack',
+		Desc: '与金伴花战斗。'
+	},
+	14: {
+		ID: 14,
+		Name: '英万里',
+		SceneID: 1,
+		MonsterGroupID: 14,
+		WinMode: 0,
+		TimeLimit: 180,
+		Icon: 'attack',
+		Desc: '与英万里战斗。'
+	},
 };

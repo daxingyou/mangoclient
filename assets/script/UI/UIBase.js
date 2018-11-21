@@ -1,3 +1,4 @@
+var constant = require('constants');
 cc.Class({
     extends: cc.Component,
 
@@ -18,6 +19,9 @@ cc.Class({
         this.node.destory();
     },
     backButton : function(){
-        
+        let uiMgr = cc.find('Canvas').getComponent('UIMgr');
+        uiMgr.release();
+        uiMgr.loadUI(constant.UI.Main,function(data){
+        });
     }
 });

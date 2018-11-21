@@ -88,7 +88,6 @@ cc.Class({
 
      update (dt) {
 
-       
         if (this.tipCont) {
             if (this._aphla < 255) {
                 this._aphla += dt * this.speed;

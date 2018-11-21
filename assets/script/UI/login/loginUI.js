@@ -34,6 +34,7 @@ cc.Class({
     onEnable() {
         if (cc.sys.platform == cc.sys.WECHAT_GAME) {
             this.checkAuth();
+            this._createGameClubBtn();
         }
     }, 
 
@@ -56,6 +57,22 @@ cc.Class({
     },
 
     /* ********************* wechat ******************** */
+
+    // 游戏圈
+    _createGameClubBtn() {
+        if (!this._gameClubBtn) {
+            this._gameClubBtn = wx.createGameClubButton({
+                icon: 'green',
+                style: {
+                    left: 10,
+                    top: 76,
+                    width: 40,
+                    height: 40
+                }
+            });
+            this._gameClubBtn.show();
+        }
+    },
 
     checkAuth() {
         let self = this
