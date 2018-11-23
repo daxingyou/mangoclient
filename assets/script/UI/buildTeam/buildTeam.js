@@ -409,7 +409,7 @@ cc.Class({
                             cc.loader.release('UI/Friend/canInviteFriend');
                             self.updateFriendState();
                             if (friends.length > 4) {
-                             self.showGameFriend.height = (friends.length+1) * 150;
+                             self.showGameFriend.height = (friends.length) * 130;
                            }   
                         }
                     }

@@ -19,8 +19,13 @@ var message = {
             cc.log("背包物品更新", data);
             bagData.refreshBag = data;
             eventMgr.emit("refreshBag", data);
-
         });
+
+        pomelo.on('onCardsUpdate', function (data) {
+            cc.log("卡牌数量更新", data);
+        });
+
+
 
         pomelo.on('onAddMails', function (data) {
             // mailID 与 title, desc互斥，有mailID时读表

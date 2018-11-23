@@ -6,31 +6,38 @@ cc.Class({
     properties: {
         content : cc.Label,
         collide : cc.Node,
-        _curIndex : 0,
+        _dialogData : null,
+        _curIndex : 1,
         _Tutorialmgr : null
     },
 
     // onLoad () {},
-
-    initTutorial(data,mgr){
-        this.data = data;
-        this._curIndex = 0;
+    init(mgr){
         this._Tutorialmgr = mgr;
-        this.show();
-
-        this.content.string = this.data[this._curIndex].Value;
     },
-
-    start () {
-        this.collide.on(cc.Node.EventType.TOUCH_START, function (event) {
-            this._Tutorialmgr.NextStep();
-        }, this);
-        
+    initTutorial(dialog){
+        this._dialogData = dialog;
+        this.show();
+        this.freshenUI();
     },
     freshenUI(){
-        this._curIndex++;
-        this.content.string = this.data[this._curIndex].Value;
+        this.content.string = this._dialogData[this._curIndex].Text;
+    },
+    start () {
+        var that = this;
+        this.collide.on(cc.Node.EventType.TOUCH_START, function (event) {
+            that.next();
+        }, this);
+    },
+    next(){
+        this._curIndex ++;
+        if(this._dialogData[this._curIndex] == null)
+        {
+            this._Tutorialmgr.NextStep();
+        }
+        else{
+            this.freshenUI();
+        }
     }
-
     // update (dt) {},
 });

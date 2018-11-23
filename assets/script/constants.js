@@ -84,6 +84,7 @@ module.exports = {
         CardGroup :  {"id":35,"path":'UI/cardGroup/cardGroup','type':1,"script":'cardGroup'},
         SelectCard : {"id":35,"path":'UI/cardGroup/selectCard','type':1,"script":'selectCard'},
         Tutorial : {"id":36,"path":'UI/tutorial/Tutorial','type':5,"script":'TutorialUI'},
+        TutorialOver : {"id":37,"path":'UI/FightOver/TutorialFightOverUI','type':1,"script":'TutorialFightOver'},
         
     },
     // Prefab: {
@@ -140,9 +141,13 @@ module.exports = {
     },
     eventList : {
         onRefreshTeam :'onRefreshTeam',
-
     },
     debug: {
         autoDpsExport: false,
+    },
+    tutorialEvent :{
+        begin :'begin',
+        animation : 'animation',
+        fightOver : 'fightOver',
     }
 };

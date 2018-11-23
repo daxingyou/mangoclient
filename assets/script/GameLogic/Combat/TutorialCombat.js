@@ -6,6 +6,7 @@ var constant = require('constants');
 var tutorialMgr = require('TutorialMgr')
 var net = require("NetPomelo")
 var tutorialEnterDungeonProto = require('tutorialEnterDungeonProto')
+let constan = require('Constant')
 
 var TutorialCombat = function(){
     Combat.call(this);
@@ -44,13 +45,9 @@ TutorialCombat.prototype.init = function(data){
     //资源数 +1 新手流程走完再发生加载完成
     this.resNum++;
 
-    tutorialMgr.starTutorial(1001);
-    net.Request(new tutorialEnterDungeonProto(1001));
-
-    //this.uiMgr.loadUI(constant.UI.Tutorial,(data) =>{
-    //    data.initTutorial()
-    //});
-
+    this.curDgId = data.dgId;
+    tutorialMgr.starTutorial(dataMgr.dungeon[data.dgId].Event,this);
+    net.Request(new tutorialEnterDungeonProto(data.dgId));
     //cc.log('cur res = ',this.resNum );
     //gameCenter.resNum = this.resNum;
     //this._loadProgress = 0;
@@ -68,6 +65,52 @@ TutorialCombat.prototype.Tick = function () {
     }
 }
 
+TutorialCombat.prototype.onFightEnd = function (result) {
+    if (this.teamType === consts.Team.TYPE_RAID)
+        ///失败重来
+        if(!result)
+        {
+            this._uimgr.loadUI(constants.UI.TutorialOver,function(data) {
+                data.showAgain(this.curDgId); 
+            })
+        }
+        else{
+            if(tutorialMgr.isFinish)
+            {
+                ///最后一场
+                if(this.curDgId == constan.TutorialDungeon[3])
+                {
+                    this._uimgr.loadUI(constants.UI.FightOver,function(data) {
+                        data.reslut(resss); 
+                    })
+                }
+                else
+                {
+                    this._uimgr.loadUI(constants.UI.TutorialOver,function(data) {
+                        data.showNext(this.curDgId); 
+                    })
+                }
+            }
+            else
+            {
+                tutorialMgr.fightOver();
+            }
+        }
+}
 
+TutorialCombat.prototype.TutorialFinish = function(){
+    if(this.curDgId == constan.TutorialDungeon[3])
+    {
+        this._uimgr.loadUI(constants.UI.FightOver,function(data) {
+            data.reslut(resss); 
+        })
+    }
+    else
+    {
+        this._uimgr.loadUI(constants.UI.TutorialOver,function(data) {
+            data.showNext(this.curDgId); 
+        })
+    }
+}
 
 module.exports = TutorialCombat;

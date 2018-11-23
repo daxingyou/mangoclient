@@ -2189,7 +2189,8 @@
     },
     "genderAltas": {
       "__uuid__": "4ad25b9c-5c18-4f0c-b832-da4372c377c0"
-    }
+    },
+    "_click": false
   },
   {
     "__type__": "cc.PrefabInfo",

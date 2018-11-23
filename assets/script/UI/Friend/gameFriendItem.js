@@ -16,6 +16,7 @@ cc.Class({
        _gender: 1,
        genderImg: cc.Sprite,
        genderAltas: cc.SpriteAtlas,
+       _click: false,
     },
 
 
@@ -70,9 +71,13 @@ cc.Class({
     },
     addUser () {
         let self = this;
+        if (self._click) 
+        return;
+        self._click = true;
         let comfirm = function () {
             net.Request(new addFriendProto(self._eid), (data) => {
-                cc.log("发送组队邀请 ",data,"邀请的id",self._eid);
+                cc.log("发送好友申请 ",data,"邀请的id",self._eid);
+                self.node.getChildByName('addFriend').getChildByName('Label').getComponent(cc.Label).string = "已发送";
             });
         } 
         self._uiMgr.popupTips(1,"少侠，江湖险恶，你我结伴而行，可好？","添加好友",null,null,comfirm,self);

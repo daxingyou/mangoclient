@@ -8,12 +8,13 @@ cc.Class({
        selected: cc.Node,
        _parent: null,
        _curIndex: null,
+
       
     },
 
-    initData (index,parent) {
+    initData (index,name,parent) {
         this._curIndex = index;
-        this.heroName.string = index;
+        this.heroName.string = name;
         this._parent = parent;
     },
 
@@ -28,7 +29,7 @@ cc.Class({
     click () {
         if (this.selected.active) 
         return;
-        this._parent.showHeroSelectCard(this._curIndex);
+        this._parent.selectedHero(this._curIndex,this.heroName.string);
         this.select();
        // this.
     },

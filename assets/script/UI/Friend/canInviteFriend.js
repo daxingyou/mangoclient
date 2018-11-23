@@ -60,8 +60,11 @@ cc.Class({
         //玩家等级达到RequireLelve 才能邀请	----4v4
         //等级，段位，拥有英雄 ---- 组队天梯	
         var self = this;
-        if (self._click)
-        return;
+        if (self._click) {
+            this._uiMgr = cc.find('Canvas').getComponent('UIMgr');
+            this._uiMgr.showTips("邀请已发送");
+            return;
+        }
         if (self.invited.string == "求邀请") {
             net.Request(new applyForJoinProto(self._forId), (data) => {
                 self._click = true;

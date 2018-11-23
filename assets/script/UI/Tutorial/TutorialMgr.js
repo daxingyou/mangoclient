@@ -2,49 +2,55 @@
  *    新手引导管理器
  *    by pwh  
  */
+var event = require('TutorialEvent')
+var constant = require('constants')
 
 var Tutorial = {
     tutorialUI : null,
     curIndex : 0,
     curTutorialId : 0,
+    curState : null,
+    curCombat : null,
+    isFinish : false,
 
-    init : function(){
-        this.isInit = true;
-    },
+    starTutorial : function(eventData,combat){
+        this.curCombat = combat;
+        this.isFinish = false;
+        this.events = new Array();
 
-    starTutorial : function(tutorialID){
-        if(!this.isInit)
-            return;
-
-        this.curTutorialId = tutorialID;
-        var tutorialGroup = require('TutorialGroup')
-        this.curData = tutorialGroup[tutorialID];
+        for(var item in eventData)
+        {
+            this.events.push(new event(item,this));
+        }
 
         if(this.tutorialUI == null)
         {
+            var that = this;
             uiMgr.loadUI(constant.UI.FightPavTop,(data) =>{
-                data.init(this.curData,this);
-                this.tutorialUI = data;
+                data.hide();
+                data.init(that);
+                that.tutorialUI = data;
+                that.begin();
             });
-        }
-        else{
-            this.tutorialUI.initTutorial(this.curData,this);
         }
     },
     NextStep(){
         this.curIndex++;
 
-        //判断步骤是否已经走完
-        if(this.curIndex == this.curData.length)
+        if(this.curIndex == this.events.length)
         {
-            this.tutorialUI.hide();
-            
-        }
+            this.isFinish = true;
+        }   
         else
         {
-            this.tutorialUI._curIndex ++;
-            this.tutorialUI.freshenUI();
+            this.events[this.curIndex].Active(constant.tutorialEvent.animation);
         }
+    },
+    begin(){
+        this.events[this.curIndex].Active(constant.tutorialEvent.begin);
+    },
+    fightOver(){
+        this.events[this.curIndex].Active(constant.tutorialEvent.fightOver);
     }
 }
 

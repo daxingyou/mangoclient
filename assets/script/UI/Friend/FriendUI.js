@@ -30,6 +30,8 @@ cc.Class({
         checkMassage:true,
         gameFriendScrollView:cc.Sprite,
         showGameFriend:cc.Node,
+        showRecommend: cc.Node,
+        _showRecommend: [],
         _showGameFriend:[],
         _eidBar:[],
         _limitRecom: 0,
@@ -156,8 +158,9 @@ cc.Class({
                         if (resIndex == friends.length) {
                             cc.loader.release('UI/Friend/gameFriendItem');
                             self._updateFriendState();
-                            if (friends.length > 5)
-                            self.showGameFriend.height = friends.length * 160;
+                            if (friends.length >= 5)
+                            self.showGameFriend.height = friends.length * 120;
+                            cc.log(self.showGameFriend.height);
                         }
                     }
                 });
@@ -181,7 +184,7 @@ cc.Class({
                         self._showApplyList[i].initData(i,itemData.eid,itemData.openid,self);
                         if (applyIndex == invitedList.length) {
                             cc.loader.release('UI/Friend/applyItem');
-                            if (invitedList.length > 5) {
+                            if (invitedList.length >= 5) {
                                 self.showApplyBar.height = invitedList.length * 60;
                             }
                         }
@@ -216,12 +219,12 @@ cc.Class({
 
     editingDidBegan : function() {
         this._inputContent = this.inputContent.string;
-        if (this._inputContent!=null && this.inputContent.string.length>=1) {
-            this.deleteBtn.active = true;
-        }
-        else {
-            this.deleteBtn.active = false;
-        }
+        // if (this._inputContent!=null && this.inputContent.string.length>=1) {
+        //     this.deleteBtn.active = true;
+        // }
+        // else {
+        //     this.deleteBtn.active = false;
+        // }
     },
 
     //清空搜索框
@@ -229,7 +232,6 @@ cc.Class({
         this.inputContent.placeholder = "请输入关键词";
         this.inputContent.string = '';
         this._inputContent = null;
-        this.deleteBtn.active = false;
     }, 
 
     //点击搜索
@@ -240,11 +242,11 @@ cc.Class({
             self._uiMgr.showTips('请输入搜索关键词');
         }
         else {
+            self.deleteInputContent();
             net.Request(new addFriendProto(uid), function (data) {
                 cc.log(data,"data-----addFriend");
                 if (data.code == 1) {
                     self._uiMgr.showTips("发送消息成功");
-                    self.deleteInputContent();
                 }
                 else if (data.code == 2) {
                     self._uiMgr.showTips("ID错误");
@@ -279,17 +281,32 @@ cc.Class({
 
     //推荐好友
     recommendFriend () {
+        this.GameFriendClick();
         this.node.getChildByName('bottomLeft').active = false;
-        this.node.getChildByName('game').active = false;
+        this.node.getChildByName('toggleGroup').getChildByName('wechat').active = false;
         this.node.getChildByName('invitedWechatGame').active = false;
         this.node.getChildByName('applyListBtn').active = false;
         this.node.getChildByName('recommend').active = false;
         this.node.getChildByName('recommondLimit').active = true;
         this.node.getChildByName('changeBtn').active = true;
-        this.node.getChildByName('wechat').getComponent(cc.Button).interactable = false;
-        this.node.getChildByName('wechat').getChildByName('Label').getComponent(cc.Label).string  = "推荐好友";
+        let node = this.node.getChildByName('toggleGroup').getChildByName('game');
+        node.getComponent(cc.Button).interactable = false;
+        node.y = -8;
+        node.getChildByName('Label').getComponent(cc.Label).string  = "推荐好友";
+        this.node.getChildByName('weChatFriend').active = false;
         this.showGameFriend.removeAllChildren();
         let self = this;
+        let backFriendUI = function () {
+            self._uiMgr.release();
+            self._uiMgr.loadUI(constant.UI.FightPavTop,(data) =>{
+                data.changeTitle("好友");
+              });
+            self._uiMgr.loadUI(constant.UI.Friend);
+        };
+        self._uiMgr.loadUI(constant.UI.FightPavTop,(data) =>{
+            data.initBackBtn(backFriendUI,self);
+            data.changeTitle("好友");
+        });
         net.Request(new getRecommendListProto(self._limitRecom), function (data) {
             cc.log(data,"data-----getRecommendListProto");
             self.addRecommonFriend(data.res);
@@ -304,7 +321,7 @@ cc.Class({
     addRecommonFriend (data) {
         let resIndex = 0;
         let self = this;
-        self._showGameFriend = [];
+        self._showRecommend = [];
         cc.loader.loadRes('UI/Friend/gameFriendItem', function (errorMessage, loadedResource) {
             for (var i = 0; i < data.length; i++) {
                 var itemData = data[i];
@@ -314,10 +331,10 @@ cc.Class({
                 }
                 let item = cc.instantiate(loadedResource);
                 resIndex++;
-                self.showGameFriend.addChild(item);
-                self._showGameFriend.push(item.getComponent('gameFriendItem'));
-                self._showGameFriend[i].initData(i,itemData,self,2);
-                self._eidBar.push(itemData.eid);//方便删除查找
+                self.showRecommend.addChild(item);
+                self._showRecommend.push(item.getComponent('gameFriendItem'));
+                self._showRecommend[i].initData(i,itemData,self,2);
+                //self._eidBar.push(itemData.eid);//方便删除查找
                 if (resIndex == data.length) {
                     cc.loader.release('UI/Friend/gameFriendItem');
                     if (data.length > 5)

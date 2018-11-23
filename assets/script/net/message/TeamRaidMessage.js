@@ -124,9 +124,14 @@ var teamRaid = {
 
         pomelo.on('onTeamRaidPass', function (data) {
             cc.log("组队副本通关", data);
+            that._uiMgr.release();
+            that._uiMgr.loadUI(constant.UI.RaidUI);
+
         });
 
         pomelo.on('onTeamRaidFail', function (data) {
+            that._uiMgr.release();
+            that._uiMgr.loadUI(constant.UI.RaidUI);
             cc.log("组队副本失败", data);
         });
     }

@@ -12,7 +12,8 @@ module.exports = {
 		WinMode: 0,
 		TimeLimit: 180,
 		Icon: 'attack',
-		Desc: '河洞战斗1描述。'
+		Desc: '河洞战斗1描述。',
+		Event: []
 	},
 	2: {
 		ID: 2,
@@ -22,7 +23,8 @@ module.exports = {
 		WinMode: 0,
 		TimeLimit: 180,
 		Icon: 'attack',
-		Desc: '河洞战斗2描述。'
+		Desc: '河洞战斗2描述。',
+		Event: []
 	},
 	3: {
 		ID: 3,
@@ -32,7 +34,8 @@ module.exports = {
 		WinMode: 0,
 		TimeLimit: 180,
 		Icon: 'attack',
-		Desc: '河洞战斗3描述。'
+		Desc: '河洞战斗3描述。',
+		Event: []
 	},
 	4: {
 		ID: 4,
@@ -42,7 +45,8 @@ module.exports = {
 		WinMode: 0,
 		TimeLimit: 180,
 		Icon: 'attack',
-		Desc: '河洞战斗4描述。'
+		Desc: '河洞战斗4描述。',
+		Event: []
 	},
 	5: {
 		ID: 5,
@@ -52,7 +56,8 @@ module.exports = {
 		WinMode: 0,
 		TimeLimit: 180,
 		Icon: 'attack',
-		Desc: '河洞战斗5描述。'
+		Desc: '河洞战斗5描述。',
+		Event: []
 	},
 	6: {
 		ID: 6,
@@ -62,7 +67,8 @@ module.exports = {
 		WinMode: 0,
 		TimeLimit: 180,
 		Icon: 'attack',
-		Desc: '河洞战斗6描述。'
+		Desc: '河洞战斗6描述。',
+		Event: []
 	},
 	7: {
 		ID: 7,
@@ -72,7 +78,8 @@ module.exports = {
 		WinMode: 0,
 		TimeLimit: 180,
 		Icon: 'attack',
-		Desc: '河洞战斗7描述。'
+		Desc: '河洞战斗7描述。',
+		Event: []
 	},
 	8: {
 		ID: 8,
@@ -82,7 +89,8 @@ module.exports = {
 		WinMode: 0,
 		TimeLimit: 180,
 		Icon: 'attack',
-		Desc: '河洞战斗8描述。'
+		Desc: '河洞战斗8描述。',
+		Event: []
 	},
 	11: {
 		ID: 11,
@@ -92,7 +100,8 @@ module.exports = {
 		WinMode: 0,
 		TimeLimit: 180,
 		Icon: 'attack',
-		Desc: '与西门战斗。'
+		Desc: '与西门战斗。',
+		Event: [{"event":"begin","dialog":"1001"},{"event":"animation","target":"1001","animation":"attack","dialog":"1002"},{"event":"animation","target":"1001","animation":"attack","dialog":"1003"}]
 	},
 	12: {
 		ID: 12,
@@ -102,7 +111,8 @@ module.exports = {
 		WinMode: 0,
 		TimeLimit: 180,
 		Icon: 'attack',
-		Desc: '与万无敌战斗。'
+		Desc: '与万无敌战斗。',
+		Event: []
 	},
 	13: {
 		ID: 13,
@@ -112,7 +122,8 @@ module.exports = {
 		WinMode: 0,
 		TimeLimit: 180,
 		Icon: 'attack',
-		Desc: '与金伴花战斗。'
+		Desc: '与金伴花战斗。',
+		Event: [{"event":"fightOver","dialog":"1004"}]
 	},
 	14: {
 		ID: 14,
@@ -122,6 +133,7 @@ module.exports = {
 		WinMode: 0,
 		TimeLimit: 180,
 		Icon: 'attack',
-		Desc: '与英万里战斗。'
+		Desc: '与英万里战斗。',
+		Event: [{"event":"fightOver","dialog":"1005"}]
 	},
 };

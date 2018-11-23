@@ -14,8 +14,6 @@ var Effectmgr = require('EffectMgr')
 let constants = require('constants')
 let consts = require('consts')
 let playerData = require('playerData');
-// var Hero_ = require('Hero_')
-// var Monster_ = require('Monster_')
 
 var Combat = function () {
     this._loadProgress = 0;
@@ -207,6 +205,7 @@ Combat.prototype.updatePos = function (uid, newPos) {
 
 Combat.prototype.onFightEnd = function (result) {
     if (this.teamType === consts.Team.TYPE_RAID)
+        
         return;
     let ui = this.uiMgr.getUI(constants.UI.Fight);
     if (ui)

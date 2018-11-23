@@ -4,6 +4,11 @@ var dataMgr = require('DataMgr')
 var hero = require('Hero')
 var fightData = require('fightData')
 let eventMgr = require('eventMgr');
+var net = require('NetPomelo')
+let cardUpgradeProto = require('cardUpgradeProto');
+let playerData = require('playerData')
+let bagData = require('playerData')
+var consts = require('consts')
 
 cc.Class({
     extends: uibase,
@@ -38,6 +43,11 @@ cc.Class({
         _curPage: 0,
         _copyCardSrc : [],
         _moveCard: false,
+        cardId: null,
+        _selectHero: null,
+        _needSilver: 0,
+        _needCard: 0,
+        _curCard:0,
     },
 
 
@@ -51,15 +61,17 @@ cc.Class({
          this._mp6 = [];
          this._mp7 = [];
          this._mp8 = [];
-         this._mp = [this._mp0,this._mp1,this._mp2,this._mp3,this._mp4,this._mp5,this._mp6,this._mp7,this._mp8]
-    //   /  eventMgr.on("closeCardDes",this.closeCardDes,this);
+         this._mp = [this._mp0,this._mp1,this._mp2,this._mp3,this._mp4,this._mp5,this._mp6,this._mp7,this._mp8];
         this.node.getChildByName('prev').active = false;
+        this._uiMgr = cc.find('Canvas').getComponent('UIMgr');
         this.loadHero();
         for (let i =0;i < this.pageContent.childrenCount;i++) {
              let item = this.pageContent.children[i];
              this._page.push(item);
          }
         this.initCard();
+        this.cardUp = this.node.getChildByName('cardUpgrade');
+        this.cardUpBtn = this.node.getChildByName('upgrade');
         this.close = this.node.getChildByName('close');
        
 
@@ -72,15 +84,6 @@ cc.Class({
         self._cardSrc = [];
         cc.loader.loadRes('UI/cardGroup/cardItem', function (errorMessage, loadedResource) {
             for (var i = 0; i < 10; i++) {
-                if (errorMessage) {
-                    cc.log('载入预制资源失败, 原因:' + errorMessage);
-                    return;
-                }
-                if (!(loadedResource instanceof cc.Prefab)) {
-                    cc.log('你载入的不是预制资源!');
-                    return;
-                }
-            
                 let item = cc.instantiate(loadedResource);
                 resIndex++;
                 if (resIndex <= 8) {
@@ -105,16 +108,14 @@ cc.Class({
                 }
                 self._cardSrc.push(item.getComponent('moveCard'));
                 self._cid.push(itemData.ID);
-             // initData(index,cardName,CardQuality,cardImage,CardDescription,cardType,thew,mp,cardAttr,canUse, cid)
-                self._cardSrc[i].initData(i,itemData.CardName,itemData.CardQuality,itemData.CardImage,
-                    itemData.CardDescription,itemData.CardType,itemData.CastThew,itemData.CastMP,itemData.CardAttributes,0,itemData.ID,self,true);
+                //index,data,parents,isCardGroup,pos
+                self._cardSrc[i].initData(i,itemData,self,1);
                 if (resIndex == 10) {
                     cc.loader.release('UI/cardGroup/cardItem');
                     self._firstInitCard = false;
                 }
             }
         });
-
      },
 
     //
@@ -177,36 +178,25 @@ cc.Class({
 
 
     loadHero () {
-        let i;
-        for (i = 0; i< 6;i ++) {
+        let resIndex = 0;
+        for (let i in hero) {
+            var itemData = hero[i].HeroName;
+            resIndex++;
             let item = cc.instantiate(this.heroNameItem);
             item.parent = this.heroContent;
-            this._heroName(item,i);
+            this._heroName(item,resIndex-1,itemData);
         }
-        if (i == 6) {
+        if (resIndex == Object.keys(hero).length) {
             this._heroNameSrc[0].click();
         }
     },
 
-    _heroName (item,params) {
+    _heroName (item,index,name) {
         this._heroNameSrc.push(item.getComponent('heroName'));
-        this._heroNameSrc[params].initData(params,this);
+        this._heroNameSrc[index].initData(index,name,this);
     },
 
-    showHeroSelectCard (index) {
-        if (index == 0) {
-            this.node.getChildByName('organizationCard').getComponent(cc.Button).interactable = false;
-        }
-        else {
-            this.node.getChildByName('organizationCard').getComponent(cc.Button).interactable = true;
-        }
-        if (this._selectedIdx >= 0) {
-            this._heroNameSrc[this._selectedIdx].unSelect();
-        }
-        this._curHeroIndex = index;
-        this._selectedIdx = index;
-    },
-
+    //点击筛选
     limit () {
         this.node.getChildByName('limit').active = false;
         this.node.getChildByName('limitMp').active = true;
@@ -265,9 +255,7 @@ cc.Class({
         
             let itemData = dataMgr.card[index];
             self._mp[itemData.CastMP] = index;
-            // initData(index,cardName,CardQuality,cardImage,CardDescription,cardType,thew,mp,cardAttr,canUse, cid)
-            item.getComponent('moveCard').initData(i,itemData.CardName,itemData.CardQuality,itemData.CardImage,
-                itemData.CardDescription,itemData.CardType,itemData.CastThew,itemData.CastMP,itemData.CardAttributes,0,itemData.ID,self,true);
+            item.getComponent('moveCard').initData(i,itemData,self,1);
             if (resIndex == arr.length) {
                 cc.loader.release('UI/cardGroup/cardItem');
             }
@@ -275,21 +263,61 @@ cc.Class({
         });
     },
 
-    lookCardDes (cid) {
-        this.desCard.active = true;
-        let close = this.node.getChildByName('close');
-        close.active = true;
-        let itemData = dataMgr.card[cid];
-        this.desCard.getComponent('moveCard').initData(i,itemData.CardName,itemData.CardQuality,itemData.CardImage,
-            itemData.CardDescription,itemData.CardType,itemData.CastThew,itemData.CastMP,itemData.CardAttributes,0,itemData.ID,self);
+    lookCardDes (index,cid,needCard,needSilver) {
+       // cc.log(cid,needCard,needSilver,"cid,needCard,needSilver");
+       this. _curCard = index;
+       this.desCard.active = true;
+       let itemData = dataMgr.card[cid];
+       this.cardId = cid;
+       this.cardUpBtn.active = true; 
+       this._needCard = needCard;
+       this._needSilver = needSilver;
+       this.cardUpBtn.getChildByName('Label').getComponent(cc.Label).string = needSilver;
+       this.close.active = true;
+       this.desCard.getComponent('moveCard').initData(i,itemData,self);
+       if (needCard != undefined) {
+           this.cardUp.active = true;
+           this.cardUp.getComponent('moveCard').initData(i,itemData,self);//描述会更改
+       }
     },
 
-    
+   
+    upGradeCard () {
+        let self = this;
+        if (this._needCard > bagData.silver) {
+            this._uiMgr.showTips("银两不够");
+            return;
+        }//卡牌数量不够
+        else {
+            net.Request(new  cardUpgradeProto(this.cardId), (data) => {
+                cc.log("升级卡牌",data);
+                if (data.code == consts.CardUpgradeCode.OK) {
+                    self._cardSrc[self._curCard].updateCard();
+                }
+               
+                else if (data.code ==  consts.CardUpgradeCode.CARD_AMOUNT_LESS) {
+                    self._uiMgr.showTips("卡牌不够");
+                }
+               
+                else if (data.code ==  consts.CardUpgradeCode.CARD_IS_MAX_LEVEL) {
+                    this._uiMgr.showTips("该卡已经是最高等级了");
+                }
+            });
+        }
+    },
+
+    _updateUpCard () {
+        this.desCard.active = false;
+        this.cardUp.active = false;
+        this.cardUpBtn.active = false;
+    },
 
     closeCardDes () {
         if (this.desCard.active) {
             this.desCard.active = false;
             this.node.getChildByName('close').active = false;
+            this.cardUpBtn.active = false;
+            this.cardUp.active = false;
         }
         else if (!this.desCard.active) {
             return;
@@ -299,60 +327,33 @@ cc.Class({
         }
     },
 
-
+    selectedHero (index,selectHero) {
+        if (index == 0) {
+            this.node.getChildByName('organizationCard').getComponent(cc.Button).interactable = false;
+        }
+        else {
+            this.node.getChildByName('organizationCard').getComponent(cc.Button).interactable = true;
+        }
+        if (this._selectedIdx >= 0) {
+            this._heroNameSrc[this._selectedIdx].unSelect();
+        }
+        this._curHeroIndex = index;
+        this._selectedIdx = index;
+        this._selectHero = selectHero;
+    },
 
     clickCardGroup () {
-       this.selectCard.active = true;
-       this._loadOwnHero();
-       this.selectHero(1000);
        this._moveCard = true;
-    },
-
-    _loadOwnHero () {
-        var self = this;
-        var resIndex = 0;
-        cc.loader.loadRes('UI/buildTeam/ownHero', function (errorMessage, loadedResource) {
-            for (let i in hero) {
-                var itemData = hero[i];
-                if (errorMessage) {
-                    cc.log('载入预制资源失败, 原因:' + errorMessage);
-                    return;
-                }
-                let item = cc.instantiate(loadedResource);
-                resIndex++;
-                self.showOwnHero.addChild(item);
-                self._ownHeroBar.push(item.getComponent('ownHero'));
-                self._ownHeroBar[resIndex-1].initData(itemData.ID,itemData.HeroName,itemData.HeroIcon,self);
-                //heroid,heroName,heroIcon,parents
-            }
-        });
-    },
-    
-    selectHero (heroid) {
-        let heroData = dataMgr.hero[heroid];
-        let heroIcon = heroData.HeroIcon;
-        this.showSelectHero.spriteFrame = this.heroIconAtlas.getSpriteFrame(heroIcon);
-        this.heroName.string = heroData.HeroName;
-        fightData.userName = heroData.HeroName;
-        this._heroid = heroid;
-    },
-
-    selectCardGroup (event,cust) {
-        this.selectCard.active = false;
-        this.node.getChildByName('toggle').active = true;
-        this.node.getChildByName('limit').active = false;
-        this.node.getChildByName('comfirmSelect').active = true;
-        this.node.getChildByName('organizationCard').active = false;
-        this.node.getChildByName('comfirmSelect').getChildByName('selectHeroName').getComponent(cc.Label).string = fightData.userName;
-        this.heroContent.removeAllChildren();
-        this._closeCardStartEvent();
-        this.target.scrollToPage(0);
-        this._updatePageIndex();
-        this.copyCard();
-    },
-
-    closeSelectCardGroup () {
-        this.selectCard.active = false;
+       this.node.getChildByName('toggle').active = true;
+       this.node.getChildByName('limit').active = false;
+       this.node.getChildByName('comfirmSelect').active = true;
+       this.node.getChildByName('organizationCard').active = false;
+       this.node.getChildByName('comfirmSelect').getChildByName('selectHeroName').getComponent(cc.Label).string = this._selectHero;
+       this.heroContent.removeAllChildren();
+       this._closeCardStartEvent();
+       this.target.scrollToPage(0);
+       this._updatePageIndex();
+       this.copyCard();
     },
 
     _closeCardStartEvent () {
@@ -374,8 +375,7 @@ cc.Class({
             item.y = child[i].y - 45;
             let itemData = dataMgr.card[this._cid[i]];
             this._copyCardSrc.push(item.getComponent('moveCard')); 
-            this._copyCardSrc[i].initData(i,itemData.CardName,itemData.CardQuality,itemData.CardImage,
-                     itemData.CardDescription,itemData.CardType,itemData.CastThew,itemData.CastMP,itemData.CardAttributes,0,itemData.ID,this,false,pos);
+            this._copyCardSrc[i].initData(i,itemData,this,2,pos);
         }
     },
 
@@ -396,8 +396,7 @@ cc.Class({
             let item = this.node.getChildByName(name);
             item.active = true;
             let itemData = dataMgr.card[this._cid[(i+index)]];
-            this._copyCardSrc[i].initData(i,itemData.CardName,itemData.CardQuality,itemData.CardImage,
-                itemData.CardDescription,itemData.CardType,itemData.CastThew,itemData.CastMP,itemData.CardAttributes,0,itemData.ID,this,false);
+            this._copyCardSrc[i].initData(i,itemData,this,2);
         }
     },
 

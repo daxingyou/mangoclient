@@ -2,7 +2,7 @@
  * @Author: liuguolai 
  * @Date: 2018-08-31 15:41:47 
  * @Last Modified by: liuguolai
- * @Last Modified time: 2018-11-05 20:07:28
+ * @Last Modified time: 2018-11-22 10:51:37
  */
 var consts = require('consts');
 var net = require("NetPomelo");
@@ -14,9 +14,8 @@ cc.Class({
         panel: cc.Node,
         btnSure: cc.Button,
         btnClose: cc.Button,
+        btnGM: cc.Button,
         editBox: cc.EditBox,
-        _clickCnt: 0,
-        _lastClickTime: 0
     },
 
     onLoad: function () {
@@ -24,16 +23,8 @@ cc.Class({
             return;
         this._lastCommand = [];
         this._lastCommandIdx = 0;
+        this._initGMBtn();
         var self = this;
-        self.node.on(cc.Node.EventType.TOUCH_START, function (event) {
-            var timeNow = new Date().getTime();
-            if (timeNow - self._lastClickTime > 500)
-                self._clickCnt = 0;
-            self._clickCnt++;
-            self._lastClickTime = timeNow;
-            if (self._clickCnt >= 3)
-                self.panel.active = true;
-        });
         self.btnSure.node.on('click', function (button) {
             self._handle();
         });
@@ -45,28 +36,52 @@ cc.Class({
         });
     },
 
-    onEnable () {
+    _initGMBtn() {
+        let node = this.btnGM.node;
+        node.active = true;
+        this._touchBeginPos = null;
+        node.on(cc.Node.EventType.TOUCH_START, function (event) {
+            this._touchBeginPos = event.getLocation();
+        }, this);
+        node.on(cc.Node.EventType.TOUCH_MOVE, function (event) {
+            let pos = node.parent.convertToNodeSpaceAR(event.getLocation());
+            node.position = pos;
+        }, this);
+        node.on(cc.Node.EventType.TOUCH_END, function (event) {
+            let curPos = event.getLocation();
+            if (Math.abs(curPos.x - this._touchBeginPos.x) < 10 &&
+                Math.abs(curPos.y - this._touchBeginPos.y) < 10) {
+                this.panel.active = !this.panel.active;
+            }
+        }, this);
+    },
+
+    onEnable() {
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
     },
 
-    onDisable () {
+    onDisable() {
         cc.systemEvent.off(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
     },
 
-    onKeyDown (event) {
-        if (this._lastCommand.length === 0)
-            return;
-        switch(event.keyCode) {
+    onKeyDown(event) {
+        switch (event.keyCode) {
             case cc.KEY.up:
+                if (this._lastCommand.length === 0)
+                    return;
                 if (this._lastCommandIdx === 0)
                     this._lastCommandIdx = this._lastCommand.length;
                 this._lastCommandIdx = (this._lastCommandIdx - 1) % this._lastCommand.length;
                 this.editBox.string = this._lastCommand[this._lastCommandIdx];
                 break;
             case cc.KEY.down:
+                if (this._lastCommand.length === 0)
+                    return;
                 this._lastCommandIdx = (this._lastCommandIdx + 1) % this._lastCommand.length;
                 this.editBox.string = this._lastCommand[this._lastCommandIdx];
                 break;
+            case cc.KEY.g:
+                this.panel.active = true;
         }
     },
 

@@ -74,7 +74,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 368,
+      "width": 380,
       "height": 120
     },
     "_rotationX": 0,
@@ -1206,7 +1206,8 @@
     },
     "stateAltas": {
       "__uuid__": "5c401031-9889-4015-9f8d-b834b0de9558"
-    }
+    },
+    "_click": false
   },
   {
     "__type__": "cc.PrefabInfo",

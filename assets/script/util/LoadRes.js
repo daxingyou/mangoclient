@@ -10,9 +10,9 @@ var load = {
     load : function (path,release,callback){
         cc.loader.loadRes(path,function(err,res)
         {
-            callback(res);
             if(err != null)
-                cc.error(err);
+                cc.error(path, err);
+            callback(res);
             if(release)
                 cc.loader.release(path);
         });

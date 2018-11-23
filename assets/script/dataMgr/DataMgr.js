@@ -13,6 +13,7 @@ var RaidAward = require('RaidAward')
 var RaidShop = require('RaidShop')
 var Item = require('Item');
 var Mail = require('Mail')
+var CardUpgrade = require('CardUpgrade')
 //heroAttributes
 var dataMgr = {
     index : 0,
@@ -51,6 +52,9 @@ var dataMgr = {
 
     //邮件
     mail: [],
+
+    //卡牌升级
+    cardUpgrade: [],
 
     
     load : function (path,callback){
@@ -93,6 +97,8 @@ var dataMgr = {
         this.item = Item;
 
         this.mail = Mail;
+
+        this.cardUpgrade = CardUpgrade;
 
 
 

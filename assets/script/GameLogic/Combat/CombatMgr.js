@@ -22,20 +22,19 @@ var CombatMgr = {
 
     initCombat: function (data) {
         let teamType = data.teamType;
-        this.curCombat = new TutorialCombat(data);
-        /*
+
         switch (teamType) {
             case consts.Team.TYPE_LADDER:
             case consts.Team.TYPE_PRACTICE:
                 this.curCombat = new PVPCombat(data);
                 break;
             case consts.Team.TYPE_RAID:
+                this.curCombat = new TutorialCombat(data);
+                break;
             default: 
                 this.curCombat = new PVECombat(data);
-            //case consts.Team.TYPE_RAID:
-            //    this.curCombat = new TutorialCombat(data);
-            //    break;
-        }*/
+        }
+
         this.fightEnd = false;
         this.teamInfo = data.teamInfo;
         this.fightDamage = {};
@@ -133,7 +132,6 @@ var CombatMgr = {
     getSummonMgr: function () {
         return this.curCombat.summonedMgr;
     },
-
     getAbilityTarget: function (Objective) {
         if (Objective.type == constant.SkillTargetType.SELF)
             return this.getSelf();

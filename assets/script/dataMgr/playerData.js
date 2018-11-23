@@ -7,6 +7,7 @@ let leaveTeamProto = require('leaveTeamProto')
 let dataCenter = require('DataCenter')
 let teamRaidData= require('teamRaidData')
 let soloRaidData = require('soloRaidData')
+let cardData = require('cardData')
 let playerData = {
     userInfo: null,
     logined: false, // 是否已经登录
@@ -38,9 +39,10 @@ let playerData = {
         this.emailData = emailData;
         this.teamData = teamData;
         this.soloRaidData = soloRaidData;
+        this.cardData = cardData;
         teamData.onTeamInvited = info.teamInfo.invitedList;
         soloRaidData.soloRaidInfo = info.raidsInfo.raids;
-        
+        cardData.cardInfo = info.cardInfo;
         this.emailData.initMainInfo(info.mailInfo);
         bagData.initInfo(info.bagInfo,info.silver,allGold,info.power);
         this._checkMatch(info.matchInfo,info.teamInfo);
