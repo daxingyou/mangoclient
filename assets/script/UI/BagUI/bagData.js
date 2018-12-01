@@ -13,5 +13,6 @@ module.exports = {
         this.gold = gold;
         this.power = power;
     },
+    isRead: [],// 是否有未查看的道具
    // messages: [],
 };

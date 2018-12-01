@@ -3,7 +3,8 @@ var constant = require('constants')
 var combatMgr = require('CombatMgr');
 var dataCenter = require('DataCenter')
 var fightData = require('fightData')
-
+var consts = require('consts')
+var teamData = require('teamData')
 cc.Class({
     extends: uiBase,
 
@@ -17,6 +18,7 @@ cc.Class({
      speed:50,
      _aphla:0,
      tipCont:true,
+     _fightType: null,
      
     },
 
@@ -29,12 +31,12 @@ cc.Class({
     start () {
        
     },
-    reslut(res) {
+    reslut(res,fightType) {
+        this._fightType = fightType;
             this.mask.opacity = 0;
             var fin = cc.fadeTo(0.3,153);
             this.mask.runAction(fin);
             if (res == 1) {
-                cc.log("win");
                 this.win.active = true;
                 this.lose.active = false;
                
@@ -48,7 +50,6 @@ cc.Class({
                 this.lose.active = false;
             }
             else {
-                cc.log('lose');
                 this.lose.active = true;
                 this.win.active = false;
                 this.lose.scale = 0;
@@ -62,9 +63,11 @@ cc.Class({
     },//被激活时
 
     again(){
-       
+
          if (this._CDState == false) {
-             if (fightData.fightType == 4) {
+
+            // if ( this._fightType == consts.Team.TYPE_PRACTICE)
+             if (this._fightType == consts.Team.TYPE_PRACTICE || this._fightType == consts.Team.TYPE_LADDER) {
                 this._uimgr.loadUI(constant.UI.BuildTeam,function(data){
                     combatMgr.Release();
                     combatMgr.curCombat.UILoadOk = true; 
@@ -74,13 +77,18 @@ cc.Class({
                    data.changeTitle('练习队伍');
                 });
              }
-             else if (fightData.fightType == 1) {
-                this._uimgr.loadUI(constant.UI.RaidUI,function(data){
-                    combatMgr.Release();
-                    combatMgr.curCombat.UILoadOk = true; 
-                });
+             else if (this._fightType == consts.Team.TYPE_RAID) {
+
+                //  if (teamData.refreshTeam == null) {//单人副本
+                //     this._uimgr.loadUI(constant.UI.RaidUI,function(data){
+                //         combatMgr.Release();
+                //         combatMgr.curCombat.UILoadOk = true; 
+                //     });
+                //  }
+                //  else { // 多人副本
+                //     cc.log("多人副本,teamRaidMassage 处理");
+                //  }
              }
-            
          }
 
        
@@ -97,10 +105,8 @@ cc.Class({
                 this.tipCont = false;
             }
         }
-        
-
-        if(this._CDState)
-        {
+    
+        if (this._CDState) {
             this.cdTime -= dt;
             if (this.cdTime <= 0) {
                 this._CDState = false; 

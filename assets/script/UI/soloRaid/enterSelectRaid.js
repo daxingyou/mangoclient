@@ -7,6 +7,8 @@ var dataCenter = require('DataCenter')
 var net = require('NetPomelo')
 var soloRaidData = require('soloRaidData')
 var fightData = require('fightData')
+var raidGetCardProto = require('raidGetCardProto')
+
 
 cc.Class({
     extends:uibase,
@@ -19,6 +21,7 @@ cc.Class({
        _showRaid:[],
        roomId:null,
        raidId:null,
+       showCard: cc.Node,
 
     },
 
@@ -33,41 +36,85 @@ cc.Class({
         let raidData = dataMgr.raid[raidInfo.raidID];
         this.raidName.string = raidData.Name;
         fightData.userName = heroData.HeroName;
-
         let raidsInfo = soloRaidData.soloRaidInfo;//已经存在副本信息
-        for (let i in rooms) {//遍历房间
-           // cc.log(rooms[i],"------------rooms[i]",i,"----------rooid");
-            for (let j in rooms[i]) {//房间里的关卡
-                if (j == "state") {
-                    let state = rooms[i][j];
-                    if (state  == 1) {
-                        cc.log("第一次进副本");
-                        this.loadRaid(rooms[i]["selectList"]);
-                        return;  
-                    }
-                    else if (state  == 2) {
-                        net.Request(new raidEnterRoomProto(soloRaidData.raidId,raidInfo.rooms.length), (data) => {
-                            cc.log("进副本加载状态",data);
-                        });
-                    }
-                    else if (state == 3) {
-                         cc.log("加载前倒计时");
-                         net.Request(new raidEnterRoomProto(soloRaidData.raidId,raidInfo.rooms.length), (data) => {
-                             cc.log("进副本加载状态",data);
-                         });
-                    }
+        let laststRoom = rooms[rooms.length - 1];// 最新的进度
+        if (laststRoom.state == 1) {
+            this.loadRaid(laststRoom.selectList);
+            return;  
+        }
+        else if (laststRoom.state == 2) {
+            net.Request(new raidEnterRoomProto(soloRaidData.raidId,raidInfo.rooms.length), (data) => {
+                cc.log("进副本加载状态",data);
+            });
+        }
+        else if (laststRoom.state == 3) {
+            let cardList = laststRoom.cardsList;
+            this.selectAward(cardList);
+        }
+        else if (laststRoom.state == 4) {
+            cc.log("全部副本都打完了");
+        }
+    },
+
+     //选择奖励卡牌
+     selectAward(cardsList) {
+       // cc.log("cardsList",cardsList,soloRaidData.raidId);
+        if (cardsList == null) 
+        return;
+        var self = this;
+        self.showCard.active = true;
+        self.showRaid.active = false;
+        self.showRaid.removeAllChildren();
+        self._CDState = false;
+        var resIndex = 0;
+        cc.loader.loadRes('UI/teamRaid/awardCardItem', function (errorMessage, loadedResource) {
+            for (let i = 0; i < cardsList.length; i++) {
+                let itemData = cardsList[i];
+                if (errorMessage) {
+                    cc.log('载入预制资源失败, 原因:' + errorMessage);
+                    return;
+                }
+                resIndex++;
+                let item = cc.instantiate(loadedResource);
+                self.showCard.addChild(item);
+                item.getComponent('awardCardItem').initData(itemData,self,1,soloRaidData.raidId);
+                if (resIndex == cardsList.length) {
+                    cc.loader.release('UI/teamRaid/awardCardItem');
                 }
             }
-        }
+        }); 
+    },
+
+    // 选择完奖励卡牌
+    selectCardEnd (info) {
+    //    / cc.log("选择完卡牌");
+        let raidInfo = info;
+     //   cc.log(raidInfo,"raidInfo");
+        let rooms = raidInfo.rooms;
+        this.roomId = rooms.length;
+        this.loadRaid(rooms[this.roomId-1]["selectList"]);
+        this.showCard.active = false;
+        this.showRaid.active = true;
+    },
+
+      //跳过卡牌奖励
+      ingoreAwardCard () {
+        net.Request(new raidGetCardProto(soloRaidData.raidId,0), (data) => {
+            cc.log("跳过卡牌奖励",data);
+        });
+        this.showCard.active = false;
+        this.showRaid.active = true;
     },
     
     //加载关卡，商店，奖励
     loadRaid (selectList) {
-        cc.log("可选关卡商店奖励",selectList);
+       // cc.log("可选关卡/商店/奖励",selectList);
         var self = this;
         var resIndex = 0;
         let raidIdx = 0;
         let raidType = null;
+        self.showRaid.removeAllChildren();
+        self._showRaid = [];
         cc.loader.loadRes('UI/raidUI/raidRoom', function (errorMessage, loadedResource) {
             for (let i in selectList) {
                 var itemData = selectList[i];

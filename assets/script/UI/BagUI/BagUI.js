@@ -9,12 +9,14 @@ var bagSellProto = require('bagSellProto')
 var bagUseProto = require('bagUseProto')
 var net = require('NetPomelo')
 var consts = require('consts')
+var constant = require('constants')
 var exchangeSilverProto = require('exchangeSilverProto')
 var exchangePowerProto = require('exchangePowerProto')
 cc.Class({
     extends: UIBase,
 
     properties: {
+
         goodsContent : cc.Node,
         goodsItem : cc.Prefab,
         num:200,
@@ -23,9 +25,11 @@ cc.Class({
         tips1:cc.Node,
         tips2:cc.Node, 
         _goodsScr:[],
+
         silverNum:cc.Label,
         goldNum:cc.Label,
         powerNum:cc.Label,
+
         priceTips:cc.Node,
         goodName:cc.Label,
         goodNum:cc.Label,
@@ -81,16 +85,20 @@ cc.Class({
         _inputNum: 1,
         _exType:1,
         _selectedIdx: -1,
-        
+        _isNewGood: true,
+        _curBtn: 0,
     },
 
     onLoad () {
         this._uiMgr = cc.find('Canvas').getComponent('UIMgr');
         this.goodsInfo = {};
-        this.initData();
         eventMgr.on("refreshBag",this.refreshBag,this);
         eventMgr.on("refreshSilver",this.refreshSilver,this);
         eventMgr.on("stopUpTouch",this.stopUpTouch,this);
+        this.prop = this.node.getChildByName('toggleGroup').getChildByName('prop');
+        this.treasure = this.node.getChildByName('toggleGroup').getChildByName('treasure');
+        this.initData();
+        this._curBtn = 0;
      },
 
      initData () {
@@ -126,22 +134,24 @@ cc.Class({
         else if (this._curButton == 2) {
             this.clickTreasure();
         }
-
      },
 
      refreshSilver (data) {
          for (let i in data) {
              if (i == "silver") {
                 this.silverNum.string = data[i];
+                bagData.silver = data[i];
                 this._ownSilver = data[i];
              }
              else if (i == "freeGold") {
                  this.goldNum.string = data[i];
                  this._ownGold = data[i];
+                 bagData.gold = data[i];
              }
              else if (i == "power") {
                  this.powerNum.string = data[i];
-                 this._ownPower =data[i];
+                 this._ownPower = data[i];
+                 bagData.power = data[i];
                  
              }
          }
@@ -162,11 +172,33 @@ cc.Class({
         this._updateGoods(this._curButton);
     },
 
+    clickToggle (event,cust) {
+       
+        let index = parseInt(cust);
+        if (this._curBtn == index) {//在当前按钮
+            cc.log("在当前anni,不需要刷新");
+          //  return;
+        }
+    //   /  this._curButton = index;
+
+    },
+
     _updateGoods (goodType) {
         this._goodsScr = [];
         let resIndex = 0;
         this._selectedIdx = -1;
         this.goodsContent.removeAllChildren();
+        let len1 = this.prop.childrenCount;
+        let len2 = this.treasure.childrenCount;
+        if (len1 == 4 || len2 == 4) {//对应的按钮下添加红点提示
+            this._isNewGood = true;
+        }
+        else {
+            this._isNewGood = false;
+        }
+
+      
+    //   /  cc.log(len1,len2);
         if (Object.keys(this.goodsInfo).length == 0) {
             this._emptyGood();
         }
@@ -189,7 +221,8 @@ cc.Class({
             }   
             }
         }
-      
+
+    //    / cc.log(resIndex,"resIndex");
         if (resIndex > 0) {
             this._hadGoods();
             if (goodType == 1) {
@@ -198,7 +231,15 @@ cc.Class({
             else {
                 this.burn.active = true;
             }
-           
+
+            if (resIndex == 1) { // 只有一个 不用提示
+                this._clearHotTips(true);
+            }
+            else {
+                if (this._isNewGood) {
+                    this._goodsScr[resIndex-1]._isNew = true;
+                }   
+            }
         }
         else {
             this._emptyGood();
@@ -206,6 +247,7 @@ cc.Class({
 
     },
 
+    // 背包为空
     _emptyGood () {
         this._ownCnt = 0;
         this._sellCnt = 0;
@@ -214,6 +256,7 @@ cc.Class({
         return;
     },
 
+    // 背包不为空
     _hadGoods () {
         this._goodsScr[0].select();
         this.showSelectGood(0);
@@ -221,22 +264,98 @@ cc.Class({
         this.emptyTips.active = false;
     },
 
+
+    // 红点提示 type == 1 道具 == 2宝物
     _updateGoodTips (type) {
-        this["tips" + type].active = true;
+        let x,y;
+        if (type == 1) {
+            x = 24;
+            y = 103;
+            this._uiMgr.hotTips(x,y,this.prop);
+            let len1 = this.prop.childrenCount;
+            if (len1 == 4) {
+                return;
+            }
+            else {
+                this._uiMgr.hotTips(x,y,this.prop);
+            }
+        }
+        else {
+            x = 24;
+            y = 103;
+            let len2 = this.treasure.childrenCount;
+            if (len2 == 4)
+            return;
+            else
+            this._uiMgr.hotTips(x,y,this.treasure);
+        }
+    },
+
+    // 检测是不是全部物品已经查看过
+    _checkIsRead () {
+        let isAllRead = true;
+        let len = this._goodsScr.length;
+        let i;
+        if (len == 0) 
+        return;
+        else if (len == true) {
+            
+        }
+        else {
+            for (i = 0 ; i < len ; i++) {
+                cc.log(this._goodsScr[i]._isNew)
+                if (this._goodsScr[i]._isNew == true) {// 只要有一个为new
+                    isAllRead = false;
+                } 
+            }
+        }
+        if (i == len) {
+            this._clearHotTips(isAllRead);
+        }
+    },
+    
+
+    
+
+    // 清除红点提示
+    _clearHotTips(clear) {
+        if (clear == true) {
+            if (this._curButton == 1) {
+                cc.log("清除");
+                let len1 = this.prop.childrenCount;
+                if (len1 == 3)
+                return;
+                else {
+                    let hotTipsNode = this.prop.children[3];
+                    hotTipsNode.parent = null;
+                }
+            }
+            else {
+                cc.log("清除掉2");
+                let len2 = this.treasure.childrenCount;
+                if (len2 == 3)
+                return;
+                else {
+                    let hotTipsNode = this.treasure.children[3];
+                    hotTipsNode.parent = null;
+                }
+            }
+        }
     },
 
     start () {
       
     },
 
-
+    // 显示详细的物品信息
     showSelectGood (index) {
         if (this._selectedIdx >= 0) {
             this._goodsScr[this._selectedIdx].unSelect();
         }
         let curGood = this._goodsScr[index];
         this._selectedIdx = index;
-        if (curGood._cnt !=null) {
+        this._checkIsRead();
+        if (curGood._cnt != null) {
             this._selectGoodId = curGood._goodId;
             this._ownCnt = curGood._cnt;
             this.goodName.string = dataMgr.item[this._selectGoodId].Name;
@@ -294,7 +413,7 @@ cc.Class({
         let data = dataMgr.item[this._selectGoodId];
         this.sellNum.getComponent(cc.Label).string = "数量:" + 1 + "/" +this._ownCnt;
         let buttonType = data.Button[0];
-        this.checkButtonType(buttonType,data);
+        this._checkButtonType(buttonType,data);
     },
 
     clickButton2 () {
@@ -305,11 +424,11 @@ cc.Class({
         this.slider_sell.progress = 1/this._ownCnt; 
         this.sellNum.getComponent(cc.Label).string = "数量:" + 1 + "/" +this._ownCnt; 
         let buttonType = data.Button[1];
-        this.checkButtonType(buttonType,data);
+        this._checkButtonType(buttonType,data);
         
     },
 
-    checkButtonType (buttonType,data) {
+    _checkButtonType (buttonType,data) {
         if ( buttonType == consts.Bag.FUNC_SELL) {
             this.selectNumTit.string = "道具出售";
             this.singlePrice.active = true;
@@ -384,6 +503,7 @@ cc.Class({
         this.sellPrice.getComponent(cc.Label).string = "获得银两:" + this._curCnt * this._singlePrice;
     },
 
+    // 点击增加
     addSellNum () {
         let per = 1/this._ownCnt;
         this.slider_sell.progress += per;
@@ -394,7 +514,7 @@ cc.Class({
         this._updateSellNum(pro);
         
     },
-
+    // 点击减少
     subSellNum () {
         let per = 1/this._ownCnt;
         this.slider_sell.progress -= per;
@@ -405,11 +525,12 @@ cc.Class({
         this._updateSellNum(pro);
     },
 
+    // 进度条
     onSliderHEvent (sender, eventType) {
         this._updateSellNum(sender.progress);
     },
 
-
+    // 点击兑换
     clickExchange (event,cust) {
         this.showExchange.active = true;
         let index = cust;
@@ -450,17 +571,19 @@ cc.Class({
                 this["obtain" + i].getComponent(cc.Label).string = "好友赠送";
            }
        } 
-
     },
+
     closeExchange () {
         this.showExchange.active = false;
     },
 
+    // 点击输入
     inputNum () {
         this.keyCode.active = true;
         eventMgr.emit("stopUpTouch");
     },
 
+    // 输入数字，显示小键盘
     editNum (event,cust) {
         let index = parseInt(cust);
         let num = this.input.string;
@@ -491,11 +614,13 @@ cc.Class({
         this.get.getChildByName('num').getComponent(cc.Label).string = this._inputNum;
     },
 
+    // 点击完成
     clickOk () {
         eventMgr.off("stopUpTouch",this.stopTouch);
         this.keyCode.active = false;
     },
 
+    // 删除输入
     clickClear () {
         let basic =  this.input.string.substring(0,this.input.string.length - 1);  
         this.input.string = basic;
@@ -507,7 +632,7 @@ cc.Class({
         this._showEidt(exchange);
     },
 
-
+    //  确认兑换
     comfirmEx () {
         let self = this;
         if (self._inputNum == 0) {
@@ -537,6 +662,7 @@ cc.Class({
         } 
     },
 
+    // 进入商店
     enterStore () {
         this._uiMgr.release();
         let self = this;

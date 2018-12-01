@@ -91,6 +91,7 @@ module.exports = {
         PERMANENT_CONSUME_CARD: 3,  // 永久消耗卡牌
         INHERENT_CARD: 4,  // 固有
         GET_USE_CARD: 5,  // 抽到即使用
+        GET_USE_SKILL_CARD: 7,  // 在手中持续生效（使用后消耗）
     },
 
     // 技能常量
@@ -109,6 +110,7 @@ module.exports = {
     // buff
     Buff: {
         BUFF_PERMANENT: -1,  // 永久buff的endTime
+        BUFF_CARD_INHEAD: -2,  // buff的endTime为卡用掉。
     },
 
     // 牌堆

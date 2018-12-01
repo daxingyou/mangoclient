@@ -19,18 +19,6 @@ module.exports = {
 "7":{"cardcount":1, "room_id":7}},
 		Icon: 'dilingbiyou'
 	},
-	2: {
-		ID: 2,
-		Name: '白玉美人',
-		RequirePlayers: 1,
-		RequireLevel: 0,
-		TotalCount: 4,
-		Rooms: {"1":{"cardcount":1, "room_id":11},
-"2":{"cardcount":1, "room_id":12},
-"3":{"cardcount":1, "room_id":13},
-"4":{"cardcount":1, "room_id":14}},
-		Icon: 'dilingbiyou'
-	},
 	101: {
 		ID: 101,
 		Name: '月河河洞',

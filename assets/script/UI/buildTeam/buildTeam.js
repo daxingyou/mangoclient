@@ -32,6 +32,8 @@ cc.Class({
         _cancelMatch: true,
         _isCanBeginMatch:false,
         title:cc.Label,
+        titleImg: cc.Sprite,
+        teamMatchAltas: cc.SpriteAtlas,
         showGameFriend:cc.Node,
         _showGameFriend:[],
         _isShow:false,
@@ -278,14 +280,17 @@ cc.Class({
             }  
         } 
         if (teamType == consts.Team.TYPE_LADDER) {
+            this.titleImg.spriteFrame = this.teamMatchAltas.getSpriteFrame('team_ladder');
             this.title.string = "天梯队伍";
         }
         else if (teamType == consts.Team.TYPE_PRACTICE) {
             fightData.fightType = 4;
+            this.titleImg.spriteFrame = this.teamMatchAltas.getSpriteFrame('4v4');
             this.title.string = "练习队伍";
         }
         else if (teamType == consts.Team.TYPE_RAID) {
             fightData.fightType = 2;
+            this.titleImg.spriteFrame = this.teamMatchAltas.getSpriteFrame('copy_team');
             this.title.string = "副本队伍";
         }
         let titleText = this.title.string;

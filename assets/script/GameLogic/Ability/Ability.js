@@ -79,6 +79,7 @@ ability.prototype.Active = function(Target,targets){
 	}
 
 	this.swordShow = true;
+	this.index = 0;
 }
 
 ability.prototype.ShowEffect = function(effect,effectType){
@@ -94,7 +95,7 @@ ability.prototype.ShowEffect = function(effect,effectType){
 	{
 		if(effectType.origin == constant.EffectOrigin.target)
 		{
-			effectMgr.getMoveEffect(this.arrs.Path,this.owner.agent.go.position.add(new cc.Vec2(3,0)),this.curTarget.agent.go.position,8,effect,this.owner.teamid);
+			effectMgr.getMoveEffect(this.arrs.Path,this.curTarget.agent.go.position,this.owner.agent.go.position,8,effect,this.owner.teamid);
 		}
 		else if(effectType.origin == constant.EffectOrigin.onwer)
 		{
@@ -266,19 +267,19 @@ ability.prototype.tick = function(dt){
 	}
 	else if(this.hitEffectTime.length > 0)
 	{
-		if(this.ID == 1010 && this.swordShow)
+		if(this.ID == 18010 && this.swordShow)
 		{
 			var frame = new Array(6,9,13,16,18,21,25);
 	
 			if(this.effectFrame == frame[this.index])
 			{
 				this.index++;
-				this.owner.curCombat.summonedMgr.collectItem();
+				this.owner.curCombat.summonedMgr.collectItem(this.curTarget, constant.SummonedType.wSword);
 			}
 			else if(this.effectFrame >frame[frame.length - 1])
 			{
 				if(this.owner.curCombat.summonedMgr != null)
-					this.owner.curCombat.summonedMgr.collectAll(this.curTarget);
+					this.owner.curCombat.summonedMgr.collectAll(this.curTarget, constant.SummonedType.wSword);
 				this.swordShow = false;
 			}
 		}

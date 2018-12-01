@@ -45,6 +45,7 @@ cc.Class({
         gameOver:false,
         mpRecoverPauseEnd:true,
         is_chongLian:false,
+        comboPanel: cc.Node
     },
 
     onLoad() {
@@ -67,13 +68,18 @@ cc.Class({
         this.initData(() => {
             combatMgr.curCombat.UILoadOk = true;
             this.initBarHp();
-            this.ShowHandCards();//第一次加载
-            this.schedule(this.callback,1);
+            //this.ShowHandCards();//第一次加载
             this.showNum();
             this.onFreshMp(combatMgr.getSelf().mp, true);
+            this.updateCombo();
         })
     },
-
+    FightStart(){
+        this.min_time = 2,
+        this.sec_time = 60,
+        this.schedule(this.callback,1);
+        this.ShowHandCards();
+    },
     initData(callback) {
         this._uimgr = cc.find('Canvas').getComponent('UIMgr');
         let heroIcon = datamgr.hero[combatMgr.getSelf().heroid].HeroIcon;
@@ -114,7 +120,7 @@ cc.Class({
     },
 
     initBarHp(){
-        cc.log('initData en hong ~~~~~~~~~~~~~~~~~~~~~~~');
+        //cc.log('initData en hong ~~~~~~~~~~~~~~~~~~~~~~~');
         this.barLabel.string = combatMgr.getSelf().hp + '/' + combatMgr.getSelf().maxHp;
         this.target = combatMgr.getSelf();
     },
@@ -240,7 +246,6 @@ cc.Class({
 
             self.now_index = j;
             self.centerCard.active = true;
-            cc.log(self.now_index);
             var isCanUse = 0;
 
            self.centerCard.getComponent('CardItem').initData(
@@ -480,6 +485,10 @@ cc.Class({
     },
     ShowHandCards: function () {
         var player = combatMgr.getSelf();
+        
+        if(player == null)
+            return;
+
         if (player.handsPile.length == 8) {
             this._uimgr.showTips('手牌已满');
         }
@@ -511,14 +520,26 @@ cc.Class({
         this.playerHpBar.progress = player.hp / player.maxHp;
         this.updateBarLabel(player.hp, player.maxHp);
     },
-    loadFightOver: function (res) {
-        var resss = res;
+    loadFightOver: function (result,type) {
+        let res = result;
+        let fightType = type;
         this.scheduleOnce(function () {
             combatMgr.Release();
             this._uimgr.loadUI(constants.UI.FightOver,function(data) {
-                data.reslut(resss); 
+                data.reslut(res,fightType); 
             })
         },2);
     },
+
+    //切换调试模式
+    test () {
+       for (let i = 0;i < this._HandsCards.length; i++) {
+           this._HandsCards[i].clickShowCardId();
+       } 
+    },
+
+    updateCombo: function () {
+        this.comboPanel.getComponent('comboUI').refresh();
+    }
     
 });

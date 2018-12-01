@@ -2131,10 +2131,7 @@
     "canUseCard": {
       "__id__": 6
     },
-    "CurCenterCard": false,
     "mp": null,
-    "_canUse": false,
-    "_willingUse": false,
     "_cid": null,
     "cardMask": {
       "__id__": 2
@@ -2149,10 +2146,12 @@
     "_cardNum": 1,
     "_maxLevel": 0,
     "_curLevel": 0,
+    "_cnt": 0,
     "_curQuality": 0,
     "levelLabel": {
       "__id__": 42
-    }
+    },
+    "_fixDes": null
   },
   {
     "__type__": "cc.PrefabInfo",

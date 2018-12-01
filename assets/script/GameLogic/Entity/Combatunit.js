@@ -140,7 +140,7 @@ CombatUnit.prototype.onDamage = function(data){
         this.armor = data.armor;
     this.agent.hpbar.freshen(this.hp,this.maxHp,this.armor);
     let dmg = data.oriDamage;
-    this.uimgr.loadDmg(this, dmg, true, data.attackerID);
+    this.uimgr.loadDmg(this, dmg, true, data.attackerID, data.isCrit);
 
     if(this.hp <= 0)
         this.onDie();
@@ -183,10 +183,10 @@ CombatUnit.prototype.freshAttri = function (data) {
     }
 };
 
-CombatUnit.prototype.onHeal = function(curhp, value, casterID){
+CombatUnit.prototype.onHeal = function(curhp, value, casterID, isCrit){
     this.hp = curhp;
     this.agent.hpbar.freshen(this.hp,this.maxHp,this.armor);
-    this.uimgr.loadDmg(this, value, false, casterID);
+    this.uimgr.loadDmg(this, value, false, casterID, isCrit);
 
     if(this == this.curCombat.getSelf())
     {
@@ -253,20 +253,23 @@ CombatUnit.prototype.buffUpdate = function(realID, info){
     else {
         this.buffs[realID] = new buff(info);
     }
+   
     this.agent.hpbar.freshenBuff(this.buffs);
 }
 
 // buff影响hp
 CombatUnit.prototype.onBuffModHp = function (data) {
-    let fromHp = data.fromHp, toHp = data.toHp, val = data.val, casterID = data.casterID;
+    let fromHp = data.fromHp, toHp = data.toHp, val = data.val, 
+        casterID = data.casterID, isCrit = data.isCrit;
     if (fromHp < toHp) {
-        this.onHeal(toHp, val, casterID);
+        this.onHeal(toHp, val, casterID, isCrit);
     }
     else {
         this.onDamage({
             hp: toHp,
             oriDamage: -val,
-            attackerID: casterID
+            attackerID: casterID,
+            isCrit: isCrit
         })
     }
     if (this.isPlayer()) {

@@ -284,9 +284,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 17,
-      "g": 6,
-      "b": 6,
+      "r": 73,
+      "g": 61,
+      "b": 59,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -297,8 +297,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 59,
-      "height": 24
+      "width": 65,
+      "height": 26
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -307,7 +307,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": -70,
-      "y": 0
+      "y": -0.7
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -325,9 +325,9 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 24,
-    "_fontSize": 24,
-    "_lineHeight": 24,
+    "_actualFontSize": 26,
+    "_fontSize": 26,
+    "_lineHeight": 26,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -335,7 +335,7 @@
     "_N$string": "Label",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
-    "_N$fontFamily": "Arial",
+    "_N$fontFamily": "黑体",
     "_N$overflow": 0
   },
   {
@@ -371,9 +371,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 25,
-      "g": 3,
-      "b": 3,
+      "r": 73,
+      "g": 61,
+      "b": 59,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -384,8 +384,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 59,
-      "height": 24
+      "width": 85,
+      "height": 34
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -394,7 +394,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 123,
-      "y": -2
+      "y": -0.7
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -412,9 +412,9 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 24,
-    "_fontSize": 24,
-    "_lineHeight": 24,
+    "_actualFontSize": 34,
+    "_fontSize": 34,
+    "_lineHeight": 34,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -422,7 +422,7 @@
     "_N$string": "Label",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
-    "_N$fontFamily": "Arial",
+    "_N$fontFamily": "黑体",
     "_N$overflow": 0
   },
   {

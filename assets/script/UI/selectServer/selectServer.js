@@ -117,7 +117,6 @@ cc.Class({
         var self = this;
         self._code = code;
         cc.log("获取服务器列表");
-        //net.HttpRequest('http://39.108.12.90:3003/ServerList/?code=' + code, (data) => {
         net.HttpRequest('https://mango.haisenyouxi.com/ServerList/?code=' + code, (data) => {
             cc.log(data);
             self._bGetServerList = true;

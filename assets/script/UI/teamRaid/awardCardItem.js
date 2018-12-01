@@ -3,12 +3,16 @@ var constant = require('constants')
 var net = require('NetPomelo')
 var teamRaidGetCardProto = require('teamRaidGetCardProto')
 var dataMgr = require('DataMgr')
+var raidGetCardProto = require('raidGetCardProto')
+var UIConsts = require('UIConsts')
 cc.Class({
     extends: cc.Component,
 
     properties: {
-       _curIndex:null,
+       _curCardId:null,
        _parents:null,
+       _type: 0,
+       _soloRaidId: 0,
    
         cardAtlas : cc.SpriteAtlas,
         left:cc.Sprite,
@@ -19,6 +23,7 @@ cc.Class({
         cardAttr:cc.Node,
         cardType:cc.Node,
         typeAttack:cc.Sprite,
+
     },
     
     // onLoad () {},
@@ -26,43 +31,37 @@ cc.Class({
     start () {
 
     },
-    initData (index,parent) {
-        this._curIndex = index;
+    // type == 1 单人副本 type == 2 组队副本
+    initData (cardId,parent,type,raidId) {
+        this._curCardId = cardId;// cardId
         this._parents = parent;
-        let itemData = dataMgr.card[index];
+        this._type = type;
+        if (raidId != null) {
+            this._soloRaidId = raidId;
+        }
+        let itemData = dataMgr.card[cardId];
         this.cardImage.spriteFrame = this.cardAtlas.getSpriteFrame(itemData.CardImage);
-        var wihte =new cc.Color(255,255,255);//1
-        var bule =new cc.Color(47,203,242);//2
-        var zise =new cc.Color(242,66,253);//紫色3
-        var cese =new cc.Color(210,97,49);//橙色4
-
-        var goji =new cc.Color(221,81,81);//攻击1
-        var qishu =new  cc.Color(31,231,255);//奇术2
-        var tianfu =new cc.Color(90,161,68);//天赋3
-        var baowu =new cc.Color(255,244,44);//宝物4
+      
 
     
         this.cardName.getComponent(cc.Label).string = itemData.CardName;
-    
-       
-        
         this.cardImage.spriteFrame = this.cardAtlas.getSpriteFrame(itemData.CardImage);
 
         if (itemData.CardQuality == 1)
         {
-            this.cardName.color = wihte;
+            this.cardName.color = UIConsts.Color.wihte;
         }
         if (itemData.CardQuality == 2)
         {
-            this.cardName.color = bule;
+            this.cardName.color = UIConsts.Color.bule;
         }
         if (itemData.CardQuality == 3)
         {
-            this.cardName.color = zise;
+            this.cardName.color = UIConsts.Color.purple;
         }
         if (itemData.CardQuality == 4)
         {
-            this.cardName.color = cese;
+            this.cardName.color = UIConsts.Color.orange;
         }
         if (itemData.CastThew > 0)
         {
@@ -135,36 +134,47 @@ cc.Class({
         {
            this.cardType.getComponent(cc.Label).string= "攻击";
            this.typeAttack.spriteFrame = this.cardAtlas.getSpriteFrame("type_attack");
-            this.cardType.color = goji;
+            this.cardType.color = UIConsts.Color.goji;
         }
 
         if (itemData.CardType == 2)
         {
             this.cardType.getComponent(cc.Label).string = "奇术";
             this.typeAttack.spriteFrame = this.cardAtlas.getSpriteFrame("type_skill");
-            this.cardType.color = qishu;
+            this.cardType.color = UIConsts.Color.qishu;
         }
 
         if (itemData.CardType == 3)
         {
             this.cardType.getComponent(cc.Label).string = "天赋";
             this.typeAttack.spriteFrame = this.cardAtlas.getSpriteFrame("type_talent");
-            this.cardType.color = tianfu;
+            this.cardType.color = UIConsts.Color.tianfu;
         }
 
         if (itemData.CardType == 4)
         {
            this.cardType.getComponent(cc.Label).string = "宝物";
            this.typeAttack.spriteFrame = this.cardAtlas.getSpriteFrame("type_artifact");
-           this.cardType.color = baowu;
+           this.cardType.color = UIConsts.Color.baowu;
         }  
     },
 
     selectCard () {
-        net.Request(new teamRaidGetCardProto(this._curIndex), (data) => {
-            cc.log("选择奖励卡牌加入牌库",data);
-        });
-        this._parents.selectCardEnd();
+        let self = this;
+        if (this._type == 1) {
+            net.Request(new raidGetCardProto(this._soloRaidId,this._curCardId), (data) => {
+                cc.log("单人选择奖励卡牌加入牌库",data);
+                self._parents.selectCardEnd(data.raidInfo);
+            }); 
+        }
+        else {
+            net.Request(new teamRaidGetCardProto(this._curCardId), (data) => {
+                cc.log("组队选择奖励卡牌加入牌库",data);
+                self._parents.selectCardEnd();
+            });
+        }
+        
+       
     },
 
     // update (dt) {},

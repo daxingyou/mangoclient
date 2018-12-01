@@ -84,8 +84,11 @@ cc.Class({
         this.node.runAction(cc.sequence(s1, s2, a2, a3, cb));
     },
 
-    _showCombatAction (showType, reverse) {
-        this.node.scale = 1;
+    _showCombatAction (showType, reverse, isCrit) {
+        if (isCrit) 
+            this.node.scale = 1.5;
+        else 
+            this.node.scale = 1;
         if (showType === constants.CombatWordType.CAUSE_DAMAGE) {
             this._showParabolaAction(reverse);
         }
@@ -101,7 +104,7 @@ cc.Class({
         }
     },
 
-    showDmg(combatUnit, dmg, dmgorheal, showType) {
+    showDmg(combatUnit, dmg, dmgorheal, showType, isCrit) {
         this._showType = showType;
         var str = dmgorheal ? dmg.toString() : "+" + dmg.toString();
         this._alpha = 255;
@@ -116,6 +119,6 @@ cc.Class({
             entPos.y + hitPoint[1] * entScale + utility.RandomInt(0, 50));
         this.node.position = originPos;
         var reverse = combatUnit.agent.go.scale > 0 ? false : true;
-        this._showCombatAction(showType, reverse);
+        this._showCombatAction(showType, reverse, isCrit);
     }
 });

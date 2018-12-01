@@ -53,7 +53,6 @@ cc.Class({
 
         if (this.curObjective.type == constant.SkillTargetType.ALL || this.curObjective.type == constant.SkillTargetType.SELF)
         {   
-            cc.log("不需要选目标-----------------------------");
             this._dragCard = true;
             cardItem.stopAllActions();
             cardItem.position = cardItem.parent.convertToNodeSpaceAR(point);

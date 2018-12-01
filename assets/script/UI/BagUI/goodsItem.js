@@ -12,15 +12,18 @@ cc.Class({
        _goodId:null,
        _cnt:null,
        _isRead:false,
+       _isNew: false,//新道具
     },
 
-    initData (goodId,num,parent,curIndex) {
+    initData (goodId,num,parent,curIndex,isNew) {
         this._goodId = goodId;
         this._cnt = num;
         this.num.string = num;
         this.propName.string = dataMgr.item[goodId].Name;
         this._parents = parent;
-        this._curIndex = curIndex;
+        this._curIndex = curIndex;   
+        if (isNew != null)    
+        this._isNew = isNew; 
     },
 
     refreash (cnt) {
@@ -39,10 +42,11 @@ cc.Class({
         if (this.tips.active)
         return;
         this.select();
-        this._isRead = true;
         this._parents._curIndex = this._curIndex;
+        this._isNew = false;
         this._parents.showSelectGood(this._curIndex);
     },
+
 
 
 

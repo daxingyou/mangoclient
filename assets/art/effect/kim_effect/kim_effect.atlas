@@ -1,0 +1,412 @@
+
+kim_effect.png
+size: 1846,298
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect/coin
+  rotate: false
+  xy: 1727, 24
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+effect/equake
+  rotate: false
+  xy: 0, 42
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+effect/fragment1
+  rotate: false
+  xy: 1748, 127
+  size: 48, 45
+  orig: 50, 50
+  offset: 1, 0
+  index: -1
+effect/fragment1_highlight
+  rotate: false
+  xy: 1798, 127
+  size: 48, 45
+  orig: 50, 50
+  offset: 1, 0
+  index: -1
+effect/fragment2
+  rotate: true
+  xy: 1494, 22
+  size: 46, 49
+  orig: 50, 50
+  offset: 3, 1
+  index: -1
+effect/fragment2_highlight
+  rotate: true
+  xy: 1697, 126
+  size: 46, 49
+  orig: 50, 50
+  offset: 3, 1
+  index: -1
+effect/ground_flash/ground_flash_00000
+  rotate: false
+  xy: 388, 126
+  size: 235, 65
+  orig: 235, 65
+  offset: 0, 0
+  index: -1
+effect/ground_flash/ground_flash_00001
+  rotate: false
+  xy: 613, 233
+  size: 235, 65
+  orig: 235, 65
+  offset: 0, 0
+  index: -1
+effect/ground_flash/ground_flash_00002
+  rotate: false
+  xy: 625, 126
+  size: 235, 65
+  orig: 235, 65
+  offset: 0, 0
+  index: -1
+effect/ground_flash/ground_flash_00003
+  rotate: false
+  xy: 850, 233
+  size: 235, 65
+  orig: 235, 65
+  offset: 0, 0
+  index: -1
+effect/ground_flash/ground_flash_00004
+  rotate: false
+  xy: 862, 127
+  size: 235, 65
+  orig: 235, 65
+  offset: 0, 0
+  index: -1
+effect/ground_flash/ground_flash_00005
+  rotate: false
+  xy: 1087, 233
+  size: 235, 65
+  orig: 235, 65
+  offset: 0, 0
+  index: -1
+effect/ground_flash/ground_flash_00006
+  rotate: false
+  xy: 1099, 133
+  size: 235, 65
+  orig: 235, 65
+  offset: 0, 0
+  index: -1
+effect/ground_smk1/ground_smk_1_00000
+  rotate: false
+  xy: 321, 50
+  size: 48, 11
+  orig: 155, 40
+  offset: 52, 0
+  index: -1
+effect/ground_smk1/ground_smk_1_00001
+  rotate: false
+  xy: 1296, 55
+  size: 112, 27
+  orig: 155, 40
+  offset: 24, 0
+  index: -1
+effect/ground_smk1/ground_smk_1_00002
+  rotate: false
+  xy: 1084, 200
+  size: 134, 31
+  orig: 155, 40
+  offset: 11, 0
+  index: -1
+effect/ground_smk1/ground_smk_1_00003
+  rotate: false
+  xy: 613, 193
+  size: 148, 38
+  orig: 155, 40
+  offset: 1, 0
+  index: -1
+effect/ground_smk1/ground_smk_1_00004
+  rotate: false
+  xy: 1672, 258
+  size: 150, 40
+  orig: 155, 40
+  offset: 0, 0
+  index: -1
+effect/ground_smk1/ground_smk_1_00005
+  rotate: false
+  xy: 1410, 70
+  size: 149, 40
+  orig: 155, 40
+  offset: 0, 0
+  index: -1
+effect/ground_smk1/ground_smk_1_00006
+  rotate: false
+  xy: 1367, 112
+  size: 150, 40
+  orig: 155, 40
+  offset: 0, 0
+  index: -1
+effect/ground_smk1/ground_smk_1_00007
+  rotate: false
+  xy: 1369, 208
+  size: 152, 40
+  orig: 155, 40
+  offset: 0, 0
+  index: -1
+effect/ground_smk1/ground_smk_1_00008
+  rotate: false
+  xy: 1518, 258
+  size: 152, 40
+  orig: 155, 40
+  offset: 0, 0
+  index: -1
+effect/ground_smk1/ground_smk_1_00009
+  rotate: false
+  xy: 1523, 216
+  size: 152, 40
+  orig: 155, 40
+  offset: 0, 0
+  index: -1
+effect/ground_smk1/ground_smk_1_00010
+  rotate: false
+  xy: 1220, 203
+  size: 147, 28
+  orig: 155, 40
+  offset: 0, 0
+  index: -1
+effect/ground_smk1/ground_smk_1_00011
+  rotate: false
+  xy: 371, 44
+  size: 27, 17
+  orig: 155, 40
+  offset: 0, 0
+  index: -1
+effect/ground_smk1/ground_smk_1_00012
+  rotate: true
+  xy: 388, 65
+  size: 9, 7
+  orig: 155, 40
+  offset: 0, 3
+  index: -1
+effect/ground_smk2/ground_smk2_00000
+  rotate: false
+  xy: 258, 49
+  size: 61, 12
+  orig: 200, 50
+  offset: 71, 5
+  index: -1
+effect/ground_smk2/ground_smk2_00001
+  rotate: false
+  xy: 258, 49
+  size: 61, 12
+  orig: 200, 50
+  offset: 71, 5
+  index: -1
+effect/ground_smk2/ground_smk2_00002
+  rotate: false
+  xy: 1181, 52
+  size: 113, 30
+  orig: 200, 50
+  offset: 49, 4
+  index: -1
+effect/ground_smk2/ground_smk2_00003
+  rotate: false
+  xy: 763, 194
+  size: 140, 37
+  orig: 200, 50
+  offset: 31, 1
+  index: -1
+effect/ground_smk2/ground_smk2_00004
+  rotate: false
+  xy: 391, 2
+  size: 161, 40
+  orig: 200, 50
+  offset: 20, 1
+  index: -1
+effect/ground_smk2/ground_smk2_00005
+  rotate: false
+  xy: 554, 1
+  size: 183, 44
+  orig: 200, 50
+  offset: 9, 0
+  index: -1
+effect/ground_smk2/ground_smk2_00006
+  rotate: false
+  xy: 739, 1
+  size: 183, 44
+  orig: 200, 50
+  offset: 9, 0
+  index: -1
+effect/ground_smk2/ground_smk2_00007
+  rotate: false
+  xy: 924, 0
+  size: 185, 46
+  orig: 200, 50
+  offset: 8, 0
+  index: -1
+effect/ground_smk2/ground_smk2_00008
+  rotate: false
+  xy: 1336, 154
+  size: 187, 47
+  orig: 200, 50
+  offset: 7, 0
+  index: -1
+effect/ground_smk2/ground_smk2_00009
+  rotate: false
+  xy: 1303, 6
+  size: 189, 47
+  orig: 200, 50
+  offset: 6, 0
+  index: -1
+effect/ground_smk2/ground_smk2_00010
+  rotate: false
+  xy: 1111, 0
+  size: 190, 47
+  orig: 200, 50
+  offset: 5, 0
+  index: -1
+effect/ground_smk2/ground_smk2_00011
+  rotate: false
+  xy: 1175, 84
+  size: 190, 47
+  orig: 200, 50
+  offset: 5, 0
+  index: -1
+effect/ground_smk2/ground_smk2_00012
+  rotate: false
+  xy: 1324, 250
+  size: 192, 48
+  orig: 200, 50
+  offset: 4, 0
+  index: -1
+effect/ground_smk2/ground_smk2_00013
+  rotate: false
+  xy: 979, 77
+  size: 194, 48
+  orig: 200, 50
+  offset: 3, 0
+  index: -1
+effect/ground_smk2/ground_smk2_00014
+  rotate: false
+  xy: 388, 76
+  size: 195, 48
+  orig: 200, 50
+  offset: 2, 0
+  index: -1
+effect/ground_smk2/ground_smk2_00015
+  rotate: false
+  xy: 585, 76
+  size: 195, 48
+  orig: 200, 50
+  offset: 1, 0
+  index: -1
+effect/ground_smk2/ground_smk2_00016
+  rotate: false
+  xy: 782, 76
+  size: 195, 48
+  orig: 200, 50
+  offset: 1, 0
+  index: -1
+effect/ground_smk2/ground_smk2_00017
+  rotate: false
+  xy: 0, 4
+  size: 195, 36
+  orig: 200, 50
+  offset: 0, 0
+  index: -1
+effect/ground_smk2/ground_smk2_00018
+  rotate: false
+  xy: 197, 6
+  size: 192, 34
+  orig: 200, 50
+  offset: 0, 0
+  index: -1
+effect/ground_smk2/ground_smk2_00019
+  rotate: false
+  xy: 400, 47
+  size: 190, 27
+  orig: 200, 50
+  offset: 0, 0
+  index: -1
+effect/ground_smk2/ground_smk2_00020
+  rotate: false
+  xy: 592, 47
+  size: 190, 27
+  orig: 200, 50
+  offset: 0, 0
+  index: -1
+effect/ground_smk2/ground_smk2_00021
+  rotate: false
+  xy: 592, 47
+  size: 190, 27
+  orig: 200, 50
+  offset: 0, 0
+  index: -1
+effect/ground_smk2/ground_smk2_00022
+  rotate: false
+  xy: 969, 49
+  size: 188, 25
+  orig: 200, 50
+  offset: 3, 1
+  index: -1
+effect/ground_smk2/ground_smk2_00023
+  rotate: false
+  xy: 784, 48
+  size: 183, 26
+  orig: 200, 50
+  offset: 7, 1
+  index: -1
+effect/ground_smk2/ground_smk2_00024
+  rotate: false
+  xy: 905, 207
+  size: 177, 24
+  orig: 200, 50
+  offset: 9, 3
+  index: -1
+effect/ground_smk2/ground_smk2_00025
+  rotate: false
+  xy: 1159, 52
+  size: 20, 23
+  orig: 200, 50
+  offset: 11, 4
+  index: -1
+effect/ground_smk2/ground_smk2_00026
+  rotate: false
+  xy: 1159, 52
+  size: 20, 23
+  orig: 200, 50
+  offset: 11, 4
+  index: -1
+effect/shadow
+  rotate: false
+  xy: 258, 193
+  size: 353, 105
+  orig: 353, 105
+  offset: 0, 0
+  index: -1
+effect/speed
+  rotate: false
+  xy: 258, 63
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+effect/yuanbao
+  rotate: false
+  xy: 1697, 174
+  size: 142, 82
+  orig: 150, 89
+  offset: 4, 3
+  index: -1
+yuanbao_speed
+  rotate: false
+  xy: 1525, 125
+  size: 170, 89
+  orig: 214, 89
+  offset: 21, 0
+  index: -1
+yuanbao_speed_light
+  rotate: false
+  xy: 1561, 34
+  size: 164, 89
+  orig: 214, 89
+  offset: 21, 0
+  index: -1

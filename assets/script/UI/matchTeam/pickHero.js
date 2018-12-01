@@ -122,11 +122,23 @@ cc.Class({
         this.showSelect.active = true;
         let heroData = dataMgr.hero[heroid];
         let heroIcon = heroData.HeroIcon;
-        this.showSelectHero.spriteFrame = this.heroIconAtlas.getSpriteFrame(heroIcon);
+        let heroModel = heroData.HeroModel;
+        let manModel = this.node.getChildByName('center').getChildByName('man');
+        let womanModel = this.node.getChildByName('center').getChildByName('woman');
+        if (heroModel == "Hero/jing") {
+           manModel.active = true;
+           womanModel.active = false;
+        }
+        else if (heroModel == "Hero/snow"){
+            manModel.active = false;
+            womanModel.active = true;
+        }
+      //  this.showSelectHero.spriteFrame = this.heroIconAtlas.getSpriteFrame(heroIcon);
         this.heroName.string = heroData.HeroName;
         fightData.userName = heroData.HeroName;
         this._heroid = heroid;
         var showNode = this._uid4ShowNode[playerData.id];
+        showNode.active = true;
         let heroName =  showNode.getChildByName("heroName");
         var icon = showNode.getChildByName("heroImg");
         heroName.getComponent(cc.Label).string = heroData.HeroName;
@@ -167,6 +179,7 @@ cc.Class({
         for (let uid in data) {
             if (this._uid4ShowNode[uid] != undefined) {
                 var showNode = this._uid4ShowNode[uid];
+                showNode.active = true;
                 let heroData = dataMgr.hero[data[uid]];
                 let heroIcon = heroData.HeroIcon;
                 let icon = showNode.getChildByName("heroImg");
@@ -232,7 +245,7 @@ cc.Class({
 
     enterPileKu () {
         var uimgr = cc.find('Canvas').getComponent('UIMgr');
-        uimgr.loadUI(constant.UI.PileKu,function(data){
+        uimgr.loadUI(constant.UI.CardGroup,function(data){
         });
     },
 

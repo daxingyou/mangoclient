@@ -5,7 +5,8 @@ cc.Class({
 
     properties: {
        image : cc.Sprite,
-       Heroname : cc.Label
+       Heroname : cc.Label,
+       heroIconAtla:cc.SpriteAtlas,
     },
 
     // onLoad () {},
@@ -18,6 +19,7 @@ cc.Class({
         this.parent = parent;
         this.Id = item.ID;
         this.Heroname.string = item.HeroName;
+        this.image.spriteFrame = this.heroIconAtla.getSpriteFrame(item.HeroIcon);
     },
     click(){
         this.parent.curHeroSelect(this.Id);

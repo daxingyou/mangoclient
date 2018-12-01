@@ -9,6 +9,7 @@ module.exports = {
     DeleteFriend:null,
     teamInfo:null,
     recMatch:false,
+    teamType: null,
     punishBeginTime:0,
 
 };

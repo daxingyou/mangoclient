@@ -1,16 +1,17 @@
 var constant = require('constants')
-var dataMgr = require('DataMgr')
+var dialog = require('Dialog')
 
 var event = function(eventData,mgr){
-    this.event = eventData.event;
+    this.event = eventData;
     this.mgr = mgr;
 }
 
 event.prototype.getUnitForSid = function(sid){
     for(var item in this.mgr.curCombat.units) 
     {
-        if(item.heroid == sid)
-            return item;
+        if(this.mgr.curCombat.units[item].hasOwnProperty('heroid'))
+            if(this.mgr.curCombat.units[item].heroid == sid)
+                return this.mgr.curCombat.units[item];
     }
 
     return null;
@@ -25,7 +26,11 @@ event.prototype.Active = function(state){
 
             if(player != null)
             {
-                player.agent.setCompleteCallback(this.event.animation,AnimationFinish);
+                var that = this;
+                player.agent.setCompleteCallback(this.event.animation,
+                    ()=>{
+                        that.mgr.tutorialUI.initTutorial(dialog[this.event.dialog]);
+                    });
                 player.agent.PlayAnimation(this.event.animation,false);
             }
             else
@@ -35,13 +40,9 @@ event.prototype.Active = function(state){
         }
         else 
         {
-            this.mgr.tutorialUI.initTutorial(dataMgr.dungeon[this.event.dialog]);
+            this.mgr.tutorialUI.initTutorial(dialog[this.event.dialog]);
         }
     }
-}
-
-event.prototype.AnimationFinish = function(){
-    this._Tutorialmgr.NextStep();
 }
 
 module.exports = event;

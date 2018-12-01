@@ -63,18 +63,20 @@ cc.Class({
     },
 
     freshenBuff(buffs){
+        // cc.log(buffs,"-----------------buffs");
         this.deActiveBuffItems();
         for (var realID in buffs) {
             var buff = buffs[realID];
             if (buff.isHide())
                 continue;
             var image = buff.data.Image;
+            var id = buff.data.ID;
             for (var _ in buff.info.cells) {
                 var item = this.getValidBuffItem();
                 if (!item)
                     break;
                 item.active = true;
-                item.getComponent('buffItem').fresh(image);
+                item.getComponent('buffItem').fresh(image,id);
             }
         }
     }

@@ -2,11 +2,12 @@
  * @Author: liuguolai 
  * @Date: 2018-08-31 15:41:47 
  * @Last Modified by: liuguolai
- * @Last Modified time: 2018-11-22 10:51:37
+ * @Last Modified time: 2018-11-29 17:32:58
  */
 var consts = require('consts');
 var net = require("NetPomelo");
 let constants = require('constants');
+let combatMgr = require('CombatMgr');
 
 cc.Class({
     extends: cc.Component,
@@ -125,6 +126,9 @@ cc.Class({
                 else
                     constants.debug.autoDpsExport = true;
                 cc.log(constants.debug.autoDpsExport)
+                break;
+            case 'taunt':
+                combatMgr.getSelf().onTauntUpdate(list[1]);
                 break;
         }
     },

@@ -9,11 +9,14 @@ cc.Class({
 
     properties: {
         uiRoot: cc.Node,
+        SecondRoot : cc.Node,
         frontRoot : cc.Node,
         tips: cc.Node,
         dmgGreen: cc.Prefab,
         dmgRed: cc.Prefab,
         dmgWhite: cc.Prefab,
+
+        hotTip: cc.Prefab,
 
         ///上级
         _beforeUI: null,
@@ -32,12 +35,7 @@ cc.Class({
     },
 
     onLoad() {
-        //this.dmgPool = new cc.NodePool();
-        //let initCount = 25;
-        //for(let i=0;i<initCount;i++){
-        //    var enemy = cc.instantiate(this.dmg);
-        //    this.dmgPool.put(enemy);
-        //}
+       
     },
 
     initDmg(){
@@ -126,6 +124,9 @@ cc.Class({
             else if(ui.type == 5){
                 go.parent = this.frontRoot;
             }
+            else if(ui.type == 2){
+                go.parent = this.frontRoot;
+            }
             else {
                 go.parent = this.uiRoot;
             }
@@ -170,8 +171,8 @@ cc.Class({
         })
     },
     ///伤害跳转接口
-    loadDmg(combatunit, dmg, dmgorheal, casterID) {
-        var combatSelfID = combatMgr.curCombat.getSelf().uid;
+    loadDmg(combatunit, dmg, dmgorheal, casterID, isCrit) {
+        var combatSelfID = combatMgr.getSelf().uid;
         // 不是自己造成或受到的治疗或伤害不显示
         if (casterID !== combatSelfID && combatunit.uid !== combatSelfID) {
             return;
@@ -196,7 +197,10 @@ cc.Class({
             showType = constant.CombatWordType.CAUSE_DAMAGE;
         }
         var go = effectMgr.getEffect(name, cc.v2(0, 0), combatunit.teamid);
-        go.showDmg(combatunit, dmg, dmgorheal, showType);
+        go.showDmg(combatunit, dmg, dmgorheal, showType, isCrit);
+        if (casterID === combatSelfID) {
+            this.getUI(constant.UI.Fight).updateCombo();
+        }
     },
     ///伤害对象池收回
     collectDmg(dmg) {
@@ -249,7 +253,7 @@ cc.Class({
         this.loadUI(constant.UI.Tips, (data) => {
             data.showText(str,pos);
         });
-    },  ///获取当前主UI
+    }, 
 
     //弹出提示框
     popupTips: function (type,text,title,cancelCallback,refuseCallback,comfirmCallback,target,params) {
@@ -260,6 +264,11 @@ cc.Class({
             data.initRefuseBtn(refuseCallback,target);
             data.initParams(params);
         });
+    },
+
+    hotTips: function (x,y,parent) {
+        let item = cc.instantiate(this.hotTip);
+        item.getComponent('hotTips').init(x,y,parent);
     },
     
     getCurMainUI() {

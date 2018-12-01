@@ -7,7 +7,11 @@ let leaveTeamProto = require('leaveTeamProto')
 let dataCenter = require('DataCenter')
 let teamRaidData= require('teamRaidData')
 let soloRaidData = require('soloRaidData')
-let cardData = require('cardData')
+let cardGroupData= require('cardGroupData')
+var net = require("NetPomelo")
+var tutorialEnterDungeonProto = require('tutorialEnterDungeonProto')
+var constantss = require('Constant')
+
 let playerData = {
     userInfo: null,
     logined: false, // 是否已经登录
@@ -26,7 +30,6 @@ let playerData = {
     init: function (info) {
         this.logined = true;
         
-
         this.id = info.id;
         dataCenter.uuid = this.id;
         this.openid = info.openid;
@@ -39,11 +42,12 @@ let playerData = {
         this.emailData = emailData;
         this.teamData = teamData;
         this.soloRaidData = soloRaidData;
-        this.cardData = cardData;
+        this.cardGroupData = cardGroupData;
         teamData.onTeamInvited = info.teamInfo.invitedList;
         soloRaidData.soloRaidInfo = info.raidsInfo.raids;
-        cardData.cardInfo = info.cardInfo;
+        cardGroupData.cardInfo = info.cardInfo.cards;
         this.emailData.initMainInfo(info.mailInfo);
+        this.tutorialInfo = info.tutorialInfo;
         bagData.initInfo(info.bagInfo,info.silver,allGold,info.power);
         this._checkMatch(info.matchInfo,info.teamInfo);
     },
@@ -80,8 +84,24 @@ let playerData = {
                 data.initBackBtn(backShowListUI,this);
                 data.changeTitle("练习队伍");
             });
-        } else {
-            uiMgr.loadUI(constant.UI.Main);
+        }
+        else
+        {
+            if(cc.find('Canvas').getComponent('Launch').IsTutorial)
+            {
+                if(this.tutorialInfo.finishedDgIds.length >= 4)
+                {
+                    uiMgr.loadUI(constant.UI.Main);
+                }
+                else
+                {
+                    net.Request(new tutorialEnterDungeonProto(constantss.TutorialDungeon[this.tutorialInfo.finishedDgIds.length]));
+                }
+            }
+            else
+            {
+                uiMgr.loadUI(constant.UI.Main);
+            }
         }
     },
 

@@ -19,6 +19,6 @@ cc.Class({
             animCtrl.play(animCtrl.getClips()[0].name);
         },this.delay);
     },
-
+    
     // update (dt) {},
 });

@@ -83,41 +83,6 @@ var SpawnSummoned = {
         delete summons[type];
     },
 
-    _clearSummonsByArea: function (groupId, type, Area,Num, opposite = false) {
-        let summons = this._getSummons(groupId, opposite);
-
-        if (!summons[type].hasOwnProperty(Area)) {
-            //delete summons[type][Area];
-            if(delete summons[type][Area].length <= Num)
-            {
-                for(var item in summons[type][Area])
-                {
-                    if (item.node.position.y >= 300) {
-                        effectMgr.putEffect('swordf', item);
-                    }
-                    else {
-                        effectMgr.putEffect('swordb', item);
-                    }
-                    //this.summoneds.splice(0, 1);
-                }
-                delete summons[type][Area];
-            }
-            else
-            {
-                for(var i = 0 ;i < Num ;i++)
-                {
-                    if (summons[type][Area][i].node.position.y >= 300) {
-                        effectMgr.putEffect('swordf', summons[type][Area][i]);
-                    }
-                    else {
-                        effectMgr.putEffect('swordb', summons[type][Area][i]);
-                    }
-                }
-                summons[type][Area].splice(0, Num);
-            }
-        }
-    },
-
     _getGroup: function (groupId, opposite = false) {
         if (groupId === 'groupA') {
             if (opposite)
@@ -143,6 +108,25 @@ var SpawnSummoned = {
             group[type][area] = (group[type][area] || 0) + num;
         }
         eventMgr.emit(eventMgr.events.EventSpawnSummonChanged);
+    },
+
+    onRemoveSpawnSummon: function (data) {
+        let groupId = data.groupId, type = data.type, removeList = data.removeList;
+        let group = this._getGroup(groupId);
+        for (let info of removeList) {
+            let area = info.area, num = info.num;
+            group[type][area] -= num;
+            if (group[type][area] === 0)
+                delete group[type][area];
+            this._removeSummons(groupId, type, area, num);
+        }
+    },
+
+    onClearSpawnSummon: function (data) {
+        let groupId = data.groupId, type = data.type;
+        let group = this._getGroup(groupId);
+        group[type] = {};
+        this._releaseSummonsByType(groupId, type);
     },
 
     _getRandomPoint: function (range) {
@@ -213,6 +197,15 @@ var SpawnSummoned = {
         }
     },
 
+    // 移除召唤物
+    _removeSummons: function (groupId, type, area, num) {
+        let summons = this._getSummonsByType(groupId, type, area);
+        for (let i = 0; i < num; i++) {
+            this._recycleSummonItem(type, summons[i]);
+        }
+        summons.splice(0, num);
+    },
+
     onReverse: function (data) {
         let casterID = data.caster, sid = data.sid, type = data.type, damageInfo = data.damageInfo;
         let caster = combatMgr.getEntity(casterID);
@@ -226,13 +219,15 @@ var SpawnSummoned = {
         let idx = 0;
         if (summonsList.length > 0) {
             summonsList[idx++].showCollect(function () {
-                // let uiMgr = cc.Canvas.instance.getComponent('UIMgr');
-                // uiMgr.loadDmg(beDamageEnt, damage, true, casterID);
                 for (let uid in damageInfo) {
                     let beDamageEnt = combatMgr.getEntity(uid);
                     beDamageEnt.onSpawnSummonDamage(damageInfo[uid], casterID);
                 }
-            });
+                // 回收
+                for (let i = 1; i < summonsList.length; i++) {
+                    this._recycleSummonItem(type, summonsList[i]);
+                }
+            }.bind(this));
             for (let i = 1; i < summonsList.length; i++) {
                 summonsList[i].showCollect();
             }
@@ -272,37 +267,60 @@ var SpawnSummoned = {
         }
         eventMgr.emit(eventMgr.events.EventSpawnSummonChanged);
     },
-
-    collectItem() {
-        if (this.summoneds[a].node.position.y >= 300) {
-            effectMgr.putEffect('swordf', this.summoneds[0]);
+    collectItem(target, type) {
+        let summonsByGroup = this._getSummons(target.groupId);
+        if (summonsByGroup.hasOwnProperty(type)) {
+            let summonsByType = summonsByGroup[type];
+            for (let area in summonsByType) {
+                let items = summonsByType[area];
+                if (items.length === 0)
+                    continue;
+                let idx = Math.floor(Math.random() * items.length);
+                this._recycleSummonItem(type, items[idx]);
+                items.splice(idx, 1);
+                return;
+            }
+        }
+    },
+    collectAll(target, type) {
+        this._releaseSummonsByType(target.groupId, type);
+    },
+    _recycleWSwordItem(item) {
+        if (item.node.position.y >= 300) {
+            effectMgr.putEffect('swordf', item);
         }
         else {
-            effectMgr.putEffect('swordb', this.summoneds[0]);
+            effectMgr.putEffect('swordb', item);
         }
-        this.summoneds.splice(0, 1);
-
-        combatMgr.curCombat.summoneds = this.summoneds;
     },
-    collectAll(target) {
-        this.releaseSummons(target.groupId);
+    // 回收召唤物
+    _recycleSummonItem(type, item) {
+        switch (type) {
+            case constant.SummonedType.wSword:
+                this._recycleWSwordItem(item);
+                break;
+        }
     },
-    releaseSummons(groupId) {
+    _releaseSummonsByType(groupId, type) {
         let summonsByGroup = this._getSummons(groupId);
-        for (let type of Object.getOwnPropertyNames(summonsByGroup)) {
+        this._releaseGroupSummnosByType(summonsByGroup, type);
+    },
+    _releaseGroupSummnosByType(summonsByGroup, type) {
+        if (summonsByGroup.hasOwnProperty(type)) {
             let summonsByType = summonsByGroup[type];
             for (let area in summonsByType) {
                 let items = summonsByType[area];
                 for (let item of items) {
-                    if (item.node.position.y >= 300) {
-                        effectMgr.putEffect('swordf', item);
-                    }
-                    else {
-                        effectMgr.putEffect('swordb', item);
-                    }
+                    this._recycleSummonItem(type, item);
                 }
             }
             delete summonsByGroup[type];
+        }
+    },
+    releaseSummons(groupId) {
+        let summonsByGroup = this._getSummons(groupId);
+        for (let type of Object.getOwnPropertyNames(summonsByGroup)) {
+            this._releaseGroupSummnosByType(summonsByGroup, type);
         }
     },
     Release() {

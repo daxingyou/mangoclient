@@ -121,14 +121,14 @@ module.exports = {
 		MaxHP: 1000,
 		MaxMP: 10,
 		MaxThew: 10,
-		BaseArmor: 1000,
+		BaseArmor: 0,
 		BaseStrength: 0,
 		BaseStamina: 0,
 		BaseIntellect: 0,
 		BaseAgile: 0,
 		InitialCard: 3,
 		InitialMP: 6,
-		InitialDrawPile: [100101,100101,100101,100101,100101,100101,100102,100102]
+		InitialDrawPile: [101101,101101,101101,101101,101102,101102]
 	},
 	100012: {
 		ID: 100012,
@@ -142,20 +142,20 @@ module.exports = {
 		MaxHP: 1000,
 		MaxMP: 10,
 		MaxThew: 10,
-		BaseArmor: 1000,
+		BaseArmor: 0,
 		BaseStrength: 0,
 		BaseStamina: 0,
 		BaseIntellect: 0,
 		BaseAgile: 0,
 		InitialCard: 3,
 		InitialMP: 6,
-		InitialDrawPile: [100101,100101,100101,100101,100101,100101,100102,100102]
+		InitialDrawPile: [101201,101201,101201,101201,101201,101201,101202,101202,101203,101203]
 	},
 	100013: {
 		ID: 100013,
 		Name: '金伴花',
 		Type: 'Normal',
-		Model: 'Hero/crocodile',
+		Model: 'Hero/jinbanhua',
 		Shadow: [340,30],
 		HitPoint: [50,50],
 		TargetFrame: {"x1":-120,"y1":-20,"x2":120,"y2":-20,"x3":-120,"y3":320,"x4":120,"y4":320},
@@ -163,14 +163,14 @@ module.exports = {
 		MaxHP: 1000,
 		MaxMP: 10,
 		MaxThew: 10,
-		BaseArmor: 1000,
+		BaseArmor: 0,
 		BaseStrength: 0,
 		BaseStamina: 0,
 		BaseIntellect: 0,
 		BaseAgile: 0,
 		InitialCard: 3,
 		InitialMP: 6,
-		InitialDrawPile: [100101,100101,100101,100101,100101,100101,100102,100102]
+		InitialDrawPile: [101301,101301,101301,101301,101301,101301,101302,101302,101303,101303]
 	},
 	100014: {
 		ID: 100014,
@@ -184,13 +184,13 @@ module.exports = {
 		MaxHP: 1000,
 		MaxMP: 10,
 		MaxThew: 10,
-		BaseArmor: 1000,
+		BaseArmor: 0,
 		BaseStrength: 0,
 		BaseStamina: 0,
 		BaseIntellect: 0,
 		BaseAgile: 0,
 		InitialCard: 3,
 		InitialMP: 6,
-		InitialDrawPile: [100101,100101,100101,100101,100101,100101,100102,100102]
+		InitialDrawPile: [101401,101401,101401,101401,101401,101401,101402,101402,101402,101404,101404,101405,101405]
 	},
 };

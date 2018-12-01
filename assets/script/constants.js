@@ -77,15 +77,17 @@ module.exports = {
         TeamAwardCard: {"id":29,"path":'UI/teamRaid/awardCard','type':1,"script":'awardCard'},
         BagUI : {"id":30,"path":'UI/bag/BagUI','type':1,'script':'BagUI'},
         EmailUI :  {"id":31,"path":'UI/emailUI/emailUI','type':1,"script":'emailUI'},
-        DpsPanel: {"id":999,"path":'UI/Debug/dpsPanel','type':2,'script':'dpsPanel'},
+        DpsPanel: {"id":999,"path":'UI/Debug/dpsPanel','type':3,'script':'dpsPanel'},
         GoldStore :  {"id":32,"path":'UI/goldStore/goldStore','type':1,"script":'goldStore'},
         Shop :  {"id":33,"path":'UI/shop/ShopUI','type':1,"script":'ShopUI'},
         Hero :  {"id":34,"path":'UI/HeroUI/HeroUI','type':1,"script":'HeroUI'},
         CardGroup :  {"id":35,"path":'UI/cardGroup/cardGroup','type':1,"script":'cardGroup'},
-        SelectCard : {"id":35,"path":'UI/cardGroup/selectCard','type':1,"script":'selectCard'},
-        Tutorial : {"id":36,"path":'UI/tutorial/Tutorial','type':5,"script":'TutorialUI'},
+       
+        Tutorial : {"id":36,"path":'UI/tutorial/Tutorial','type':2,"script":'TutorialUI'},
         TutorialOver : {"id":37,"path":'UI/FightOver/TutorialFightOverUI','type':1,"script":'TutorialFightOver'},
-        
+        SelectCard : {"id":38,"path":'UI/cardGroup/selectCard','type':1,"script":'selectCard'},
+        RecommendFriend : {"id":39,"path":'UI/Friend/recommendFriend','type':1,"script":'recommendFriend'},
+        HotTips :{"id":40,"path":'UI/tips/hotTips','type':2,"script":'hotTips'},
     },
     // Prefab: {
     //     selectServerItem: "UI/"
@@ -149,5 +151,10 @@ module.exports = {
         begin :'begin',
         animation : 'animation',
         fightOver : 'fightOver',
+    },
+    tutorialState : {
+        begin : 'begin',                            //战斗前开始
+        fightting : 'fightting',                    //战斗中开始
+        finish : 'finish',                          //战斗结束开始
     }
 };

@@ -2,7 +2,7 @@
  * @Author: liuguolai 
  * @Date: 2018-11-07 10:10:50 
  * @Last Modified by: liuguolai
- * @Last Modified time: 2018-11-19 15:00:43
+ * @Last Modified time: 2018-11-30 17:14:34
  */
 let combatMgr = require('CombatMgr');
 let constants = require('constants');
@@ -22,9 +22,7 @@ module.exports = {
 
             uiMgr.getCurMainUI().hide();
             uiMgr.loadUI(constants.UI.UploadProjess, function (data) {
-
-                uiMgr.loadUI(constants.UI.Fight, function (data) {
-
+                    uiMgr.loadUI(constants.UI.Fight, function (data) {
                 });
             });
         });
@@ -36,7 +34,7 @@ module.exports = {
 
             gameData.IsLayoutAction = true;
             uiMgr.releaseLoading();
-            uiMgr.getUI(constants.UI.Fight).show();
+            uiMgr.getUI(constants.UI.Fight).FightStart();
         });
 
         pomelo.on('onUseCard', function (data) {
@@ -73,7 +71,7 @@ module.exports = {
             cc.log('治疗', data);
 
             var player = combatMgr.getEntity(data.targetID);
-            player.onHeal(data.toHp, data.toHp - data.fromHp, data.casterID);
+            player.onHeal(data.toHp, data.toHp - data.fromHp, data.casterID, data.isCrit);
         });
 
         pomelo.on('onRelive', function (data) {
@@ -132,6 +130,7 @@ module.exports = {
 
         pomelo.on('onDrawCardNotify', function (data) {
             cc.log('别人抽牌', data);
+
         });
 
         pomelo.on('onMpRecover', function (data) {
@@ -208,29 +207,12 @@ module.exports = {
 
         pomelo.on('onRemoveSpawnSummon', function (data) {
             cc.log('移除召唤物', data);
-            // "onRemoveSpawnSummon": {
-            //     "required string groupId": 1,
-            //     "required string type": 2,
-            //     "message AreaInfo": {
-            //     "required uInt32 area": 1,
-            //     "required uInt32 num": 2
-            //     },
-            //     "repeated AreaInfo removeList": 3
-            // },
-
-            spawnSummoned._clearSummonsByArea(data.groupId,data.type.data.AreaInfo.area);
-
+            spawnSummoned.onRemoveSpawnSummon(data);
         });
 
         pomelo.on('onClearSpawnSummon', function (data) {
             cc.log('清除召唤物', data);
-            /*
-            "onClearSpawnSummon": {
-                "required string groupId": 1,
-                "required string type": 2
-            },
-            */
-           spawnSummoned._clearSummonsByType(data.groupId,data.type);
+           spawnSummoned.onClearSpawnSummon(data);
         });
 
         pomelo.on('onReverse', function (data) {
@@ -361,6 +343,18 @@ module.exports = {
                 "required uInt32 discardsNum": 4
             }
             */
+        });
+
+        pomelo.on('onTauntUpdate', function (data) {
+            cc.log('嘲讽对象更新', data);
+            let player = combatMgr.getSelf();
+            player.onTauntUpdate(data.targetID);
+        });
+
+        pomelo.on('onComboUpdate', function (data) {
+            cc.log('连击数更新', data);
+            let player = combatMgr.getSelf();
+            player.onComboUpdate(data.num);
         });
     }
 };

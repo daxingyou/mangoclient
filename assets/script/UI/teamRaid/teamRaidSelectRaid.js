@@ -107,7 +107,6 @@ cc.Class({
         self._CDState = false;
         var resIndex = 0;
         cc.loader.loadRes('UI/teamRaid/awardCardItem', function (errorMessage, loadedResource) {
-            // let invited = teamData.onTeamInvited;
             for (let i = 0; i < cardsList.length; i++) {
                 let itemData = cardsList[i];
                 if (errorMessage) {
@@ -117,7 +116,7 @@ cc.Class({
                 resIndex++;
                 let item = cc.instantiate(loadedResource);
                 self.showCard.addChild(item);
-                item.getComponent('awardCardItem').initData(itemData,self);
+                item.getComponent('awardCardItem').initData(itemData,self,2);
                 if (resIndex == cardsList.length) {
                     teamRaidData.selectList == null;
                     cc.loader.release('UI/teamRaid/awardCardItem');

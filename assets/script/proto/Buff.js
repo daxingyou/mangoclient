@@ -44,28 +44,20 @@ module.exports = {
 		Image: 'buff2',
 		Effect: ''
 	},
-	1005: {
-		ID: 1005,
+	1003: {
+		ID: 1003,
 		BuffName: '纳灵诀',
 		Description: '敌人每受到15次来自陈靖仇的伤害，陈靖仇获得1点灵力',
 		IsHide: 0,
 		Image: 'buff3',
 		Effect: ''
 	},
-	1007: {
-		ID: 1007,
-		BuffName: '纳灵诀',
+	1004: {
+		ID: 1004,
+		BuffName: '乌雪之灵',
 		Description: '敌人每次受到伤害，2%概率增加一张乌雪刃卡牌',
 		IsHide: 0,
 		Image: 'buff3',
-		Effect: ''
-	},
-	1008: {
-		ID: 1008,
-		BuffName: '冰灵劲',
-		Description: '每秒恢复1点灵力，持续5秒',
-		IsHide: 0,
-		Image: 'buff2',
 		Effect: ''
 	},
 	1011: {
@@ -92,66 +84,258 @@ module.exports = {
 		Image: 'buff1',
 		Effect: ''
 	},
+	2001: {
+		ID: 2001,
+		BuffName: '11',
+		Description: '额外增加攻击的连击数，每次攻击产生1个额外连击数',
+		IsHide: 0,
+		Image: 'buff1',
+		Effect: ''
+	},
+	2011: {
+		ID: 2011,
+		BuffName: '111',
+		Description: '为自身增加100护甲',
+		IsHide: 0,
+		Image: 'buff2',
+		Effect: ''
+	},
+	2012: {
+		ID: 2012,
+		BuffName: '222',
+		Description: '嘲讽',
+		IsHide: 0,
+		Image: 'buff2',
+		Effect: ''
+	},
+	2014: {
+		ID: 2014,
+		BuffName: '444',
+		Description: '每次受到300以上的伤害，获得减伤30%，持续5秒',
+		IsHide: 0,
+		Image: 'buff3',
+		Effect: ''
+	},
+	2114: {
+		ID: 2114,
+		BuffName: '444',
+		Description: '受到伤害降低30%',
+		IsHide: 0,
+		Image: 'buff3',
+		Effect: ''
+	},
+	2015: {
+		ID: 2015,
+		BuffName: '555',
+		Description: '自身受到治疗增加20% ',
+		IsHide: 0,
+		Image: 'buff3',
+		Effect: ''
+	},
+	2016: {
+		ID: 2016,
+		BuffName: '666',
+		Description: '在自身受到500以上伤害时怒吼，对敌方全体削弱护甲，数值为受到伤害的80',
+		IsHide: 0,
+		Image: 'buff3',
+		Effect: ''
+	},
+	3001: {
+		ID: 3001,
+		BuffName: '3001',
+		Description: '在使用攻击牌时，有概率为1个队友增加1点力量',
+		IsHide: 0,
+		Image: 'buff3',
+		Effect: ''
+	},
+	3101: {
+		ID: 3101,
+		BuffName: '3101',
+		Description: '力量增加1点',
+		IsHide: 0,
+		Image: 'buff3',
+		Effect: ''
+	},
+	3008: {
+		ID: 3008,
+		BuffName: '3008',
+		Description: '在使用技能牌时，有概率为1个队友增加1点内力',
+		IsHide: 0,
+		Image: 'buff3',
+		Effect: ''
+	},
+	3003: {
+		ID: 3003,
+		BuffName: '3003',
+		Description: '受到治疗提高20%，持续5秒',
+		IsHide: 0,
+		Image: 'buff3',
+		Effect: ''
+	},
+	3004: {
+		ID: 3004,
+		BuffName: '3004',
+		Description: '受到伤害下降20%，持续5秒',
+		IsHide: 0,
+		Image: 'buff3',
+		Effect: ''
+	},
+	3006: {
+		ID: 3006,
+		BuffName: '3006',
+		Description: '造成伤害下降20%，持续5秒',
+		IsHide: 0,
+		Image: 'buff3',
+		Effect: ''
+	},
+	3007: {
+		ID: 3007,
+		BuffName: '3007',
+		Description: '当寒玉在手牌中时，内力恢复降低20%',
+		IsHide: 0,
+		Image: 'buff3',
+		Effect: ''
+	},
+	3011: {
+		ID: 3011,
+		BuffName: '3011',
+		Description: '每秒为自己恢复10点生命值，效果持续到战斗结束或自身死亡',
+		IsHide: 0,
+		Image: 'buff3',
+		Effect: ''
+	},
+	3012: {
+		ID: 3012,
+		BuffName: '3012',
+		Description: '每次使用攻击卡牌，为自己提供恢复，每秒10点，持续3秒',
+		IsHide: 0,
+		Image: 'buff3',
+		Effect: ''
+	},
+	3112: {
+		ID: 3112,
+		BuffName: '3112',
+		Description: '每秒恢复10点生命值，持续3秒',
+		IsHide: 0,
+		Image: 'buff3',
+		Effect: ''
+	},
+	3015: {
+		ID: 3015,
+		BuffName: '3015',
+		Description: '每秒恢复300点生命值，持续4秒',
+		IsHide: 0,
+		Image: 'buff3',
+		Effect: ''
+	},
+	3016: {
+		ID: 3016,
+		BuffName: '3016',
+		Description: '最大生命值提升600点，持续20秒',
+		IsHide: 0,
+		Image: 'buff3',
+		Effect: ''
+	},
 	4004: {
 		ID: 4004,
-		BuffName: '万物复苏',
-		Description: '每秒恢复80点生命，持续4秒',
+		BuffName: '春风化雨',
+		Description: '每秒恢复70点生命，持续4秒',
 		IsHide: 0,
 		Image: 'buff2',
 		Effect: ''
 	},
 	4005: {
 		ID: 4005,
-		BuffName: '女娲体质',
-		Description: '受到单次超过150点伤害的攻击，则抽1张卡牌',
-		IsHide: 0,
-		Image: 'buff3',
-		Effect: ''
-	},
-	4007: {
-		ID: 4007,
-		BuffName: '地灵庇护',
+		BuffName: '兰桂同芳',
 		Description: '如果有友方死亡，把自身一半的血量给予对方，此效果存在10秒消失',
 		IsHide: 0,
 		Image: 'buff1',
 		Effect: ''
 	},
-	4008: {
-		ID: 4008,
-		BuffName: '女娲转世',
+	4006: {
+		ID: 4006,
+		BuffName: '兰心蕙质',
 		Description: '每使用5张技能卡牌，为自己恢复2点灵力',
 		IsHide: 0,
 		Image: 'buff2',
 		Effect: ''
 	},
-	4010: {
-		ID: 4010,
-		BuffName: '陨石',
-		Description: '增加50%受到的伤害',
-		IsHide: 0,
-		Image: 'buff3',
-		Effect: ''
-	},
 	4011: {
 		ID: 4011,
-		BuffName: '朱雀之印',
-		Description: '于小雪的攻击，对拥有朱雀之印的目标造成共鸣伤害，每层朱雀之印增加5点伤害，持续15秒',
+		BuffName: '毒印',
+		Description: '苏蓉蓉的攻击，对拥有毒印的目标造成共鸣伤害，每层毒印增加5点伤害，持续15秒',
 		IsHide: 0,
 		Image: 'buff3',
 		Effect: ''
 	},
-	4014: {
-		ID: 4014,
-		BuffName: '火焰外衣',
-		Description: '每3秒对1个随机敌人造成20点伤害',
+	4013: {
+		ID: 4013,
+		BuffName: '毒烟弥漫',
+		Description: '每当抽取1张攻击卡牌，对1个随机敌人施加1层毒印',
 		IsHide: 0,
 		Image: 'buff3',
 		Effect: ''
 	},
-	4015: {
-		ID: 4015,
-		BuffName: '烈焰共鸣',
-		Description: '每当抽取1张攻击卡牌，对1个随机敌人施加1层朱雀之印',
+	5002: {
+		ID: 5002,
+		BuffName: '三蛇羹',
+		Description: '甜儿的拿手菜，为1个队友增加力量，增加值为队友的当前连击数的5%，持续20秒',
+		IsHide: 0,
+		Image: 'buff1',
+		Effect: ''
+	},
+	5003: {
+		ID: 5003,
+		BuffName: '烤竹鼠',
+		Description: '暴击概率提高20%，持续10秒',
+		IsHide: 0,
+		Image: 'buff2',
+		Effect: ''
+	},
+	5007: {
+		ID: 5007,
+		BuffName: '烤竹鼠',
+		Description: '受到伤害提高10%，持续10秒',
+		IsHide: 0,
+		Image: 'buff3',
+		Effect: ''
+	},
+	5004: {
+		ID: 5004,
+		BuffName: '蒸三臭',
+		Description: '力量提高20点，持续10秒',
+		IsHide: 0,
+		Image: 'buff3',
+		Effect: ''
+	},
+	5008: {
+		ID: 5008,
+		BuffName: '蒸三臭',
+		Description: '力量降低10点，持续10秒',
+		IsHide: 0,
+		Image: 'buff1',
+		Effect: ''
+	},
+	5005: {
+		ID: 5005,
+		BuffName: '投毒酒中',
+		Description: '每秒造成80点伤害，持续5秒',
+		IsHide: 0,
+		Image: 'buff2',
+		Effect: ''
+	},
+	5006: {
+		ID: 5006,
+		BuffName: '毒草作烹',
+		Description: '每秒造成50点伤害，持续20秒',
+		IsHide: 0,
+		Image: 'buff3',
+		Effect: ''
+	},
+	5020: {
+		ID: 5020,
+		BuffName: '鸣雷',
+		Description: '眩晕3秒',
 		IsHide: 0,
 		Image: 'buff3',
 		Effect: ''
@@ -161,7 +345,7 @@ module.exports = {
 		BuffName: '猛击',
 		Description: '增加40%受到的伤害',
 		IsHide: 0,
-		Image: 'buff3',
+		Image: 'buff2',
 		Effect: ''
 	},
 	100003: {
@@ -177,7 +361,7 @@ module.exports = {
 		BuffName: '幻象',
 		Description: '增加400%受到的伤害',
 		IsHide: 1,
-		Image: '',
+		Image: 'buff3',
 		Effect: ''
 	},
 	100105: {
@@ -192,6 +376,54 @@ module.exports = {
 		ID: 100102,
 		BuffName: '鳄鱼撕咬',
 		Description: '每秒受到30点伤害，持续5秒',
+		IsHide: 0,
+		Image: 'buff3',
+		Effect: ''
+	},
+	101203: {
+		ID: 101203,
+		BuffName: '金刚护体',
+		Description: '获得100点护甲，持续5秒。',
+		IsHide: 0,
+		Image: 'buff2',
+		Effect: ''
+	},
+	101402: {
+		ID: 101402,
+		BuffName: '防御',
+		Description: '获得80点护甲，持续5秒。',
+		IsHide: 0,
+		Image: 'buff2',
+		Effect: ''
+	},
+	90008: {
+		ID: 90008,
+		BuffName: '冰灵劲',
+		Description: '每秒恢复1点灵力，持续5秒',
+		IsHide: 0,
+		Image: 'buff2',
+		Effect: ''
+	},
+	90005: {
+		ID: 90005,
+		BuffName: '女娲体质',
+		Description: '受到单次超过150点伤害的攻击，则抽1张卡牌',
+		IsHide: 0,
+		Image: 'buff3',
+		Effect: ''
+	},
+	90010: {
+		ID: 90010,
+		BuffName: '陨石',
+		Description: '增加50%受到的伤害',
+		IsHide: 0,
+		Image: 'buff3',
+		Effect: ''
+	},
+	90014: {
+		ID: 90014,
+		BuffName: '火焰外衣',
+		Description: '每3秒对1个随机敌人造成20点伤害',
 		IsHide: 0,
 		Image: 'buff3',
 		Effect: ''

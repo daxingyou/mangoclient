@@ -42,6 +42,8 @@ pro.InitMyInfo = function (myInfo) {
     this.exhaustsNum = myInfo.exhaustsNum;
     this.mpRecoverTime = myInfo.mpRecoverTime;
     this.inHands = myInfo.inHands || [];
+    this.tauntTargetID = myInfo.tauntTargetID;  // 嘲讽目标
+    this.combo = myInfo.combo;  // 连击数
     this.RefreshHandCard();
     this.SetMpRecoverRate(myInfo.mpRecoverRate, myInfo.stopMpRecoverBuffCnt);
 };
@@ -52,11 +54,14 @@ pro.RefreshHandCard = function () {
     for (var i = 0; i < this.inHands.length; i++) {
         this.handsPile.push(new HandCard(this.inHands[i], this));
     }
+};
+
+pro.RefreshHandCardUI = function(){
     if (this.fightUI) {
         this.fightUI.ShowHandCards();
         this.fightUI.showNum();
     }
-};
+}
 
 pro.SetMpRecoverRate = function (mpRecoverRate, stopMpRecoverBuffCnt) {
     this.mpRecoverRate = mpRecoverRate;
@@ -74,6 +79,7 @@ pro.onUseCard = function (data) {
     }
     this.inHands = data.inHands || [];
     this.RefreshHandCard();
+    this.RefreshHandCardUI();
 };
 
 pro.onDrawCard = function (data) {
@@ -81,6 +87,7 @@ pro.onDrawCard = function (data) {
         this[key] = data[key];
     }
     this.RefreshHandCard();
+    this.RefreshHandCardUI();
 };
 
 pro.onMpRecover = function (data) {
@@ -109,6 +116,7 @@ pro.onSpecificDrawCard = function (data) {
         }
     }
     this.RefreshHandCard();
+    this.RefreshHandCardUI();
 };
 
 pro.onCreateCard = function (data) {
@@ -128,6 +136,7 @@ pro.onCreateCard = function (data) {
             break;
     }
     this.RefreshHandCard();
+    this.RefreshHandCardUI();
 };
 
 pro.onDropCard = function (data) {
@@ -135,4 +144,15 @@ pro.onDropCard = function (data) {
     let pileType = data.toPile, num = data.num;
     this.updatePileNum(pileType, num);
     this.RefreshHandCard();
+    this.RefreshHandCardUI();
+};
+
+pro.onComboUpdate = function (num) {
+    this.combo = num;
+    if (num === 0 && this.fightUI)
+        this.fightUI.updateCombo();
+};
+
+pro.onTauntUpdate = function (targetID) {
+    this.tauntTargetID = targetID
 };

@@ -22,7 +22,7 @@ module.exports = {
 		3: {
 			ID: 1001,
 			Index: 3,
-			Text: '‘铁掌金镖’万老镖头、我‘生死判’，还有天下盗贼闻名丧胆的‘白衣神耳’英老前辈在这里，\n我三人若是再治不住那楚留香，世上只怕就没有别人了。',
+			Text: '<color=#e5a200>铁掌金镖</color><color=#efc851>万老镖头</color>、我<color=#e5a200>生死判</color>，还有天下盗贼闻名丧胆的<color=#e5a200>白衣神耳</color><color=#efc851>英老前辈</color>在这里，\n我三人若是再治不住那楚留香，世上只怕就没有别人了。',
 			CharacterID: 100011,
 			Remarks: ''
 		},

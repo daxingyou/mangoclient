@@ -56,7 +56,7 @@ module.exports = {
 		ID: 11,
 		Name: '西门',
 		Matrix: 1,
-		MonsterGroup: {"1":100011}
+		MonsterGroup: {"1":100013}
 	},
 	12: {
 		ID: 12,

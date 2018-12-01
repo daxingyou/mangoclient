@@ -30,13 +30,11 @@ cc.Class({
         checkMassage:true,
         gameFriendScrollView:cc.Sprite,
         showGameFriend:cc.Node,
-        showRecommend: cc.Node,
-        _showRecommend: [],
         _showGameFriend:[],
         _eidBar:[],
-        _limitRecom: 0,
 
-
+        _clickToggle1: 1,
+        _clickToggle2: 1,
 
     },
 
@@ -281,23 +279,8 @@ cc.Class({
 
     //推荐好友
     recommendFriend () {
-        this.GameFriendClick();
-        this.node.getChildByName('bottomLeft').active = false;
-        this.node.getChildByName('toggleGroup').getChildByName('wechat').active = false;
-        this.node.getChildByName('invitedWechatGame').active = false;
-        this.node.getChildByName('applyListBtn').active = false;
-        this.node.getChildByName('recommend').active = false;
-        this.node.getChildByName('recommondLimit').active = true;
-        this.node.getChildByName('changeBtn').active = true;
-        let node = this.node.getChildByName('toggleGroup').getChildByName('game');
-        node.getComponent(cc.Button).interactable = false;
-        node.y = -8;
-        node.getChildByName('Label').getComponent(cc.Label).string  = "推荐好友";
-        this.node.getChildByName('weChatFriend').active = false;
-        this.showGameFriend.removeAllChildren();
         let self = this;
         let backFriendUI = function () {
-            self._uiMgr.release();
             self._uiMgr.loadUI(constant.UI.FightPavTop,(data) =>{
                 data.changeTitle("好友");
               });
@@ -307,43 +290,10 @@ cc.Class({
             data.initBackBtn(backFriendUI,self);
             data.changeTitle("好友");
         });
-        net.Request(new getRecommendListProto(self._limitRecom), function (data) {
-            cc.log(data,"data-----getRecommendListProto");
-            self.addRecommonFriend(data.res);
+        this._uiMgr.loadUI(constant.UI.RecommendFriend, (data) => {
+            data.init();
         });
     },
-
-    limitRecommend (event,cust) {
-        let limit = parseInt(cust);
-        this._limitRecom = limit;
-    },
-
-    addRecommonFriend (data) {
-        let resIndex = 0;
-        let self = this;
-        self._showRecommend = [];
-        cc.loader.loadRes('UI/Friend/gameFriendItem', function (errorMessage, loadedResource) {
-            for (var i = 0; i < data.length; i++) {
-                var itemData = data[i];
-                if (errorMessage) {
-                    cc.log('载入预制资源失败, 原因:' + errorMessage);
-                    return;
-                }
-                let item = cc.instantiate(loadedResource);
-                resIndex++;
-                self.showRecommend.addChild(item);
-                self._showRecommend.push(item.getComponent('gameFriendItem'));
-                self._showRecommend[i].initData(i,itemData,self,2);
-                //self._eidBar.push(itemData.eid);//方便删除查找
-                if (resIndex == data.length) {
-                    cc.loader.release('UI/Friend/gameFriendItem');
-                    if (data.length > 5)
-                    self.showGameFriend.height = friends.length * 160;
-                }
-            }
-        });
-    },
-
 
   
     update (dt) {

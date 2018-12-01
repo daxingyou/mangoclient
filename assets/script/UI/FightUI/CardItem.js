@@ -5,7 +5,8 @@ const constant = require('constants');
 var datamgr = require('DataMgr');
 var fightData = require('fightData')
 let eventMgr = require('eventMgr');
-
+let cardHelper = require('cardHelper');
+let UIConsts = require('UIConsts');
 cc.Class({
     extends: UIBase,
 
@@ -38,7 +39,10 @@ cc.Class({
 
         buleFrame:cc.Node,
         _parents:null,
-        _isCardGroup: false,
+
+        cardId: cc.Node,// 海哥测试需要
+        _click: 0,//
+
 
     },
     onLoad () {
@@ -62,16 +66,18 @@ cc.Class({
             delete this._listeners[eventName];
         }
     },
-    initData(index, cardInfo, canUse, parents,isCardGroup) {
+    initData(index, cardInfo, canUse, parents) {
         let configData = cardInfo.data, cid = cardInfo.id;
         let cardName = configData.CardName,
             CardQuality = configData.CardQuality,
             cardImage = configData.CardImage,
-            CardDescription = configData.CardDescription,
+            CardDescription = cardHelper.getCardDescription(cid, cardInfo.lv),
             cardType = configData.CardType,
             thew = configData.CastThew,
             mp = cardInfo.mp,
             cardAttr = configData.CardAttributes;
+        this.cardId.active = false;
+        this.cardId.getComponent(cc.Label).string = cid;
         if (this._listeners) {
             for (var eventName in this._listeners) {
                 this._removeEventListener(eventName);
@@ -84,39 +90,29 @@ cc.Class({
             this._addEventListener(event);
         }
 
-        var wihte =new cc.Color(255,255,255);//1
-        var bule =new cc.Color(47,203,242);//2
-        var zise =new cc.Color(242,66,253);//紫色3
-        var cese =new cc.Color(210,97,49);//橙色4
-
-        var goji =new cc.Color(221,81,81);//攻击1
-        var qishu =new  cc.Color(31,231,255);//奇术2
-        var tianfu =new cc.Color(90,161,68);//天赋3
-        var baowu =new cc.Color(255,244,44);//宝物4
-
         this._index = index;
         this.mp = mp;
         this._cid = cid;
         this._canUse = canUse;
-        cc.log(this._canUse,"this._canUse");
+        //cc.log(this._canUse,"this._canUse");
         this.cardName.getComponent(cc.Label).string = cardName;
         this.cardImage.spriteFrame = this.cardAtlas.getSpriteFrame(cardImage);
 
         if (CardQuality == 1)
         {
-            this.cardName.color = wihte;
+            this.cardName.color = UIConsts.Color.wihte;
         }
         if (CardQuality == 2)
         {
-            this.cardName.color = bule;
+            this.cardName.color = UIConsts.Color.bule;
         }
         if (CardQuality == 3)
         {
-            this.cardName.color = zise;
+            this.cardName.color = UIConsts.Color.purple;
         }
         if (CardQuality == 4)
         {
-            this.cardName.color = cese;
+            this.cardName.color =  UIConsts.Color.orange;
         }
         if (thew > 0)
         {
@@ -191,28 +187,28 @@ cc.Class({
         {
            this.cardType.getComponent(cc.Label).string= "攻击";
            this.typeAttack.spriteFrame = this.cardAtlas.getSpriteFrame("type_attack");
-            this.cardType.color = goji;
+            this.cardType.color =  UIConsts.Color.goji;
         }
 
         if (cardType == 2)
         {
             this.cardType.getComponent(cc.Label).string = "奇术";
             this.typeAttack.spriteFrame = this.cardAtlas.getSpriteFrame("type_skill");
-            this.cardType.color = qishu;
+            this.cardType.color = UIConsts.Color.qishu;
         }
 
         if (cardType == 3)
         {
             this.cardType.getComponent(cc.Label).string = "天赋";
             this.typeAttack.spriteFrame = this.cardAtlas.getSpriteFrame("type_talent");
-            this.cardType.color = tianfu;
+            this.cardType.color = UIConsts.Color.tianfu;
         }
 
         if (cardType == 4)
         {
            this.cardType.getComponent(cc.Label).string = "宝物";
            this.typeAttack.spriteFrame = this.cardAtlas.getSpriteFrame("type_artifact");
-           this.cardType.color = baowu;
+           this.cardType.color = UIConsts.Color.baowu;
         }  
        this._parents = parents;
        // this._updateCardState();
@@ -224,6 +220,15 @@ cc.Class({
         this.y =  y;
         this.x = x;
         this.resetPos();
+    },
+
+    clickShowCardId () {
+        this._click += 1;
+        this.cardId.active = true;
+        if (this._click == 2) {
+            this.cardId.active = false;
+            this._click = 0;
+        }
     },
 
     _updateCardState() {

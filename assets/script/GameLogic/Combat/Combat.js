@@ -205,11 +205,10 @@ Combat.prototype.updatePos = function (uid, newPos) {
 
 Combat.prototype.onFightEnd = function (result) {
     if (this.teamType === consts.Team.TYPE_RAID)
-        
-        return;
+    return;
     let ui = this.uiMgr.getUI(constants.UI.Fight);
     if (ui)
-        ui.loadFightOver(result)
+        ui.loadFightOver(result,this.teamType)
 };
 
 Combat.prototype.Release = function () {
@@ -223,6 +222,9 @@ Combat.prototype.Release = function () {
 
     for (var i in this.enemy)
         delete this.enemy[i];
+
+    if (this.summonedMgr != null)
+        this.summonedMgr.Release();
 
     Effectmgr.release();
 

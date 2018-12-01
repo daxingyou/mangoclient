@@ -1,10 +1,12 @@
-var UIBase = require('UIBase');
-var dataCenter = require('DataCenter')
-var combatmgr = require('CombatMgr')
-const constant = require('constants');
-var dataMgr = require('DataMgr');
-var fightData = require('fightData')
+let UIBase = require('UIBase');
+let dataCenter = require('DataCenter')
+let combatmgr = require('CombatMgr')
+let constant = require('constants');
+let dataMgr = require('DataMgr');
+let fightData = require('fightData')
 let eventMgr = require('eventMgr');
+let cardHelper = require('cardHelper');
+let UIConsts = require('UIConsts')
 
 cc.Class({
     extends: UIBase,
@@ -12,7 +14,6 @@ cc.Class({
     properties: {
         _index : 0,
         cardAtlas : cc.SpriteAtlas,
-        //leftAtlas:cc.SpriteAtlas,
         left:cc.Sprite,
         mplabel:cc.Label,
         cardImage : cc.Sprite, 
@@ -22,12 +23,8 @@ cc.Class({
         cardType:cc.Node,
         typeAttack:cc.Sprite,
         canUseCard:cc.Node,
-
-        CurCenterCard : false,
         mp:null,
 
-        _canUse: false,
-        _willingUse: false,
         _cid: null,
         cardMask:cc.Node,
 
@@ -39,61 +36,35 @@ cc.Class({
         _cardNum: 1,
         _maxLevel: 0,
         _curLevel: 1,
+        _cnt: 0,
         _curQuality: 0,
         levelLabel: cc.Label,
+        _fixDes: null,
     },
 
-    // ID: 3,
-	// 	CardName: '攻击',
-	// 	CardDescription: '对目标造成60点伤害。',
-	// 	Event: '',
-	// 	UseLimit: {},
-	// 	HeroID: 2000,
-	// 	SkillID: 3,
-	// 	Treasure: 0,
-	// 	CastMP: 1,
-	// 	CastThew: 0,
-	// 	CardType: 1,
-	// 	CardQuality: 1,
-	// 	CardAttributesibutes: [1],
-	// 	CardMaxLevel: 1,
-	// 	CardLimit: 2,
-	// 	CardImage: 'attack',
-
    
-
     // onLoad () {},
     //type ==1 卡牌界面 == 2 组卡界面 == 3
-    initData(index,data,parents,type,pos) {
-        // cc.log("data卡牌",data);
-        var wihte = new cc.Color(255,255,255);//1
-        var bule = new cc.Color(47,203,242);//2
-        var zise = new cc.Color(242,66,253);//紫色3
-        var cese = new cc.Color(210,97,49);//橙色4
+    initData(index,data,parents,type,pos,cardNum) {
 
-        var goji = new cc.Color(221,81,81);//攻击1
-        var qishu = new  cc.Color(31,231,255);//奇术2
-        var tianfu = new cc.Color(90,161,68);//天赋3
-        var baowu = new cc.Color(255,244,44);//宝物4
-
+       // cc.log("data卡牌",data)
         this._index = index;
         this.mp = data.CastMP;
         this._cid = data.ID;
-       // this._canUse = canUse;
         this.cardName.getComponent(cc.Label).string = data.CardName;
         this.cardImage.spriteFrame = this.cardAtlas.getSpriteFrame(data.CardImage);
 
         if (data.CardQuality == 1) {
-            this.cardName.color = wihte;
+            this.cardName.color = UIConsts.Color.wihte;
         }
         if (data.CardQuality == 2) {
-            this.cardName.color = bule;
+            this.cardName.color =  UIConsts.Color.bule;
         }
         if (data.CardQuality == 3) {
-            this.cardName.color = zise;
+            this.cardName.color =  UIConsts.Color.purple;
         }
         if (data.CardQuality == 4) {
-            this.cardName.color = cese;
+            this.cardName.color = UIConsts.Color.orange;
         }
 
         if (data.CastThew != 0) {
@@ -104,6 +75,16 @@ cc.Class({
             this.mplabel.string = data.CastMP;
             this.left.spriteFrame = this.cardAtlas.getSpriteFrame('mp2');
         }
+
+        this._parents = parents;
+        this._type = type;
+        this._pos = pos;
+        this._maxLevel = data.CardMaxLevel;
+
+        this._curLevel = data.level;
+        this.levelLabel.string = data.level + "级";
+        this._cnt = data.cnt;
+        this._curQuality = data.CardQuality;
 
         var cardDes1 = '';
         var cardDes2 = '';
@@ -137,101 +118,133 @@ cc.Class({
                 }
 
                 if (cardDes2!='' || cardDes3!='' || cardDes4) {
-                     des = '<color=#EFC851>'+cardDes2+cardDes3+cardDes4+"。"+'</color>';
+                     des = '<color=#EFC851>'+ cardDes2 + cardDes3 + cardDes4 + "。"+'</color>';
                 }
-                this._desc = data.CardDescription + des;
+                this._fixDes = des;
+                this._desc = cardHelper.getCardDescription(this._cid, this._curLevel - 1) + des;
                 this.cardDes.getComponent(cc.RichText).string = this._desc;
-                    //.format({
-                   // SwordNum: combatmgr.getSummonMgr().getSummonNum(constant.SummonedType.wSword)});
+            //    / cc.log(data.level,"data.level",this._cid,"data._cid");
         }
        
         if (data.CardType == 1)  {
-            this.cardType.getComponent(cc.Label).string= "攻击";
+            this.cardType.getComponent(cc.Label).string = "攻击";
             this.typeAttack.spriteFrame = this.cardAtlas.getSpriteFrame("type_attack");
-            this.cardType.color = goji;
+            this.cardType.color = UIConsts.Color.wihte;
         }
 
         if (data.CardType == 2) {
             this.cardType.getComponent(cc.Label).string = "奇术";
             this.typeAttack.spriteFrame = this.cardAtlas.getSpriteFrame("type_skill");
-            this.cardType.color = qishu;
+            this.cardType.color = UIConsts.Color.qishu;
         }
 
         if (data.CardType == 3) {
             this.cardType.getComponent(cc.Label).string = "天赋";
             this.typeAttack.spriteFrame = this.cardAtlas.getSpriteFrame("type_talent");
-            this.cardType.color = tianfu;
+            this.cardType.color = UIConsts.Color.tianfu;
         }
 
         if (data.CardType == 4) {
            this.cardType.getComponent(cc.Label).string = "宝物";
            this.typeAttack.spriteFrame = this.cardAtlas.getSpriteFrame("type_artifact");
-           this.cardType.color = baowu;
+           this.cardType.color = UIConsts.Color.baowu;
         }  
-        this._parents = parents;
-        this._type = type;
-        this._pos = pos;
-        this._maxLevel = 2;//data.CardMaxLevel
-        this._curLevel = 1;
-        this._curQuality = data.CardQuality;
+    
         this.attNode = this.node.getChildByName('att');
         this.cardNumNode =  this.node.getChildByName('cardNum');
+        this.cardNumNode.getChildByName('label').getComponent(cc.Label).string = "*" + this._cnt;
         if (type == 1) {
-            this.attNode.active = true;
-            this.cardNumNode.active = false;
-        }
+            this.attNode.active = false;
+            this.cardNumNode.active = true;
+        }//卡牌升级先显示张数，后期修改
         else if (type == 2) {
             this.cardNumNode.active = true;
             this.attNode.active = false;
-            this._cardNum = 1;
+        }
+        else if (type == 3) {
+            this.cardNumNode.active = false;
+            cc.log("隐藏张数");
         }
     },
 
-    lookCardDes () {
-        if (this._type == 1) {
-            this._parents.lookCardDes(this._cid);
-        }
-    },
+    // lookCardDes () {
+    //     if (this._type == 1) {
+    //         this._parents.lookCardDes(this._cid);
+    //     }
+    // },
 
     closeCardDes () {
+        cc.log("显示卡牌樟树");
         this._type = 2;
         this.attNode.active = false;
         this.cardNumNode.active = true;
-
-      //  this.cardNumNode.getChildByName('label').getComponent(cc.Label).string = "* 0";
     },
 
-    updateCard (cardNum) {
-        this._curLevel += 1;
-        this._cardNum -= 1;
+
+
+    updateCardDes (cId,level) {
+        this.cardDes.getComponent(cc.RichText).string = cardHelper.getCardDescription(cId, level) + this._fixDes;
+        if (level != null)
+        this.levelLabel.string = level+1 + "级";
+    },
+
+    //type == 1 add type == 2 返回
+    _moveCard (type) {
+        if (type == 1) {
+            this._cnt -= 1;
+        }
+        else if (type == 2) {
+            this._cnt += 1;
+        }
+        this.cardNumNode.getChildByName('label').getComponent(cc.Label).string = "*" + this._cnt;
+    },
+
+    upGradeCardEnd (cnt,curLevel) {
+        this._curLevel = curLevel;
+        this._cnt = cnt;
         if (this._curLevel < this._maxLevel) {
             cc.log("继续更新卡牌");
+            //index,cid,level,needCard,needSilver
+            let data = dataMgr.cardUpgrade[this._curQuality][this._curLevel];
+            cc.log(data,"data");
+            let needCard = data.CardNumber;
+            let needSilver = data.Silver;
+            this._parents.lookCardDes(this._index,this._cid,this._curLevel,needCard,needSilver);   
         }
         else {
-            this._parents._updateUpCard();
+            this._parents._cardLevelMax();
         }
-        this.levelLabel.string = this._curLevel + "级";
-        this.cardNumNode.getChildByName('label').getComponent(cc.Label).string = "*" + this._cardNum;
+        this.levelLabel.string = curLevel + "级";
+        this.cardNumNode.getChildByName('label').getComponent(cc.Label).string = "*" + this._cnt;
+        this.updateCardDes(this._cid,this._curLevel-1);
     },
 
     start () {
         cc.view.enableAntiAlias;
         let self = this;
-        this.node.on(cc.Node.EventType.TOUCH_START, function (event) {//节点区域时  
+        this.node.on(cc.Node.EventType.TOUCH_START, function (event) {//点击查看，后期可能加显示效果
             if (self._type == 1) {
                 if (self._maxLevel > self._curLevel) {
                     let data = dataMgr.cardUpgrade[self._curQuality][self._curLevel];
                     let needCard = data.CardNumber;
                     let needSilver = data.Silver;
-                    cc.log(needSilver,needCard);
-                    self._parents.lookCardDes(self._index,self._cid,needCard,needSilver);
+                    self._parents.lookCardDes(self._index,self._cid,self._curLevel,needCard,needSilver);
                 }
                 else {
-                    self._parents.lookCardDes(self._index,self._cid);
+                    self._parents.lookCardDes(self._index,self._cid,self._curLevel);
                 }
             }
-           }, this);  
-           
+           }, this);    
+    },
+
+    _listenMove () {
+        let self = this;
+        let startX = self._pos.x;
+        let startY = self._pos.y;
+        this.node.on(cc.Node.EventType.TOUCH_START, function (event) {//点击查看，后期可能加显示效果
+           self._parents._switchMoveCard(true,self._parents._curPageNum);
+        }, this);   
+
         this.node.on(cc.Node.EventType.TOUCH_MOVE, function (event) { 
             var delta = event.touch.getDelta();
             this.x += delta.x;
@@ -242,18 +255,12 @@ cc.Class({
             let x = this.x;
             if (x > 400) {
                 let cardName =  self.cardName.getComponent(cc.Label).string;
-                self._parents.addCard(cardName,self.mp);
+                self._parents.addCard(cardName,self.mp,self._cid);
                 this.active = false;
-                self.cardNumNode.active = true;
-                self.cardNumNode.getChildByName('label').getComponent(cc.Label).string = "* 00000";
             }
-            else {
-                if (self._pos != undefined) {
-
-                    this.x = self._pos.x -140;
-                    this.y = self._pos.y- 45;
-                }    
-            }
+            this.x = startX -557;
+            this.y = startY - 45;
+            this.active = true;
         }, this.node);
     
         this.node.on(cc.Node.EventType.TOUCH_CANCEL, function (event) {
@@ -261,22 +268,12 @@ cc.Class({
             if (x > 400) {
                 let cardName =  self.cardName.getComponent(cc.Label).string;
                 self._parents.addCard(cardName,self.mp);
-                self.cardNumNode.active = true;
-                self.cardNumNode.getChildByName('label').getComponent(cc.Label).string = "* 0";
                 this.active = false;
             }
-            else {
-                if (self._pos != undefined) {
-                    this.x = self._pos.x -140;
-                    this.y = self._pos.y- 45;
-                }  
-            }
-        }, this.node);       
-        
-    },
-
-   
-
-  
+            this.x = startX - 557;
+            this.y = startY - 45;
+            this.active = true;
+        }, this.node);     
+    },  
     // update (dt) {},
 });

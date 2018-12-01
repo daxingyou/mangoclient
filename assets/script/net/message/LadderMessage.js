@@ -1,3 +1,5 @@
+var constant = require('constants')
+var combatMgr = require('CombatMgr');
 var ladder = {
     init: function () {
         this._uiMgr = cc.find('Canvas').getComponent('UIMgr');
@@ -15,7 +17,22 @@ var ladder = {
 
         pomelo.on('onRaidInfoUpdate', function (data) {
             cc.log("副本信息更新", data);
+            let info  = data.info;
 
+            if (info == undefined) {
+                that._uiMgr.loadUI(constant.UI.RaidUI,data =>{
+                    combatMgr.Release();
+                    combatMgr.curCombat.UILoadOk = true; 
+                }); 
+            }
+            else {
+                that._uiMgr.loadUI(constant.UI.EnterSelectRaid,data =>{
+                    combatMgr.Release();
+                    combatMgr.curCombat.UILoadOk = true; 
+                    data.initData(info);
+                });
+            }
+            
             /*"onRaidInfoUpdate": {
                 "required uInt32 raidID": 1,
                 "message RaidInfo": {

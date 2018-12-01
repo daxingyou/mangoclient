@@ -1,0 +1,30 @@
+{
+  "ver": "2.0.0",
+  "uuid": "e34db391-393b-4aa4-a6dc-7164e0f20a61",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "英雄列表": {
+      "ver": "1.0.3",
+      "uuid": "3b3ea75e-4b87-42ad-b9f1-37e8b156c285",
+      "rawTextureUuid": "e34db391-393b-4aa4-a6dc-7164e0f20a61",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 1334,
+      "height": 750,
+      "rawWidth": 1334,
+      "rawHeight": 750,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

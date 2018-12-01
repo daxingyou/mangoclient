@@ -45,7 +45,7 @@ cc.Class({
         this._uiMgr.loadUI(constant.UI.CardGroup);
         this._uiMgr.loadUI(constant.UI.FightPavTop,(data) =>{
             data.changeTitle("卡牌");
-          });
+        });
     },
 
 
@@ -65,6 +65,9 @@ cc.Class({
     },
     Hero(){
         this._uiMgr.release();
+        this._uiMgr.loadUI(constant.UI.FightPavTop,(data) =>{
+            data.changeTitle("英雄");
+        });
         this._uiMgr.loadUI(constant.UI.Hero);
     },
     // update (dt) {},

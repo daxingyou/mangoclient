@@ -16,7 +16,7 @@ cc.Class({
         this.node.active = false;
     },
     Release : function(){
-        this.node.destory();
+        this.node.destroy();
     },
     backButton : function(){
         let uiMgr = cc.find('Canvas').getComponent('UIMgr');

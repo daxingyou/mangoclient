@@ -21,6 +21,7 @@ module.exports = {
         var that = this;
         pomelo.on('onRefreshTeam', function (data) {
             cc.log("队伍信息刷新", data);
+            
             playerData.teamData.refreshTeam = data;
             eventMgr.emit("onRefreshTeam");
         });

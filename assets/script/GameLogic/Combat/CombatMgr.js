@@ -29,6 +29,9 @@ var CombatMgr = {
                 this.curCombat = new PVPCombat(data);
                 break;
             case consts.Team.TYPE_RAID:
+                this.curCombat = new PVECombat(data);
+                break;
+            case consts.Team.TYPE_TUTORIAL:
                 this.curCombat = new TutorialCombat(data);
                 break;
             default: 
@@ -58,6 +61,7 @@ var CombatMgr = {
         }
     },
     onFightEnd: function (data) {
+        cc.log(data);
         this.fightEnd = true;
         let result = data.result;
         gameData.fightEnd = true;
@@ -80,6 +84,10 @@ var CombatMgr = {
                 uimgr.loadUI(constant.UI.Login);
                 break;
             case consts.DungeonStatus.IN_LOAD:    // 加载前倒计时
+                //新手战斗直接进战斗？不出加载？暂时先这样
+                if (this.curCombat.teamType === consts.Team.TYPE_TUTORIAL)
+                    return;
+
                 var projess = data.loadMemProgress;
                 for (let i in projess) {
                     gameData.otherLoadRes[i] = projess[i];

@@ -1,8 +1,9 @@
-var dataCenter = require('DataCenter');
-var emailData = require('emailData');
-var eventMgr = require('eventMgr');
-var bagData = require('bagData');
+let dataCenter = require('DataCenter');
+let emailData = require('emailData');
+let eventMgr = require('eventMgr');
+let bagData = require('bagData');
 let playerData = require('playerData');
+let cardGroupData = require('cardGroupData')
 
 var message = {
     init: function () {
@@ -23,6 +24,8 @@ var message = {
 
         pomelo.on('onCardsUpdate', function (data) {
             cc.log("卡牌数量更新", data);
+            cardGroupData.refreshCard = data;
+            eventMgr.emit("upGradeCardEnd");
         });
 
 

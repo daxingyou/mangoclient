@@ -38,6 +38,9 @@ cc.Class({
         }
        
         this._mgr = cc.find('Canvas').getComponent('UIMgr');
+
+        if(!combatMgr.teamInfo)
+            return;
         let teamA = combatMgr.teamInfo.teamA;
         //cc.log("加载 teamA",teamA);
         let teamB = combatMgr.teamInfo.teamB;

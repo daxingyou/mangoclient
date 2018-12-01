@@ -38,6 +38,8 @@ cc.Class({
     },
 
     onTouchHero(event,heroid) {
+        if (this.tips.active)
+        return;
         var self = this;
         if (self._parents!=null && self._parents._CDState) {
            self._parents.selectHero(this.heroid,this._curIndex);   

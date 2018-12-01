@@ -7,6 +7,8 @@ var tutorialMgr = require('TutorialMgr')
 var net = require("NetPomelo")
 var tutorialEnterDungeonProto = require('tutorialEnterDungeonProto')
 let constan = require('Constant')
+var gameCenter =require('DataCenter')
+var consts = require('consts')
 
 var TutorialCombat = function(){
     Combat.call(this);
@@ -46,8 +48,11 @@ TutorialCombat.prototype.init = function(data){
     this.resNum++;
 
     this.curDgId = data.dgId;
+
+    this.state = constant.tutorialState.begin;
     tutorialMgr.starTutorial(dataMgr.dungeon[data.dgId].Event,this);
     net.Request(new tutorialEnterDungeonProto(data.dgId));
+
     //cc.log('cur res = ',this.resNum );
     //gameCenter.resNum = this.resNum;
     //this._loadProgress = 0;
@@ -66,12 +71,13 @@ TutorialCombat.prototype.Tick = function () {
 }
 
 TutorialCombat.prototype.onFightEnd = function (result) {
-    if (this.teamType === consts.Team.TYPE_RAID)
+    //if (this.teamType === consts.Team.TYPE_RAID)
         ///失败重来
-        if(!result)
+        if(result == consts.FightResult.LOSE)
         {
-            this._uimgr.loadUI(constants.UI.TutorialOver,function(data) {
-                data.showAgain(this.curDgId); 
+            var that = this;
+            this.uiMgr.loadUI(constant.UI.TutorialOver,function(data) {
+                data.showAgain(that.curDgId); 
             })
         }
         else{
@@ -80,36 +86,46 @@ TutorialCombat.prototype.onFightEnd = function (result) {
                 ///最后一场
                 if(this.curDgId == constan.TutorialDungeon[3])
                 {
-                    this._uimgr.loadUI(constants.UI.FightOver,function(data) {
+                    this.uiMgr.loadUI(constant.UI.FightOver,function(data) {
                         data.reslut(resss); 
                     })
                 }
                 else
                 {
-                    this._uimgr.loadUI(constants.UI.TutorialOver,function(data) {
-                        data.showNext(this.curDgId); 
+                    var that = this;
+                    this.uiMgr.loadUI(constant.UI.TutorialOver,function(data) {
+                        data.showNext(that.curDgId); 
                     })
                 }
             }
             else
             {
+                this.reslut = consts.FightResult.WIN;
+                this.state = constant.tutorialState.finish;
                 tutorialMgr.fightOver();
             }
         }
 }
 
 TutorialCombat.prototype.TutorialFinish = function(){
-    if(this.curDgId == constan.TutorialDungeon[3])
+    if(this.state == constant.tutorialState.begin)          //战斗开始前完成，开始走正常流程开始战斗
     {
-        this._uimgr.loadUI(constants.UI.FightOver,function(data) {
-            data.reslut(resss); 
-        })
+        gameCenter.curLoadRes = this.resNum+1;
     }
-    else
+    else if(this.state == constant.tutorialState.finish)          
     {
-        this._uimgr.loadUI(constants.UI.TutorialOver,function(data) {
-            data.showNext(this.curDgId); 
-        })
+        var that = this;
+        if(this.reslut == consts.FightResult.LOSE)
+        {
+            this.uiMgr.loadUI(constant.UI.TutorialOver,function(data) {
+                data.showAgain(that.curDgId); 
+            })
+        }
+        else{
+            this.uiMgr.loadUI(constant.UI.TutorialOver,function(data) {
+                data.showNext(that.curDgId); 
+            })
+        }
     }
 }
 

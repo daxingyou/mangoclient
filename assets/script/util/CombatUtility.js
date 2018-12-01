@@ -51,6 +51,13 @@ var CombatUtility = {
 
                     return result;
                 }
+                // 嘲讽
+                let tauntTargetID = combat.getSelf().tauntTargetID;
+                if (tauntTargetID) {
+                    let target = combat.getEntity(tauntTargetID);
+                    if (target)
+                        return target;
+                }
                 return combat.enemy;
              }
          }

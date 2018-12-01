@@ -41,6 +41,10 @@ cc.Class({
                 self._ownHeroBar[resIndex-1].initData(resIndex-1,itemData.ID,itemData.HeroName,itemData.HeroIcon,self);
                 //heroid,heroName,heroIcon,parents
             }
+            if (resIndex == Object.keys(hero).length) {
+                self._selectedIdx = 0;
+                self._ownHeroBar[0].select();
+            }
         });
     },
 
@@ -63,7 +67,6 @@ cc.Class({
     },
 
     comfirmHero (heroid) {
-         //cc.log(soloRaidData.raidId,"soloRaidData.raidId");
          let rooms = null;
          var self = this;
          let heroData = dataMgr.hero[self._heroid];
@@ -96,11 +99,12 @@ cc.Class({
                 else if (data.code == consts.SelectHeroCode. ALREADY_CONFIRMED) {
                     cc.log("已经确认了");
                 }
+
+                else{
+                    cc.log("单人副本确认异常");
+                 }
             }
         
-                //else{
-                //    cc.log("单人副本确认异常");
-                //}
          });
     },
 

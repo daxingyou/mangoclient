@@ -125,8 +125,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -667,
-      "y": 342.2
+      "x": -668,
+      "y": 340
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -196,9 +196,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 248,
-      "g": 183,
-      "b": 111,
+      "r": 255,
+      "g": 222,
+      "b": 177,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -209,8 +209,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 120,
-      "height": 40
+      "width": 108,
+      "height": 36
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -218,8 +218,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -429,
-      "y": 342
+      "x": -470.3,
+      "y": 340.7
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -237,9 +237,9 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 40,
-    "_fontSize": 40,
-    "_lineHeight": 40,
+    "_actualFontSize": 36,
+    "_fontSize": 36,
+    "_lineHeight": 36,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -647,17 +647,17 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 202,
-      "height": 72
+      "width": 107,
+      "height": 48
     },
     "_rotationX": 0,
     "_rotationY": 0,
-    "_scaleX": 0.6,
-    "_scaleY": 0.6,
+    "_scaleX": 1,
+    "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -603.2,
-      "y": 342.1
+      "x": -605.1,
+      "y": 343.1
     },
     "_skewX": 0,
     "_skewY": 0,

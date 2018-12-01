@@ -101,7 +101,7 @@ module.exports = {
 		TimeLimit: 180,
 		Icon: 'attack',
 		Desc: '与西门战斗。',
-		Event: [{"event":"begin","dialog":"1001"},{"event":"animation","target":"1001","animation":"attack","dialog":"1002"},{"event":"animation","target":"1001","animation":"attack","dialog":"1003"}]
+		Event: [{"event":"begin","dialog":1001},{"event":"animation","target":1000,"animation":"attack_01","dialog":1002},{"event":"animation","target":1000,"animation":"attack_01","dialog":1003}]
 	},
 	12: {
 		ID: 12,
@@ -123,7 +123,7 @@ module.exports = {
 		TimeLimit: 180,
 		Icon: 'attack',
 		Desc: '与金伴花战斗。',
-		Event: [{"event":"fightOver","dialog":"1004"}]
+		Event: [{"event":"fightOver","dialog":1004}]
 	},
 	14: {
 		ID: 14,
@@ -134,6 +134,6 @@ module.exports = {
 		TimeLimit: 180,
 		Icon: 'attack',
 		Desc: '与英万里战斗。',
-		Event: [{"event":"fightOver","dialog":"1005"}]
+		Event: [{"event":"fightOver","dialog":1005}]
 	},
 };

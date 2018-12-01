@@ -23,7 +23,7 @@ var Agent = function (path, position, bInLeft, owner, loadok) {
         that.hpbar.node.parent = cc.find('Canvas/visibleArea/ui');
         that.hpbar.freshen(owner.hp, owner.maxHp, owner.armor);
         that.hpbar.freshenBuff(owner.buffs);
-
+        //cc.log(owner.buffs,"-------------owner.buffs");
         loadRes.load(path, false, (data) => {
             that.go = cc.instantiate(data);
             that.go.parent = cc.find('Canvas/visibleArea/pool');
