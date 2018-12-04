@@ -69,4 +69,17 @@ module.exports = {
 		PosPriority: 200,
 		HeroIcon: 'yuxiaoxue'
 	},
+	6000: {
+		ID: 6000,
+		HeroName: '李红袖',
+		HeroModel: '',
+		Shadow: [],
+		HitPoint: [],
+		TargetFrame: {},
+		InitialCard: 3,
+		InitialMP: 6,
+		InitialDrawPile: [6001,6002,6003,6004,6005,6006,6001,6012,6013,6014,6015,6016],
+		PosPriority: 200,
+		HeroIcon: 'chenjingchou'
+	},
 };

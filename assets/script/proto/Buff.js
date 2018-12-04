@@ -340,6 +340,102 @@ module.exports = {
 		Image: 'buff3',
 		Effect: ''
 	},
+	6002: {
+		ID: 6002,
+		BuffName: '料敌为奇',
+		Description: '监视1个敌人，在其使用偶数牌时，使该偶数牌失效，生效1次',
+		IsHide: 0,
+		Image: 'buff1',
+		Effect: ''
+	},
+	6003: {
+		ID: 6003,
+		BuffName: '料敌为偶',
+		Description: '监视1个敌人，在其使用奇数牌时，使该奇数牌失效，生效1次',
+		IsHide: 0,
+		Image: 'buff2',
+		Effect: ''
+	},
+	6012: {
+		ID: 6012,
+		BuffName: '抛书释卷',
+		Description: '眩晕2秒',
+		IsHide: 0,
+		Image: 'buff1',
+		Effect: ''
+	},
+	6013: {
+		ID: 6013,
+		BuffName: '以书为御',
+		Description: '增加600护甲，持续15秒',
+		IsHide: 0,
+		Image: 'buff2',
+		Effect: ''
+	},
+	6015: {
+		ID: 6015,
+		BuffName: '带刺玫瑰',
+		Description: '受到伤害时，造成20点反射伤害',
+		IsHide: 0,
+		Image: 'buff3',
+		Effect: ''
+	},
+	6016: {
+		ID: 6016,
+		BuffName: '疼痛滞后',
+		Description: '受到的伤害，在5秒后集中生效',
+		IsHide: 0,
+		Image: 'buff3',
+		Effect: ''
+	},
+	7011: {
+		ID: 7011,
+		BuffName: '重伤',
+		Description: '治理效果下降60%',
+		IsHide: 0,
+		Image: 'buff1',
+		Effect: ''
+	},
+	7005: {
+		ID: 7005,
+		BuffName: '双手剑',
+		Description: '下一次打出的攻击牌，打出2次',
+		IsHide: 0,
+		Image: 'buff2',
+		Effect: ''
+	},
+	8001: {
+		ID: 8001,
+		BuffName: '丐帮帮主',
+		Description: '每达成10次连击，力量增加2点，持续5秒，可叠加99次',
+		IsHide: 0,
+		Image: 'buff1',
+		Effect: ''
+	},
+	8101: {
+		ID: 8101,
+		BuffName: '力量增加',
+		Description: '力量增加2点，持续5秒，可叠加99层',
+		IsHide: 0,
+		Image: 'buff1',
+		Effect: ''
+	},
+	8002: {
+		ID: 8002,
+		BuffName: '急风为刺',
+		Description: '连击时有25%概率额外获得2次连击',
+		IsHide: 0,
+		Image: 'buff1',
+		Effect: ''
+	},
+	8012: {
+		ID: 8012,
+		BuffName: '带刺玫瑰',
+		Description: '受到伤害时，造成15点反射伤害',
+		IsHide: 0,
+		Image: 'buff3',
+		Effect: ''
+	},
 	100002: {
 		ID: 100002,
 		BuffName: '猛击',

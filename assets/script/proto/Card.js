@@ -24,6 +24,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 1,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	2: {
@@ -46,6 +47,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'defence'
 	},
 	3: {
@@ -68,6 +70,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	4: {
@@ -90,6 +93,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'defence'
 	},
 	1001: {
@@ -112,6 +116,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	1002: {
@@ -134,6 +139,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	1003: {
@@ -156,6 +162,7 @@ module.exports = {
 		CardAttributes: [2],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	1004: {
@@ -178,6 +185,7 @@ module.exports = {
 		CardAttributes: [2],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	1005: {
@@ -200,6 +208,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	1006: {
@@ -222,6 +231,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	1011: {
@@ -244,6 +254,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	1012: {
@@ -266,6 +277,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	1013: {
@@ -288,6 +300,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	1014: {
@@ -310,6 +323,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	1015: {
@@ -332,6 +346,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	1016: {
@@ -354,6 +369,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	1017: {
@@ -376,6 +392,7 @@ module.exports = {
 		CardAttributes: [2,5],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	2001: {
@@ -398,6 +415,7 @@ module.exports = {
 		CardAttributes: [2],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	2002: {
@@ -420,6 +438,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	2003: {
@@ -442,6 +461,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	2004: {
@@ -464,6 +484,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	2005: {
@@ -486,6 +507,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	2006: {
@@ -508,6 +530,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	2011: {
@@ -530,6 +553,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	2012: {
@@ -552,6 +576,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	2013: {
@@ -574,6 +599,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	2014: {
@@ -596,6 +622,7 @@ module.exports = {
 		CardAttributes: [2],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	2015: {
@@ -618,6 +645,7 @@ module.exports = {
 		CardAttributes: [2],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	2016: {
@@ -640,6 +668,7 @@ module.exports = {
 		CardAttributes: [2],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	3001: {
@@ -662,6 +691,7 @@ module.exports = {
 		CardAttributes: [2],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	3002: {
@@ -684,6 +714,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	3003: {
@@ -706,6 +737,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	3004: {
@@ -728,6 +760,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	3005: {
@@ -750,6 +783,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	3006: {
@@ -772,6 +806,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	3007: {
@@ -794,6 +829,7 @@ module.exports = {
 		CardAttributes: [7],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	3011: {
@@ -816,6 +852,7 @@ module.exports = {
 		CardAttributes: [2],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	3012: {
@@ -838,6 +875,7 @@ module.exports = {
 		CardAttributes: [2],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	3013: {
@@ -860,6 +898,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	3014: {
@@ -882,6 +921,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	3015: {
@@ -904,6 +944,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	3016: {
@@ -926,6 +967,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	4001: {
@@ -948,6 +990,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'qiliaoshu'
 	},
 	4002: {
@@ -970,6 +1013,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'yuxiaoxue',
 		CardImage: 'fengshaganlinshu'
 	},
 	4003: {
@@ -992,6 +1036,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'yuxiaoxue',
 		CardImage: 'huanhunzhou'
 	},
 	4004: {
@@ -1014,6 +1059,7 @@ module.exports = {
 		CardAttributes: [2],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'yuxiaoxue',
 		CardImage: 'wanwufusu'
 	},
 	4005: {
@@ -1036,6 +1082,7 @@ module.exports = {
 		CardAttributes: [2],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'yuxiaoxue',
 		CardImage: 'dilingbiyou'
 	},
 	4006: {
@@ -1058,6 +1105,7 @@ module.exports = {
 		CardAttributes: [2,4],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'yuxiaoxue',
 		CardImage: 'nvwazhuanshi'
 	},
 	4011: {
@@ -1080,6 +1128,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	4012: {
@@ -1102,6 +1151,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	4013: {
@@ -1124,6 +1174,7 @@ module.exports = {
 		CardAttributes: [2],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	4014: {
@@ -1146,6 +1197,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	4015: {
@@ -1168,6 +1220,7 @@ module.exports = {
 		CardAttributes: [2],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	4016: {
@@ -1190,6 +1243,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	5001: {
@@ -1212,6 +1266,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	5002: {
@@ -1234,6 +1289,7 @@ module.exports = {
 		CardAttributes: [2],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	5003: {
@@ -1256,6 +1312,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	5004: {
@@ -1278,6 +1335,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	5005: {
@@ -1300,6 +1358,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	5006: {
@@ -1322,6 +1381,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	5011: {
@@ -1344,6 +1404,7 @@ module.exports = {
 		CardAttributes: [2],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	5012: {
@@ -1366,6 +1427,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	5013: {
@@ -1388,6 +1450,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	5014: {
@@ -1410,6 +1473,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	5015: {
@@ -1432,6 +1496,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	5016: {
@@ -1454,6 +1519,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	5017: {
@@ -1476,6 +1542,7 @@ module.exports = {
 		CardAttributes: [5],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	5018: {
@@ -1498,6 +1565,7 @@ module.exports = {
 		CardAttributes: [5],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	5019: {
@@ -1520,6 +1588,7 @@ module.exports = {
 		CardAttributes: [5],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	5020: {
@@ -1542,6 +1611,7 @@ module.exports = {
 		CardAttributes: [5],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	18001: {
@@ -1564,6 +1634,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	18002: {
@@ -1586,6 +1657,7 @@ module.exports = {
 		CardAttributes: [2],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	18003: {
@@ -1608,6 +1680,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	18004: {
@@ -1630,6 +1703,7 @@ module.exports = {
 		CardAttributes: [2,4],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	18005: {
@@ -1652,6 +1726,7 @@ module.exports = {
 		CardAttributes: [2],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	18006: {
@@ -1674,6 +1749,7 @@ module.exports = {
 		CardAttributes: [2],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	18007: {
@@ -1696,6 +1772,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'heal'
 	},
 	18008: {
@@ -1718,6 +1795,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	18009: {
@@ -1740,6 +1818,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	18010: {
@@ -1762,6 +1841,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	100001: {
@@ -1784,6 +1864,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	100002: {
@@ -1806,6 +1887,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	100003: {
@@ -1828,6 +1910,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	100004: {
@@ -1850,6 +1933,7 @@ module.exports = {
 		CardAttributes: [2,4],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	100005: {
@@ -1872,6 +1956,7 @@ module.exports = {
 		CardAttributes: [2,4],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'defence'
 	},
 	100101: {
@@ -1894,6 +1979,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	100102: {
@@ -1916,6 +2002,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	100201: {
@@ -1938,6 +2025,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	100202: {
@@ -1960,6 +2048,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	100301: {
@@ -1982,6 +2071,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	100302: {
@@ -2004,6 +2094,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	100303: {
@@ -2026,6 +2117,7 @@ module.exports = {
 		CardAttributes: [5,6],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	101101: {
@@ -2048,6 +2140,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	101102: {
@@ -2070,6 +2163,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	101201: {
@@ -2092,6 +2186,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	101202: {
@@ -2114,6 +2209,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	101203: {
@@ -2136,6 +2232,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	101301: {
@@ -2158,6 +2255,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	101302: {
@@ -2180,6 +2278,7 @@ module.exports = {
 		CardAttributes: [2],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	101303: {
@@ -2202,6 +2301,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	101401: {
@@ -2224,6 +2324,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	101402: {
@@ -2246,6 +2347,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	101403: {
@@ -2268,6 +2370,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	101404: {
@@ -2290,6 +2393,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	101405: {
@@ -2312,6 +2416,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	90001: {
@@ -2334,6 +2439,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	90004: {
@@ -2356,6 +2462,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	90006: {
@@ -2378,6 +2485,7 @@ module.exports = {
 		CardAttributes: [2],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	90008: {
@@ -2400,6 +2508,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	90005: {
@@ -2422,6 +2531,7 @@ module.exports = {
 		CardAttributes: [2],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'yuxiaoxue',
 		CardImage: 'nvwatizhi'
 	},
 	90006: {
@@ -2444,6 +2554,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'yuxiaoxue',
 		CardImage: 'linglishifang'
 	},
 	90009: {
@@ -2466,6 +2577,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'yuxiaoxue',
 		CardImage: 'taolandongdi'
 	},
 	90010: {
@@ -2488,6 +2600,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'yuxiaoxue',
 		CardImage: 'shipojingtian'
 	},
 	90013: {
@@ -2510,6 +2623,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	90014: {
@@ -2532,6 +2646,7 @@ module.exports = {
 		CardAttributes: [2],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	90017: {
@@ -2554,6 +2669,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 	90020: {
@@ -2576,6 +2692,7 @@ module.exports = {
 		CardAttributes: [1],
 		CardMaxLevel: 9,
 		CardLimit: 2,
+		CardDir: 'neutral',
 		CardImage: 'attack'
 	},
 };
