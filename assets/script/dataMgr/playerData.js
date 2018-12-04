@@ -63,7 +63,7 @@ let playerData = {
                 });
                 uiMgr.loadUI(constant.UI.ShowList,data => {
                 data.init();
-                uiMgr.loadUI(constant.UI.FightPavTop,(data) =>{
+                uiMgr.loadUI(constant.UI.CommonTop,(data) =>{
                     data.initBackBtn(null,null);
                     data.changeTitle("对弈亭");
                 });
@@ -80,7 +80,7 @@ let playerData = {
                 }
                 data.laodFriendList();
             });
-            uiMgr.loadUI(constant.UI.FightPavTop, function (data) {
+            uiMgr.loadUI(constant.UI.CommonTop, function (data) {
                 data.initBackBtn(backShowListUI,this);
                 data.changeTitle("练习队伍");
             });

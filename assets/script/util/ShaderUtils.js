@@ -45,6 +45,7 @@ var ShaderUtils = {
 
         //sprite._sgNode.setShaderProgram(glProgram);
         this.setProgram( sprite._sgNode,glProgram);
+        return glProgram;
     },
     setProgram:function(node,program){
         /*if(cc.sys.isNative){

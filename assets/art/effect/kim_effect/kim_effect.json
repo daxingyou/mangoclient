@@ -1,7 +1,7 @@
 {
 "skeleton": { "hash": "uaIYBZa4hDltfaWm3Ro8DlbCuSU", "spine": "3.5.51", "width": 0, "height": 0, "images": "./part/" },
 "bones": [
-	{ "name": "root", "rotation": -0.03, "x": 34.07, "scaleX": 0.1, "scaleY": 0.1 },
+	{ "name": "root", "rotation": -0.03, "x": 34.07, "scaleX": 0.2, "scaleY": 0.2 },
 	{ "name": "effect", "parent": "root" },
 	{ "name": "ingot_fall", "parent": "effect", "x": -431.55, "y": 48.41, "scaleX": 1.282, "scaleY": 1.282 },
 	{ "name": "coin_main", "parent": "ingot_fall", "x": 37.77 },

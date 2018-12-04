@@ -18,6 +18,8 @@ cc.Class({
 
         hotTip: cc.Prefab,
 
+        blurBg: cc.Sprite,
+
         ///上级
         _beforeUI: null,
         _frontUI : null,
@@ -35,7 +37,7 @@ cc.Class({
     },
 
     onLoad() {
-       
+        
     },
 
     initDmg(){
@@ -55,7 +57,7 @@ cc.Class({
     },
 
     start() {
-
+        
     },
 
     // update (dt) {},
@@ -113,6 +115,10 @@ cc.Class({
         }
         
         loadRes.load(ui.path, true, (data) => {
+            if (ui.blurBg) {
+                this.refreshBlurBg();
+                this.blurBg.node.active = true;
+            }
             var go = cc.instantiate(data);
 
             if(go == null) 
@@ -208,6 +214,7 @@ cc.Class({
     },
     ///UI 资源释放
     release() {
+        this.blurBg.node.active = false;
         for (var x in this._FirstMainUI) {
             this._FirstMainUI[x].node.destroy();
         }
@@ -289,5 +296,15 @@ cc.Class({
         else if (ui.type == 5) {
             return this._FrontUIs[ui.id];
         }
+    },
+
+    refreshBlurBg() {
+        let size = cc.director.getWinSize();
+        let texture = new cc.RenderTexture(size.width, size.height, cc.Texture2D.PIXEL_FORMAT_RGBA8888, gl.DEPTH24_STENCIL8_OES);
+        texture.setPosition(cc.p(size.width / 2, size.height / 2));
+        texture.begin();
+        cc.Canvas.instance.node._sgNode.visit();
+        texture.end();
+        this.blurBg.spriteFrame = texture.getSprite().getSpriteFrame();
     }
 });

@@ -61,7 +61,7 @@ cc.Class({
     onUseCard() {
         this.showNum();
         this.ShowHandCards();
-    },
+    },// 刷新对应卡牌，灵力
 
     show() {
         this._super();
@@ -246,7 +246,7 @@ cc.Class({
 
             self.now_index = j;
             self.centerCard.active = true;
-            var isCanUse = 0;
+            var isCanUse = 1;//本来是0
 
            self.centerCard.getComponent('CardItem').initData(
                 self.now_index, player.handsPile[self.now_index], isCanUse);
@@ -320,7 +320,6 @@ cc.Class({
                 if (!this.gameOver) {
                     inputMgr.touchMove(e.touch._point);
                 }
-                
             }
         }, self);
 

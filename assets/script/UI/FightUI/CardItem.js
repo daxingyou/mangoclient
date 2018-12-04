@@ -211,7 +211,7 @@ cc.Class({
            this.cardType.color = UIConsts.Color.baowu;
         }  
        this._parents = parents;
-       // this._updateCardState();
+        this._updateCardState();
         
 
     },
@@ -232,11 +232,12 @@ cc.Class({
     },
 
     _updateCardState() {
+  
         if (this._canUse == 1) {
             var sprite = this.canUseCard.getComponent(cc.Sprite);
             if (this._willingUse) {
                 // 蓝色
-
+                
                 this.buleFrame.active = true;
                 this.canUseCard.active = false;
             }

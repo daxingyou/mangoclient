@@ -131,6 +131,7 @@ cc.Class({
                 else {
                     itemData = dataMgr.card[cardId];
                 }
+               
                 let checkHasCnt;
                 checkHasCnt = Object.keys(itemData).length;
              
@@ -379,7 +380,7 @@ cc.Class({
         this._sortStatus++;
         this.sortedObj = [];
         let self = this;
-        if (this._sortStatus == 3) {
+        if (this._sortStatus == 1) {
             this._sortStatus = 0;
             this.sortedObj = Object.keys(this._curCardInfo).sort(function(a, b) {
                 return self._curCardInfo[a].CastMP - self._curCardInfo[b].CastMP;
@@ -392,7 +393,7 @@ cc.Class({
                 return self._curCardInfo[a].CardQuality - self._curCardInfo[b].CardQuality;
             });
         }
-        else if (this._sortStatus == 1) {
+        else if (this._sortStatus == 3) {
             this.sortBtn.getChildByName('Label').getComponent(cc.Label).string = "等级排序";
             this.sortedObj = Object.keys(this._curCardInfo).sort(function(a, b) {
                 return self._curCardInfo[b].level - self._curCardInfo[a].level;

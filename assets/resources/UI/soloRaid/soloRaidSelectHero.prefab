@@ -2117,7 +2117,7 @@
       "__id__": 1
     },
     "component": "soloRaidSelectHero",
-    "handler": "enterPileKu",
+    "handler": "enterCardGroup",
     "customEventData": ""
   },
   {

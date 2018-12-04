@@ -81,7 +81,7 @@ cc.Class({
         this.spine.setMix(anim1,anim2,constant.mixTime)
     },
     setShader(name){
-        ShaderUtils.setShader(spine, name);
+        ShaderUtils.setShader(this.spine, name);
     },
     //动画融合
     stand(){

@@ -12,8 +12,6 @@ cc.Class({
         _click: 0,
     },
 
-    // LIFE-CYCLE CALLBACKS:
-
     // onLoad () {},
 
   

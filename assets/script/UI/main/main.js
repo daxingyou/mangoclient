@@ -19,7 +19,7 @@ cc.Class({
 
     Friend () {
         this._uiMgr.release();
-        this._uiMgr.loadUI(constant.UI.FightPavTop,(data) =>{
+        this._uiMgr.loadUI(constant.UI.CommonTop,(data) =>{
             data.changeTitle("好友");
           });
         this._uiMgr.loadUI(constant.UI.Friend);
@@ -43,7 +43,7 @@ cc.Class({
     cardGroup () {
         this._uiMgr.release();
         this._uiMgr.loadUI(constant.UI.CardGroup);
-        this._uiMgr.loadUI(constant.UI.FightPavTop,(data) =>{
+        this._uiMgr.loadUI(constant.UI.CommonTop,(data) =>{
             data.changeTitle("卡牌");
         });
     },
@@ -52,7 +52,7 @@ cc.Class({
 
     enterFightPav () {
         var self = this;
-        self._uiMgr.loadUI(constant.UI.FightPavTop,(data) =>{
+        self._uiMgr.loadUI(constant.UI.CommonTop,(data) =>{
           
         });
         self._uiMgr.loadUI(constant.UI.ShowList,data => {
@@ -65,7 +65,7 @@ cc.Class({
     },
     Hero(){
         this._uiMgr.release();
-        this._uiMgr.loadUI(constant.UI.FightPavTop,(data) =>{
+        this._uiMgr.loadUI(constant.UI.CommonTop,(data) =>{
             data.changeTitle("英雄");
         });
         this._uiMgr.loadUI(constant.UI.Hero);

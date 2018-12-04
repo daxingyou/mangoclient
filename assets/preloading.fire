@@ -467,7 +467,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 62,
+      "width": 60,
       "height": 30
     },
     "_rotationX": 0,
@@ -561,7 +561,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 404,
+      "width": 402,
       "height": 30
     },
     "_rotationX": 0,
@@ -691,6 +691,7 @@
       "__id__": 15
     },
     "_totalProgress": 0,
-    "_curProgress": 0
+    "_curProgress": 0,
+    "_tipsIdx": 0
   }
 ]

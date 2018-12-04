@@ -281,12 +281,12 @@ cc.Class({
     recommendFriend () {
         let self = this;
         let backFriendUI = function () {
-            self._uiMgr.loadUI(constant.UI.FightPavTop,(data) =>{
+            self._uiMgr.loadUI(constant.UI.CommonTop,(data) =>{
                 data.changeTitle("好友");
               });
             self._uiMgr.loadUI(constant.UI.Friend);
         };
-        self._uiMgr.loadUI(constant.UI.FightPavTop,(data) =>{
+        self._uiMgr.loadUI(constant.UI.CommonTop,(data) =>{
             data.initBackBtn(backFriendUI,self);
             data.changeTitle("好友");
         });

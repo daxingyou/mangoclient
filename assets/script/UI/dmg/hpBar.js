@@ -63,7 +63,6 @@ cc.Class({
     },
 
     freshenBuff(buffs){
-        // cc.log(buffs,"-----------------buffs");
         this.deActiveBuffItems();
         for (var realID in buffs) {
             var buff = buffs[realID];

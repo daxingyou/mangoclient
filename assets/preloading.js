@@ -20,7 +20,8 @@ cc.Class({
         this.progressLabel.string = "0%";
         this._showTips();
 
-        if (cc.sys.platform === cc.sys.WECHAT_GAME) {
+        if (cc.sys.platform === cc.sys.WECHAT_GAME
+        || cc.sys.platform === cc.sys.DESKTOP_BROWSER) {
             this._loadRes();
             return;
         }
@@ -71,6 +72,10 @@ cc.Class({
     _doLoadSubpackage(subpackageName) {
         cc.loader.downloader.loadSubpackage(subpackageName, (err) => {
             if (err) {
+                if (cc.sys.platform === cc.sys.DESKTOP_BROWSER) {
+                    this._addProgress();
+                    return;
+                }
                 cc.error('load subpackage error.', err);
                 // 重试
                 this._doLoadSubpackage(subpackageName);

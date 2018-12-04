@@ -26,9 +26,13 @@ cc.Class({
 
         if(this.ani != null)
         {
-            this.ani.on('stop',()=>{
+            this.ani.on('play',()=>{
+                //cc.log("cur animation play cur Position",that.node.position);
+            },this);
+            this.ani.on('finished',()=>{
                 that._active = false;
-                that.node.position = new cc.v2(0,-1000);
+                if(that.node != null)
+                    that.node.position = new cc.v2(0,-1000);
             },this);
         }
 
@@ -82,6 +86,7 @@ cc.Class({
 
         if(this.effect == null)
         {
+            this._duration = this.ani._clips[0].duration;
             this.ani.play(name);
         }
         else

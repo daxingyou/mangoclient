@@ -229,7 +229,7 @@ cc.Class({
         this.teamId = teamData.refreshTeam.teamId;
         if (this.teamId=='') {
             this._uimgr.release();
-            this._uimgr.loadUI(constant.UI.FightPavTop,(data) =>{
+            this._uimgr.loadUI(constant.UI.CommonTop,(data) =>{
                 data.initBackBtn(null,null);
                 data.changeTitle("对弈亭");
             });
@@ -303,7 +303,7 @@ cc.Class({
                 });
                 self._uimgr.loadUI(constant.UI.ShowList,data => {
                 data.init();
-                self._uimgr.loadUI(constant.UI.FightPavTop,(data) =>{
+                self._uimgr.loadUI(constant.UI.CommonTop,(data) =>{
                     data.initBackBtn(null,null);
                     data.changeTitle("对弈亭");
                 });
@@ -320,7 +320,7 @@ cc.Class({
         self.onTeamBeKicked();   
         }
         };
-        self._uimgr.loadUI(constant.UI.FightPavTop,(data) =>{
+        self._uimgr.loadUI(constant.UI.CommonTop,(data) =>{
             data.initBackBtn(backShowListUI,self);
             data.changeTitle(titleText);
         });
@@ -331,7 +331,7 @@ cc.Class({
      onTeamBeKicked () {
         var self = this;
         self._uimgr.loadUI(constant.UI.ShowList,data=>{data.init();});
-        self._uimgr.loadUI(constant.UI.FightPavTop,(data) =>{
+        self._uimgr.loadUI(constant.UI.CommonTop,(data) =>{
             data.initBackBtn(null,null);
             data.changeTitle("对弈亭");
         });

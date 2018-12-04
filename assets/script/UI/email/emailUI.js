@@ -41,9 +41,7 @@ cc.Class({
        showGoods: cc.Node,
        nerverMail: cc.Node,
     },
-
-   
-
+    
     onLoad () {
         this._uiMgr = cc.find('Canvas').getComponent('UIMgr');
         eventMgr.on("onAddFriendMail",this.friendEamil,this);
@@ -87,7 +85,7 @@ cc.Class({
             self.nerverMail.active = false;
         }
         cc.loader.loadRes('UI/emailUI/mailItem', function (loadedResource) {
-            for (let i=0;i<data.length;i++) {
+            for (let i = 0;i< data.length;i++) {
                 var itemData = data[i];
                 let item = cc.instantiate(loadedResource);
                 resIndex++;

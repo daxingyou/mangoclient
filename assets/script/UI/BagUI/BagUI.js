@@ -665,10 +665,7 @@ cc.Class({
     // 进入商店
     enterStore () {
         this._uiMgr.release();
-        let self = this;
-        this._uiMgr.loadUI(constant.UI.GoldStore,function(data){
-            data.init (self._ownGold,self._ownSilver); 
-        });
+        this._uiMgr.loadUI(constant.UI.Shop);
     },
 
     onDestroy() {

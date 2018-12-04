@@ -114,6 +114,12 @@ cc.Class({
         });
     },
 
+    enterCardGroup () {
+        this._uiMgr.release();
+        this._uiMgr.loadUI(constant.UI.CardGroup,function(data){
+        });
+    },
+
     start () {
 
     },

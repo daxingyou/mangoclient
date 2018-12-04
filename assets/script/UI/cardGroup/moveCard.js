@@ -47,7 +47,7 @@ cc.Class({
     //type ==1 卡牌界面 == 2 组卡界面 == 3
     initData(index,data,parents,type,pos,cardNum) {
 
-       // cc.log("data卡牌",data)
+        cc.log("data卡牌",data)
         this._index = index;
         this.mp = data.CastMP;
         this._cid = data.ID;

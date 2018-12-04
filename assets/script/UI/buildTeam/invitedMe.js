@@ -45,7 +45,7 @@ cc.Class({
                 })
                 that._uimgr.loadUI(constant.UI.ShowList,data => {
                 data.init();
-                that._uimgr.loadUI(constant.UI.FightPavTop,(data) =>{
+                that._uimgr.loadUI(constant.UI.CommonTop,(data) =>{
                     data.initBackBtn(null,null);
                     data.changeTitle("对弈亭");
                 });
@@ -59,13 +59,13 @@ cc.Class({
                 cc.log("离开队伍",data);
             })
             that._uimgr.loadUI(constant.UI.ShowList,data =>{data.init();});   
-            that._uimgr.loadUI(constant.UI.FightPavTop);   
+            that._uimgr.loadUI(constant.UI.CommonTop);   
         }
         };
         that._uimgr.loadUI(constant.UI.BuildTeam,(data) =>{
             data.initFriendList();//先移除
             data.laodFriendList();//加载可以邀请的好友信息
-            that._uimgr.loadUI(constant.UI.FightPavTop,(data) =>{
+            that._uimgr.loadUI(constant.UI.CommonTop,(data) =>{
                 data.initBackBtn(backShowListUI,that);
                 data.changeTitle("对弈亭");
             });
