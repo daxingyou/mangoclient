@@ -15,15 +15,17 @@ cc.Class({
 
     },
 
-    initBackBtn(callBack, target) {
-        this._BackCallBack = callBack;
-        this._BackTarget = target;
+    initBackBtn(callBack) {
+        this._backHandler = callBack;
     },
 
+    setBackHandler(handler) {
+        this._backHandler = handler;
+    },
     
     backMainUI () {
-        if(this._BackCallBack) {
-            this._BackCallBack.call(this._BackTarget);
+        if(this._backHandler) {
+            this._backHandler();
         }
         else {
             var uiMgr = cc.find('Canvas').getComponent('UIMgr');

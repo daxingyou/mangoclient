@@ -4,13 +4,13 @@ let bagData = require('bagData');
 let constant = require('constants')
 let teamData = require('teamData')
 let leaveTeamProto = require('leaveTeamProto')   
-let dataCenter = require('DataCenter')
 let teamRaidData= require('teamRaidData')
 let soloRaidData = require('soloRaidData')
 let cardGroupData= require('cardGroupData')
 var net = require("NetPomelo")
 var tutorialEnterDungeonProto = require('tutorialEnterDungeonProto')
 var constantss = require('Constant')
+var friendMessage = require('FriendMessage')
 
 let playerData = {
     userInfo: null,
@@ -31,7 +31,6 @@ let playerData = {
         this.logined = true;
         
         this.id = info.id;
-        dataCenter.uuid = this.id;
         this.openid = info.openid;
         this.level = info.level;
         this.gold = info.gold;
@@ -39,6 +38,9 @@ let playerData = {
         this.silver = info.silver;
         this.power = info.power;
         let allGold = info.freeGold + info.gold;
+
+        this.friendData = friendMessage.init(info.friendsInfo);
+
         this.emailData = emailData;
         this.teamData = teamData;
         this.soloRaidData = soloRaidData;

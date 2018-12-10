@@ -298,6 +298,49 @@ cc.Class({
         }
     },
 
+    _getUIDict(type) {
+        if (type == 1) {
+            return this._FirstMainUI;
+        }
+        else if (type == 2) {
+            return this._SecondUI;
+        }
+        else if (type == 3) {
+            return this._ThirdUI;
+        }
+        else if (type == 5) {
+            return this._FrontUIs;
+        }
+    },
+
+    _checkResetUINode(type, src) {
+        if (type == 1) {
+            if (this._curMainUI == src)
+                this._curMainUI = null;
+        }
+        else if (type == 2) {
+            if (this._curSecondUI == src)
+                this._curSecondUI = null;
+        }
+        else if (type == 3) {
+            if (this._curThirdUI == src)
+                this._curThirdUI = null;
+        }
+        else if (type == 5) {
+            if (this._frontUI == src)
+                this._frontUI = null;
+        }
+    },
+
+    removeUI(ui) {
+        let uiDict = this._getUIDict(ui.type);
+        if (uiDict.hasOwnProperty(ui.id)) {
+            this._checkResetUINode(ui.type, uiDict[ui.id]);
+            uiDict[ui.id].node.destroy();
+            delete uiDict[ui.id];
+        }
+    },
+
     refreshBlurBg() {
         let size = cc.director.getWinSize();
         let texture = new cc.RenderTexture(size.width, size.height, cc.Texture2D.PIXEL_FORMAT_RGBA8888, gl.DEPTH24_STENCIL8_OES);

@@ -1220,7 +1220,7 @@
     "_cascadeOpacityEnabled": true,
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0.5,
+      "x": 0,
       "y": 0.5
     },
     "_contentSize": {
@@ -1234,8 +1234,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -225.3,
-      "y": -21.9
+      "x": -243,
+      "y": -22
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -2174,17 +2174,23 @@
     "deleteFriend": {
       "__id__": 42
     },
-    "_curIndex": null,
-    "_relation": null,
     "_type": null,
-    "_gender": 1,
     "genderImg": {
       "__id__": 15
     },
     "genderAltas": {
       "__uuid__": "4ad25b9c-5c18-4f0c-b832-da4372c377c0"
     },
-    "_click": false
+    "_click": false,
+    "btnLable": {
+      "__id__": 61
+    },
+    "rankLabel": {
+      "__id__": 27
+    },
+    "starLabel": {
+      "__id__": 39
+    }
   },
   {
     "__type__": "cc.PrefabInfo",

@@ -49,7 +49,7 @@ var Tutorial = {
     NextStep(){
         this.curIndex++;
 
-        if(this.curIndex <= this.events.length)
+        if(this.curIndex >= this.events.length)
         {
             this.isFinish = true;
             this.curCombat.TutorialFinish();

@@ -72,39 +72,39 @@ TutorialCombat.prototype.Tick = function () {
 
 TutorialCombat.prototype.onFightEnd = function (result) {
     //if (this.teamType === consts.Team.TYPE_RAID)
-        ///失败重来
-        if(result == consts.FightResult.LOSE)
+    ///失败重来
+    if(result == consts.FightResult.LOSE)
+    {
+        var that = this;
+        this.uiMgr.loadUI(constant.UI.TutorialOver,function(data) {
+            data.showAgain(that.curDgId); 
+        })
+    }
+    else{
+        if(tutorialMgr.isFinish)
         {
-            var that = this;
-            this.uiMgr.loadUI(constant.UI.TutorialOver,function(data) {
-                data.showAgain(that.curDgId); 
-            })
-        }
-        else{
-            if(tutorialMgr.isFinish)
+            ///最后一场
+            if(this.curDgId == constan.TutorialDungeon[3])
             {
-                ///最后一场
-                if(this.curDgId == constan.TutorialDungeon[3])
-                {
-                    this.uiMgr.loadUI(constant.UI.FightOver,function(data) {
-                        data.reslut(resss); 
-                    })
-                }
-                else
-                {
-                    var that = this;
-                    this.uiMgr.loadUI(constant.UI.TutorialOver,function(data) {
-                        data.showNext(that.curDgId); 
-                    })
-                }
+                this.uiMgr.loadUI(constant.UI.FightOver,function(data) {
+                    data.reslut(resss); 
+                })
             }
             else
             {
-                this.reslut = consts.FightResult.WIN;
-                this.state = constant.tutorialState.finish;
-                tutorialMgr.fightOver();
+                var that = this;
+                this.uiMgr.loadUI(constant.UI.TutorialOver,function(data) {
+                    data.showNext(that.curDgId); 
+                })
             }
         }
+        else
+        {
+            this.reslut = consts.FightResult.WIN;
+            this.state = constant.tutorialState.finish;
+            tutorialMgr.fightOver();
+        }
+    }
 }
 
 TutorialCombat.prototype.TutorialFinish = function(){

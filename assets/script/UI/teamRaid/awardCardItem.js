@@ -5,6 +5,7 @@ var teamRaidGetCardProto = require('teamRaidGetCardProto')
 var dataMgr = require('DataMgr')
 var raidGetCardProto = require('raidGetCardProto')
 var UIConsts = require('UIConsts')
+let UIHelper = require('UIHelper')
 cc.Class({
     extends: cc.Component,
 
@@ -40,12 +41,11 @@ cc.Class({
             this._soloRaidId = raidId;
         }
         let itemData = dataMgr.card[cardId];
-        this.cardImage.spriteFrame = this.cardAtlas.getSpriteFrame(itemData.CardImage);
-      
-
     
         this.cardName.getComponent(cc.Label).string = itemData.CardName;
-        this.cardImage.spriteFrame = this.cardAtlas.getSpriteFrame(itemData.CardImage);
+        UIHelper.getCardIcon(cardId, (spriteFrame) => {
+            this.cardImage.spriteFrame = spriteFrame;
+        });
 
         if (itemData.CardQuality == 1)
         {

@@ -50,6 +50,19 @@ var load = {
             if(release)
                 cc.loader.release(path);
         });
+    },
+
+    loadSpriteAtlas: function(path, release, callback) {
+        cc.loader.loadRes(path, cc.SpriteAtlas, function(err, res) {
+            if (err) {
+                cc.error('load SpriteAtlas error.', err.message || err);
+                callback(null);
+                return;
+            }
+            callback(res);
+            if(release)
+                cc.loader.release(path);
+        });
     }
 };
 

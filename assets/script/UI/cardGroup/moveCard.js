@@ -7,6 +7,7 @@ let fightData = require('fightData')
 let eventMgr = require('eventMgr');
 let cardHelper = require('cardHelper');
 let UIConsts = require('UIConsts')
+let UIHelper = require('UIHelper');
 
 cc.Class({
     extends: UIBase,
@@ -52,7 +53,9 @@ cc.Class({
         this.mp = data.CastMP;
         this._cid = data.ID;
         this.cardName.getComponent(cc.Label).string = data.CardName;
-        this.cardImage.spriteFrame = this.cardAtlas.getSpriteFrame(data.CardImage);
+        UIHelper.getCardIcon(this._cid, (spriteFrame) => {
+            this.cardImage.spriteFrame = spriteFrame;
+        });
 
         if (data.CardQuality == 1) {
             this.cardName.color = UIConsts.Color.wihte;

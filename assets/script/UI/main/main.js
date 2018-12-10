@@ -19,9 +19,6 @@ cc.Class({
 
     Friend () {
         this._uiMgr.release();
-        this._uiMgr.loadUI(constant.UI.CommonTop,(data) =>{
-            data.changeTitle("好友");
-          });
         this._uiMgr.loadUI(constant.UI.Friend);
     },
 
@@ -43,9 +40,6 @@ cc.Class({
     cardGroup () {
         this._uiMgr.release();
         this._uiMgr.loadUI(constant.UI.CardGroup);
-        this._uiMgr.loadUI(constant.UI.CommonTop,(data) =>{
-            data.changeTitle("卡牌");
-        });
     },
 
 
@@ -61,13 +55,10 @@ cc.Class({
     },
     shop () {
         this._uiMgr.release();
-        this._uiMgr.loadUI(constant.UI.Shop);
+        this._uiMgr.loadUI(constant.UI.DropCard);
     },
     Hero(){
         this._uiMgr.release();
-        this._uiMgr.loadUI(constant.UI.CommonTop,(data) =>{
-            data.changeTitle("英雄");
-        });
         this._uiMgr.loadUI(constant.UI.Hero);
     },
     // update (dt) {},

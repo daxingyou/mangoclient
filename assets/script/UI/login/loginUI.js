@@ -50,7 +50,7 @@ cc.Class({
             return;
 
         var uid = this._userName;
-        dataCenter.uuid = uid;
+        dataCenter.loginCode = uid;
 
         var uimgr = cc.find('Canvas').getComponent('UIMgr');
         uimgr.loadUI(constant.UI.SelectServer);

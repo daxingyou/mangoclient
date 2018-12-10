@@ -18,7 +18,10 @@ cc.Class({
         ToolShow : cc.Node
     },
 
-    ///onLoad () {},
+    onLoad () {
+        this._super();
+        this.addCommonBackBtn('英雄');
+    },
 
     start () {
         this._state = 0;

@@ -18,6 +18,7 @@
  
  var constants = require('constants');
  let combatMgr = require('CombatMgr');
+ let consts = require('consts');
 
 var CombatUnit = function(data, combat){
     this.uid = data.uid;
@@ -214,6 +215,28 @@ CombatUnit.prototype.useSkill = function(data,targets)
     this.abilitys.push(ab);
 }
 
+CombatUnit.prototype.bounceEffect = function(sid,damageLine){
+    var ab = this.getSkill(sid);
+    ab.Active(null,null);
+    ab.showtBounceEffect(damageLine);
+}
+
+CombatUnit.prototype.getSkill = function(sid){
+    for(var i =0;i<this.abilitys.length;i++)
+    {
+        if(this.abilitys[i].ID == sid)
+        {
+            return this.abilitys[i];
+        }    
+    }
+
+    var skilldata = dataMgr.skill[sid];
+    var ab = new ability(skilldata[1],this);
+
+    this.abilitys.push(ab);
+    return ab;
+}   
+
 ///播放技能特效
 CombatUnit.prototype.skillEffective = function(){
 
@@ -231,6 +254,12 @@ CombatUnit.prototype.onPropUpdate = function(data){
     {
         this.hp = data.hp;
         this.agent.hpbar.freshen(this.hp,this.maxHp,this.armor);
+        this.fightUI.FreshHp();
+    }
+    else if(data.hasOwnProperty('maxHp'))
+    {
+        this.maxHp = data.maxHp;
+        this.agent.hpbar.freshen(this.maxHp,this.maxHp,this.armor);
         this.fightUI.FreshHp();
     }
     else if(data.hasOwnProperty('scale'))

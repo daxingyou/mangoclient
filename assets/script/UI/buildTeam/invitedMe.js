@@ -7,7 +7,7 @@ var acceptInviteProto = require("acceptInviteProto")
 var refuseTeamInviteProto = require("refuseTeamInviteProto")
 var ignoreTeamInviteProto = require('ignoreTeamInviteProto')
 var leaveTeamProto = require('leaveTeamProto')
-var dataCenter = require('DataCenter')
+var playerData = require('playerData')
 cc.Class({
     extends: uibase,
     properties: {
@@ -40,7 +40,7 @@ cc.Class({
         //返回选择模式界面
         var backShowListUI = function () {
         var comfirm = function() {
-                net.Request(new leaveTeamProto(dataCenter.uuid), (data) => {
+                net.Request(new leaveTeamProto(playerData.id), (data) => {
                     cc.log("离开队伍",data);
                 })
                 that._uimgr.loadUI(constant.UI.ShowList,data => {
@@ -55,7 +55,7 @@ cc.Class({
         }
         else {
           //  that._uimgr.release();
-            net.Request(new leaveTeamProto(dataCenter.uuid), (data) => {
+            net.Request(new leaveTeamProto(playerData.id), (data) => {
                 cc.log("离开队伍",data);
             })
             that._uimgr.loadUI(constant.UI.ShowList,data =>{data.init();});   

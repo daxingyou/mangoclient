@@ -1,4 +1,5 @@
 var dataCenter = require('DataCenter')
+let textTpl = require('Text');
 
 // let log = cc.log;
 // cc.log = function () {
@@ -147,6 +148,11 @@ var utility ={
         dataCenter.swordNum++;
         //cc.log('cur dataCenter.swordNum == ',dataCenter.swordNum);
         return this.rnd( seed ) * number;
+    },
+
+    // 中文接口
+    T: function (textID, exDict) {
+        return textTpl[textID].format(exDict);
     }
 }
 

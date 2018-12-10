@@ -59,9 +59,10 @@ cc.Class({
 
 
      onLoad () {
+        this._super();
+        this.addCommonBackBtn('卡牌');
        
         this._sortStatus = 0;
-        this._uiMgr = cc.find('Canvas').getComponent('UIMgr');
         this.cardUp = this.node.getChildByName('cardUpgrade');
         this.cardUpBtn = this.node.getChildByName('upgrade');
         this.close = this.node.getChildByName('close');

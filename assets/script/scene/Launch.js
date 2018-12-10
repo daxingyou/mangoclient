@@ -2,7 +2,6 @@ var dataMgr = require("DataMgr")
 var combatMgr = require("CombatMgr")
 var matchMessage = require("matchMessage")
 var loadingMessage = require('LoadingMessage')
-var friendMessage = require('FriendMessage')
 var ladderMessage = require('LadderMessage')
 var teamRaidMessage = require('TeamRaidMessage')
 let debugMessage = require('debugMessage')
@@ -56,7 +55,6 @@ cc.Class({
         ///消息协议注册
         matchMessage.init();
         loadingMessage.init();
-        friendMessage.init();
         ladderMessage.init();
         teamRaidMessage.init();
         debugMessage.init();

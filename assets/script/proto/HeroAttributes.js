@@ -69,4 +69,43 @@ module.exports = {
 		HeroBaseIntellect: 0,
 		HeroBaseAgile: 0
 	},
+	6001: {
+		ID: 6001,
+		HeroName: '李红袖',
+		HeroLevel: 1,
+		HeroMaxHP: 16000,
+		HeroMaxMP: 10,
+		HeroMaxThew: 10,
+		HeroBaseArmor: 0,
+		HeroBaseStrength: 0,
+		HeroBaseStamina: 0,
+		HeroBaseIntellect: 0,
+		HeroBaseAgile: 0
+	},
+	7001: {
+		ID: 7001,
+		HeroName: '中原一点红',
+		HeroLevel: 1,
+		HeroMaxHP: 16000,
+		HeroMaxMP: 10,
+		HeroMaxThew: 10,
+		HeroBaseArmor: 0,
+		HeroBaseStrength: 0,
+		HeroBaseStamina: 0,
+		HeroBaseIntellect: 0,
+		HeroBaseAgile: 0
+	},
+	8001: {
+		ID: 8001,
+		HeroName: '南宫灵',
+		HeroLevel: 1,
+		HeroMaxHP: 16000,
+		HeroMaxMP: 10,
+		HeroMaxThew: 10,
+		HeroBaseArmor: 0,
+		HeroBaseStrength: 0,
+		HeroBaseStamina: 0,
+		HeroBaseIntellect: 0,
+		HeroBaseAgile: 0
+	},
 };

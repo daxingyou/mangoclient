@@ -62,24 +62,6 @@ cc.Class({
                     this.woman.active = true;
                 }
             }  
-
-
-
-            // if (teamA[i].heroid!=null) {
-            //     var heroData = dataMgr.hero[teamA[i].heroid];
-
-            //     var showNode = this._uid2ShowNode[uid];
-            //     var icon = showNode.getChildByName("icon");
-            //     icon.getComponent(cc.Sprite).spriteFrame = this.heroIcons.getSpriteFrame(heroData.HeroIcon);
-            //     icon.active = true;
-
-            //     if (teamA[i].heroid == 1000 && dataCenter.uuid == teamA[i].uid) {
-            //         this.woman.active = false;
-            //     }
-            //     else {
-            //         this.man.active = false;
-            //     }
-            // }//重连
         }
         // for (var i in teamB) {
        

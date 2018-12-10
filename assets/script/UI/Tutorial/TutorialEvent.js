@@ -12,6 +12,9 @@ event.prototype.getUnitForSid = function(sid){
         if(this.mgr.curCombat.units[item].hasOwnProperty('heroid'))
             if(this.mgr.curCombat.units[item].heroid == sid)
                 return this.mgr.curCombat.units[item];
+        if(this.mgr.curCombat.units[item].hasOwnProperty('monsterid'))
+            if(this.mgr.curCombat.units[item].monsterid == sid)
+                return this.mgr.curCombat.units[item];
     }
 
     return null;

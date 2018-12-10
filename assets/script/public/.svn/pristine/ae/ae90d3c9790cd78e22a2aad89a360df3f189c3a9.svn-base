@@ -1,0 +1,44 @@
+
+//######################### server push #############################################
+
+message onCardsUpdate{   //卡升级更新
+    message _Card{
+        required int32 cnt;
+        required int32 level;
+    }
+    object{
+        [cardId]:_Card
+        ...
+    }
+}
+message onDamage {  //伤害[广播]
+    required string targetID;
+    required string attackerID;
+    required int32 sid ;
+    required int32 oriDamage;
+    required int32 hp;
+    required int32 armor ;
+    required boolean isCrit ;
+}
+message onDamages {  //多个伤害[广播]
+    repeated onDamage damages ;
+}
+message onDamageByThorns{   //反射伤害[广播]
+    required string targetID;
+    required string attackerID;
+    required int32 oriDamage;
+    required int32 hp;
+    required int32 armor ;
+}
+message onDamagesByThorns{  //多个反射伤害[广播]
+    repeated onDamageByThorns damages ;
+}
+message onDamageDelay{   //延时伤害[广播]
+    required string targetID;
+    required int32 oriDamage;
+    required int32 hp;
+    required int32 armor ;
+}
+
+
+

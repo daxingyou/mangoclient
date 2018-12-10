@@ -36,7 +36,50 @@ var mgr = {
                                 src.init(effect);
                                 Pool.put(effect,src);
                                 gameCenter.curLoadRes++;
-                                //cc.log('gameCenter.curLoadRes = ',gameCenter.curLoadRes);
+                            }
+                        });
+                    }
+
+                    for(var z in skilList[j].EffectType)
+                    {
+                        var type = skilList[j].EffectType[z];
+                        if(type.hasOwnProperty('path'))
+                        {
+                            var typePath = skilList[j].EffectType[z].path;
+                            if(!Pool.hasOwnProperty(typePath))
+                            {
+                                result +=20;
+                                Pool.create(skilList[j].Path);
+                                LoadRes.loadEffect(skilList[j].Path,true,function(data,effect){
+                                    for(var z =0;z<20;z++)
+                                    {
+                                        var go = cc.instantiate(data);
+                                        go.parent = cc.find('Canvas/visibleArea/fightEffect');
+                                        go.position = new cc.Vec2(0,-1000);
+                                        var src = go.getComponent('EffectListen')
+                                        src.init(effect);
+                                        Pool.put(effect,src);
+                                        gameCenter.curLoadRes++;
+                                    }
+                                });
+                            }
+                        }
+                    }
+
+                    if(!Pool.hasOwnProperty('poison'))
+                    {
+                        result +=20;
+                        Pool.create('poison');
+                        LoadRes.loadEffect('poison',true,function(data,effect){
+                            for(var z =0;z<20;z++)
+                            {
+                                var go = cc.instantiate(data);
+                                go.parent = cc.find('Canvas/visibleArea/fightEffect');
+                                go.position = new cc.Vec2(0,-1000);
+                                var src = go.getComponent('EffectListen')
+                                src.init(effect);
+                                Pool.put(effect,src);
+                                gameCenter.curLoadRes++;
                             }
                         });
                     }
@@ -114,10 +157,10 @@ var mgr = {
             go.showSword();
         return go;
     },
-    getBounceEffect : function(name,pos,teamID,ability,callback){
+    getBounceEffect : function(name,effect,pos,frame,teamID,ability,callback){
         var go = this.getEffect(name,pos,teamID);
         if(go != null)
-            go.showBounce(ability,callback);
+            go.showBounce(effect,frame,ability,callback);
         return go;
     },
     getEffect : function(name,pos,teamID){

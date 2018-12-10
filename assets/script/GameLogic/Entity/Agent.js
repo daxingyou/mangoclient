@@ -20,7 +20,7 @@ var Agent = function (path, position, bInLeft, owner, loadok) {
 
     loadRes.load('UI/hero/hpBar', false, (data) => {
         that.hpbar = cc.instantiate(data).getComponent('hpBar');
-        that.hpbar.node.parent = cc.find('Canvas/visibleArea/ui');
+        that.hpbar.node.parent = cc.find('Canvas/visibleArea/fightEffect');
         that.hpbar.freshen(owner.hp, owner.maxHp, owner.armor);
         that.hpbar.freshenBuff(owner.buffs);
         //cc.log(owner.buffs,"-------------owner.buffs");

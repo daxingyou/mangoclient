@@ -58,7 +58,7 @@ cc.Class({
             return;
         }
         else {
-            this.getServerList(dataCenter.uuid);
+            this.getServerList(dataCenter.loginCode);
         }
     },
 

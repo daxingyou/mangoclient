@@ -56,8 +56,7 @@ module.exports = {
         FightOver : {"id":8,"path":'UI/FightOver/FightOverUI','type':1,'script':'FightOver'},
         //loadProjess: {"id":9,"path":'UI/loadProjess/loadProjess','type':5,'script':'loadProjess'},
         Main: {"id":10,"path":'UI/mainUI/mainUI','type':1,'script':'main'},
-        Friend : {"id":11,"path":'UI/Friend/Friend','type':1,'script':'FriendUI'},
-        CommonTop: {"id":12,"path":'UI/commonTop/top','type':2,'script':'top'},
+        CommonTop: {"id":12,"path":'UI/common/top','type':2,'script':'top'},
         ShowList: {"id":13,"path":'UI/showList/showList','type':1,'script':'showList'},
         BuildTeam: {"id":14,"path":'UI/buildTeam/buildTeam','type':1,'script':'buildTeam'},
         MatchSucess: {"id":15,"path":'UI/matchSucceed/matchSucess','type':1,'script':'matchSucess'},
@@ -80,6 +79,11 @@ module.exports = {
         SelectCard : {"id":38,"path":'UI/cardGroup/selectCard','type':1,"script":'selectCard'},
         RecommendFriend : {"id":39,"path":'UI/Friend/recommendFriend','type':1,"script":'recommendFriend'},
         HotTips :{"id":40,"path":'UI/tips/hotTips','type':2,"script":'hotTips'},
+        DropCard: {id: 41, path: 'UI/fightUI/dropCard', type: 2, script: 'dropCard'},
+        
+        Friend : {"id":101,"path":'UI/Friend/Friend','type':1,'script':'FriendUI'},
+        ApplyListPanel: {id: 102, path: 'UI/Friend/applyListPanel', type: 2, script: 'applyListPanel'},
+        
         DpsPanel: {"id":999,"path":'UI/Debug/dpsPanel','type':3,'script':'dpsPanel'},
     },
     // Prefab: {

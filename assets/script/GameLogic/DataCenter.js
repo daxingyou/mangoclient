@@ -1,5 +1,5 @@
 module.exports = {
-    uuid : 0,
+    loginCode : 0,
     openid:null,
     mp:0,
     thew:0,  

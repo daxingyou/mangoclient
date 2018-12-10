@@ -14,6 +14,22 @@ var netPomelo = {
                 callback(data);
         });
     },
+    // args: protoName, ...params, callback
+    requestWithCallback: function () {
+        let argsLen = arguments.length;
+        let protoName = arguments[0], callback = arguments[argsLen - 1];
+        let args = [];
+        for (let i = 1; i < argsLen - 1; i++) {
+            args.push(arguments[i]);
+        }
+        let proto = require(protoName);
+        let protoObj = new proto(...args);
+        pomelo.request(protoObj.head, protoObj.data, function(data){
+            if(callback)
+                callback(data);
+        });
+    },
+
     HttpRequest : function(url,callback){
         var xhr = cc.loader.getXMLHttpRequest();
         xhr.open("GET", url, true);

@@ -15,9 +15,9 @@
                 <key>spriteSourceSize</key>
                 <string>{36,37}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{36,37}}</string>
+                <string>{{80,35},{36,37}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>ladder_grades_bg.png</key>
             <dict>
@@ -30,7 +30,22 @@
                 <key>spriteSourceSize</key>
                 <string>{231,32}</string>
                 <key>textureRect</key>
-                <string>{{79,1},{231,32}}</string>
+                <string>{{1,1},{231,32}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>player_icon_bg2.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{77,77}</string>
+                <key>spriteSourceSize</key>
+                <string>{77,77}</string>
+                <key>textureRect</key>
+                <string>{{1,35},{77,77}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -45,9 +60,9 @@
                 <key>spriteSourceSize</key>
                 <string>{33,37}</string>
                 <key>textureRect</key>
-                <string>{{40,1},{33,37}}</string>
+                <string>{{80,74},{33,37}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>search_frame.png</key>
             <dict>
@@ -60,9 +75,9 @@
                 <key>spriteSourceSize</key>
                 <string>{31,22}</string>
                 <key>textureRect</key>
-                <string>{{312,1},{31,22}}</string>
+                <string>{{157,35},{31,22}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>select.png</key>
             <dict>
@@ -75,7 +90,7 @@
                 <key>spriteSourceSize</key>
                 <string>{37,25}</string>
                 <key>textureRect</key>
-                <string>{{336,1},{37,25}}</string>
+                <string>{{118,35},{37,25}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -91,9 +106,9 @@
             <key>realTextureFileName</key>
             <string>friend.png</string>
             <key>size</key>
-            <string>{374,38}</string>
+            <string>{233,113}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:361c15757baff76d750c7ba2bb136234:62503243ed018bc562072253452ceb7e:6b0a64026ae56fd16339d3c912c0f817$</string>
+            <string>$TexturePacker:SmartUpdate:6fad40080db2197b4f0a2d7d43ff806c:7e54d18d9e30c78665acb83a77bc2577:6b0a64026ae56fd16339d3c912c0f817$</string>
             <key>textureFileName</key>
             <string>friend.png</string>
         </dict>

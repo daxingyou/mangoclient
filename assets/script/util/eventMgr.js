@@ -4,7 +4,12 @@ let events = {
     EventSpawnSummonChanged: 'EventSpawnSummonChanged',
     // 玩法相关事件
     EventAvtPropUpdate: 'EventAvtPropUpdate',
-    
+    EventHandCardUpdate: 'EventHandCardUpdate',
+    // friend
+    EventNewInviter: 'EventNewInviter',
+    EventNewFriend: 'EventNewFriend',
+    EventDelFriend: 'EventDelFriend',
+    EventFriMgrInfoUpdate: 'EventFriMgrInfoUpdate',
 };
 
 // 全局通知

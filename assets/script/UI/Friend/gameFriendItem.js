@@ -1,121 +1,110 @@
 var uibase = require('UIBase')
-var constant = require('constants')
+var consts = require('consts')
 var net = require("NetPomelo")
-var deleteFriendProto = require("deleteFriendProto")
-var addFriendProto= require('addFriendProto')
+let UIHelper = require('UIHelper');
+let eventMgr = require('eventMgr');
+let playerData = require('playerData');
+let rankTpl = require('Rank');
+
+let TYPE_FRIEND = 1,
+    TYPE_RECOMMEND = 2;
+
 cc.Class({
     extends: uibase,
     properties: {
-       userName:cc.Label,
-       level:cc.Label,
-       state:cc.Label,
-       deleteFriend:cc.Node,
-       _curIndex:null,
-       _relation:null,
-       _type:null,
-       _gender: 1,
-       genderImg: cc.Sprite,
-       genderAltas: cc.SpriteAtlas,
-       _click: false,
+        userName: cc.Label,
+        level: cc.Label,
+        state: cc.Label,
+        deleteFriend: cc.Node,
+        _type: null,
+        genderImg: cc.Sprite,
+        genderAltas: cc.SpriteAtlas,
+        _click: false,
+        btnLable: cc.Label,
+        rankLabel: cc.Label,
+        starLabel: cc.Label,
     },
 
-
-     onLoad () {
-
-     },
-
-    start () {
-        this._uiMgr = cc.find('Canvas').getComponent('UIMgr');
-    },
     //type == 1 好友 / 2 推荐好友
-    initData(index,data,parent,type){
-        this._curIndex = index;
-        this.userName.string = data.openid;
-        this._gender = data.gender;
-        if (this._gender == 0) {
-            this.genderImg.spriteFrame = this.genderAltas.getSpriteFrame('women');
-        } 
+    initData(type, data) {
+        this._type = type;
+        this._eid = data.eid;
+        this.refresh(data);
+    },
+
+    refresh(data) {
+        this.userName.string = data.name;
+        if (data.gender == 2) {
+            this.genderImg.spriteFrame = this.genderAltas.getSpriteFrame('female');
+        }
         else {
             this.genderImg.spriteFrame = this.genderAltas.getSpriteFrame('male');
         }
-        this._parents = parent;
-        this._type = type;
-        if (this._type == 1) {
+        if (this._type == TYPE_FRIEND) {
             this.node.getChildByName('addFriend').active = false;
             this.node.getChildByName('btnGroup').active = true;
-            this._eid = data.eid;
+            data = playerData.friendData.getFriendManageInfo(this._eid);
         }
         else {
-            this._eid = data.id;
-            this.level.string = data.level;
             this.node.getChildByName('btnGroup').active = false;
             this.node.getChildByName('addFriend').active = true;
-            this.userState(data.state);
+        }
+        // 托管数据
+        this._updateMgrInfo(data, true);
+    },
+
+    _updateMgrInfo(data, bForce) {
+        if (!data && !bForce)
+            return;
+        data = data || {};
+        this.level.string = (data.level || 1) + '级';
+        this.updateState(data.state || consts.UserState.OFFLINE);
+        this.rankLabel.string = rankTpl[data.rank || 1].Name;
+        let star = data.star == undefined ? 1 : data.star;
+        this.starLabel.string = '* ' + star;
+    },
+
+    onEnable() {
+        eventMgr.on(eventMgr.events.EventFriMgrInfoUpdate, this.onMgrInfoUpdate, this);
+    },
+
+    onDisable() {
+        eventMgr.off(eventMgr.events.EventFriMgrInfoUpdate, this.onMgrInfoUpdate);
+    },
+
+    onMgrInfoUpdate() {
+        if (this._type == TYPE_FRIEND) {
+            this._updateMgrInfo(playerData.friendData.getFriendManageInfo(this._eid));
         }
     },
-  
-    userState(state,id) {
-        if (state == 101) {
-            this.state.string = "在线";
-        }
-        else if (state == 102) {
-            this.state.string = "离线";
-        }
-        else if (state == 103) {
-            this.state.string = "组队中";
-        }
-        if (state == 104) {
-            this.state.string = "游戏中";
-            
-        }
+
+    updateState(state) {
+        this.state.string = UIHelper.getUserStateStr(state);
     },
-    addUser () {
+
+    addUser() {
         let self = this;
-        if (self._click) 
-        return;
+        if (self._click)
+            return;
         self._click = true;
         let comfirm = function () {
-            net.Request(new addFriendProto(self._eid), (data) => {
-                cc.log("发送好友申请 ",data,"邀请的id",self._eid);
-                self.node.getChildByName('addFriend').getChildByName('Label').getComponent(cc.Label).string = "已发送";
+            net.requestWithCallback('addFriendProto', self._eid, (data) => {
+                self.btnLable.string = "已发送";
             });
-        } 
-        self._uiMgr.popupTips(1,"少侠，江湖险恶，你我结伴而行，可好？","添加好友",null,null,comfirm,self);
+        }
+        let cancel = function () {
+            self._click = false;
+        }
+        self._uiMgr.popupTips(1, "少侠，江湖险恶，你我结伴而行，可好？", "添加好友", cancel, cancel, comfirm, self);
     },
 
-
-        
-    
-    
-    popupTips () {
-        var self = this;
-        self._uiMgr.popupTips(1,"确定要删除好友吗","提示",null,null,self.comfirm,self);
+    popupTips() {
+        this._uiMgr.popupTips(1, "确定要删除好友吗", "提示", null, null, this.comfirm, this);
     },
 
     comfirm() {
-        var self = this;
-        net.Request(new deleteFriendProto(self._eid), function (data) {
-            cc.log(data,"删除好友");
-            if (data.code == 1) {
-                self._uiMgr.showTips("发送消息成功");
-            }
-            else if (data.code == 2) {
-                self._uiMgr.showTips("ID错误");
-            }
-            else if (data.code == 3) {
-                self._uiMgr.showTips("已经发送消息了");
-            }
-            else if (data.code == 4) {
-                self._uiMgr.showTips("已经邀请了");
-            }
-            else if (data.code == 5) {
-                self._uiMgr.showTips("申请者不存在");
-            }
-            else if (data.code == 6) {
-                self._uiMgr.showTips("不是好友");
-            }
+        net.requestWithCallback('deleteFriendProto', this._eid, function (data) {
+            cc.log(data, "删除好友");
         });
     },
-
-    // update (dt) {},
 });

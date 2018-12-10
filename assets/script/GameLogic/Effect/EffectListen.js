@@ -138,18 +138,28 @@ cc.Class({
         this.frame = 10;
         this.points = utility.ComputeCardsBezier(start,end,10,result);
     },
-    showBounce(frame,ability,callback)
+    showBounce(name,frame,ability,callback)
     {
+        this.name = name;
+
         this._BounceAni = true;
-
         this.callBack = callback;
+        this.bounceFrame = frame;
+        this.ability = ability;
+        this.curIndex = 0;
 
-        this.step = dir.div(frame);
-        this.frame = frame;
-        var end = ability.curTarget.node.position;
+        this.againBounce();
+    },
+    againBounce(){
+        this.effect.clearTrack();
+        this.effect.setAnimation(0,this.name, false);
+
+        this.frame = this.bounceFrame;
+
+        this.ability.curTarget = this.ability.targets[this.curIndex];
+        var end = this.ability.targets[this.curIndex].agent.go.position;
         var dir = end.sub(this.node.position);
-        this.step = dir.div(frame);
-        this.frame = frame;
+        this.step = dir.div(this.frame);
 
         var temp = end.x - this.node.position.x;
 
@@ -204,10 +214,20 @@ cc.Class({
 
             if(this.frame == 0)
             {
-                this._BounceAni = false;
-                this._active = false;
-                this.node.position = new cc.v2(0,-1000);
-                this.callBack();
+                this.curIndex++;
+
+                if(this.curIndex == this.ability.targets.length)
+                {
+                    this._BounceAni = false;
+                    this._active = false;
+                    this.node.position = new cc.v2(0,-1000);
+                    this.callBack('OnFinish');
+                }
+                else
+                {
+                    this.againBounce();
+                    this.callBack('OnBounce');
+                }
             }
         }
 

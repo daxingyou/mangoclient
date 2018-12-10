@@ -1,6 +1,4 @@
 var effectListen = require('EffectListen')
-var utility = require('utility')
-const constant = require('constants')
 
 cc.Class({
     extends: effectListen,

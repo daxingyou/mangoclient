@@ -193,18 +193,11 @@ var CombatMgr = {
             }
         }
     },
-    UsePile: function (CombatUnit, Card, target, targets, curCardid, curObjective) {
-
-        if (CombatUnit.handsPile[Card].Enable()) {
-            if (curObjective == constant.SkillTargetType.SINGEL) {
-                net.Request(new playCardMessage(Card, curCardid, target.uid));
-            }
-            else {
-                net.Request(new playCardMessage(Card, curCardid, ''));
-            }
-
-            //CombatUnit.onUsePile(Card,target,targets);
-            //this.fightUI.UseCard(Card);
+    UsePile: function (CombatUnit, idx, target, targets, curCardid, curObjective) {
+        let targetID = curObjective == constant.SkillTargetType.SINGEL ? target.uid : '';
+        if (CombatUnit.handsPile[idx].Enable(idx, targetID)) {
+            net.Request(new playCardMessage(idx, curCardid, targetID));
+            
             cc.log('GameLogic里面的Card');
         }
     },

@@ -332,6 +332,14 @@ module.exports = {
 		Image: 'buff3',
 		Effect: ''
 	},
+	5011: {
+		ID: 5011,
+		BuffName: '游刃有余',
+		Description: '每释放1张技能牌，给1个随机敌人添加1个小火雷，置于其抽牌堆',
+		IsHide: 0,
+		Image: 'buff3',
+		Effect: ''
+	},
 	5020: {
 		ID: 5020,
 		BuffName: '鸣雷',
@@ -343,7 +351,7 @@ module.exports = {
 	6002: {
 		ID: 6002,
 		BuffName: '料敌为奇',
-		Description: '监视1个敌人，在其使用偶数牌时，使该偶数牌失效，生效1次',
+		Description: '监视1个敌人，在其使用奇数牌时，使该偶数牌失效，生效1次',
 		IsHide: 0,
 		Image: 'buff1',
 		Effect: ''
@@ -351,7 +359,7 @@ module.exports = {
 	6003: {
 		ID: 6003,
 		BuffName: '料敌为偶',
-		Description: '监视1个敌人，在其使用奇数牌时，使该奇数牌失效，生效1次',
+		Description: '监视1个敌人，在其使用偶数牌时，使该奇数牌失效，生效1次',
 		IsHide: 0,
 		Image: 'buff2',
 		Effect: ''
@@ -388,17 +396,17 @@ module.exports = {
 		Image: 'buff3',
 		Effect: ''
 	},
-	7011: {
-		ID: 7011,
+	7101: {
+		ID: 7101,
 		BuffName: '重伤',
-		Description: '治理效果下降60%',
+		Description: '治疗效果下降60%',
 		IsHide: 0,
 		Image: 'buff1',
 		Effect: ''
 	},
 	7005: {
 		ID: 7005,
-		BuffName: '双手剑',
+		BuffName: '干将莫邪',
 		Description: '下一次打出的攻击牌，打出2次',
 		IsHide: 0,
 		Image: 'buff2',
@@ -428,12 +436,60 @@ module.exports = {
 		Image: 'buff1',
 		Effect: ''
 	},
+	8011: {
+		ID: 8011,
+		BuffName: '守护金兰',
+		Description: '保护1个队友，在其受到30次伤害时，对全体敌人造成80伤害，并眩晕0.5秒',
+		IsHide: 0,
+		Image: 'buff2',
+		Effect: ''
+	},
+	8111: {
+		ID: 8111,
+		BuffName: '守护金兰',
+		Description: '眩晕0.5秒',
+		IsHide: 0,
+		Image: 'buff1',
+		Effect: ''
+	},
+	8013: {
+		ID: 8013,
+		BuffName: '观其动向',
+		Description: '守护1个队友，在其受到10次伤害时，获得1点内力，效果持续10秒',
+		IsHide: 0,
+		Image: 'buff2',
+		Effect: ''
+	},
 	8012: {
 		ID: 8012,
 		BuffName: '带刺玫瑰',
 		Description: '受到伤害时，造成15点反射伤害',
 		IsHide: 0,
 		Image: 'buff3',
+		Effect: ''
+	},
+	8015: {
+		ID: 8015,
+		BuffName: '鹑衣结发',
+		Description: '受到伤害降低30点，最低为1点，持续5秒',
+		IsHide: 0,
+		Image: 'buff3',
+		Effect: ''
+	},
+	8016: {
+		ID: 8016,
+		BuffName: '拒死贪生',
+		Description: '保护自身不死，持续5秒',
+		IsHide: 0,
+		Image: 'buff3',
+		Effect: ''
+	},
+	8017: {
+		ID: 8017,
+		BuffName: '拒死贪生',
+		Description: '治疗效果降低50%，持续10秒',
+		IsHide: 0,
+		Image: 'buff2',
 		Effect: ''
 	},
 	100002: {

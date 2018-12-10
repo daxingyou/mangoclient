@@ -5,6 +5,7 @@ var DataMgr = require('DataMgr')
 var gameCenter = require('DataCenter')
 let constants = require('constants')
 let consts = require('consts');
+let eventMgr = require('eventMgr');
 
 function Hero_(data, position, combat) {
     CombatUnit.call(this, data, combat);
@@ -54,6 +55,7 @@ pro.RefreshHandCard = function () {
     for (var i = 0; i < this.inHands.length; i++) {
         this.handsPile.push(new HandCard(this.inHands[i], this));
     }
+    eventMgr.emit(eventMgr.events.EventHandCardUpdate, this.handsPile);
 };
 
 pro.RefreshHandCardUI = function(){

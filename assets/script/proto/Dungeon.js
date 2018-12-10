@@ -123,7 +123,7 @@ module.exports = {
 		TimeLimit: 180,
 		Icon: 'attack',
 		Desc: '与金伴花战斗。',
-		Event: [{"event":"fightOver","dialog":1004}]
+		Event: [{"event":"fightOver","dialog":1004},{"event":"animation","target":100013,"animation":"jump_ready","dialog":1002},{"event":"animation","target":100013,"animation":"jump","dialog":1003}]
 	},
 	14: {
 		ID: 14,

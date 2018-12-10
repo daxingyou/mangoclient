@@ -69,7 +69,7 @@ ability.prototype.Active = function(Target,targets){
 			}
 			else
 			{
-				this.ShowEffect(this.effects[i],this.effectType[i]);
+				this.ShowEffect(this.arrs.Path,this.effects[i],this.effectType[i]);
 			}
 		}
 		else
@@ -82,7 +82,7 @@ ability.prototype.Active = function(Target,targets){
 	this.index = 0;
 }
 
-ability.prototype.ShowEffect = function(effect,effectType){
+ability.prototype.ShowEffect = function(path,effect,effectType){
 	var offset = cc.v2(0,0);
 	if(effectType.hasOwnProperty('offset'))
 	{
@@ -95,17 +95,17 @@ ability.prototype.ShowEffect = function(effect,effectType){
 	{
 		if(effectType.origin == constant.EffectOrigin.target)
 		{
-			effectMgr.getMoveEffect(this.arrs.Path,this.curTarget.agent.go.position,this.owner.agent.go.position,8,effect,this.owner.teamid);
+			effectMgr.getMoveEffect(path,this.curTarget.agent.go.position,this.owner.agent.go.position,8,effect,this.owner.teamid);
 		}
 		else if(effectType.origin == constant.EffectOrigin.onwer)
 		{
 			if(this.ID == 2105 || this.ID == 2107)
 			{
-				effectMgr.getMoveEffect(this.arrs.Path,this.owner.agent.go.position.add(new cc.v2(-50,0)),this.curTarget.agent.go.position.add(new cc.Vec2(-30,-30)),100,effect,this.owner.teamid);
+				effectMgr.getMoveEffect(path,this.owner.agent.go.position.add(new cc.v2(-50,0)),this.curTarget.agent.go.position.add(new cc.Vec2(-30,-30)),100,effect,this.owner.teamid);
 			}
 			else
 			{
-				effectMgr.getMoveEffect(this.arrs.Path,this.owner.agent.go.position.add(new cc.Vec2(3,0)),this.curTarget.agent.go.position,8,effect,this.owner.teamid);
+				effectMgr.getMoveEffect(path,this.owner.agent.go.position.add(new cc.Vec2(3,0)),this.curTarget.agent.go.position,8,effect,this.owner.teamid);
 			}
 		}
 	}
@@ -119,23 +119,23 @@ ability.prototype.ShowEffect = function(effect,effectType){
 				{
 					for(var i in this.targets)
 					{
-						effectMgr.getPosEffect(this.arrs.Path,this.targets[i].agent.go.position,effect,this.owner.teamid,this.EffectCallBack.bind(this));
+						effectMgr.getPosEffect(path,this.targets[i].agent.go.position,effect,this.owner.teamid,this.EffectCallBack.bind(this));
 					}
 				}
 				else
 				{
-					effectMgr.getPosEffect(this.arrs.Path,this.curTarget.agent.go.position,effect,this.owner.teamid,this.EffectCallBack.bind(this));
+					effectMgr.getPosEffect(path,this.curTarget.agent.go.position,effect,this.owner.teamid,this.EffectCallBack.bind(this));
 				}
 			}
 			else
 			{
-				effectMgr.getPosEffect(this.arrs.Path,this.curTarget.agent.go.position,effect,this.owner.teamid,this.EffectCallBack.bind(this));
+				effectMgr.getPosEffect(path,this.curTarget.agent.go.position,effect,this.owner.teamid,this.EffectCallBack.bind(this));
 			}
 			
 		}
 		else if(effectType.origin == constant.EffectOrigin.onwer)
 		{
-			var go = effectMgr.getPosEffect(this.arrs.Path,this.owner.agent.go.position.add(offset),effect,this.owner.teamid,this.EffectCallBack.bind(this));
+			var go = effectMgr.getPosEffect(path,this.owner.agent.go.position.add(offset),effect,this.owner.teamid,this.EffectCallBack.bind(this));
 			go.node.scale = Math.abs(this.owner.agent.go.scale);
 		}
 		else if(effectType.origin == constant.EffectOrigin.onwerAll)
@@ -144,7 +144,7 @@ ability.prototype.ShowEffect = function(effect,effectType){
 			{
 				if(this.owner.curCombat.units[i].teamid == this.owner.teamid)
 				{
-					effectMgr.getPosEffect(this.arrs.Path,this.owner.curCombat.units[i].agent.go.position,effect,this.owner.teamid,this.EffectCallBack.bind(this));
+					effectMgr.getPosEffect(path,this.owner.curCombat.units[i].agent.go.position,effect,this.owner.teamid,this.EffectCallBack.bind(this));
 				}
 			}
 		}
@@ -154,7 +154,7 @@ ability.prototype.ShowEffect = function(effect,effectType){
 			{
 				if(this.owner.curCombat.units[i].teamid != this.owner.teamid)
 				{
-					effectMgr.getPosEffect(this.arrs.Path,this.owner.curCombat.units[i].agent.go.position,effect,this.owner.curCombat.units[i].teamid,this.EffectCallBack.bind(this));
+					effectMgr.getPosEffect(path,this.owner.curCombat.units[i].agent.go.position,effect,this.owner.curCombat.units[i].teamid,this.EffectCallBack.bind(this));
 				}
 			}
 		}
@@ -168,16 +168,16 @@ ability.prototype.ShowEffect = function(effect,effectType){
 
 			if(length == 1)
 			{
-				effectMgr.getPosEffect(this.arrs.Path,this.owner.curCombat.own[1].agent.go.position,effect,0,this.EffectCallBack.bind(this));
+				effectMgr.getPosEffect(path,this.owner.curCombat.own[1].agent.go.position,effect,0,this.EffectCallBack.bind(this));
 			}
 			else if(length == 2)
 			{
-				effectMgr.getPosEffect(this.arrs.Path,cc.v2((this.owner.curCombat.own[1].agent.go.position.x + this.owner.curCombat.own[2].agent.go.position.x)/2,
+				effectMgr.getPosEffect(path,cc.v2((this.owner.curCombat.own[1].agent.go.position.x + this.owner.curCombat.own[2].agent.go.position.x)/2,
 				(this.owner.curCombat.own[1].agent.go.position.y + this.owner.curCombat.own[2].agent.go.position.y)/2),effect,0,this.EffectCallBack.bind(this));
 			}
 			else if(length == 3)
 			{
-				effectMgr.getPosEffect(this.arrs.Path,this.owner.curCombat.own[2].agent.go.position,effect,0,this.EffectCallBack.bind(this));
+				effectMgr.getPosEffect(path,this.owner.curCombat.own[2].agent.go.position,effect,0,this.EffectCallBack.bind(this));
 			}
 		}
 		else if(effectType.origin == constant.EffectOrigin.targetCenter)
@@ -190,23 +190,31 @@ ability.prototype.ShowEffect = function(effect,effectType){
 
 			if(length == 1)
 			{
-				effectMgr.getPosEffect(this.arrs.Path,this.owner.curCombat.own[1].agent.go.position,effect,0,this.EffectCallBack.bind(this));
+				effectMgr.getPosEffect(path,this.owner.curCombat.own[1].agent.go.position,effect,0,this.EffectCallBack.bind(this));
 			}
 			else if(length == 2)
 			{
-				effectMgr.getPosEffect(this.arrs.Path,cc.v2((this.owner.curCombat.own[1].agent.go.position.x + this.owner.curCombat.own[2].agent.go.position.x)/2,
+				effectMgr.getPosEffect(path,cc.v2((this.owner.curCombat.own[1].agent.go.position.x + this.owner.curCombat.own[2].agent.go.position.x)/2,
 				(this.owner.curCombat.own[1].agent.go.position.y + this.owner.curCombat.own[2].agent.go.position.y)/2),effect,0,this.EffectCallBack.bind(this));
 			}
 			else if(length == 3)
 			{
-				effectMgr.getPosEffect(this.arrs.Path,this.owner.curCombat.own[2].agent.go.position,effect,0,this.EffectCallBack.bind(this));
+				effectMgr.getPosEffect(path,this.owner.curCombat.own[2].agent.go.position,effect,0,this.EffectCallBack.bind(this));
 			}
 		}
-	}			///弹弹特效表现
-	else if(effectType.type == constant.EffectType.Bounce)
-	{
-		effectMgr.getBounceEffect(this.arrs.Path,this.owner.agent.go.position,effect,this.owner.teamid,this,this.EffectCallBack.bind(this));
 	}
+}
+
+ability.prototype.showtBounceEffect = function(damageLine){
+	var ts = new Array();
+	for(var i in damageLine)
+	{
+		var uid = damageLine[i].targetID;
+		ts.push(this.owner.curCombat.units[uid]);
+	}
+	this.targets = ts;
+
+	effectMgr.getBounceEffect(this.arrs.Path,this.effects[0],this.owner.agent.go.position,this.effectType[0].frame,this.owner.teamid,this,this.EffectCallBack.bind(this));
 }
 
 ///技能失效
@@ -255,7 +263,7 @@ ability.prototype.tick = function(dt){
 				{
 					this.delay[i] = 999999999;
 					
-					this.ShowEffect(this.effects[i],this.effectType[i]);
+					this.ShowEffect(this.arrs.Path,this.effects[i],this.effectType[i]);
 	
 					if(this.hitEffectTime.length == 0)
 					{
@@ -329,16 +337,20 @@ ability.prototype.getTarget = function(){
 }
 
 ability.prototype.EffectCallBack = function(name){
-	for(var i =0;i<this.effects.length;i++)
+	for(var i =0;i<this.effectType.length;i++)
 	{
 		if(this.effectType[i].hasOwnProperty('event'))
 		{
-			if(this.effectType[i].event == 'onFinish' && this.effectType[i].beforeName == name)
+			if(this.effectType[i].event == name)
 			{
-				this.ShowEffect(this.effects[i],this.effectType[i]);
-				
-				if(this.effectType[i].hasOwnProperty('finish'))
+				if(this.effectType[i].event == 'OnBounce')
+				{
+					this.ShowEffect(this.effectType[i].path,this.effectType[i].effect,this.effectType[i]);
+				}
+				else if(this.effectType[i].event == 'OnFinish')
+				{
 					this.Exit();
+				}
 			}
 		}
 	}

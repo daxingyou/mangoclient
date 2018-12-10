@@ -67,6 +67,92 @@ module.exports = {
             }
         });
 
+        pomelo.on('onDamages', function (data) {
+            cc.log("伤害s", data);
+
+            if (gameData.IsReconnect)
+                return;
+
+            for(var i in data)
+            {
+                var player = combatMgr.getEntity(data[i].targetID);
+                player.onDamage(data[i]);
+    
+                var curskill = dataMgr.skill[data[i].sid][1];
+                if (curskill.HitTime.length > 0 && curskill.DmgFlag == 1) {
+                    //存储技能伤害
+                    combatMgr.addFightDamage(data[i].attackerID, data[i].sid, data[i].oriDamage);
+                }
+                else {
+                    if (curskill.HitEffect != '') {
+                        efferMgr.getPosEffect(curskill.HitEffectPath, new cc.v2(player.agent.go.position.x + player.table.HitPoint[0], player.agent.go.position.y + player.table.HitPoint[1]), curskill.HitEffect, player.teamid);
+                    }
+                }
+            }
+        });
+        
+        pomelo.on('onDamageByThorns', function (data) {
+            cc.log("反射伤害", data);
+            if (gameData.IsReconnect)
+                return;
+            var player = combatMgr.getEntity(data.targetID);
+            player.onDamage(data);
+
+            var curskill = dataMgr.skill[data.sid][1];
+            if (curskill.HitTime.length > 0 && curskill.DmgFlag == 1) {
+                //存储技能伤害
+                combatMgr.addFightDamage(data.attackerID, data.sid, data.oriDamage);
+            }
+            else {
+                if (curskill.HitEffect != '') {
+                    efferMgr.getPosEffect(curskill.HitEffectPath, new cc.v2(player.agent.go.position.x + player.table.HitPoint[0], player.agent.go.position.y + player.table.HitPoint[1]), curskill.HitEffect, player.teamid);
+                }
+            }
+        });
+
+        pomelo.on('onDamagesByThorns', function (data) {
+            cc.log("反射伤害s", data);
+
+            if (gameData.IsReconnect)
+                return;
+
+            for(var i in data)
+            {
+                var player = combatMgr.getEntity(data[i].targetID);
+                player.onDamage(data[i]);
+    
+                var curskill = dataMgr.skill[data[i].sid][1];
+                if (curskill.HitTime.length > 0 && curskill.DmgFlag == 1) {
+                    //存储技能伤害
+                    combatMgr.addFightDamage(data[i].attackerID, data[i].sid, data[i].oriDamage);
+                }
+                else {
+                    if (curskill.HitEffect != '') {
+                        efferMgr.getPosEffect(curskill.HitEffectPath, new cc.v2(player.agent.go.position.x + player.table.HitPoint[0], player.agent.go.position.y + player.table.HitPoint[1]), curskill.HitEffect, player.teamid);
+                    }
+                }
+            }
+        });
+        
+        pomelo.on('onDamageDelay', function (data) {
+            cc.log("延时伤害", data);
+            if (gameData.IsReconnect)
+                return;
+            var player = combatMgr.getEntity(data.targetID);
+            player.onDamage(data);
+
+            var curskill = dataMgr.skill[data.sid][1];
+            if (curskill.HitTime.length > 0 && curskill.DmgFlag == 1) {
+                //存储技能伤害
+                combatMgr.addFightDamage(data.attackerID, data.sid, data.oriDamage);
+            }
+            else {
+                if (curskill.HitEffect != '') {
+                    efferMgr.getPosEffect(curskill.HitEffectPath, new cc.v2(player.agent.go.position.x + player.table.HitPoint[0], player.agent.go.position.y + player.table.HitPoint[1]), curskill.HitEffect, player.teamid);
+                }
+            }
+        });
+        
         pomelo.on('onHeal', function (data) {
             cc.log('治疗', data);
 
@@ -282,6 +368,19 @@ module.exports = {
                 "repeated DamageInfo damageLine": 3
               }
             */
+           
+           var player = combatMgr.getEntity(data.casterID);
+              /*
+           var target = new Array();
+           for (var i in data.targets) {
+               target[i] = new Array();
+               for (var z in data.targets[i]) {
+                   target[i].push(combatMgr.getEntity(data.targets[i][z]));
+               }
+           }
+           */
+           if (player != null)
+               player.bounceEffect(data.sid, data.damageLine);
         });
 
         pomelo.on('onFightEnd', function (data) {
