@@ -67,4 +67,9 @@ module.exports = {
 		Name: '英万里',
 		Rooms: [{"type":"dungeon","id":14,"weight":1}]
 	},
+	21: {
+		ID: 21,
+		Name: '黑衣人',
+		Rooms: [{"type":"dungeon","id":21,"weight":1}]
+	},
 };

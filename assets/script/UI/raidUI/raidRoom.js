@@ -2,8 +2,6 @@ var uibase = require('UIBase')
 var constant = require('constants')
 var net = require('NetPomelo')
 var raidSelectAndEnterRoomProto = require('raidSelectAndEnterRoomProto')
-var dataCenter = require('DataCenter')
-var teamRaidData = require('teamRaidData')
 var teamRaidSelectRoomProto = require('teamRaidSelectRoomProto')
 var consts = require('consts')
 cc.Class({

@@ -303,7 +303,7 @@ module.exports = {
 	5004: {
 		ID: 5004,
 		BuffName: '蒸三臭',
-		Description: '力量提高20点，持续10秒',
+		Description: '力量降低20点，持续10秒',
 		IsHide: 0,
 		Image: 'buff3',
 		Effect: ''
@@ -311,7 +311,7 @@ module.exports = {
 	5008: {
 		ID: 5008,
 		BuffName: '蒸三臭',
-		Description: '力量降低10点，持续10秒',
+		Description: '力量提高10点，持续10秒',
 		IsHide: 0,
 		Image: 'buff1',
 		Effect: ''
@@ -439,7 +439,7 @@ module.exports = {
 	8011: {
 		ID: 8011,
 		BuffName: '守护金兰',
-		Description: '保护1个队友，在其受到30次伤害时，对全体敌人造成80伤害，并眩晕0.5秒',
+		Description: '守护1个队友，在其受到30次伤害时，对全体敌人造成80伤害，并眩晕0.5秒',
 		IsHide: 0,
 		Image: 'buff2',
 		Effect: ''
@@ -490,6 +490,150 @@ module.exports = {
 		Description: '治疗效果降低50%，持续10秒',
 		IsHide: 0,
 		Image: 'buff2',
+		Effect: ''
+	},
+	90001: {
+		ID: 90001,
+		BuffName: '90001',
+		Description: '每8秒对1个随机敌人造成20点伤害',
+		IsHide: 0,
+		Image: 'buff1',
+		Effect: ''
+	},
+	90002: {
+		ID: 90002,
+		BuffName: '90002',
+		Description: '每15秒对敌方全体造成50点伤害',
+		IsHide: 0,
+		Image: 'buff1',
+		Effect: ''
+	},
+	90015: {
+		ID: 90015,
+		BuffName: '90015',
+		Description: '增加150点护甲，持续15秒',
+		IsHide: 0,
+		Image: 'buff1',
+		Effect: ''
+	},
+	90016: {
+		ID: 90016,
+		BuffName: '90016',
+		Description: '增加500点护甲，持续5秒',
+		IsHide: 0,
+		Image: 'buff1',
+		Effect: ''
+	},
+	90017: {
+		ID: 90017,
+		BuffName: '90017',
+		Description: '增加999点护甲，持续3秒',
+		IsHide: 0,
+		Image: 'buff1',
+		Effect: ''
+	},
+	90512: {
+		ID: 90512,
+		BuffName: '90512',
+		Description: '眩晕5秒',
+		IsHide: 0,
+		Image: 'buff2',
+		Effect: ''
+	},
+	90513: {
+		ID: 90513,
+		BuffName: '90513',
+		Description: '每3秒造成50点伤害，持续30秒',
+		IsHide: 0,
+		Image: 'buff3',
+		Effect: ''
+	},
+	90514: {
+		ID: 90514,
+		BuffName: '90514',
+		Description: '每3秒造成10点伤害，持续15秒',
+		IsHide: 0,
+		Image: 'buff3',
+		Effect: ''
+	},
+	90018: {
+		ID: 90018,
+		BuffName: '90018',
+		Description: '增加200点护甲，持续10秒',
+		IsHide: 0,
+		Image: 'buff2',
+		Effect: ''
+	},
+	90518: {
+		ID: 90518,
+		BuffName: '90518',
+		Description: '受到伤害时，造成10点反射伤害',
+		IsHide: 0,
+		Image: 'buff2',
+		Effect: ''
+	},
+	90019: {
+		ID: 90019,
+		BuffName: '90019',
+		Description: '下一次造成的伤害，造成2次',
+		IsHide: 0,
+		Image: 'buff1',
+		Effect: ''
+	},
+	90020: {
+		ID: 90020,
+		BuffName: '90020',
+		Description: '下一次造成的伤害，留下等额伤害的流血效果',
+		IsHide: 0,
+		Image: 'buff1',
+		Effect: ''
+	},
+	90520: {
+		ID: 90520,
+		BuffName: '90520',
+		Description: '每秒造成1次流血效果，持续5秒',
+		IsHide: 0,
+		Image: 'buff1',
+		Effect: ''
+	},
+	90021: {
+		ID: 90021,
+		BuffName: '90021',
+		Description: '5秒内，每造成5次伤害，为自己增加1点力量',
+		IsHide: 0,
+		Image: 'buff1',
+		Effect: ''
+	},
+	90521: {
+		ID: 90521,
+		BuffName: '90521',
+		Description: '增加1点力量',
+		IsHide: 0,
+		Image: 'buff1',
+		Effect: ''
+	},
+	90022: {
+		ID: 90022,
+		BuffName: '90022',
+		Description: '每造成1次伤害，为自己增加5点护甲，持续5秒',
+		IsHide: 0,
+		Image: 'buff1',
+		Effect: ''
+	},
+	90522: {
+		ID: 90522,
+		BuffName: '90522',
+		Description: '5点护甲，持续5秒',
+		IsHide: 0,
+		Image: 'buff1',
+		Effect: ''
+	},
+	90023: {
+		ID: 90023,
+		BuffName: '90023',
+		Description: '无法获取内力，持续3秒',
+		IsHide: 0,
+		Image: 'buff1',
 		Effect: ''
 	},
 	100002: {
@@ -568,14 +712,6 @@ module.exports = {
 		ID: 90010,
 		BuffName: '陨石',
 		Description: '增加50%受到的伤害',
-		IsHide: 0,
-		Image: 'buff3',
-		Effect: ''
-	},
-	90014: {
-		ID: 90014,
-		BuffName: '火焰外衣',
-		Description: '每3秒对1个随机敌人造成20点伤害',
 		IsHide: 0,
 		Image: 'buff3',
 		Effect: ''

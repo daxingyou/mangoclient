@@ -2,50 +2,51 @@ var uibase = require('UIBase')
 var constant = require('constants')
 var net = require('NetPomelo')
 var dataMgr = require('DataMgr')
-var dataCenter = require('DataCenter')
-var teamRaidData = require('teamRaidData')
 var teamRaidSelectRoomProto = require('teamRaidSelectRoomProto')
 var teamRaidIgnoreGetCardProto = require('teamRaidIgnoreGetCardProto')
 var eventMgr = require('eventMgr')
+let playerData = require('playerData');
+let raidTpl = require('Raid');
+
 cc.Class({
     extends: uibase,
 
     properties: {
-       teamer0:cc.Node,
-       teamer1:cc.Node,
-       teamer2:cc.Node,
-       teamer3:cc.Node,
-       heroIconAtlas : cc.SpriteAtlas,
-       cdTime:30,
-       _CDState:false,
-       countDown :cc.Node,
-       showRaid:cc.Node,
-       _showRaid:[],
-       raidName:cc.Label,
-       showCard:cc.Node,
+        teamer0: cc.Node,
+        teamer1: cc.Node,
+        teamer2: cc.Node,
+        teamer3: cc.Node,
+        heroIconAtlas: cc.SpriteAtlas,
+        cdTime: 30,
+        _CDState: false,
+        countDown: cc.Node,
+        showRaid: cc.Node,
+        _showRaid: [],
+        raidName: cc.Label,
+        showCard: cc.Node,
     },
 
-    initData (data) {
-        cc.log("队伍信息",data);
-        this.raidName.string = teamRaidData.teamRaidTitle;
+    initData(data) {
+        cc.log("队伍信息", data);
+        this.raidName.string = raidTpl[playerData.raidData.teamRaid.raidID].Name;
         this._CDState = true;
         this.cdTime = 30;
         this.countDown.active = true;
-        for (let i=0;i < data.length;i++) {
+        for (let i = 0; i < data.length; i++) {
             let itemData = data[i];
             this["teamer" + i].active = true;
             let heroData = dataMgr.hero[itemData.heroid];
             let heroIcon = heroData.HeroIcon;
-            let heroName =  this["teamer" + i].getChildByName("heroName");
+            let heroName = this["teamer" + i].getChildByName("heroName");
             heroName.getComponent(cc.Label).string = heroData.HeroName;
             let icon = this["teamer" + i].getChildByName("heroImg");
             icon.getComponent(cc.Sprite).spriteFrame = this.heroIconAtlas.getSpriteFrame(heroIcon);
         }
     },
 
-      //加载关卡，商店，奖励
-      loadRaid (selectList) {
-       // cc.log("可选关卡商店奖励",selectList);
+    //加载关卡，商店，奖励
+    loadRaid(selectList) {
+        // cc.log("可选关卡商店奖励",selectList);
         var self = this;
         var resIndex = 0;
         let raidIdx = 0;
@@ -71,7 +72,7 @@ cc.Class({
                 self.showRaid.addChild(item);
                 self._showRaid.push(item.getComponent('raidRoom'));
                 //idx,data,parent
-                self._showRaid[resIndex-1].initData(null,null,resIndex,raidType.Name,raidType.Icon,raidType.Desc,self);
+                self._showRaid[resIndex - 1].initData(null, null, resIndex, raidType.Name, raidType.Icon, raidType.Desc, self);
                 //roomId,raidId,idx,raidName,parent,img,des
                 //heroid,heroName,heroIcon,parents
                 //还需要添加卡牌图，描述字段
@@ -79,29 +80,21 @@ cc.Class({
         })
     },
 
-    
+    onLoad() {
+        let teamRaid = playerData.raidData.teamRaid;
+        this.initData(teamRaid.teamInfo);
 
-    onLoad () {
-        //选择关卡
-        if (teamRaidData.selectList != null) {
-            this.loadRaid(teamRaidData.selectList);
-        }
-        eventMgr.on("selectList",this.loadRaid,this)
-
-        //奖励卡牌
-        if (teamRaidData.cardsList != null) {
-            this.teamerSelectAward(teamRaidData.cardsList);
-        }
-    },
-    start () {
-    
+        // //奖励卡牌
+        // if (teamRaidData.cardsList != null) {
+        //     this.teamerSelectAward(teamRaidData.cardsList);
+        // }
     },
 
     //选择奖励卡牌
     teamerSelectAward(cardsList) {
-        cc.log("cardsList",cardsList);
-        if (cardsList == null) 
-        return;
+        cc.log("cardsList", cardsList);
+        if (cardsList == null)
+            return;
         var self = this;
         self.showCard.active = true;
         self._CDState = false;
@@ -116,50 +109,44 @@ cc.Class({
                 resIndex++;
                 let item = cc.instantiate(loadedResource);
                 self.showCard.addChild(item);
-                item.getComponent('awardCardItem').initData(itemData,self,2);
+                item.getComponent('awardCardItem').initData(itemData, self, 2);
                 if (resIndex == cardsList.length) {
-                    teamRaidData.selectList == null;
                     cc.loader.release('UI/teamRaid/awardCardItem');
                 }
 
             }
-        }); 
+        });
     },
 
     //选择完关闭
-    selectCardEnd () {
+    selectCardEnd() {
         this.showCard.active = false;
         this._CDState = true;
         this.cdTime = 30;
     },
 
     //跳过卡牌奖励
-    ingoreAwardCard () {
+    ingoreAwardCard() {
         net.Request(new teamRaidIgnoreGetCardProto(), (data) => {
-            cc.log("跳过卡牌奖励",data);
+            cc.log("跳过卡牌奖励", data);
         });
         this.showCard.active = false;
     },
 
-    start () {
-       
-    },
-
     onDestroy() {
-        eventMgr.off("selectList",this.loadRaid);
     },
 
-    update (dt) {
-        if (this._CDState) {  
-            this.cdTime -=dt;
-            var  temp = Math.floor(this.cdTime);
-            if (temp == 0 ) {
+    update(dt) {
+        if (this._CDState) {
+            this.cdTime -= dt;
+            var temp = Math.floor(this.cdTime);
+            if (temp == 0) {
                 this._CDState = false;
             }
             if (this.countDown == undefined)
-            return;
-   
-            this.countDown.getComponent(cc.Label).string = "剩余"+temp+"秒";
+                return;
+
+            this.countDown.getComponent(cc.Label).string = "剩余" + temp + "秒";
         }
-     },
+    },
 });

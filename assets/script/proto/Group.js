@@ -76,4 +76,10 @@ module.exports = {
 		Matrix: 1,
 		MonsterGroup: {"1":100014}
 	},
+	21: {
+		ID: 21,
+		Name: '黑衣人',
+		Matrix: 1,
+		MonsterGroup: {"1":100021}
+	},
 };

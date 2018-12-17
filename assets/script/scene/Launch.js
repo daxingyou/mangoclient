@@ -3,13 +3,11 @@ var combatMgr = require("CombatMgr")
 var matchMessage = require("matchMessage")
 var loadingMessage = require('LoadingMessage')
 var ladderMessage = require('LadderMessage')
-var teamRaidMessage = require('TeamRaidMessage')
 let debugMessage = require('debugMessage')
 var constant = require('constants')
 var uimgr = require('UIMgr')
 var scenemgr = require('SceneMgr')
 var playerMessage = require('PlayerMessage')
-let teamMessage = require('teamMessage');
 let fightMessage = require('fightMessage');
 var tutorial = require('TutorialMgr')
 
@@ -56,10 +54,8 @@ cc.Class({
         matchMessage.init();
         loadingMessage.init();
         ladderMessage.init();
-        teamRaidMessage.init();
         debugMessage.init();
         playerMessage.init();
-        teamMessage.init();
         fightMessage.init();
 
         if (this.IsTutorial)

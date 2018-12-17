@@ -13,7 +13,8 @@ module.exports = {
 		TimeLimit: 180,
 		Icon: 'attack',
 		Desc: '河洞战斗1描述。',
-		Event: []
+		Event: [],
+		tutorial: 0
 	},
 	2: {
 		ID: 2,
@@ -24,7 +25,8 @@ module.exports = {
 		TimeLimit: 180,
 		Icon: 'attack',
 		Desc: '河洞战斗2描述。',
-		Event: []
+		Event: [],
+		tutorial: 0
 	},
 	3: {
 		ID: 3,
@@ -35,7 +37,8 @@ module.exports = {
 		TimeLimit: 180,
 		Icon: 'attack',
 		Desc: '河洞战斗3描述。',
-		Event: []
+		Event: [],
+		tutorial: 0
 	},
 	4: {
 		ID: 4,
@@ -46,7 +49,8 @@ module.exports = {
 		TimeLimit: 180,
 		Icon: 'attack',
 		Desc: '河洞战斗4描述。',
-		Event: []
+		Event: [],
+		tutorial: 0
 	},
 	5: {
 		ID: 5,
@@ -57,7 +61,8 @@ module.exports = {
 		TimeLimit: 180,
 		Icon: 'attack',
 		Desc: '河洞战斗5描述。',
-		Event: []
+		Event: [],
+		tutorial: 0
 	},
 	6: {
 		ID: 6,
@@ -68,7 +73,8 @@ module.exports = {
 		TimeLimit: 180,
 		Icon: 'attack',
 		Desc: '河洞战斗6描述。',
-		Event: []
+		Event: [],
+		tutorial: 0
 	},
 	7: {
 		ID: 7,
@@ -79,7 +85,8 @@ module.exports = {
 		TimeLimit: 180,
 		Icon: 'attack',
 		Desc: '河洞战斗7描述。',
-		Event: []
+		Event: [],
+		tutorial: 0
 	},
 	8: {
 		ID: 8,
@@ -90,7 +97,8 @@ module.exports = {
 		TimeLimit: 180,
 		Icon: 'attack',
 		Desc: '河洞战斗8描述。',
-		Event: []
+		Event: [],
+		tutorial: 0
 	},
 	11: {
 		ID: 11,
@@ -101,7 +109,8 @@ module.exports = {
 		TimeLimit: 180,
 		Icon: 'attack',
 		Desc: '与西门战斗。',
-		Event: [{"event":"begin","dialog":1001},{"event":"animation","target":1000,"animation":"attack_01","dialog":1002},{"event":"animation","target":1000,"animation":"attack_01","dialog":1003}]
+		Event: [{"event":"begin","dialog":1001},{"event":"animation","target":1000,"animation":"attack_01","dialog":1002},{"event":"animation","target":1000,"animation":"attack_01","dialog":1003}],
+		tutorial: 1001
 	},
 	12: {
 		ID: 12,
@@ -112,7 +121,8 @@ module.exports = {
 		TimeLimit: 180,
 		Icon: 'attack',
 		Desc: '与万无敌战斗。',
-		Event: []
+		Event: [],
+		tutorial: 0
 	},
 	13: {
 		ID: 13,
@@ -123,7 +133,8 @@ module.exports = {
 		TimeLimit: 180,
 		Icon: 'attack',
 		Desc: '与金伴花战斗。',
-		Event: [{"event":"fightOver","dialog":1004},{"event":"animation","target":100013,"animation":"jump_ready","dialog":1002},{"event":"animation","target":100013,"animation":"jump","dialog":1003}]
+		Event: [{"event":"fightOver","dialog":1004},{"event":"animation","target":100013,"animation":"jump_ready","dialog":1002},{"event":"animation","target":100013,"animation":"jump","dialog":1003}],
+		tutorial: 0
 	},
 	14: {
 		ID: 14,
@@ -134,6 +145,19 @@ module.exports = {
 		TimeLimit: 180,
 		Icon: 'attack',
 		Desc: '与英万里战斗。',
-		Event: [{"event":"fightOver","dialog":1005}]
+		Event: [{"event":"fightOver","dialog":1005}],
+		tutorial: 0
+	},
+	21: {
+		ID: 21,
+		Name: '黑衣人',
+		SceneID: 1,
+		MonsterGroupID: 21,
+		WinMode: 0,
+		TimeLimit: 180,
+		Icon: 'attack',
+		Desc: '与黑衣人战斗。',
+		Event: [],
+		tutorial: 0
 	},
 };

@@ -17,7 +17,44 @@ util.inherits(TutorialCombat, Combat);
 
 ////初始化怪物
 TutorialCombat.prototype.init = function(data){
-    Combat.prototype.init.call(this, data);//PVECombat脚本
+
+    var index = constan.TutorialDungeon.indexOf(data.dgId);
+
+    if(index < 0)
+    {
+        cc.error('tutorial dg id error .................');
+    }
+    else
+    {
+        this.heroDeck = new Array();
+        this.monsterDeck = new Array();
+
+        if(index == 0)
+        {
+            this.heroDeck = constan.HeroDeck1;
+            this.monsterDeck = constan.MonsterDeck1;
+        }
+        else if(index == 1)
+        {
+            this.heroDeck = constan.HeroDeck2;
+            this.monsterDeck = constan.MonsterDeck2;
+        }
+        else if(index == 2)
+        {
+            this.heroDeck = constan.HeroDeck3;
+            this.monsterDeck = constan.MonsterDeck3;
+        }
+        else if(index == 3)
+        {
+            this.heroDeck = constan.HeroDeck4;
+            this.monsterDeck = constan.MonsterDeck4;
+        }
+        
+    }
+
+
+    data = this.GetfightData(data.dgId);
+    Combat.prototype.init.call(this, data);
 
     this.begin = false;
     this.checkLoadRes = true;
@@ -50,7 +87,7 @@ TutorialCombat.prototype.init = function(data){
     this.curDgId = data.dgId;
 
     this.state = constant.tutorialState.begin;
-    tutorialMgr.starTutorial(dataMgr.dungeon[data.dgId].Event,this);
+    tutorialMgr.starTutorial(dataMgr.dungeon[data.dgId].Event,dataMgr.dungeon[data.dgId].tutorial,this);
     net.Request(new tutorialEnterDungeonProto(data.dgId));
 
     //cc.log('cur res = ',this.resNum );
@@ -65,8 +102,7 @@ TutorialCombat.prototype.Tick = function () {
     if(this.UILoadOk && !this.begin)
     {
         this.begin = true;
-        var ui = this.uiMgr.getUI(constant.UI.UploadProjess);
-        ui.hide();
+        this.uiMgr.removeUI(constant.UI.CombatLoading);
     }
 }
 
@@ -110,7 +146,10 @@ TutorialCombat.prototype.onFightEnd = function (result) {
 TutorialCombat.prototype.TutorialFinish = function(){
     if(this.state == constant.tutorialState.begin)          //战斗开始前完成，开始走正常流程开始战斗
     {
-        gameCenter.curLoadRes = this.resNum+1;
+        this.uiMgr = cc.find('Canvas').getComponent('UIMgr');
+        this.fightUI = this.uiMgr.getUI(constant.UI.Fight);
+        this.fightUI.FightStart();
+        //gameCenter.curLoadRes = this.resNum+1;
     }
     else if(this.state == constant.tutorialState.finish)          
     {
@@ -127,6 +166,82 @@ TutorialCombat.prototype.TutorialFinish = function(){
             })
         }
     }
+}
+
+TutorialCombat.prototype.GetfightData = function(curDgId){
+    return {
+        dgId : curDgId,
+        matchNum : 1,
+        myInfo : {
+            cardsNum: 11,
+            combo : 0,
+            discardsNum : 0,
+            exhaustsNum : 0,
+            inHands : [{cid:this.heroDeck[0],lv:1,mp:1,powerUpPercent:0},{cid:this.heroDeck[1],lv:1,mp:1,powerUpPercent:0},{cid:this.heroDeck[2],lv:1,mp:1,powerUpPercent:0}],
+            mp : 6,
+            mpRecoverRate : 1,
+            mpRecoverTime : 3000,
+            stopMpRecoverBuffCnt : 0,
+            tauntTargetID : "",
+            thew : 10
+        },
+        spawnSummons :{
+            groupA : {},
+            groupB : {},
+            seed : 1544756663957,
+        },
+        teamInfo : {
+            teamA : [{uid:playerData.id,armor:0,feature:0,groupId:'groupA',heroid:1000,hp:18000,inHandsNum:3,lv:1,maxHp:18000,maxMp:10,maxThew:10,mp:6,name:"test61",pos:1,scale:1,thew:10}],
+            teamB : [{uid:'abcdefg123456',armor:0,feature:0,groupId:'groupB',monsterid:100013,hp:1000,inHandsNum:3,lv:1,maxHp:1000,maxMp:10,maxThew:10,mp:6,pos:1,scale:1,thew:10}]
+        },
+        teamType : 'TUTORIAL'
+    };
+}
+
+TutorialCombat.prototype.useSkill = function(attacker,target,sid){
+    return{
+        caster : attacker,
+        sid : sid,
+        slv : 1,
+        targets : target,
+    }
+}
+
+TutorialCombat.prototype.useCard = function(player,idx,cardid){
+    player.inHands.splice(idx,1);
+    tutorialMgr.onUseCard(player,cardid);
+
+    return{
+        discardsNum : 1,
+        inHands : player.inHands,
+        mp : 5,
+        thew : 10,
+    }
+}
+
+TutorialCombat.prototype.onDamage = function(armor,attacker,hp,sid,targetID){
+    return {
+        armor : armor,
+        attackerID :attacker,
+        hp : hp,
+        isCrit : 0,
+        oriDamage : 150,
+        sid : sid,
+        targetID : targetID
+    }
+}
+
+TutorialCombat.prototype.getMonster = function(){
+    if(this.monster != null)
+        return this.monster;
+
+    for(var i in this.units)
+    {
+        this.units[i].uid == playerData.id;
+        this.monster = this.units[i];
+    }
+    
+    return this.monster;
 }
 
 module.exports = TutorialCombat;

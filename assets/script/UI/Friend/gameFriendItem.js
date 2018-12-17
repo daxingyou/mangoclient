@@ -5,6 +5,7 @@ let UIHelper = require('UIHelper');
 let eventMgr = require('eventMgr');
 let playerData = require('playerData');
 let rankTpl = require('Rank');
+let loadRes = require('LoadRes');
 
 let TYPE_FRIEND = 1,
     TYPE_RECOMMEND = 2;
@@ -23,6 +24,7 @@ cc.Class({
         btnLable: cc.Label,
         rankLabel: cc.Label,
         starLabel: cc.Label,
+        imgAvatar: cc.Sprite,
     },
 
     //type == 1 好友 / 2 推荐好友
@@ -39,6 +41,13 @@ cc.Class({
         }
         else {
             this.genderImg.spriteFrame = this.genderAltas.getSpriteFrame('male');
+        }
+        if (data.avatarUrl) {
+            cc.loader.load({url: data.avatarUrl, type: 'jpg'}, function (err, texture) {
+                if (err)
+                    return;
+                this.imgAvatar.spriteFrame = new cc.SpriteFrame(texture);
+            }.bind(this));
         }
         if (this._type == TYPE_FRIEND) {
             this.node.getChildByName('addFriend').active = false;
@@ -58,10 +67,10 @@ cc.Class({
             return;
         data = data || {};
         this.level.string = (data.level || 1) + '级';
-        this.updateState(data.state || consts.UserState.OFFLINE);
+        this.updateState(data.state || consts.UserState.OFFLINE, data.logoutTime);
         this.rankLabel.string = rankTpl[data.rank || 1].Name;
         let star = data.star == undefined ? 1 : data.star;
-        this.starLabel.string = '* ' + star;
+        this.starLabel.string = 'Ｘ' + star;
     },
 
     onEnable() {
@@ -78,8 +87,13 @@ cc.Class({
         }
     },
 
-    updateState(state) {
-        this.state.string = UIHelper.getUserStateStr(state);
+    updateState(state, logoutTime) {
+        let text = UIHelper.getUserStateStr(state);
+        if (state == consts.UserState.OFFLINE) {
+            text += "：" + UIHelper.getOfflineStr(logoutTime);
+        }
+        this.state.string = text;
+        this.state.node.color = UIHelper.getUserStateColor(state);
     },
 
     addUser() {

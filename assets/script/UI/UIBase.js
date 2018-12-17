@@ -35,12 +35,21 @@ cc.Class({
         if (title) {
             this.__title = title;
         }
+        if (this.__backBtn) {
+            this._updateBackBtn(backHandler);
+            return;
+        }
         loadRes.load('UI/common/top', false, (res) => {
             let go = cc.instantiate(res);
             go.parent = this.node;
-            let scr = go.getComponent('top');
-            scr.changeTitle(this.__title);
-            scr.setBackHandler(backHandler);
+            this.__backBtn = go;
+            this._updateBackBtn(backHandler);
         });
-    }
+    },
+
+    _updateBackBtn(backHandler) {
+        let scr = this.__backBtn.getComponent('top');
+        scr.changeTitle(this.__title);
+        scr.setBackHandler(backHandler);
+    },
 });

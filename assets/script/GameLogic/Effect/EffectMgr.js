@@ -131,10 +131,10 @@ var mgr = {
 
         return go;
     },                  //子弹特效
-    getMoveEffect : function(name,pos,end,frame,effect,teamID){
+    getMoveEffect : function(name,pos,end,frame,effect,teamID,callback){
         var go = this.getEffect(name,pos,teamID);
         if(go != null)
-            go.showMove(effect,end,frame);
+            go.showMove(effect,end,frame,callback);
 
         return go;
     },                  //抛物线特效

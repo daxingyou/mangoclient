@@ -3,7 +3,7 @@ var constant = require('constants')
 var net = require("NetPomelo")
 let loadRes = require('LoadRes');
 
-let ITEM_HEIGHT = 113;
+let ITEM_HEIGHT = 110;
 cc.Class({
     extends: uiBase,
 
@@ -39,7 +39,7 @@ cc.Class({
                 self.showRecommend.addChild(item);
                 item.getComponent('gameFriendItem').initData(2, itemData);
             }
-            self.showRecommend.height = data.length * ITEM_HEIGHT;
+            self.showRecommend.height = data.length * ITEM_HEIGHT + 10;
         });
     },
 

@@ -1,0 +1,153 @@
+
+chuliuxiang_effect.png
+size: 207,979
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect/flash
+  rotate: false
+  xy: 94, 29
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+effect/k
+  rotate: true
+  xy: 0, 82
+  size: 71, 92
+  orig: 74, 105
+  offset: 1, 7
+  index: -1
+effect/k_01
+  rotate: true
+  xy: 0, 9
+  size: 71, 92
+  orig: 74, 105
+  offset: 2, 7
+  index: -1
+effect/projectile
+  rotate: false
+  xy: 164, 753
+  size: 37, 37
+  orig: 50, 50
+  offset: 6, 7
+  index: -1
+effect/steal/steal_00002
+  rotate: false
+  xy: 104, 629
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+effect/steal/steal_00004
+  rotate: false
+  xy: 104, 527
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+effect/steal/steal_00006
+  rotate: false
+  xy: 0, 362
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+effect/steal/steal_00008
+  rotate: false
+  xy: 102, 362
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+effect/steal/steal_00010
+  rotate: false
+  xy: 0, 260
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+effect/steal/steal_00014
+  rotate: false
+  xy: 102, 260
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+effect/steal_hand/arm_under
+  rotate: true
+  xy: 164, 792
+  size: 62, 41
+  orig: 64, 43
+  offset: 1, 1
+  index: -1
+effect/steal_hand/hand
+  rotate: true
+  xy: 146, 0
+  size: 88, 55
+  orig: 90, 57
+  offset: 1, 1
+  index: -1
+effect/steal_hand/hand_speed
+  rotate: false
+  xy: 0, 155
+  size: 144, 55
+  orig: 146, 57
+  offset: 1, 1
+  index: -1
+effect/steal_hand/sleeve
+  rotate: false
+  xy: 0, 731
+  size: 162, 123
+  orig: 164, 125
+  offset: 1, 1
+  index: -1
+effect/steal_hand/sleeve_speed
+  rotate: false
+  xy: 0, 856
+  size: 197, 123
+  orig: 199, 125
+  offset: 1, 1
+  index: -1
+effect/trail/trail_00000
+  rotate: true
+  xy: 94, 81
+  size: 72, 50
+  orig: 250, 50
+  offset: 0, 0
+  index: -1
+effect/trail/trail_00003
+  rotate: true
+  xy: 146, 90
+  size: 120, 50
+  orig: 250, 50
+  offset: 0, 0
+  index: -1
+effect/trail/trail_00005
+  rotate: true
+  xy: 52, 529
+  size: 200, 50
+  orig: 250, 50
+  offset: 3, 0
+  index: -1
+effect/trail/trail_00008
+  rotate: true
+  xy: 0, 515
+  size: 214, 50
+  orig: 250, 50
+  offset: 14, 0
+  index: -1
+effect/trail/trail_00010
+  rotate: false
+  xy: 0, 464
+  size: 207, 49
+  orig: 250, 50
+  offset: 43, 0
+  index: -1
+effect/trail/trail_00013
+  rotate: false
+  xy: 0, 212
+  size: 202, 46
+  orig: 250, 50
+  offset: 48, 2
+  index: -1

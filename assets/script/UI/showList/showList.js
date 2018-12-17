@@ -2,11 +2,10 @@ var uibase = require('UIBase')
 var constant = require('constants')
 var combatMgr = require('CombatMgr')
 var net = require("NetPomelo")
-var matchProto = require('matchProto')
 var buildTeamProto = require('buildTeamProto')
 var consts = require('consts')
 var teamData = require('teamData')
-
+let playerData = require('playerData')
 
 cc.Class({
     extends: uibase,
@@ -23,14 +22,15 @@ cc.Class({
 
 
     onLoad () {
+        this._super();
+        this.addCommonBackBtn('对弈亭');
         this.showLevel(10);//假装等级为10
-        this._uiMgr = cc.find('Canvas').getComponent('UIMgr');
         this.eableClick();
     },
 
     start () {
-        if (teamData.punishBeginTime !=0) {
-            let time = new Date().getTime(teamData.punishBeginTime); 
+        if (playerData.matchData.isInPunish()) {
+            let time = new Date().getTime(playerData.matchData.punishBeginTime); 
             this.unEableClick();
             this._uiMgr.showTips("30秒超时惩罚中");
             this.cdTime = 30;

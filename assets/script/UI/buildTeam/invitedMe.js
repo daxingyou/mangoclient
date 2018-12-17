@@ -1,5 +1,4 @@
 
-var teamData = require('teamData');
 var uibase = require('UIBase')
 var constant = require('constants')
 var net = require("NetPomelo")
@@ -50,7 +49,8 @@ cc.Class({
                     data.changeTitle("对弈亭");
                 });
             });};
-        if (teamData.refreshTeam.length > 1) {
+        let teamData = playerData.teamData;
+        if (teamData.members.length > 1) {
             that._uimgr.popupTips(1,"确定要退出吗","提示",null,null,comfirm,that);
         }
         else {

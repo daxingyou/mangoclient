@@ -9,6 +9,7 @@ var constant = require('constants')
 var utility = require('utility')
 var FSMEvent = require('FSMEvent')
 var effect = require('Effect')
+var consts = require('consts')
 
 var ability = function(data,owner){
 	this.arrs = data;
@@ -47,6 +48,9 @@ ability.prototype.Active = function(Target,targets){
 
 	if(Target == null && targets != null)
 		this.curTarget = targets[0];
+
+	if(this.curTarget == null)
+		this.curTarget = targets;
 
 	if(this.arrs.Animation != '')
 		this.owner.fsm.handleEvent(FSMEvent.SING, this.arrs.Animation);
@@ -95,17 +99,17 @@ ability.prototype.ShowEffect = function(path,effect,effectType){
 	{
 		if(effectType.origin == constant.EffectOrigin.target)
 		{
-			effectMgr.getMoveEffect(path,this.curTarget.agent.go.position,this.owner.agent.go.position,8,effect,this.owner.teamid);
+			effectMgr.getMoveEffect(path,this.curTarget.agent.go.position,this.owner.agent.go.position,8,effect,this.owner.teamid,this.EffectCallBack.bind(this));
 		}
 		else if(effectType.origin == constant.EffectOrigin.onwer)
 		{
 			if(this.ID == 2105 || this.ID == 2107)
 			{
-				effectMgr.getMoveEffect(path,this.owner.agent.go.position.add(new cc.v2(-50,0)),this.curTarget.agent.go.position.add(new cc.Vec2(-30,-30)),100,effect,this.owner.teamid);
+				effectMgr.getMoveEffect(path,this.owner.agent.go.position.add(new cc.v2(-50,0)),this.curTarget.agent.go.position.add(new cc.Vec2(-30,-30)),100,effect,this.owner.teamid,this.EffectCallBack.bind(this));
 			}
 			else
 			{
-				effectMgr.getMoveEffect(path,this.owner.agent.go.position.add(new cc.Vec2(3,0)),this.curTarget.agent.go.position,8,effect,this.owner.teamid);
+				effectMgr.getMoveEffect(path,this.owner.agent.go.position.add(new cc.Vec2(3,0)),this.curTarget.agent.go.position,8,effect,this.owner.teamid,this.EffectCallBack.bind(this));
 			}
 		}
 	}
@@ -337,6 +341,7 @@ ability.prototype.getTarget = function(){
 }
 
 ability.prototype.EffectCallBack = function(name){
+	
 	for(var i =0;i<this.effectType.length;i++)
 	{
 		if(this.effectType[i].hasOwnProperty('event'))
@@ -353,6 +358,11 @@ ability.prototype.EffectCallBack = function(name){
 				}
 			}
 		}
+	}
+
+	if(name = "OnFinish_Move" && this.owner.curCombat.teamType == consts.Team.TYPE_TUTORIAL)
+	{
+		this.curTarget.onDamage(this.owner.curCombat.onDamage(0,this.owner.uid,this.curTarget.hp - 100,1,this.curTarget.uid));
 	}
 }
 

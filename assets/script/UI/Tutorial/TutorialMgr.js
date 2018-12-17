@@ -18,10 +18,12 @@ var Tutorial = {
     {
         this.isInit = true;
     },
-    starTutorial : function(eventData,combat){
+    starTutorial : function(eventData,tutorial,combat){
         this.curIndex =0;
         this.curCombat = combat;
         this.isFinish = true;
+        this.tutorialID = tutorial;
+
         this.events = new Array();
 
         for(var item in eventData)
@@ -53,6 +55,9 @@ var Tutorial = {
         {
             this.isFinish = true;
             this.curCombat.TutorialFinish();
+
+            ///走冒泡
+            this.tutorialUI.showBulling(this.tutorialID);
         }   
         else
         {
@@ -65,12 +70,17 @@ var Tutorial = {
             /// 如果第一个事件是开始事件，如果不是就开始战斗
             if(this.events[this.curIndex].event.event == constant.tutorialEvent.begin)
                 this.events[this.curIndex].Active(constant.tutorialEvent.begin);
-            else
+            else{
                 this.curCombat.TutorialFinish();
+                ///走冒泡
+                this.tutorialUI.showBulling(this.tutorialID);
+            }
         }
         else                
         {
             this.curCombat.TutorialFinish();
+            ///走冒泡
+            this.tutorialUI.showBulling(this.tutorialID);
         }
     },
     fightOver(){
@@ -79,6 +89,9 @@ var Tutorial = {
             if(this.events[i].event.event == constant.tutorialEvent.fightOver)
                 this.events[i].Active(constant.tutorialEvent.fightOver);
         }
+    },
+    onUseCard(user,cid){
+        this.tutorialUI.bubbling.onUseCard(user,cid);
     }
 }
 

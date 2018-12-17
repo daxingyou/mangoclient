@@ -26,8 +26,9 @@ cc.Class({
       comfirmBtn:cc.Node,
       _type:null
     },
-    start () {
-        this._uiMgr = cc.find('Canvas').getComponent('UIMgr');
+
+    onLoad() {
+        this._super();
     },
 
 
@@ -148,7 +149,7 @@ cc.Class({
         eventMgr.emit("TeamInvited");//暂时被挂起,
        
 
-        if (this._type == 3 && teamData.onForTeamInvited !=null) {
+        if (this._type == 3 && teamData.applyList !=null) {
             eventMgr.emit("forTeamInvited");//求邀请暂时被挂起,
         }
 

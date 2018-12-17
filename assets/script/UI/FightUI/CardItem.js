@@ -12,7 +12,6 @@ cc.Class({
     extends: UIBase,
 
     properties: {
-
         _index: 0,
         cardAtlas: cc.SpriteAtlas,
         //leftAtlas:cc.SpriteAtlas,
@@ -42,6 +41,7 @@ cc.Class({
         _parents: null,
 
         cardId: cc.Node,// 海哥测试需要
+        _cardId : 0,
         _click: 0,//
 
 
@@ -79,6 +79,7 @@ cc.Class({
             cardAttr = configData.CardAttributes;
         this.cardId.active = false;
         this.cardId.getComponent(cc.Label).string = cid;
+        this._cardId = cid;
         if (this._listeners) {
             for (var eventName in this._listeners) {
                 this._removeEventListener(eventName);

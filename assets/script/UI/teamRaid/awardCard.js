@@ -25,7 +25,6 @@ cc.Class({
         cc.log("cardsList",data);
         var self = this;
         cc.loader.loadRes('UI/teamRaid/awardCardItem', function (errorMessage, loadedResource) {
-            // let invited = teamData.onTeamInvited;
             for (let i = 0; i < data.length; i++) {
                 let itemData = data[i];
                 if (errorMessage) {

@@ -46,9 +46,6 @@ cc.Class({
 
     enterFightPav () {
         var self = this;
-        self._uiMgr.loadUI(constant.UI.CommonTop,(data) =>{
-          
-        });
         self._uiMgr.loadUI(constant.UI.ShowList,data => {
             data.init();
         });

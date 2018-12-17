@@ -97,7 +97,7 @@ cc.Class({
 
         this.callBack = callBack;
     },
-    showMove(name,end,frame){
+    showMove(name,end,frame,callBack){
         this._MoveAni = true;
         this._active = true;
         this.points = undefined;
@@ -108,7 +108,7 @@ cc.Class({
         var dir = end.sub(this.node.position);
         this.step = dir.div(frame);
         this.frame = frame;
-
+   
         var temp = end.x - this.node.position.x;
 
         if(temp < 0)
@@ -118,6 +118,8 @@ cc.Class({
         else{
             this.node.scaleX = 1;
         }
+
+        this.callBack = callBack;
     },
     showBezier(name,start,end,callBack){
         this._MoveAni = true;
@@ -182,7 +184,7 @@ cc.Class({
                 this._MoveAni = false;
                 this._active = false;
                 this.node.position = new cc.v2(0,-1000);
-
+                this.callBack('OnFinish_Move');
             }
         }
         else if(this._MoveAni && this._active && this.points != null)

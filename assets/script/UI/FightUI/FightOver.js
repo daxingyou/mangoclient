@@ -79,7 +79,7 @@ cc.Class({
              }
              else if (this._fightType == consts.Team.TYPE_RAID) {
 
-                //  if (teamData.refreshTeam == null) {//单人副本
+                //  if (teamData.members.length) {//单人副本
                 //     this._uimgr.loadUI(constant.UI.RaidUI,function(data){
                 //         combatMgr.Release();
                 //         combatMgr.curCombat.UILoadOk = true; 

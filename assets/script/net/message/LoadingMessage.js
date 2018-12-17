@@ -1,6 +1,5 @@
-var dataCenter = require('DataCenter');
 var constants = require('constants');
-var combatMgr = require('CombatMgr')
+var combatMgr = require('CombatMgr');
 
 var loading = {
 
@@ -10,12 +9,11 @@ var loading = {
         pomelo.on('onLoadTimeout', function (data) {
             cc.log("加载超时", data);
             uiMgr.showTips('加载超时', cc.v2(0, 65));
-
         });
 
         pomelo.on('onLoadProgress', function (data) {
             cc.log("加载进度广播", data.progress, data);
-            dataCenter.otherLoadRes[data.uid] = data.progress;
+            combatMgr.setLoadProgress(data.uid, data.progress);
         });
 
         pomelo.on('onKick', function (data) {

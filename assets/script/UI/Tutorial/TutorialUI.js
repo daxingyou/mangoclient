@@ -2,6 +2,7 @@ var uiBase = require('UIBase')
 var hero = require('Hero')
 var monster = require('Monster')
 var loadRes = require('LoadRes')
+var Bubbling = require('Bubbling')
 
 cc.Class({
     extends: uiBase,
@@ -11,21 +12,34 @@ cc.Class({
         collide : cc.Node,
         playerName : cc.Label,
         modelRoot : cc.Node,
+        bubbling : Bubbling,
+        dialog : cc.Node,
+        mask : cc.Node,
+
+        _enableClick : false,
         _dialogData : null,
         _curIndex : 1,
         _Tutorialmgr : null,
         _modelPlayer : null,
+        _state : 0,
     },
 
     // onLoad () {},
     init(mgr){
         this._Tutorialmgr = mgr;
+        this._enableClick = false;
     },
     initTutorial(dialog){
         this._curIndex = 1;
         this._dialogData = dialog;
         this.show();
         this.freshenUI();
+
+        this._enableClick = false;
+        this._state = 0;
+        this.bubbling.hide();
+        this.dialog.active = true;
+        this.mask.active = true;
     },
     freshenUI(){
         this.content.string = this._dialogData[this._curIndex].Text;
@@ -59,23 +73,43 @@ cc.Class({
                 that._modelPlayer.position = cc.v2(0,0);
             });
         }
+
+        if(this._dialogData[this._curIndex].name != '')
+        {
+            this.playerName.string = this._dialogData[this._curIndex].name;
+        }
     },
     start () {
         var that = this;
         this.collide.on(cc.Node.EventType.TOUCH_START, function (event) {
-            that.next();
+            if(!that._enableClick)
+                that.next();
         }, this);
     },
     next(){
-        this._curIndex ++;
-        if(this._dialogData[this._curIndex] == null)
+        if(this._state == 0)
         {
-            this.hide();
-            this._Tutorialmgr.NextStep();
+            this._curIndex ++;
+            if(this._dialogData[this._curIndex] == null)
+            {
+                this.hide();
+                this._Tutorialmgr.NextStep();
+            }
+            else{
+                this.freshenUI();
+            }
         }
         else{
-            this.freshenUI();
+            this.bubbling.next();
         }
+    },
+    showBulling(id){
+        this._state = 1;
+        this.show();
+        this.bubbling.init(id,this);
+        this.bubbling.show();
+        this.dialog.active = false;
+        this.mask.active = false;
     }
     // update (dt) {},
 });

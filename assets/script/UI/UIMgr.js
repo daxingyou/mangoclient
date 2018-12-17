@@ -131,7 +131,7 @@ cc.Class({
                 go.parent = this.frontRoot;
             }
             else if(ui.type == 2){
-                go.parent = this.frontRoot;
+                go.parent = this.SecondRoot;
             }
             else {
                 go.parent = this.uiRoot;
@@ -254,6 +254,7 @@ cc.Class({
         }
 
         this._frontUI = null;
+        this.blurBg.node.active = false;
     },
       ///显示tips 
     showTips: function (str,pos) {
@@ -338,6 +339,9 @@ cc.Class({
             this._checkResetUINode(ui.type, uiDict[ui.id]);
             uiDict[ui.id].node.destroy();
             delete uiDict[ui.id];
+            if (ui.blurBg) {
+                this.blurBg.node.active = false;
+            }
         }
     },
 

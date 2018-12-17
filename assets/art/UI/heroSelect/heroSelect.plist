@@ -15,9 +15,9 @@
                 <key>spriteSourceSize</key>
                 <string>{171,96}</string>
                 <key>textureRect</key>
-                <string>{{184,370},{171,96}}</string>
+                <string>{{316,185},{171,96}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>hero_class_icon_bg.png</key>
             <dict>
@@ -30,7 +30,7 @@
                 <key>spriteSourceSize</key>
                 <string>{78,78}</string>
                 <key>textureRect</key>
-                <string>{{414,312},{78,78}}</string>
+                <string>{{268,344},{78,78}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -45,7 +45,7 @@
                 <key>spriteSourceSize</key>
                 <string>{78,78}</string>
                 <key>textureRect</key>
-                <string>{{414,392},{78,76}}</string>
+                <string>{{268,424},{78,76}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -60,7 +60,7 @@
                 <key>spriteSourceSize</key>
                 <string>{181,182}</string>
                 <key>textureRect</key>
-                <string>{{1,370},{181,182}}</string>
+                <string>{{316,1},{181,182}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -75,9 +75,9 @@
                 <key>spriteSourceSize</key>
                 <string>{130,132}</string>
                 <key>textureRect</key>
-                <string>{{282,345},{130,132}}</string>
+                <string>{{1,370},{130,132}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>hero_icon2.png</key>
             <dict>
@@ -90,24 +90,9 @@
                 <key>spriteSourceSize</key>
                 <string>{131,120}</string>
                 <key>textureRect</key>
-                <string>{{282,479},{131,120}}</string>
+                <string>{{135,370},{131,120}}</string>
                 <key>textureRotated</key>
                 <false/>
-            </dict>
-            <key>hero_list_bg1.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{342,61}</string>
-                <key>spriteSourceSize</key>
-                <string>{342,61}</string>
-                <key>textureRect</key>
-                <string>{{259,1},{342,61}}</string>
-                <key>textureRotated</key>
-                <true/>
             </dict>
             <key>hero_list_bg2.png</key>
             <dict>
@@ -120,24 +105,9 @@
                 <key>spriteSourceSize</key>
                 <string>{46,46}</string>
                 <key>textureRect</key>
-                <string>{{152,554},{46,46}}</string>
+                <string>{{456,341},{46,46}}</string>
                 <key>textureRotated</key>
                 <false/>
-            </dict>
-            <key>hero_list_bg_decorates.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{309,41}</string>
-                <key>spriteSourceSize</key>
-                <string>{309,41}</string>
-                <key>textureRect</key>
-                <string>{{383,1},{309,41}}</string>
-                <key>textureRotated</key>
-                <true/>
             </dict>
             <key>hero_list_frame1.png</key>
             <dict>
@@ -146,11 +116,11 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{342,59}</string>
+                <string>{341,55}</string>
                 <key>spriteSourceSize</key>
-                <string>{342,59}</string>
+                <string>{341,55}</string>
                 <key>textureRect</key>
-                <string>{{322,1},{342,59}}</string>
+                <string>{{259,1},{341,55}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -165,69 +135,24 @@
                 <key>spriteSourceSize</key>
                 <string>{304,26}</string>
                 <key>textureRect</key>
-                <string>{{426,1},{304,26}}</string>
+                <string>{{499,1},{304,26}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>hero_name_bg1.png</key>
+            <key>hero_name_bg.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{45,44}</string>
+                <string>{109,46}</string>
                 <key>spriteSourceSize</key>
-                <string>{45,44}</string>
+                <string>{109,46}</string>
                 <key>textureRect</key>
-                <string>{{454,51},{45,44}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>hero_name_bg2.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{39,39}</string>
-                <key>spriteSourceSize</key>
-                <string>{39,39}</string>
-                <key>textureRect</key>
-                <string>{{454,159},{39,39}}</string>
+                <string>{{316,283},{109,46}}</string>
                 <key>textureRotated</key>
                 <false/>
-            </dict>
-            <key>hero_name_bg_decorates.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{59,32}</string>
-                <key>spriteSourceSize</key>
-                <string>{59,32}</string>
-                <key>textureRect</key>
-                <string>{{454,98},{59,32}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>hero_name_bg_frame.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{48,44}</string>
-                <key>spriteSourceSize</key>
-                <string>{48,44}</string>
-                <key>textureRect</key>
-                <string>{{454,1},{48,44}}</string>
-                <key>textureRotated</key>
-                <true/>
             </dict>
             <key>mages_class_icon.png</key>
             <dict>
@@ -240,7 +165,7 @@
                 <key>spriteSourceSize</key>
                 <string>{48,47}</string>
                 <key>textureRect</key>
-                <string>{{102,554},{48,47}}</string>
+                <string>{{403,388},{48,47}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -255,7 +180,7 @@
                 <key>spriteSourceSize</key>
                 <string>{55,55}</string>
                 <key>textureRect</key>
-                <string>{{415,470},{55,55}}</string>
+                <string>{{348,331},{55,55}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -270,9 +195,9 @@
                 <key>spriteSourceSize</key>
                 <string>{49,45}</string>
                 <key>textureRect</key>
-                <string>{{55,554},{49,45}}</string>
+                <string>{{405,341},{49,45}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>minister_class_icon_select.png</key>
             <dict>
@@ -285,7 +210,7 @@
                 <key>spriteSourceSize</key>
                 <string>{56,53}</string>
                 <key>textureRect</key>
-                <string>{{415,527},{56,53}}</string>
+                <string>{{348,388},{56,53}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -315,9 +240,9 @@
                 <key>spriteSourceSize</key>
                 <string>{49,52}</string>
                 <key>textureRect</key>
-                <string>{{1,554},{49,52}}</string>
+                <string>{{348,446},{49,52}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>warrior_class_icon_select.png</key>
             <dict>
@@ -330,7 +255,7 @@
                 <key>spriteSourceSize</key>
                 <string>{56,59}</string>
                 <key>textureRect</key>
-                <string>{{200,543},{56,59}}</string>
+                <string>{{427,283},{56,59}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -346,9 +271,9 @@
             <key>realTextureFileName</key>
             <string>heroSelect.png</string>
             <key>size</key>
-            <string>{499,604}</string>
+            <string>{526,501}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:cf0f3e1de0786176fba56a4c9b7e6926:649cce470cf2af79805bc5230b05abd9:76a2cfdff18db07000188e82f15ef49c$</string>
+            <string>$TexturePacker:SmartUpdate:bc9ce811ef571dfe295976ae17935110:75f454655ab7aa856c1fe9d9ea2a2cfb:76a2cfdff18db07000188e82f15ef49c$</string>
             <key>textureFileName</key>
             <string>heroSelect.png</string>
         </dict>

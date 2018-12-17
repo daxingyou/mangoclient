@@ -23,7 +23,8 @@ module.exports = {
 		BaseAgile: 0,
 		InitialCard: 5,
 		InitialMP: 6,
-		InitialDrawPile: [100001,100001,100001,100001,100001,100001,100002,100002,100003,100003,100004,100004,100005]
+		InitialDrawPile: [100001,100001,100001,100001,100001,100001,100002,100002,100003,100003,100004,100004,100005],
+		Portrait: 'surongrong'
 	},
 	100002: {
 		ID: 100002,
@@ -44,7 +45,8 @@ module.exports = {
 		BaseAgile: 0,
 		InitialCard: 5,
 		InitialMP: 6,
-		InitialDrawPile: [100001,100001,100001,100001,100001,100001,100002,100002,100003,100003,100004,100004]
+		InitialDrawPile: [100001,100001,100001,100001,100001,100001,100002,100002,100003,100003,100004,100004],
+		Portrait: 'surongrong'
 	},
 	100003: {
 		ID: 100003,
@@ -65,7 +67,8 @@ module.exports = {
 		BaseAgile: 0,
 		InitialCard: 3,
 		InitialMP: 6,
-		InitialDrawPile: [100101,100101,100101,100101,100101,100101,100102,100102]
+		InitialDrawPile: [100101,100101,100101,100101,100101,100101,100102,100102],
+		Portrait: 'surongrong'
 	},
 	100004: {
 		ID: 100004,
@@ -86,7 +89,8 @@ module.exports = {
 		BaseAgile: 0,
 		InitialCard: 3,
 		InitialMP: 6,
-		InitialDrawPile: [100201,100201,100201,100201,100201,100201,100202,100202]
+		InitialDrawPile: [100201,100201,100201,100201,100201,100201,100202,100202],
+		Portrait: 'surongrong'
 	},
 	100005: {
 		ID: 100005,
@@ -107,7 +111,8 @@ module.exports = {
 		BaseAgile: 0,
 		InitialCard: 3,
 		InitialMP: 6,
-		InitialDrawPile: [100301,100301,100301,100301,100301,100301,100302,100302]
+		InitialDrawPile: [100301,100301,100301,100301,100301,100301,100302,100302],
+		Portrait: 'surongrong'
 	},
 	100011: {
 		ID: 100011,
@@ -128,7 +133,8 @@ module.exports = {
 		BaseAgile: 0,
 		InitialCard: 3,
 		InitialMP: 6,
-		InitialDrawPile: [101101,101101,101101,101101,101102,101102]
+		InitialDrawPile: [101101,101101,101101,101101,101102,101102],
+		Portrait: 'surongrong'
 	},
 	100012: {
 		ID: 100012,
@@ -149,7 +155,8 @@ module.exports = {
 		BaseAgile: 0,
 		InitialCard: 3,
 		InitialMP: 6,
-		InitialDrawPile: [101201,101201,101201,101201,101201,101201,101202,101202,101203,101203]
+		InitialDrawPile: [101201,101201,101201,101201,101201,101201,101202,101202,101203,101203],
+		Portrait: 'surongrong'
 	},
 	100013: {
 		ID: 100013,
@@ -170,13 +177,14 @@ module.exports = {
 		BaseAgile: 0,
 		InitialCard: 3,
 		InitialMP: 6,
-		InitialDrawPile: [101301,101301,101301,101301,101301,101301,101302,101302,101303,101303]
+		InitialDrawPile: [101301,101301,101301,101301,101301,101301,101302,101302,101303,101303],
+		Portrait: 'jinbanhua'
 	},
 	100014: {
 		ID: 100014,
 		Name: '英万里',
 		Type: 'Boss',
-		Model: 'Hero/crocodile',
+		Model: 'Hero/jinbanhua',
 		Shadow: [340,30],
 		HitPoint: [50,50],
 		TargetFrame: {"x1":-120,"y1":-20,"x2":120,"y2":-20,"x3":-120,"y3":320,"x4":120,"y4":320},
@@ -191,6 +199,29 @@ module.exports = {
 		BaseAgile: 0,
 		InitialCard: 3,
 		InitialMP: 6,
-		InitialDrawPile: [101401,101401,101401,101401,101401,101401,101402,101402,101402,101404,101404,101405,101405]
+		InitialDrawPile: [101401,101401,101401,101401,101401,101401,101402,101402,101402,101404,101404,101405,101405],
+		Portrait: 'surongrong'
+	},
+	100021: {
+		ID: 100021,
+		Name: '黑衣人',
+		Type: 'Boss',
+		Model: 'Hero/jinbanhua',
+		Shadow: [340,30],
+		HitPoint: [50,50],
+		TargetFrame: {"x1":-120,"y1":-20,"x2":120,"y2":-20,"x3":-120,"y3":320,"x4":120,"y4":320},
+		Level: 1,
+		MaxHP: 1000,
+		MaxMP: 10,
+		MaxThew: 10,
+		BaseArmor: 0,
+		BaseStrength: 0,
+		BaseStamina: 0,
+		BaseIntellect: 0,
+		BaseAgile: 0,
+		InitialCard: 3,
+		InitialMP: 6,
+		InitialDrawPile: [102102,102103,102103,102103,102104,102104,102104,102105],
+		Portrait: 'surongrong'
 	},
 };

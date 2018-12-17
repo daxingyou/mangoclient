@@ -2,7 +2,7 @@ var uibase = require('UIBase')
 var net = require("NetPomelo")
 var ignoreTeamInviteProto = require('ignoreTeamInviteProto')
 var inviteProto = require("inviteProto")
-var teamData = require('teamData')
+var playerData = require('playerData')
 var consts = require('consts')
 cc.Class({
     extends: uibase,
@@ -103,9 +103,10 @@ cc.Class({
         this.checkObjLen(self._eid);
     },
     checkObjLen (id) {
-        delete(teamData.onForTeamInvited[id]);
+        let teamData = playerData.teamData;
+        delete(teamData.applyList[id]);
         this._parents._remove(this._curIndex);
-        if (Object.keys(teamData.onForTeamInvited).length == 0 && this._hide == null) {
+        if (Object.keys(teamData.applyList).length == 0 && this._hide == null) {
             this._parents.hide();
         }
         if (this._hide != null) {

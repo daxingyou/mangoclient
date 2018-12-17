@@ -1,276 +1,257 @@
 var uibase = require('UIBase')
-var constant = require('constants')
 var net = require('NetPomelo')
-var matchProto = require('matchProto')
-var unmatchProto = require('unmatchProto')
 var consts = require('consts')
-var selectHeroProto = require('selectHeroProto')
-var confirmHeroProto = require('confirmHeroProto')
-var hero = require('confirmHeroProto')
 var dataMgr = require('DataMgr')
-var dataCenter = require('DataCenter')
-var hero = require('Hero')
-var teamRaidSelectHeroProto = require('teamRaidSelectHeroProto')
-var teamRaidConfirmHeroProto = require('teamRaidConfirmHeroProto')
 var playerData = require('playerData')
-var fightData = require('fightData')
+let loadRes = require('LoadRes');
+let constTpl = require('Constant');
+let eventMgr = require('eventMgr');
 
 cc.Class({
     extends: uibase,
 
     properties: {
-        showSelect:cc.Node,
-        comfirmCount:cc.Label,
-        showOwnHero:cc.Node,
-        _ownHeroBar:[],
-        showSelectHero:cc.Sprite,
-        heroIconAtlas : cc.SpriteAtlas,
-        _CDState:false,
-        colorBar:[],
-        teamer0:cc.Node,
-        teamer1:cc.Node,
-        teamer2:cc.Node,
-        teamer3:cc.Node,
-        teamerBar:[],
-        teamA:null,
-        teamB:null,
-        isTeamA:false,
+        showSelect: cc.Node,
+        comfirmCount: cc.Label,
+        showOwnHero: cc.Node,
+        heroIconAtlas: cc.SpriteAtlas,
+        _CDState: false,
 
-        heroName:cc.Label,
-        raidTeamInfo:null,
-        _isRaid:false,
-        heroAtt: cc.SpriteAtlas,
-        attLight1:cc.Node,
-        attLight2:cc.Node,
-        attLight3:cc.Node,
-        _selectedIdx: -1,
-       
+        heroName: cc.Label,
+        modelPos: cc.Node,
+        teamer: cc.Node,
+        confirmBtn: cc.Button,
+        ownHeroPrefab: cc.Prefab,
     },
 
-
-     onLoad () {
-       var self = this;
-       var resIndex = 0;
-       cc.loader.loadRes('UI/buildTeam/ownHero', function (errorMessage, loadedResource) {
-           for (let i in hero) {
-               var itemData = hero[i];
-               if (errorMessage) {
-                   cc.log('载入预制资源失败, 原因:' + errorMessage);
-                   return;
-               }
-               let item = cc.instantiate(loadedResource);
-               resIndex++;
-               self.showOwnHero.addChild(item);
-               self._ownHeroBar.push(item.getComponent('ownHero'));
-               self._ownHeroBar[resIndex-1].initData(resIndex-1,itemData.ID,itemData.HeroName,itemData.HeroIcon,self);
-               //heroid,heroName,heroIcon,parents
-           }
-       });
-     },
-    
-
-    start () {
-       
-    },
-
-    storeShowNode (uid4ShowNode) {
-        this._uid4ShowNode = {};
-        this._uid4ShowNode = uid4ShowNode;
+    onLoad() {
+        this._super();
+        this._heroid = 0;
+        this._curSelected = null;
+        this._curModel = null;
+        this._confirm = false; // 已经确认
+        let self = this;
+        let ownHeros = playerData.heroData.ownHeros;
+        for (let heroid in ownHeros) {
+            let item = cc.instantiate(this.ownHeroPrefab);
+            self.showOwnHero.addChild(item);
+            item.getComponent('ownHero').initData(heroid, this);
+            item.on('click', self.selectHero, self);
+        }
         this.showSelect.active = false;
-        this.cdTime = 60;
+
+        eventMgr.on(eventMgr.events.EventHeroSelectDone, this._onHeroSelectDone, this);
+    },
+
+    onDestroy() {
+        eventMgr.off(eventMgr.events.EventHeroSelectDone, this._onHeroSelectDone);
+    },
+
+    _onHeroSelectDone() {
+        this.cdTime = constTpl.ReadyStartTimer;
         this._CDState = true;
     },
 
-    initData (teamA,teamB) {
-        var self = this;
-        self.isTeamA = false;//默认队B
-        
-        for (let i=0;i< teamA.length;i++) {
-           
-            if (teamA[i].uid == playerData.id) {
-                self.isTeamA = true;
-                self.comfirmTeam(teamA);
-            }  
+    initData(teamA, teamB, teamType, unconfirm) {
+        this._teamType = teamType;
+        if (this._teamType === consts.Team.TYPE_LADDER ||
+            this._teamType === consts.Team.TYPE_PRACTICE) {
+            this.cdTime = constTpl.ReadyTimer;
+            this._CDState = true;
         }
-        for (let j=0;j < teamB.length;j++) {
-            if (teamB[j].uid == playerData.id) {
-                self.isTeamA = false;
-                self.comfirmTeam(teamB);
-            }  
+        else if (this._teamType === consts.Team.TYPE_RAID) {
+            this.cdTime = 60;
+            this._CDState = true;
+        }
+        let team;
+        for (let i = 0; i < teamA.length; i++) {
+            if (teamA[i].uid == playerData.id) {
+                team = teamA;
+                break;
+            }
+        }
+        if (!team) {
+            team = teamB;
+        }
+        // 更新未确认（重连）
+        if (unconfirm) {
+            if (unconfirm.indexOf(playerData.id) === -1) {
+                this.setConfirmed();
+            }
+            for (let member of team) {
+                if (unconfirm.indexOf(member.uid) !== -1)
+                    member.unconfirm = 1;
+            }
+        }
+        this.initTeam(team);
+    },
+
+    initDataByReconnect(teamA, teamB, teamType, unconfirm, leftTime) {
+        this.initData(teamA, teamB, teamType, unconfirm);
+        this.cdTime = Math.floor(leftTime / 1000);
+    },
+
+    _getPosList(num) {
+        let startPos = this.teamer.position, posList = [],
+            itemHeight = this.teamer.getContentSize().height;
+        if (num % 2 === 1) {  // 奇数
+            startPos = new cc.Vec2(startPos.x, startPos.y - itemHeight / 2);
+            posList.push(startPos);
+            for (let i = 1; i < Math.ceil(num / 2); i++) {
+                posList.push(new cc.Vec2(startPos.x, startPos.y + itemHeight * i));
+                posList.push(new cc.Vec2(startPos.x, startPos.y - itemHeight * i));
+            }
+        }
+        else {
+            posList.push(startPos);
+            posList.push(new cc.Vec2(startPos.x, startPos.y - itemHeight));
+            for (let i = 1; i < Math.ceil(num / 2); i++) {
+                posList.push(new cc.Vec2(startPos.x, startPos.y + itemHeight * i));
+                posList.push(new cc.Vec2(startPos.x, startPos.y - itemHeight * (i + 1)));
+            }
+        }
+        posList.sort(function (a, b) {
+            return b.y - a.y;
+        });
+        return posList;
+    },
+
+    initTeam(team) {
+        let teamNum = team.length;
+        let posList = this._getPosList(teamNum), parent = this.teamer.parent;
+        for (let i = 0; i < teamNum; i++) {
+            let item = cc.instantiate(this.teamer);
+            item.active = true;
+            item.position = posList[i];
+            item.parent = parent;
+            item.getComponent('selectedTeamer').initData(team[i]);
         }
     },
 
-    comfirmTeam (team) {
-        let showNode = {};
-        for (let k=0 ; k<team.length;k++) {
-            showNode[team[k].uid] = this["teamer" + k];
+    _setSelectedHero(selectedComp) {
+        if (this._curSelected) {
+            this._curSelected.setSelected(false);
         }
-        this.storeShowNode(showNode);
-        if (team.length == 2) {
-            this.teamer3.active = false;
-            this.teamer2.active = false;
-            this._isRaid = true;
-        } 
+        this._curSelected = selectedComp;
+        this._curSelected.setSelected(true);
+
+        this.showSelect.active = true;
+        let heroid = this._curSelected.getHeroid();
+        this._heroid = heroid;
+        let heroConfig = dataMgr.hero[heroid];
+        this.heroName.string = heroConfig.HeroName;
+        // 英雄模型
+        loadRes.load(heroConfig.HeroModel, false, (res) => {
+            let go = cc.instantiate(res);
+            go.parent = this.modelPos;
+            go.position = cc.Vec2.ZERO;
+            go.scale = 2;
+            if (this._curModel) {
+                this._curModel.destroy();
+            }
+            this._curModel = go;
+        })
+        eventMgr.emit(eventMgr.events.EventTeamerSelectHero, playerData.id, heroid);
+    },
+
+    // 英雄头像回调接口
+    setSelectedHero(selectedComp) {
+        if (this._curSelected === selectedComp)
+            return;
+        this._setSelectedHero(selectedComp);
     },
 
     //自己选择得英雄
-    selectHero (heroid,index) {
-        if (this._selectedIdx >= 0) {
-            this._ownHeroBar[this._selectedIdx].unSelect();
-        }
-        this._selectedIdx = index;
-        this.showSelect.active = true;
-        let heroData = dataMgr.hero[heroid];
-        let heroIcon = heroData.HeroIcon;
-        let heroModel = heroData.HeroModel;
-        let manModel = this.node.getChildByName('center').getChildByName('man');
-        let womanModel = this.node.getChildByName('center').getChildByName('woman');
-        if (heroModel == "Hero/jing") {
-           manModel.active = true;
-           womanModel.active = false;
-        }
-        else if (heroModel == "Hero/snow"){
-            manModel.active = false;
-            womanModel.active = true;
-        }
-      //  this.showSelectHero.spriteFrame = this.heroIconAtlas.getSpriteFrame(heroIcon);
-        this.heroName.string = heroData.HeroName;
-        fightData.userName = heroData.HeroName;
-        this._heroid = heroid;
-        var showNode = this._uid4ShowNode[playerData.id];
-        showNode.active = true;
-        let heroName =  showNode.getChildByName("heroName");
-        var icon = showNode.getChildByName("heroImg");
-        heroName.getComponent(cc.Label).string = heroData.HeroName;
-        icon.getComponent(cc.Sprite).spriteFrame = this.heroIconAtlas.getSpriteFrame(heroIcon);
-
-        if (this._isRaid) {//副本
-            net.Request(new teamRaidSelectHeroProto(heroid), (data) => {
-                cc.log("组队副本选择英雄",data);
-            });
-        }
-        else {//普通组队
-            net.Request(new selectHeroProto(heroid), (data) => {
-                cc.log("4v4组队选择英雄",data);
+    selectHero(event) {
+        if (this._confirm)
+            return;
+        let btn = event.detail;
+        let selected = btn.getComponent('ownHero');
+        if (this._curSelected === selected)
+            return;
+        if (selected.isSelected())
+            return;
+        let heroid = selected.getHeroid();
+        if (this._teamType === consts.Team.TYPE_LADDER ||
+            this._teamType === consts.Team.TYPE_PRACTICE) {
+            net.requestWithCallback('selectHeroProto', heroid, (data) => {
+                cc.log("4v4组队选择英雄", data);
+                let code = data.code;
+                if (code === consts.SelectHeroCode.OK) {
+                    this._setSelectedHero(selected);
+                }
             })
         }
-    },
-
-      //确认英雄
-      comfirmHero () {
-        if (this._isRaid) {
-            net.Request(new teamRaidConfirmHeroProto(this._heroid), (data) => {
-                cc.log("组队副本确认英雄",data);
-            });
-        }
-        else {
-            net.Request(new confirmHeroProto(this._heroid), (data) => {
-                cc.log("4V4组队确认英雄",data);
-            });
-        }
-        let showNode = this._uid4ShowNode[playerData.id];
-        let comfirmTips = showNode.getChildByName("comfirm");
-        comfirmTips.active = true;
-        this._CDState = false;
-    },
-
-    //超时默认服务器选择英雄
-    defalutSelect (data) {
-        for (let uid in data) {
-            if (this._uid4ShowNode[uid] != undefined) {
-                var showNode = this._uid4ShowNode[uid];
-                showNode.active = true;
-                let heroData = dataMgr.hero[data[uid]];
-                let heroIcon = heroData.HeroIcon;
-                let icon = showNode.getChildByName("heroImg");
-                let heroName =  showNode.getChildByName("heroName");
-                let comfirmTips = showNode.getChildByName("comfirm");
-                icon.getComponent(cc.Sprite).spriteFrame = this.heroIconAtlas.getSpriteFrame(heroIcon);
-                heroName.getComponent(cc.Label).string = heroData.HeroName; 
-                comfirmTips.active = true;
-                if (uid == playerData.id) {
-                    fightData.userName = heroData.HeroName; 
+        else if (this._teamType === consts.Team.TYPE_RAID) {//副本
+            net.requestWithCallback('teamRaidSelectHeroProto', heroid, (data) => {
+                cc.log("组队副本选择英雄", data);
+                let code = data.code;
+                if (code === consts.SelectHeroCode.OK) {
+                    this._setSelectedHero(selected);
                 }
-            }
+            });
+        }
+        // fightData.userName = heroData.HeroName;
+    },
+
+    //确认英雄
+    comfirmHero() {
+        if (!this._heroid)
+            return;
+        let heroid = this._heroid;
+        if (this._teamType === consts.Team.TYPE_LADDER ||
+            this._teamType === consts.Team.TYPE_PRACTICE) {
+            net.requestWithCallback('confirmHeroProto', heroid, (data) => {
+                cc.log("4v4组队确认英雄", data);
+                if (data.code === consts.Code.OK) {
+                    this.setConfirmed();
+                    eventMgr.emit(eventMgr.events.EventTeamerConfirmHero, playerData.id, heroid);
+                }
+            });
+        }
+        else if (this._teamType === consts.Team.TYPE_RAID) {
+            net.requestWithCallback('teamRaidConfirmHeroProto', heroid, (data) => {
+                cc.log("组队副本确认英雄", data);
+                if (data.code === consts.Code.OK) {
+                    this.setConfirmed();
+                    eventMgr.emit(eventMgr.events.EventTeamerConfirmHero, playerData.id, heroid);
+                }
+            });
         }
     },
 
-
-    //展示队友选择得英雄
-    showTeamerSelect (data) {
-        cc.log("队友选择的英雄",data,data.uid,data.heroid);
-        let heroid = data.heroid;
-        let heroData = dataMgr.hero[data.heroid];
-        let heroIcon = heroData.HeroIcon;
-        let showNode = this._uid4ShowNode[data.uid];
-        let icon = showNode.getChildByName("heroImg");
-        let comfirmTips = showNode.getChildByName("comfirm");
-        comfirmTips.active = true;
-        icon.getComponent(cc.Sprite).spriteFrame = this.heroIconAtlas.getSpriteFrame(heroIcon);
-        let heroName =  showNode.getChildByName("heroName");
-        heroName.getComponent(cc.Label).string = heroData.HeroName;
+    setConfirmed() {
+        this._confirm = true;
+        this.confirmBtn.interactable = false;
+        let children = this.confirmBtn.node.children;
+        for (let i = 0; i < children.length; i++) {
+            if (children[i].getComponent(cc.Sprite))
+                children[i].getComponent(cc.Sprite)._sgNode.setState(1);
+        }
     },
 
-  
-
-    //展示队友确认英雄
-    showTeamerComfirm (data) {
-        let showNode = this._uid4ShowNode[data.uid];
-        let comfirmTips = showNode.getChildByName("comfirm");
-        comfirmTips.active = true;
-    },
-   
-    pickHeroAtt(event,cust) {
+    pickHeroAtt(event, cust) {
         cc.log("选择英雄属性");
         let index = parseInt(cust);
         this.heroAttribute = index;
-
-        if (index == 1) {
-            this.attLight1.active = true;
-            this.attLight2.active = false;
-            this.attLight3.active = false;
-        }
-        else if (index == 2) {
-            this.attLight1.active = false;
-            this.attLight2.active = true;
-            this.attLight3.active = false;
-        }
-        else if (index == 3) {
-            this.attLight1.active = false;
-            this.attLight2.active = false;
-            this.attLight3.active = true;
-        }
-
     },
 
-    enterCardGroup () {
-        var uimgr = cc.find('Canvas').getComponent('UIMgr');
-        uimgr.loadUI(constant.UI.CardGroup,function(data){
-        });
+    enterCardGroup() {
+
     },
 
     enterTreasure() {
-        var uimgr = cc.find('Canvas').getComponent('UIMgr');
-        uimgr.loadUI(constant.UI.Treasure,function(data){
-    });
+
     },
 
-    //存副本队伍信息
-    storeRaidTeamInfo (data) {
-        this.comfirmTeam(data);
-    },
-     
-
-    update (dt) {
-        if (this._CDState) {  
-            this.cdTime -=dt;
-            var  temp = Math.floor(this.cdTime);
-            if (temp == 0 ) {
+    update(dt) {
+        if (this._CDState) {
+            this.cdTime -= dt;
+            var temp = Math.max(Math.floor(this.cdTime), 0);
+            if (temp == 0) {
                 this._CDState = false;
             }
-            if (this.comfirmCount == undefined)
-            return;
             this.comfirmCount.string = temp;
         }
-     },
+    },
 });

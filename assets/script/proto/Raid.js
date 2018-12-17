@@ -19,6 +19,15 @@ module.exports = {
 "7":{"cardcount":1, "room_id":7}},
 		Icon: 'dilingbiyou'
 	},
+	2: {
+		ID: 2,
+		Name: '黑衣剑客',
+		RequirePlayers: 1,
+		RequireLevel: 0,
+		TotalCount: 1,
+		Rooms: {"1":{"cardcount":1, "room_id":21},},
+		Icon: 'dilingbiyou'
+	},
 	101: {
 		ID: 101,
 		Name: '月河河洞',

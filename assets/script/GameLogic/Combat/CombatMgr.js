@@ -12,6 +12,7 @@ var TutorialCombat = require('TutorialCombat')
 var playCardMessage = require('playCardProto')
 let net = require('NetPomelo')
 var gameData = require('DataCenter')
+let eventMgr = require('eventMgr');
 
 var CombatMgr = {
     curCombat: null,
@@ -19,6 +20,7 @@ var CombatMgr = {
     loadBegin: true,
     fightDamage: null,
     teamInfo: null,  // 数据
+    loadProgress: {},
 
     initCombat: function (data) {
         let teamType = data.teamType;
@@ -34,7 +36,7 @@ var CombatMgr = {
             case consts.Team.TYPE_TUTORIAL:
                 this.curCombat = new TutorialCombat(data);
                 break;
-            default: 
+            default:
                 this.curCombat = new PVECombat(data);
         }
 
@@ -42,6 +44,17 @@ var CombatMgr = {
         this.teamInfo = data.teamInfo;
         this.fightDamage = {};
         this.curCombat.init(data);
+    },
+    setTeamInfo: function (teamInfo) {
+        this.teamInfo = teamInfo;
+    },
+    // 加载进度
+    setLoadProgress: function (uid, progress) {
+        this.loadProgress[uid] = progress;
+        eventMgr.emit(eventMgr.events.EventCombatLoadProgress, uid, progress);
+    },
+    getLoadProgress: function (uid) {
+        return this.loadProgress[uid] || 0;
     },
     //存储技能伤害
     addFightDamage: function (attackerID, sid, oriDamage) {
@@ -74,25 +87,32 @@ var CombatMgr = {
         let self = this;
         switch (status) {
             case consts.DungeonStatus.IN_SELECT_HERO:   // 选角中
-                uimgr.loadUI(constant.UI.Match, function (data) {
-                    data.showSelect();
-                    data.selectScr.initData(data.teamA, data.unconfirm, data.leftTime);
+                // uimgr.release();
+                uimgr.loadUI(constant.UI.PickHero, function (script) {
+                    script.initDataByReconnect(
+                        data.teamInfo.teamA, data.teamInfo.teamB,
+                        data.teamType, data.unconfirm, data.leftTime);
                 });
                 break;
             case consts.DungeonStatus.IN_BEFORE_LOAD_CD:    // 加载前倒计时
-                // var  uimgr = cc.find('Canvas').getComponent('UIMgr');
-                uimgr.loadUI(constant.UI.Login);
+                // uimgr.release();
+                uimgr.loadUI(constant.UI.PickHero, function (script) {
+                    script.initDataByReconnect(
+                        data.teamInfo.teamA, data.teamInfo.teamB,
+                        data.teamType, [], data.leftTime);
+                });
                 break;
             case consts.DungeonStatus.IN_LOAD:    // 加载前倒计时
                 //新手战斗直接进战斗？不出加载？暂时先这样
-                if (this.curCombat.teamType === consts.Team.TYPE_TUTORIAL)
+                if (data.teamType === consts.Team.TYPE_TUTORIAL)
                     return;
 
-                var projess = data.loadMemProgress;
-                for (let i in projess) {
-                    gameData.otherLoadRes[i] = projess[i];
+                let projess = data.loadMemProgress;
+                for (let uid in projess) {
+                    this.setLoadProgress(uid, projess[uid]);
                 }
-                uimgr.loadUI(constant.UI.UploadProjess, function (res) {
+                self.setTeamInfo(data.teamInfo);
+                uimgr.loadUI(constant.UI.CombatLoading, function (res) {
                     self.initCombat(data);
                     uimgr.loadUI(constant.UI.Fight, function (res) {
                         res.initData(() => {
@@ -101,14 +121,15 @@ var CombatMgr = {
                         });
                     });
                 });
+                break;
             case consts.DungeonStatus.IN_FIGHT:    // 战斗中
-                uimgr.loadUI(constant.UI.UploadProjess, function (res) {
+                self.setTeamInfo(data.teamInfo);
+                uimgr.loadUI(constant.UI.CombatLoading, function (res) {
                     self.initCombat(data);
                     uimgr.loadUI(constant.UI.Fight, function (res) {
                         res.initData(() => {
-                            var ui = uimgr.getUI(constant.UI.UploadProjess);
-                            ui.hide();
-                            
+                            uimgr.removeUI(constant.UI.CombatLoading);
+
                             res.is_chongLian = true;
                             res.min_time = parseInt(data.leftTime / 60000);
                             res.sec_time = parseInt(data.leftTime / 1000) % 60;
@@ -117,6 +138,7 @@ var CombatMgr = {
                         });
                     });
                 });
+                break;
         }
     },
     setMatrix: function (group) {
@@ -194,16 +216,28 @@ var CombatMgr = {
         }
     },
     UsePile: function (CombatUnit, idx, target, targets, curCardid, curObjective) {
-        let targetID = curObjective == constant.SkillTargetType.SINGEL ? target.uid : '';
-        if (CombatUnit.handsPile[idx].Enable(idx, targetID)) {
-            net.Request(new playCardMessage(idx, curCardid, targetID));
+        if(this.curCombat.teamType == consts.Team.TYPE_TUTORIAL)
+        {
+            var targetss = new Array();
+            targetss[1] = target;
             
-            cc.log('GameLogic里面的Card');
+            CombatUnit.onUseCard(this.curCombat.useCard(CombatUnit,idx,curCardid));
+            CombatUnit.useSkill(this.curCombat.useSkill(CombatUnit.uid,target.uid,curCardid), targetss);
+        }
+        else
+        {
+            let targetID = curObjective == constant.SkillTargetType.SINGEL ? target.uid : '';
+            if (CombatUnit.handsPile[idx].Enable(idx, targetID)) {
+                net.Request(new playCardMessage(idx, curCardid, targetID));
+    
+                cc.log('GameLogic里面的Card');
+            }
         }
     },
     Release: function () {
         if (this.curCombat)
             this.curCombat.Release();
+        this.loadProgress = {};
     }
 }
 

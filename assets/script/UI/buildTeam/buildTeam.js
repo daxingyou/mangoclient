@@ -7,13 +7,13 @@ var kickTeamMemberProto = require('kickTeamMemberProto')
 var leaveTeamProto = require('leaveTeamProto')
 var setTeamReadyOffProto = require('setTeamReadyOffProto')
 var setTeamReadyOnProto = require('setTeamReadyOnProto')
-var beginTeamMatchProto = require('beginTeamMatchProto')
 var inviteProto = require("inviteProto")
 var unmatchProto = require('unmatchProto')
-var teamData = require('teamData')
 var eventMgr = require('eventMgr')
 var playerData = require('playerData')
 var fightData = require('fightData')
+let loadRes = require('LoadRes');
+
 cc.Class({
     extends: uibase,
 
@@ -63,43 +63,41 @@ cc.Class({
 
     },
 
-
-
-
     onLoad() {
+        this._super();
         for (let i = 0; i < 4; i++) {
             this.rolesBar.push(this["role" + i]);
         }
-        this._uimgr = cc.find('Canvas').getComponent('UIMgr');
 
         if (cc.sys.platform == cc.sys.WECHAT_GAME) {
             this.tex = new cc.Texture2D();
             this.WeChatclick();
         }
 
-    },
-
-    start() {
-        eventMgr.on("onRefreshTeam", this.refreshTeam, this);
-        eventMgr.on("onTeamBeKicked", this.onTeamBeKicked, this);
-        eventMgr.on("onTeamReadyStateChange", this.teamReadyStateChange, this);
+        eventMgr.on(eventMgr.events.EventTeamUpdate, this.refreshTeam, this);
+        eventMgr.on(eventMgr.events.EventTeamBeKicked, this.onTeamBeKicked, this);
+        eventMgr.on(eventMgr.events.EventTeamReadyChanged, this.teamReadyStateChange, this);
         eventMgr.on("onBeginMatch", this.showFloatWait, this);
         eventMgr.on("TeamInvited", this.teamInvited, this);//暂时被挂起,
         eventMgr.on("forTeamInvited", this.forTeamInvited, this);//求邀请暂时被挂起,
+    },
 
-        if (teamData.refreshTeam != null) {
+    start() {
+        let teamData = playerData.teamData;
+        if (teamData.members.length > 0) {
             this.refreshTeam();
         }
 
-        if (teamData.onTeamInvited.length != 0) {////存在邀请我的列表
+        if (teamData.getInvitedListLength() != 0) {////存在邀请我的列表
             this.teamInvited();
         }
-
+        this.initFriendList();
+        this.laodFriendList();
     },
 
     //邀请信息提示
     teamInvited() {
-        let num = teamData.onTeamInvited.length;
+        let num = playerData.teamData.getInvitedListLength();
         this.invitedTips.active = true;
         this.invitedHotNode.active = true;
         this.invitedTips.getComponent(cc.Label).string = num;
@@ -107,7 +105,7 @@ cc.Class({
 
     //求邀请信息提示
     forTeamInvited() {
-        let num = Object.keys(teamData.onForTeamInvited).length;
+        let num = Object.keys(playerData.teamData.applyList).length;
         if (num == 0) {
             this.showApplyList.active = false;
             this.beInvitedTips.active = false;
@@ -123,7 +121,6 @@ cc.Class({
 
     //显示求邀请我的列表
     clickBeInvited() {
-        cc.log("显示求邀请我的列表", teamData.onForTeamInvited);
         if (this.beInvitedTips.active) {
             this.showApplyList.active = true;
             this.content = this.showApplyList.getChildByName('view').getChildByName('content');
@@ -132,7 +129,7 @@ cc.Class({
             let resIndex = 0;
             self._forInvitedMe = [];
             cc.loader.loadRes('UI/buildTeam/forInvitedMe', function (errorMessage, loadedResource) {
-                let beinvited = teamData.onForTeamInvited;
+                let beinvited = playerData.teamData.applyList;
                 for (let id in beinvited) {
                     let itemData = beinvited[id];
                     if (errorMessage) {
@@ -159,11 +156,8 @@ cc.Class({
         }
     },
 
-
-
     //显示邀请我的列表
     clickInvited() {
-        cc.log("显示邀请我的列表", teamData.onTeamInvited);
         if (this.invitedTips.active) {
             this.showApplyList.active = true;
             this.content = this.showApplyList.getChildByName('view').getChildByName('content');
@@ -172,9 +166,9 @@ cc.Class({
             let resIndex = 0;
             self._invitedBar = [];
             cc.loader.loadRes('UI/buildTeam/invitedMe', function (errorMessage, loadedResource) {
-                let invited = teamData.onTeamInvited;
-                for (let i = 0; i < invited.length; i++) {
-                    let itemData = invited[i];
+                let invited = playerData.teamData.invitedList, i = 0;
+                for (let uid in invited) {
+                    let itemData = invited[uid];
                     if (errorMessage) {
                         cc.log('载入预制资源失败, 原因:' + errorMessage);
                         return;
@@ -187,6 +181,7 @@ cc.Class({
                     if (resIndex == invited.length) {
                         cc.loader.release('UI/BuildTeam/invitedMe');
                     }
+                    i++;
                 }
             });
         }
@@ -222,23 +217,19 @@ cc.Class({
 
     //刷新队友成员
     refreshTeam() {
-        cc.log("成员信息", teamData.refreshTeam)
+        let teamData = playerData.teamData;
         this._membersData = [];
-        this.teamId = teamData.refreshTeam.teamId;
+        this.teamId = teamData.teamId;
         if (this.teamId == '') {
-            this._uimgr.release();
-            this._uimgr.loadUI(constant.UI.CommonTop, (data) => {
-                data.initBackBtn(null, null);
-                data.changeTitle("对弈亭");
-            });
-            this._uimgr.loadUI(constant.UI.ShowList, data => {
+            this._uiMgr.release();
+            this._uiMgr.loadUI(constant.UI.ShowList, data => {
                 data.init();
             });
             return;
         }
-        let item = teamData.refreshTeam.members;
+        let item = teamData.members;
         let len = item.length;
-        let teamType = teamData.refreshTeam.teamType;
+        let teamType = teamData.teamType;
         for (let i = 0; i < 4; i++) {
             this.rolesBar[i].active = false;
             if (item[0].id == playerData.id) {//  //是队长显示开始匹配按钮
@@ -299,18 +290,14 @@ cc.Class({
                 net.Request(new leaveTeamProto(item[i].id), (data) => {
                     cc.log("离开队伍", data);
                 });
-                self._uimgr.loadUI(constant.UI.ShowList, data => {
+                self._uiMgr.loadUI(constant.UI.ShowList, data => {
                     data.init();
-                    self._uimgr.loadUI(constant.UI.CommonTop, (data) => {
-                        data.initBackBtn(null, null);
-                        data.changeTitle("对弈亭");
-                    });
                 }
                 );
             }
 
             if (len > 1) {
-                self._uimgr.popupTips(1, "确定要退出吗", "提示", null, null, comfirm, self);
+                self._uiMgr.popupTips(1, "确定要退出吗", "提示", null, null, comfirm, self);
             }
             else {
                 net.Request(new leaveTeamProto(item[i].id), (data) => {
@@ -319,27 +306,21 @@ cc.Class({
                 self.onTeamBeKicked();
             }
         };
-        self._uimgr.loadUI(constant.UI.CommonTop, (data) => {
-            data.initBackBtn(backShowListUI, self);
-            data.changeTitle(titleText);
-        });
+        self.addCommonBackBtn(titleText, backShowListUI);
     },
-
 
     //被提出队伍 or 自己离开队伍
     onTeamBeKicked() {
         var self = this;
-        self._uimgr.loadUI(constant.UI.ShowList, data => { data.init(); });
-        self._uimgr.loadUI(constant.UI.CommonTop, (data) => {
+        self._uiMgr.loadUI(constant.UI.ShowList, data => { data.init(); });
+        self._uiMgr.loadUI(constant.UI.CommonTop, (data) => {
             data.initBackBtn(null, null);
             data.changeTitle("对弈亭");
         });
     },
 
     //成员状态变更
-    teamReadyStateChange() {
-        let id = teamData.TeamReadyState.id;
-        let ready = teamData.TeamReadyState.ready;
+    teamReadyStateChange(id, ready) {
         for (let i = 0; i < 4; i++) {
             if (i < this._membersData.length && this._membersData[i].id == id) {
                 if (ready == 0) {
@@ -377,13 +358,12 @@ cc.Class({
     initFriendList() {
         this.showGameFriend.removeAllChildren();
         this._showGameFriend = [];
-        this._header = false;
+        // this._header = false;
         this._membersData = [];
     },
 
     //加载好友
     laodFriendList() {
-        var resIndex = 0;
         var self = this;
         self.showGameFriend.removeAllChildren();
         self._showGameFriend = [];
@@ -392,26 +372,18 @@ cc.Class({
             self._refreshFriendState = false;
             return;
         }
-        cc.loader.loadRes('UI/Friend/canInviteFriend', function (errorMessage, loadedResource) {
-            for (var i = 0; i < friends.length; i++) {
-                var itemData = friends[i];
-                if (errorMessage) {
-                    cc.log('载入预制资源失败, 原因:' + errorMessage);
-                    return;
-                }
+        loadRes.loadPrefab('UI/Friend/canInviteFriend', true, function (loadedResource) {
+            let i = 0;
+            for (let uid in friends) {
+                var itemData = friends[uid];
                 let item = cc.instantiate(loadedResource);
-                resIndex++;
                 self.showGameFriend.addChild(item);
                 self._showGameFriend.push(item.getComponent('canInviteFriend'));
                 self._showGameFriend[i].initData(i, itemData.eid, itemData.openid, self);
-
-                if (resIndex == friends.length) {
-                    cc.loader.release('UI/Friend/canInviteFriend');
-                    self.updateFriendState();
-                    if (friends.length > 4) {
-                        self.showGameFriend.height = (friends.length) * 130;
-                    }
-                }
+                i++;
+            }
+            if (i > 4) {
+                self.showGameFriend.height = i * 130;
             }
         });
     },
@@ -449,14 +421,13 @@ cc.Class({
                 for (let i = 0; i < len; i++) {
                     let ready = this._membersData[i].ready;
                     if (ready == 0) {
-                        this._uimgr.showTips(this._membersData[i].openid + "未准备");
+                        this._uiMgr.showTips(this._membersData[i].openid + "未准备");
                         this._isCanBeginMatch = false;
                         return;
                     }
                 }
                 if (this._isCanBeginMatch) {
-                    var self = this;
-                    net.Request(new beginTeamMatchProto(), (data) => {
+                    net.requestWithCallback('beginTeamMatchProto', (data) => {
                         cc.log("开始匹配", data);
                     });
                     this.beginMatchBtn.getChildByName('Label').getComponent(cc.Label).string = "匹配中";
@@ -516,8 +487,8 @@ cc.Class({
     //组队匹配成功
     teamMatchSucess(teamData) {
         let teamInfo = teamData;
-        this._uimgr.release();
-        this._uimgr.loadUI(constant.UI.MatchSucess, function (data) {
+        this._uiMgr.release();
+        this._uiMgr.loadUI(constant.UI.MatchSucess, function (data) {
             data.init(teamInfo);
         });
     },
@@ -564,13 +535,12 @@ cc.Class({
 
     onDestroy() {
         //   //取消队伍刷新事件
-        eventMgr.off("onRefreshTeam", this.refreshTeam);
-        eventMgr.off("onTeamBeKicked", this.onTeamBeKicked);
-        eventMgr.off("onTeamReadyStateChange", this.teamReadyStateChange);
+        eventMgr.off(eventMgr.events.EventTeamUpdate, this.refreshTeam);
+        eventMgr.off(eventMgr.events.EventTeamBeKicked, this.onTeamBeKicked);
+        eventMgr.off(eventMgr.events.EventTeamReadyChanged, this.teamReadyStateChange);
         eventMgr.off("onBeginMatch", this.showFloatWait);
         eventMgr.off("TeamInvited", this.teamInvited);
         eventMgr.off("forTeamInvited", this.forTeamInvited);
-
     },
 
     reconnect(time) {
@@ -585,9 +555,6 @@ cc.Class({
         this.showFloatWait();
     },
 
-
-
-
     update(dt) {
         if (this._refreshFriendState) {
             this.refreshUserSteate += dt;
@@ -597,8 +564,6 @@ cc.Class({
                 this.updateFriendState();
             }
         }
-
-
 
         if (cc.sys.platform == cc.sys.WECHAT_GAME) {
             this._updaetSubDomainCanvas();

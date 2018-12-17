@@ -54,20 +54,17 @@ module.exports = {
         FightCard : {"id":6,"path":'UI/fightUI/Card','type':2,'script':'CardItem'},
         SelectServer : {"id":7,"path":'UI/selectServer/selectServer','type':1,'script':'selectServer'},
         FightOver : {"id":8,"path":'UI/FightOver/FightOverUI','type':1,'script':'FightOver'},
-        //loadProjess: {"id":9,"path":'UI/loadProjess/loadProjess','type':5,'script':'loadProjess'},
         Main: {"id":10,"path":'UI/mainUI/mainUI','type':1,'script':'main'},
         CommonTop: {"id":12,"path":'UI/common/top','type':2,'script':'top'},
         ShowList: {"id":13,"path":'UI/showList/showList','type':1,'script':'showList'},
         BuildTeam: {"id":14,"path":'UI/buildTeam/buildTeam','type':1,'script':'buildTeam'},
         MatchSucess: {"id":15,"path":'UI/matchSucceed/matchSucess','type':1,'script':'matchSucess'},
-        PickHero: {"id":16,"path":'UI/selectHero/pickHero','type':1,'script':'pickHero'},
+        
         Treasure: {"id":20,"path":'UI/treasure/treasure','type':1,'script':'treasure'},
         PopupTips: {"id":22,"path":'UI/tips/popupTips','type':3,"script":'popupTips'},
         RaidUI: {"id":24,"path":'UI/raidUI/raidUI','type':1,"script":'raidUI'},
-        SoloRaidSelectHero:  {"id":25,"path":'UI/soloRaid/soloRaidSelectHero','type':1,"script":'soloRaidSelectHero'},
         EnterSelectRaid: {"id":26,"path":'UI/soloRaid/enterSelectRaid','type':1,"script":'enterSelectRaid'},
         TeamSelectRaid: {"id":27,"path":'UI/teamRaid/teamSelectRaid','type':1,"script":'teamRaidSelectRaid'},
-        UploadProjess: {"id":28,"path":'UI/uploadProjess/uploadProjess','type':5,'script':'uploadProjess'},
         TeamAwardCard: {"id":29,"path":'UI/teamRaid/awardCard','type':1,"script":'awardCard'},
         BagUI : {"id":30,"path":'UI/bag/BagUI','type':1,'script':'BagUI'},
         EmailUI :  {"id":31,"path":'UI/emailUI/emailUI','type':1,"script":'emailUI'},
@@ -80,10 +77,16 @@ module.exports = {
         RecommendFriend : {"id":39,"path":'UI/Friend/recommendFriend','type':1,"script":'recommendFriend'},
         HotTips :{"id":40,"path":'UI/tips/hotTips','type':2,"script":'hotTips'},
         DropCard: {id: 41, path: 'UI/fightUI/dropCard', type: 2, script: 'dropCard'},
+        Bubbling: {id: 42, path: 'UI/tutorial/bubbling', type: 2, script: 'Bubbling'},
         
-        Friend : {"id":101,"path":'UI/Friend/Friend','type':1,'script':'FriendUI'},
+        Friend: {"id":101,"path":'UI/Friend/Friend','type':1,'script':'FriendUI'},
         ApplyListPanel: {id: 102, path: 'UI/Friend/applyListPanel', type: 2, script: 'applyListPanel'},
         
+        CombatLoading: {id: 110, path: 'UI/combatLoading/combatLoading', type: 5, script: 'combatLoading', blurBg: true},
+
+        PickHero: {"id":120,"path":'UI/selectHero/pickHero','type':1,'script':'pickHero'},
+        SinglePickHero: {id: 121, path: 'UI/selectHero/singlePickHero', type: 1, script: 'singlePickHero'},
+
         DpsPanel: {"id":999,"path":'UI/Debug/dpsPanel','type':3,'script':'dpsPanel'},
     },
     // Prefab: {
@@ -137,9 +140,6 @@ module.exports = {
         GetName : 'GetName',
 
        // teamPattern:
-    },
-    eventList : {
-        onRefreshTeam :'onRefreshTeam',
     },
     debug: {
         autoDpsExport: false,

@@ -11,7 +11,6 @@ module.exports = {
     Cardpoints:'',//FightUI执行卡牌回去的动作
     returnAniEnd:'',//动作执行完毕
     curLoadRes:0,
-    otherLoadRes:{},
     resNum:0,
     swordNum:0,
     fightEnd:false,

@@ -3,9 +3,7 @@ var constant = require('constants')
 var dataMgr = require('DataMgr')
 var dataMgr = require('DataMgr')
 var raidEnterRoomProto = require('raidEnterRoomProto')
-var dataCenter = require('DataCenter')
 var net = require('NetPomelo')
-var soloRaidData = require('soloRaidData')
 var fightData = require('fightData')
 var raidGetCardProto = require('raidGetCardProto')
 
@@ -27,6 +25,7 @@ cc.Class({
 
     initData (raidInfo) {
         cc.log("副本信息",raidInfo);
+        this._raidID = raidInfo.raidID;
         let rooms = raidInfo.rooms;
         this.roomId = rooms.length;
         let heroData = dataMgr.hero[raidInfo.heroid];
@@ -36,14 +35,13 @@ cc.Class({
         let raidData = dataMgr.raid[raidInfo.raidID];
         this.raidName.string = raidData.Name;
         fightData.userName = heroData.HeroName;
-        let raidsInfo = soloRaidData.soloRaidInfo;//已经存在副本信息
         let laststRoom = rooms[rooms.length - 1];// 最新的进度
         if (laststRoom.state == 1) {
             this.loadRaid(laststRoom.selectList);
             return;  
         }
         else if (laststRoom.state == 2) {
-            net.Request(new raidEnterRoomProto(soloRaidData.raidId,raidInfo.rooms.length), (data) => {
+            net.Request(new raidEnterRoomProto(this._raidID,raidInfo.rooms.length), (data) => {
                 cc.log("进副本加载状态",data);
             });
         }
@@ -58,7 +56,6 @@ cc.Class({
 
      //选择奖励卡牌
      selectAward(cardsList) {
-       // cc.log("cardsList",cardsList,soloRaidData.raidId);
         if (cardsList == null) 
         return;
         var self = this;
@@ -77,7 +74,7 @@ cc.Class({
                 resIndex++;
                 let item = cc.instantiate(loadedResource);
                 self.showCard.addChild(item);
-                item.getComponent('awardCardItem').initData(itemData,self,1,soloRaidData.raidId);
+                item.getComponent('awardCardItem').initData(itemData,self,1,self._raidID);
                 if (resIndex == cardsList.length) {
                     cc.loader.release('UI/teamRaid/awardCardItem');
                 }
@@ -99,7 +96,7 @@ cc.Class({
 
       //跳过卡牌奖励
       ingoreAwardCard () {
-        net.Request(new raidGetCardProto(soloRaidData.raidId,0), (data) => {
+        net.Request(new raidGetCardProto(this._raidID,0), (data) => {
             cc.log("跳过卡牌奖励",data);
         });
         this.showCard.active = false;
@@ -130,7 +127,7 @@ cc.Class({
                 self.showRaid.addChild(item);
                 self._showRaid.push(item.getComponent('raidRoom'));
                 //roomId,raidId,idx,raidName,parent,img,des
-                self._showRaid[resIndex-1].initData(self.roomId,soloRaidData.raidId,resIndex,raidType.Name,raidType.Icon,raidType.Desc,self);
+                self._showRaid[resIndex-1].initData(self.roomId,self._raidID,resIndex,raidType.Name,raidType.Icon,raidType.Desc,self);
             }
         })
     },

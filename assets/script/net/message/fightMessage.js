@@ -2,12 +2,12 @@
  * @Author: liuguolai 
  * @Date: 2018-11-07 10:10:50 
  * @Last Modified by: liuguolai
- * @Last Modified time: 2018-11-30 17:14:34
+ * @Last Modified time: 2018-12-11 17:13:11
  */
 let combatMgr = require('CombatMgr');
 let constants = require('constants');
 let spawnSummoned = require('SpawnSummoned');
-            
+
 var gameData = require('DataCenter')
 var dataMgr = require('DataMgr')
 var efferMgr = require('EffectMgr');
@@ -18,13 +18,15 @@ module.exports = {
 
         pomelo.on('onStartLoad', function (data) {
             cc.log('开始加载战斗：', data);
-            combatMgr.initCombat(data);
-
+            combatMgr.setTeamInfo(data.teamInfo);
+            var datas = data;
             uiMgr.getCurMainUI().hide();
-            uiMgr.loadUI(constants.UI.UploadProjess, function (data) {
-                    uiMgr.loadUI(constants.UI.Fight, function (data) {
+            uiMgr.loadUI(constants.UI.CombatLoading, function (data) {
+                combatMgr.initCombat(datas);
+                uiMgr.loadUI(constants.UI.Fight, function (data) {
                 });
             });
+
         });
 
         pomelo.on('onFightBegin', function (data) {
@@ -45,7 +47,7 @@ module.exports = {
 
         pomelo.on('onUseCardNotify', function (data) {
             cc.log('别人使用卡牌：', data);
-
+            
         });
 
         pomelo.on('onDamage', function (data) {
@@ -68,16 +70,16 @@ module.exports = {
         });
 
         pomelo.on('onDamages', function (data) {
+            data = data.damages;
             cc.log("伤害s", data);
 
             if (gameData.IsReconnect)
                 return;
 
-            for(var i in data)
-            {
+            for (var i in data) {
                 var player = combatMgr.getEntity(data[i].targetID);
                 player.onDamage(data[i]);
-    
+
                 var curskill = dataMgr.skill[data[i].sid][1];
                 if (curskill.HitTime.length > 0 && curskill.DmgFlag == 1) {
                     //存储技能伤害
@@ -90,7 +92,7 @@ module.exports = {
                 }
             }
         });
-        
+
         pomelo.on('onDamageByThorns', function (data) {
             cc.log("反射伤害", data);
             if (gameData.IsReconnect)
@@ -111,16 +113,16 @@ module.exports = {
         });
 
         pomelo.on('onDamagesByThorns', function (data) {
+            data = data.damages;
             cc.log("反射伤害s", data);
 
             if (gameData.IsReconnect)
                 return;
 
-            for(var i in data)
-            {
+            for (var i in data) {
                 var player = combatMgr.getEntity(data[i].targetID);
                 player.onDamage(data[i]);
-    
+
                 var curskill = dataMgr.skill[data[i].sid][1];
                 if (curskill.HitTime.length > 0 && curskill.DmgFlag == 1) {
                     //存储技能伤害
@@ -133,7 +135,7 @@ module.exports = {
                 }
             }
         });
-        
+
         pomelo.on('onDamageDelay', function (data) {
             cc.log("延时伤害", data);
             if (gameData.IsReconnect)
@@ -152,7 +154,7 @@ module.exports = {
                 }
             }
         });
-        
+
         pomelo.on('onHeal', function (data) {
             cc.log('治疗', data);
 
@@ -298,7 +300,7 @@ module.exports = {
 
         pomelo.on('onClearSpawnSummon', function (data) {
             cc.log('清除召唤物', data);
-           spawnSummoned.onClearSpawnSummon(data);
+            spawnSummoned.onClearSpawnSummon(data);
         });
 
         pomelo.on('onReverse', function (data) {
@@ -368,19 +370,19 @@ module.exports = {
                 "repeated DamageInfo damageLine": 3
               }
             */
-           
-           var player = combatMgr.getEntity(data.casterID);
-              /*
-           var target = new Array();
-           for (var i in data.targets) {
-               target[i] = new Array();
-               for (var z in data.targets[i]) {
-                   target[i].push(combatMgr.getEntity(data.targets[i][z]));
-               }
-           }
-           */
-           if (player != null)
-               player.bounceEffect(data.sid, data.damageLine);
+
+            var player = combatMgr.getEntity(data.casterID);
+            /*
+         var target = new Array();
+         for (var i in data.targets) {
+             target[i] = new Array();
+             for (var z in data.targets[i]) {
+                 target[i].push(combatMgr.getEntity(data.targets[i][z]));
+             }
+         }
+         */
+            if (player != null)
+                player.bounceEffect(data.sid, data.damageLine);
         });
 
         pomelo.on('onFightEnd', function (data) {

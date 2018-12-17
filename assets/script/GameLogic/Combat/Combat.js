@@ -5,11 +5,9 @@
  */
 
 var dataMgr = require('DataMgr')
-var gameCenter = require('DataCenter')
+var dataCenter = require('DataCenter')
 var sceneMgr = require('SceneMgr')
 var net = require('NetPomelo')
-var loadFinishedProto = require('loadFinishedProto')
-var loadProgressProto = require('loadProgressProto')
 var Effectmgr = require('EffectMgr')
 let constants = require('constants')
 let consts = require('consts')
@@ -48,11 +46,11 @@ Combat.prototype.pos = 0;
 
 Combat.prototype.Tick = function () {
     if (this.checkLoadRes) {
-        if (gameCenter.curLoadRes >= this.resNum && this.UILoadOk) {
+        if (dataCenter.curLoadRes >= this.resNum && this.UILoadOk) {
             this.checkLoadRes = false;
             cc.log('~~~~~~~ 加载完成！');
             //this.uiMgr.getUI(constant.UI.Match).hide();
-            net.Request(new loadFinishedProto(), function () {
+            net.requestWithCallback('loadFinishedProto', function () {
 
             });
             return;
@@ -60,12 +58,16 @@ Combat.prototype.Tick = function () {
         this._loadProgressTickCnt++;
         if (this._loadProgressTickCnt >= 20) {
             this._loadProgressTickCnt = 0;
-            var progress = Math.floor(gameCenter.curLoadRes / this.resNum * 100);
+            var progress = Math.floor(dataCenter.curLoadRes / this.resNum * 100);
             if (progress != this._loadProgress) {
                 this._loadProgress = progress;
-                net.Request(new loadProgressProto(progress), function () {
+                let combatMgr = require('CombatMgr');
+                combatMgr.setLoadProgress(progress);
+                if (!dataCenter.IsReconnect) {
+                    net.requestWithCallback('loadProgressProto', progress, function () {
 
-                });
+                    });
+                }
             }
         }
     }
@@ -77,7 +79,7 @@ Combat.prototype._initPlayerGroupId = function (data) {
         let entityData = data.teamInfo.teamA[i];
         if (entityData.uid === playerData.id) {
             this.curPlayerGroupId = entityData.groupId;
-            gameCenter.curTeamID = entityData.groupId;
+            dataCenter.curTeamID = entityData.groupId;
             bDone = true;
             break;
         }
@@ -87,7 +89,7 @@ Combat.prototype._initPlayerGroupId = function (data) {
             let entityData = data.teamInfo.teamB[i];
             if (entityData.uid === playerData.id) {
                 this.curPlayerGroupId = entityData.groupId;
-                gameCenter.curTeamID = entityData.groupId;
+                dataCenter.curTeamID = entityData.groupId;
             }
         }
     }
@@ -112,7 +114,7 @@ Combat.prototype._initData = function (data) {
         groupB: []
     }
     this.curPlayerGroupId = 'groupA';
-    gameCenter.curTeamID = 'groupA';
+    dataCenter.curTeamID = 'groupA';
     this._initPlayerGroupId(data);
 }
 
@@ -123,13 +125,13 @@ Combat.prototype.init = function (data) {
     this.uiMgr.initDmg();
     this.dungeon = dataMgr.dungeon[data.dgId];
     var that = this;
-    gameCenter.curLoadRes = 0;
+    dataCenter.curLoadRes = 0;
     this.resNum++;
 
     /// 加载场景
     sceneMgr.loadScene(this.dungeon.SceneID, function () {
         that.sceneLoadOk = true;
-        gameCenter.curLoadRes++;
+        dataCenter.curLoadRes++;
     })
 
     this.time = this.dungeon.TimeLimit;

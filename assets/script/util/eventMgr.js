@@ -10,6 +10,15 @@ let events = {
     EventNewFriend: 'EventNewFriend',
     EventDelFriend: 'EventDelFriend',
     EventFriMgrInfoUpdate: 'EventFriMgrInfoUpdate',
+    // combatLoading
+    EventCombatLoadProgress: 'EventCombatLoadProgress',
+    // team
+    EventTeamUpdate: 'EventTeamUpdate',
+    EventTeamBeKicked: 'EventTeamBeKicked',
+    EventTeamReadyChanged: 'EventTeamReadyChanged',
+    EventTeamerSelectHero: 'EventTeamerSelectHero',
+    EventTeamerConfirmHero: 'EventTeamerConfirmHero',
+    EventHeroSelectDone: 'EventHeroSelectDone',
 };
 
 // 全局通知
@@ -27,13 +36,13 @@ module.exports = {
 
     },
 
-    emit: function (type, parameter) {
+    emit: function (type, param1, param2) {
         var array = this._eventMap[type];  // 通过事件名type 检索到对应的事件
         if (array === undefined)
             return;
         for (var i = 0; i < array.length; i++) {
             var element = array[i];
-            if (element) element.callback.call(element.target, parameter); // element.target ----> this._eventMap[type].target
+            if (element) element.callback.call(element.target, param1, param2); // element.target ----> this._eventMap[type].target
         }
     },
 

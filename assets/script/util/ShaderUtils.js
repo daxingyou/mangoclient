@@ -6,11 +6,11 @@
 var ShaderUtils = {
     shaderPrograms: {},
 
-    setShader: function(sprite, shaderName) {
+    setShader: function(sprite, shaderName, bNew=false) {
         
         var glProgram = this.shaderPrograms[shaderName];
 
-        if (!glProgram) {
+        if (!glProgram || bNew) {
 
             glProgram = new cc.GLProgram();
             var vert = require(cc.js.formatStr("%s.vert", shaderName));
@@ -40,7 +40,8 @@ var ShaderUtils = {
                 glProgram.updateUniforms();
             }
 
-            this.shaderPrograms[shaderName] = glProgram;
+            if (!bNew)
+                this.shaderPrograms[shaderName] = glProgram;
         }
 
         //sprite._sgNode.setShaderProgram(glProgram);
